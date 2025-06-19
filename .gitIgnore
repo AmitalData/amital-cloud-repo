@@ -1,0 +1,85 @@
+## Build Folders (bin, obj, etc)
+bin/
+obj/
+[Bb]uild/
+[Bb]uild[Ll]og.*
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## VS Code
+.vscode/
+.history/
+
+## Rider
+.idea/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+.nuget/
+
+## VS Generated files
+*.dbmdl
+*.bak
+*.log
+*.vspscc
+*.vssscc
+*.cache
+*.pdb
+*.mdb
+
+## Visual Studio
+.vs/
+
+## Logs
+*.log
+*.tlog
+
+## Temporary Files
+*.tmp
+*.temp
+~$*
+*.swp
+
+## Publish output
+publish/
+out/
+
+## Web (if using frontend assets)
+node_modules/
+dist/
+bower_components/
+
+## Secrets / config
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## dotnet tools
+.tools/
+
+## Coverage / test
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+## Entity Framework
+Migrations/SqlHistory/
+
+## Others
+*.DS_Store
+Thumbs.db
