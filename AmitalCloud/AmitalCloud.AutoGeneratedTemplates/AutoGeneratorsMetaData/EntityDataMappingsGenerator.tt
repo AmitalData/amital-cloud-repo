@@ -1,0 +1,683 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly Name="System.Linq.dll" #> 
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.Collections.Generic" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Windows" #>  
+
+
+<#+
+
+dynamic mapnamespacestring;
+ 
+public void GenerateAllMappingClasss(string sourceFolder,string destinationFolder)
+{
+	 
+
+ mapnamespacestring = GetMappingClassNameSpace(destinationFolder);
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string sourceFilePath = Path.Combine(templateDirectory, sourceFolder);
+
+foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	string filename = fileNameWithoutExtension+"DataMapping.Generated.cs";
+	GenerateMappingClass(file,destinationFolder+"/Generated/"+filename,false);
+	 
+}
+
+foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	string filename = fileNameWithoutExtension+"DataMapping.cs";
+	GenerateMappingClass(file,destinationFolder+"/"+filename,true);
+	 
+}
+ 
+}
+#>
+
+
+
+<#+  
+
+public void GenerateMappingClass(string xmlFilePath,string outputFilePath,bool isCustom)
+{
+	
+	 
+	if(string.IsNullOrEmpty(mapnamespacestring))
+    {
+		mapnamespacestring = GetMappingClassNameSpace(outputFilePath);
+    }
+    var entity = FromFile(xmlFilePath);
+
+	 if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+	if(isCustom)
+    {
+		 string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+         string filepath = Path.Combine(templateDirectory, outputFilePath);
+	     bool generate = true;
+		 generate = !File.Exists(filepath);
+       
+		if(generate)
+         {
+		    WriteCustomMappingClassMethod(entity);
+         }
+	}
+	else
+    {
+		 
+		WriteMappingClassMethod(entity);
+    }
+    SaveMappingClassOutput(outputFilePath,isCustom);
+    
+}
+ 
+#>
+
+
+
+<#+
+
+public dynamic GetMappingClassNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+
+	
+	spacestring = spacestring.ToString().Trim('.');
+ 
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveMappingClassOutput(string outputFileName,bool isCustom)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+	  bool save = true;
+	  if(isCustom)
+      {
+		  save = !File.Exists(outputFilePath);
+      }
+	 // if(!File.Exists(outputFilePath))
+    //{
+	   
+	  if(save)
+      {
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	    manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+      }
+    //}
+  }
+#>
+
+
+<#+ 
+ private void WriteCustomMappingClassMethod(dynamic entity)
+{
+	POCOFields = new List<dynamic>();
+	PMFields = new List<dynamic>();
+	foreach(var field in entity["field"])  
+		 { 
+		  if( field.HasDataBaseField.GetType() == typeof(string))
+           {
+             if(field.HasDataBaseField == "true")
+               {
+                  POCOFields.Add(field);
+               }
+           }
+         }
+
+		foreach(var field in entity["field"])  
+		 { 
+		  if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "true")
+               {
+                  PMFields.Add(field);
+               }
+           }
+         }
+	string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	string schema ="";
+	 
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+        
+    }
+	 string pmName = tableName+ "PM";
+	 string pocosspacestring = mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')) + ".EntityPOCOs;";
+	  string entityPMsPath=mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')) + ".EntityPMs;";
+	if(pocosspacestring.Contains("Accounting"))
+	{
+	   entityPMsPath="Logitude.Accounting.Def.EntityPMs;";
+	}
+	if(pocosspacestring.Contains("Shipment"))
+	{
+	   entityPMsPath="AmitalCloud.Shipment.Def.EntityPMs;";
+	}
+
+	if(pocosspacestring.Contains("Customs"))
+	{
+	   entityPMsPath="Logitude.Customs.Def.EntityPMs;";
+	}
+    if(pocosspacestring.Contains("CargoTracking"))
+	{
+	   entityPMsPath="Logitude.CargoTracking.Def.EntityPMs;";
+	}
+ 
+     if(pocosspacestring.Contains("ShipmentOrderModule"))
+	{
+	   entityPMsPath="Logitude.ShipmentOrderModule.Def.EntityPMs;";
+	}
+ 	string pmsspacestring =   entityPMsPath;
+     
+	string dataprojectnamespace = mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')).Replace("BL","Data;");
+	 
+	 pocosspacestring = pocosspacestring.Replace("BL","Data");
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//---
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+<#+ 
+if(tableName != "Task" && tableName != "TaskStatus")
+{
+#>
+using System.Threading.Tasks;
+<#+
+}
+#>
+using System.ComponentModel.DataAnnotations;
+using Logitude.Server.Tools; 
+using POCO = <#= pocosspacestring #>
+using <#= pmsspacestring #> 
+using <#= dataprojectnamespace #>
+
+namespace <#= mapnamespacestring #>
+{
+   
+   public partial class <#=tableName #>DataMapping: IMapping<<#=pmName #>, POCO.<#=tableName #>>
+   {
+
+        public void CustomPMToPOCO(<#= pmName #> entityPM, POCO.<#= tableName #> entityPOCO)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void CustomPOCOToPM(<#= pmName #> entityPM, POCO.<#= tableName #> entityPOCO)
+        {
+            //throw new NotImplementedException();
+        }
+   }
+
+
+}
+   <#+
+}
+
+ #>
+
+<#+
+  List<dynamic> POCOFields = new List<dynamic>();
+  List<dynamic> PMFields = new List<dynamic>();
+ private void WriteMappingClassMethod(dynamic entity)
+{
+	POCOFields = new List<dynamic>();
+	PMFields = new List<dynamic>();
+	foreach(var field in entity["field"])  
+		 { 
+		  if( field.HasDataBaseField.GetType() == typeof(string))
+           {
+             if(field.HasDataBaseField == "true")
+               {
+                  POCOFields.Add(field);
+               }
+           }
+         }
+
+		foreach(var field in entity["field"])  
+		 { 
+		  if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "true")
+               {
+                  PMFields.Add(field);
+               }
+           }
+         }
+	string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	string schema ="";
+	 
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+        
+    }
+	string pmName = tableName+ "PM";
+	 string pocosspacestring = mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')) + ".EntityPOCOs;";
+	  string entityPMsPath=mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')) + ".EntityPMs;";
+	if(pocosspacestring.Contains("Accounting"))
+	{
+	   entityPMsPath="Logitude.Accounting.Def.EntityPMs;";
+	}
+
+	
+	if(pocosspacestring.Contains("Customs"))
+	{
+	   entityPMsPath="Logitude.Customs.Def.EntityPMs;";
+	}
+	if(pocosspacestring.Contains("Shipment"))
+	{
+	   entityPMsPath="AmitalCloud.Shipment.Def.EntityPMs;";
+	}
+
+    if(pocosspacestring.Contains("CargoTracking"))
+	{
+	   entityPMsPath="Logitude.CargoTracking.Def.EntityPMs;";
+	}
+ 
+	if(pocosspacestring.Contains("ShipmentOrderModule"))
+	{
+	   entityPMsPath="Logitude.ShipmentOrderModule.Def.EntityPMs;";
+	}
+ 	string pmsspacestring =   entityPMsPath;
+	 string dataprojectnamespace = mapnamespacestring.ToString().Substring(0,mapnamespacestring.ToString().LastIndexOf('.')).Replace("BL","Data;");
+	 
+	 pocosspacestring = pocosspacestring.Replace("BL","Data");
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//---
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+<#+ 
+if(tableName != "Task" && tableName != "TaskStatus")
+{
+#>
+using System.Threading.Tasks;
+<#+
+}
+#>
+using System.ComponentModel.DataAnnotations;
+using Logitude.Server.Tools;  
+using Simplog.Server.Infrastructure;
+using Logitude.Server.Tools.Helpers;
+using Simplog.Server.Infrastructure.DataContracts;
+<#+ if(entity.SupportSubEntity.ToString() == "true") {#>using Logitude.BL.InfrastructureModel.Tools.EntityService;
+<#+}#>
+<#+ if(entity.ApplyGenericCustomFields.ToString() == "true") {#>using Logitude.Server.Tools.CustomFields;
+<#+}#>
+using POCO = <#= pocosspacestring #>
+using <#= pmsspacestring #> 
+using <#= dataprojectnamespace #>
+
+namespace <#= mapnamespacestring #>
+{
+   
+   public partial class <#=tableName #>DataMapping: IMapping<<#=pmName #>, POCO.<#=tableName #>>,IMappingEncodeBase64NVARCHARFields<<#=pmName #>>
+   {
+          public enum POCOPropertyNames
+          { 
+		     None, <#+
+			
+		foreach(var field in POCOFields)  
+		 { 
+		    string type = GetDataType(field);
+	     	if(type != "List")
+             {
+		   	 dynamic fieldName = GetPropertyName(field.FieldName);
+		   
+	         #> 
+	         <#= fieldName #>,<#+
+			 }
+	      } 
+
+	
+
+	 #>
+
+	      }
+
+
+	      public enum PMPropertyNames
+          { 
+		     None, <#+
+			
+		foreach(var field in PMFields)  
+		 {  string type = GetDataType(field);
+	     	if(type != "List")
+             {
+		   	 dynamic fieldName = GetPropertyName(field.FieldName);
+		   
+	         #> 
+	         <#= fieldName #>,<#+
+			 }
+	      } 
+
+	
+
+	 #>
+
+	      }
+
+		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
+        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
+    
+	    public void PMToPOCO(<#= pmName #> entityPM, POCO.<#= tableName #> entityPOCO)
+        {
+			 <#+
+		 bool IsSearchable = false;
+		 foreach(var field in POCOFields)  
+		 {
+		 	bool isCustom= false;
+			if(field.IsCustom.GetType() == typeof(string) && field.IsCustom == "true")
+				{
+					isCustom = true;
+				}
+		    string type = GetDataType(field);
+            string datatype = GetEntityMapPropertyName(field.FieldsDataType.ToString());
+	     	if(type != "List")
+             {
+				if(PMFields.Contains(field))
+                {
+					if( field.IsPrimaryKey.GetType() == typeof(string))
+						{
+							if(field.IsPrimaryKey.ToString() == "true")
+								{
+									continue;
+								}
+                        }
+					 dynamic fieldName = GetPropertyName(field.FieldName);
+                        if (fieldName == "SearchFields")
+                        {
+		                    IsSearchable = true;
+                        }
+			#>
+
+			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.<#= fieldName #>))
+            {
+<#+
+			if(!isCustom)
+			{
+#>				entityPOCO.<#= fieldName #> = entityPM.<#= fieldName #>;
+<#+
+			}
+			else
+			{
+#>				entityPOCO.<#= fieldName #> = entityPM.<#= fieldName #>!= null ? entityPM.<#= fieldName #>.Value : null;
+<#+
+			}
+			#>
+			}
+			<#+
+               
+		 }
+		 }
+         
+		 }
+
+		 if(entity.ApplyGenericCustomFields.ToString() == "true"){
+		 #>
+
+			new EntityCustomFieldService(new EntityCustomFieldServiceArgs() { ObjectTableName = "<#=tableName #>", EntityId = entityPM.Id, Tenant = entityPM.Tenant, Type = "PM", Entities = new List<<#=tableName #>PM> { entityPM }.Cast<object>().ToList() }).Update();
+		 <#+
+		 }
+		 if(entity.SupportSubEntity.ToString() == "true"){
+		 #>
+
+			new CustomChildEntityService(new CustomChildEntityArgs() { ParentEntity = entityPM, ParentEntityId = entityPM.Id, ParentObjectTableName = "<#=tableName #>", Tenant = entityPM.Tenant }).Update();
+		 <#+
+		 }
+
+         if (IsSearchable)
+         { 
+		 #>
+
+				BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
+		  <#+
+		  
+         }
+		  #>
+}
+
+		public void POCOToPM(<#= pmName #> entityPM, POCO.<#= tableName #> entityPOCO)
+        {
+			 <#+
+		 foreach(var field in POCOFields)  
+		 { 
+		 	bool isCustom= false;
+			if(field.IsCustom.GetType() == typeof(string) && field.IsCustom == "true")
+				{
+					isCustom = true;
+				}
+			string type = GetDataType(field);
+	     	if(type != "List")
+             {
+				if(PMFields.Contains(field))
+                {
+					
+					 dynamic fieldName = GetPropertyName(field.FieldName);
+			#>
+
+			if (!CustomMappedPMProperties.Contains(PMPropertyNames.<#= fieldName #>))
+            {
+<#+
+			if(!isCustom)
+			{
+#>
+					entityPM.<#= fieldName #> = entityPOCO.<#= fieldName #>;
+<#+
+			}
+			else
+			{
+#>
+				entityPM.<#= fieldName #> = new CustomFieldClass("<#= fieldName #>", "<#= tableName #>", entityPOCO.<#= fieldName #>);
+<#+
+			}
+#>
+            }
+<#+
+               
+		 }
+         
+		 }
+		 }
+		 if(entity.ApplyGenericCustomFields.ToString() == "true"){
+		 #>
+
+			new EntityCustomFieldService(new EntityCustomFieldServiceArgs() { ObjectTableName = "<#=tableName #>", Tenant = entityPM.Tenant, Type = "PM", Entities = new List<<#=tableName #>PM> { entityPM }.Cast<object>().ToList() }).Set();
+
+		 <#+
+		 }
+		 if(entity.SupportSubEntity.ToString() == "true"){
+		 #>
+
+			new CustomChildEntityService(new CustomChildEntityArgs() { ParentEntity = entityPM, ParentEntityId = entityPM.Id, ParentObjectTableName = "<#=tableName #>", Tenant = entityPM.Tenant }).Set();
+		 <#+
+		 }
+		 #>
+
+		}
+
+		public void PMToOldPM(<#= pmName #> entityPM, <#= pmName #> oldEntityPM)
+        {
+		     oldEntityPM.ChangedProperties.Clear();
+			 <#+
+		 foreach(var field in POCOFields)  
+		 { string type = GetDataType(field);
+	     	if(type != "List")
+             {
+				if(PMFields.Contains(field))
+                {
+					if( field.IsPrimaryKey.GetType() == typeof(string))
+						{
+							if(field.IsPrimaryKey.ToString() == "true")
+								{
+									continue;
+								}
+                        }
+					 dynamic fieldName = GetPropertyName(field.FieldName);
+			#>
+
+			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.<#= fieldName #>))
+            {
+                oldEntityPM.<#= fieldName #> = entityPM.<#= fieldName #>;
+            }
+			<#+
+               
+		 }
+		 }
+         
+		 }
+		 #>
+
+		}
+
+	    public void EncodeBase64NVARCHARFields(<#= pmName #> entityPM)
+        {
+            if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
+            {
+                return;
+
+            }
+<#+		 
+		 foreach(var field in POCOFields)  
+        {
+				bool isCustom= false;
+			if(field.IsCustom.GetType() == typeof(string) && field.IsCustom == "true")
+				{
+					isCustom = true;
+				}
+            string type = GetDataType(field);
+            string datatype = GetEntityMapPropertyName(field.FieldsDataType.ToString());
+            if(type != "List")
+            {
+                if(datatype != "nText" || isCustom)
+                {
+                    continue;
+                }
+                if(PMFields.Contains(field))
+                {
+                    if( field.IsPrimaryKey.GetType() == typeof(string))
+                    {
+                        if(field.IsPrimaryKey.ToString() == "true")
+                        {
+                            continue;
+                        }
+                    }
+                    dynamic fieldName = GetPropertyName(field.FieldName); 
+#>
+            if (!String.IsNullOrWhiteSpace(entityPM.<#=fieldName #>)) //T4 find type == nText 
+            {
+                entityPM.<#=fieldName #> = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.<#=                    fieldName #>));
+            }
+<#+           
+                }
+            }
+        }
+#>
+            entityPM.EncodeBase64NVARCHARFieldsBy=null;
+		}
+
+
+	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
+        {
+            CustomMappedPOCOProperties.Add(pocoPropertyName);
+        }
+
+        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
+        {
+            CustomMappedPMProperties.Add(pocoPropertyName);
+        }
+		<#+
+		if (IsSearchable)
+         { 
+		#>
+
+		private void BuildSearchFieldsGenerated(<#= pmName #> entityPM, POCO.<#= tableName #> entityPOCO, bool isNewEntity)
+        {
+            string mySearchFields = "";
+			<#+
+			
+		foreach(var field in PMFields)  
+		 {  string type = GetDataType(field);
+			 string temp = GetPropertyName(field.IncludeInSearchField);
+	     	if(type != "List" && temp.ToLower() == "true")
+             {  
+				 dynamic fieldName = GetPropertyName(field.FieldName);
+				#>
+
+            MethodHelper.AddToSearchFields(ref mySearchFields, entityPM.<#= fieldName #>);
+           <#+
+             }
+         }
+		   #>
+
+           
+            entityPM.SearchFields += mySearchFields;
+            entityPOCO.SearchFields += mySearchFields;
+        }
+		<#+
+         }
+		 #>
+	  
+   }
+}
+	 <#+
+    
+	}
+
+#>
+
+

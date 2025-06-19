@@ -1,0 +1,1071 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+ 
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+ 
+
+<#+
+
+dynamic listservicenamespacestring;
+ 
+string ListSrcFolder;
+public void GenerateAllListServices(string sourceFolder,string destinationFolder,string modelname)
+{
+ ListSrcFolder = sourceFolder;
+ listservicenamespacestring = GetListServiceNameSpace(destinationFolder);
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	GenerateEntityListService(file,destinationFolder+"/"+fileNameWithoutExtension+"ListService.ts",modelname);
+ 
+}
+
+}
+#>
+
+<#+  
+
+public void GenerateEntityListService(string xmlFilePath,string outputFilePath,string modelname)
+{
+	if(string.IsNullOrEmpty(listservicenamespacestring))
+    {
+		listservicenamespacestring = GetListServiceNameSpace(outputFilePath);
+    }
+
+        var entity = FromEntityListServiceFile(xmlFilePath);
+        if( entity.IsComposition.GetType() == typeof(string))
+      	{
+	    	if(entity.IsComposition == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		 if( entity.NoViewController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoViewController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+		 if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+          WriteEntityListServiceMethod(entity,modelname); 
+          SaveEntityListServiceOutput(outputFilePath);
+        
+
+ }
+
+
+
+#>
+
+<#+
+
+public dynamic GetListServiceNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+
+	spacestring = spacestring.ToString().Replace("JustWebFreight.","").Trim('.');
+
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveEntityListServiceOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+     
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+
+
+
+<#+
+ private void WriteEntityListServiceMethod(dynamic entity,string modelname)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    
+	string controllerName = tableName.ToLower()+"views";
+
+   
+	   string importentitytring = "import {"+listName+"} from '../../EntityLists/" + listName + "';";
+	   //importentitytring += Environment.NewLine + BuildListImportEntitesString(entity);
+	 
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetTSDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		 string primaryMethodParamText = "";
+		// string keyprimarykeyCondition = "";
+		int index = 0;
+		 foreach(string key in primaryKeys.Keys)
+         {
+		   if(index > 0)
+           {
+			   primaryonlyparam += "+'&'+";
+           }
+			 primarykeyParam +=  key.ToLower() + ": " + primaryKeys[key]+ ", ";
+			 primaryonlyparam +="'" +key.ToLower() + "=' + " + key.ToLower() ;
+			 primarykeyCondition += " a." + key +" === "  + key.ToLower() +" &&";
+
+		      primaryMethodParamText += key.ToLower() + ",";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+
+
+
+			index++;
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd('&');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+
+		 primaryMethodParamText = primaryMethodParamText.TrimEnd(',').TrimEnd(',').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+
+		  string infrastructureImportString = "";
+		 if(modelname != null && modelname.ToLower() == "infrastructure")
+         {
+			 infrastructureImportString += "import {ApiQueryFilters} from '../../DataContracts/ApiQueryFilters';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceResponse} from '../../DataContracts/ServiceResponse';";
+			 infrastructureImportString += Environment.NewLine + "import {InfraGenericFilter} from '../../Utilities/InfraGenericFilter';";
+			 infrastructureImportString += Environment.NewLine + "import {CachedDataManager} from '../../Utilities/CachedDataManager';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceHelper} from '../../Utilities/ServiceHelper';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionLocator} from '../../Utilities/SessionLocator';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionInfo} from '../../Utilities/SessionInfo';";
+			 infrastructureImportString += Environment.NewLine + "import {LocalStorageManager} from '../../Utilities/LocalStorageManager';";
+			 
+
+			 infrastructureImportString += Environment.NewLine + "import {PerformanceLogger} from '../../Utilities/PerformanceLogger';";
+
+         }
+		 else{
+			 infrastructureImportString += "import {ApiQueryFilters} from '../../../Infrastructure/DataContracts/ApiQueryFilters';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceResponse} from '../../../Infrastructure/DataContracts/ServiceResponse';";
+			 infrastructureImportString += Environment.NewLine + "import {InfraGenericFilter} from '../../../Infrastructure/Utilities/InfraGenericFilter';";
+			 infrastructureImportString += Environment.NewLine + "import {CachedDataManager} from '../../../Infrastructure/Utilities/CachedDataManager';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceHelper} from '../../../Infrastructure/Utilities/ServiceHelper';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionLocator} from '../../../Infrastructure/Utilities/SessionLocator';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionInfo} from '../../../Infrastructure/Utilities/SessionInfo';";	
+			 infrastructureImportString += Environment.NewLine + "import {PerformanceLogger} from '../../../Infrastructure/Utilities/PerformanceLogger';";			 	
+			 
+			 infrastructureImportString += Environment.NewLine + "import {LocalStorageManager} from '../../../Infrastructure/Utilities/LocalStorageManager';";		
+         }
+
+
+    bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+				 
+    }
+
+	bool hasCompactSearch = false;
+	if( entity.HasCompactSearch.GetType() == typeof(string))
+	{
+	    hasCompactSearch = (entity.HasCompactSearch == "true");
+				 
+    }
+
+	bool cacheOnClient = false;
+	if( entity.CacheOnClient.GetType() == typeof(string))
+	{
+	    cacheOnClient = (entity.CacheOnClient == "true");
+				 
+    }
+
+
+	bool hasCustomFilter = false;
+	if( entity.HasCustomFilter.GetType() == typeof(string))
+	{
+	    hasCustomFilter = (entity.HasCustomFilter == "true");//'../../CustomFilters/UserCustomFilter'
+					 
+    }
+
+
+	if(hasCustomFilter && cacheOnClient)
+    {
+			importentitytring  += Environment.NewLine + "import {"+tableName+"CustomFilter} from '../../CustomFilters/" + tableName + "CustomFilter';";
+
+    }
+#>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     Angular 9.1.1
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { defer, of } from 'rxjs';
+<#= infrastructureImportString #>
+<#= importentitytring #>
+
+@Injectable()
+
+export class <#= listName #>Service {
+	private _http: HttpClient;
+    private _apiUrl: string;   
+	public static CachedData: Array<<#= listName #>> = [];
+    constructor() {
+        this._http = ServiceHelper.HttpClient;
+        this._apiUrl = ServiceHelper.GetLogitudeURL() + 'api/<#= controllerName #>';  
+    }
+
+<#+if(!isClosed)
+{
+#>
+	getSingle(<#= primarykeyParam #>) {
+	   
+		var callTime = new Date();
+
+		return defer(() => {
+			return this._http.get(this._apiUrl + '/getsingle/?' + <#= primaryonlyparam #>, ServiceHelper.GetHttpFullHeaders())
+				.pipe(			
+					map((response: HttpResponse<any>) => {
+
+						var list = response.body;                   
+						var entity: <#= listName #>;
+						if (list) {
+							entity = this.MapJsonToEntityList(list);
+						}   
+
+						var serviceResponse: ServiceResponse = new ServiceResponse(); 
+						serviceResponse.Result = entity;  
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetSingleList", <#= primaryonlyparam #>); 
+
+						return serviceResponse;
+					}),
+			
+					catchError(ServiceHelper.HandleServiceError));
+		});
+	}
+
+	getAll() {
+
+		var callTime = new Date();
+
+		return defer(() => {
+			return this._http.get(this._apiUrl + '/getall', ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var allLists = response.body;
+						var _mappedListsArray: Array<<#= listName #>> = [];
+						if (allLists) {
+							for (var key in allLists) {				
+								var entity: <#= listName #> = this.MapJsonToEntityList(allLists[key]);
+								_mappedListsArray.push(entity);
+							}
+						}
+
+						var serviceResponse: ServiceResponse = new ServiceResponse(); 
+						serviceResponse.Result = _mappedListsArray;
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetAllLists", ""); 
+
+						return serviceResponse;
+					}),
+			
+					catchError(ServiceHelper.HandleServiceError));
+		});
+	}
+	
+	getByFilters(filters: ApiQueryFilters) {
+
+		var callTime = new Date();		                        
+		var urlparameters = '/getbyfilters?';
+		var mykeys = Object.keys(filters);
+		var addtionalFiltersValues = null;
+
+		for (var i in mykeys) {
+			var propName = mykeys[i];
+			var propValue = filters[propName];
+			var ignoreFilter = ((propName.indexOf("Operator") > 0 && propValue == "Equals") || propName == "AdditionalFilters" || propName == "TreeFilters"  || propName == "ParentEntity");
+
+            if (urlparameters != "?") {
+				urlparameters = urlparameters.concat('&');
+            }
+
+            if (!ignoreFilter) {
+				propValue = encodeURIComponent(propValue);
+				urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+			}
+
+			if (propName == "TreeFilters" && propValue && propValue.length > 0) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+			
+			if (propName == "ParentEntity" && propValue) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+
+			if (propName == "AdditionalFilters" && propValue.length > 0) {
+				addtionalFiltersValues = JSON.stringify(propValue);
+			}
+        }
+
+		if (addtionalFiltersValues) {
+			urlparameters = urlparameters.concat("&AdditionalFilters=").concat(addtionalFiltersValues);
+		}
+
+		var callUrl = this._apiUrl.concat(urlparameters);
+        		
+		return defer(() => {
+			return this._http.get(callUrl, ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var serviceResponse: ServiceResponse = response.body;
+						var _mappedListsArray: Array<<#= listName #>> = [];
+
+						if (serviceResponse.Result) {
+							for (var key in serviceResponse.Result) {				
+								var entity: <#= listName #> = this.MapJsonToEntityList(serviceResponse.Result[key]);
+								_mappedListsArray.push(entity);
+							}
+						}   
+
+						serviceResponse.Result = _mappedListsArray;       
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetByFilters", "PageIndex:" +filters.PageIndex +", PageSize:"+filters.PageSize + ", GetAll:" + filters.GetAll);
+				           
+						return serviceResponse;
+					}),
+			
+					catchError(ServiceHelper.HandleServiceError));
+		});        
+	}
+
+<#+ if(cacheOnClient)
+    {
+#>
+	getSingleFromCache(<#= primarykeyParam #>) {
+
+		var callTime = new Date();
+
+		if (!SessionLocator.UseCachedData) {
+            return this.getSingle(<#= primaryMethodParamText #>);
+        }
+	    
+		var exists = <#= listName #>Service.CachedData.filter(a => <#= primarykeyCondition #>).length;
+
+        var serviceResponse: ServiceResponse = new ServiceResponse(); 
+
+        if (exists === 0) {
+			return defer(() => {
+				var cacheKey = "<#= tableName #>_CachedData_" + SessionLocator.Tenant;
+				var _mappedListsArray: Array<<#= listName #>> = [];
+                var cachedString = LocalStorageManager.GetItem(cacheKey);
+
+                if (cachedString) {
+                    var cachedJson = JSON.parse(cachedString);
+                    for (var key in cachedJson) {
+                        var entity: <#= listName #> = this.MapJsonToEntityList(cachedJson[key]);
+                        _mappedListsArray.push(entity);
+                    }
+
+                    <#= listName #>Service.CachedData = _mappedListsArray;
+                    serviceResponse = new ServiceResponse();
+                    
+                    var filteredData = <#= listName #>Service.CachedData.filter(a => <#= primarykeyCondition #>)[0];
+                    serviceResponse.Result = filteredData;
+					serviceResponse.CallTime = callTime;
+ 
+                    PerformanceLogger.InsertPerformanceLog(callTime, new Date(), 0, "<#= tableName #>", "GetSingleListFromCache", <#= primaryonlyparam #>); 
+
+                    return of(serviceResponse);                    
+                }
+
+				else {
+					return this._http.get(this._apiUrl+'/getsingle/?'+<#= primaryonlyparam #>, ServiceHelper.GetHttpFullHeaders())
+					.pipe(
+						map((response: HttpResponse<any>) => {
+							var list = response.body;
+                    
+							var entity: <#= listName #>;
+							if (list)
+							{
+								entity = this.MapJsonToEntityList(list);
+							}   
+
+							serviceResponse.Result = entity;
+							serviceResponse.CallTime = callTime;
+
+							var servertime = response.headers.get('ServerExecutionTime');
+							PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetSingleList", <#= primaryonlyparam #>); 
+                                      
+							return serviceResponse;
+						}), 
+						
+						catchError(ServiceHelper.HandleServiceError));
+				}
+			});
+		}
+
+		else {
+		   var filteredData = <#= listName #>Service.CachedData.filter(a => <#= primarykeyCondition #>)[0];
+		    serviceResponse.Result = filteredData;
+			serviceResponse.CallTime = callTime;
+		   return of(serviceResponse);
+		}
+	}
+
+    getAllFromCache(filters: ApiQueryFilters = new ApiQueryFilters(true)) {
+
+		var callTime = new Date();
+
+		if (!SessionLocator.UseCachedData) {
+			return this.getByFilters(filters);
+		}
+
+		var exists = <#= listName #>Service.CachedData.length;
+		var urlparameters = '/getbyfilters?';
+        var mykeys = Object.keys(filters);
+        var addtionalFiltersValues = null;
+
+        for (var i in mykeys) {
+            var propName = mykeys[i];
+            var propValue = filters[propName];
+            var ignoreFilter = ((propName.indexOf("Operator") > 0 && propValue == "Equals") || propName == "AdditionalFilters" || propName == "TreeFilters"  || propName == "ParentEntity");
+
+            if (urlparameters != "?") {
+                urlparameters = urlparameters.concat('&');
+            }
+
+            if (!ignoreFilter) {
+				if (exists === 0 || filters.ForceCacheRefresh) {
+					propValue = encodeURIComponent(propValue);
+				}
+
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+			}
+
+			if (propName == "TreeFilters" && propValue && propValue.length > 0) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+			
+			if (propName == "ParentEntity" && propValue) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+
+            if (propName == "AdditionalFilters" && propValue.length > 0) {
+                addtionalFiltersValues = JSON.stringify(propValue);
+			}
+        }
+
+        if (addtionalFiltersValues) {
+            urlparameters = urlparameters.concat("&AdditionalFilters=").concat(addtionalFiltersValues);
+        }
+
+        var callUrl = this._apiUrl.concat(urlparameters);       
+       
+        if (exists === 0 || filters.ForceCacheRefresh) {
+            var cacheKey = "<#= tableName #>_CachedData_" + filters.Tenant;
+            var _mappedListsArray: Array<<#= listName #>> = [];
+            var serviceResponse: ServiceResponse;
+
+            if (!filters.ForceCacheRefresh) {
+                var cachedString = LocalStorageManager.GetItem(cacheKey);
+                if (cachedString) {
+                    var cachedJson = JSON.parse(cachedString);
+
+                    for (var key in cachedJson) {
+                        var entity: <#= listName #> = this.MapJsonToEntityList(cachedJson[key]);
+                        _mappedListsArray.push(entity);
+                    }
+
+                    <#= listName #>Service.CachedData = _mappedListsArray;
+                    serviceResponse = new ServiceResponse();
+
+                     if (!filters.GetAll) {
+<#+ if(hasCustomFilter && cacheOnClient)
+{
+#>
+					  if (addtionalFiltersValues) {
+                            _mappedListsArray = <#= tableName #>CustomFilter.GetFilteredQuery(addtionalFiltersValues, _mappedListsArray);
+                        }
+<#+
+}
+#>
+                        _mappedListsArray = InfraGenericFilter.GetFilteredArray(_mappedListsArray, filters);
+                    }
+
+                    serviceResponse.Result = _mappedListsArray;
+					serviceResponse.CallTime = callTime;
+                    
+                    PerformanceLogger.InsertPerformanceLog(callTime, new Date(), 0, "<#= tableName #>", "GetAllFromCache", "");                     
+                }
+            }
+
+            if (serviceResponse) {
+                return of(serviceResponse);
+            }
+
+            else {
+                return defer(() => {
+                    return this._http.get(callUrl, ServiceHelper.GetHttpFullHeaders())
+						.pipe(
+							map((response: HttpResponse<any>) => {
+
+								var serviceResponse: ServiceResponse;
+								serviceResponse = response.body;
+                        
+								if (serviceResponse.Result) {
+									for (var key in serviceResponse.Result) {
+										var entity: <#= listName #> = this.MapJsonToEntityList(serviceResponse.Result[key]);
+										_mappedListsArray.push(entity);
+									}
+								}
+
+								if (filters.GetAll) {
+									LocalStorageManager.SetItem(cacheKey, JSON.stringify(_mappedListsArray))
+									<#= listName #>Service.CachedData = _mappedListsArray;
+								}
+
+								else {
+<#+ if(hasCustomFilter && cacheOnClient)
+{
+#>
+                            if (addtionalFiltersValues) {
+								_mappedListsArray = <#= tableName #>CustomFilter.GetFilteredQuery(addtionalFiltersValues, _mappedListsArray);
+                            }
+<#+
+}
+#>							
+									_mappedListsArray = InfraGenericFilter.GetFilteredArray(_mappedListsArray, filters);
+								}
+
+								serviceResponse.Result = _mappedListsArray;
+								serviceResponse.CallTime = callTime;
+						
+								var servertime = response.headers.get('ServerExecutionTime');
+								PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetAll", ""); 
+
+								return serviceResponse;
+							}),
+							
+							catchError(ServiceHelper.HandleServiceError));
+                });
+            }
+        }
+
+        else {
+            var filteredData = <#= listName #>Service.CachedData;
+            if (!filters.GetAll) {
+<#+ if(hasCustomFilter && cacheOnClient)
+{
+#>
+                if (addtionalFiltersValues) {
+                    filteredData = <#= tableName #>CustomFilter.GetFilteredQuery(addtionalFiltersValues, filteredData);
+                }
+<#+
+}
+#>	
+                filteredData = InfraGenericFilter.GetFilteredArray(filteredData, filters);
+            }
+
+            var serviceResponse: ServiceResponse = new ServiceResponse();
+            serviceResponse.Result = filteredData;
+			serviceResponse.CallTime = callTime;
+            return of(serviceResponse);
+        }
+    }
+<#+ 
+	}
+ #>
+<#+
+	if(hasCompactSearch)
+    {
+#>
+
+	getByCompactFilters(filters: ApiQueryFilters) {
+
+		var callTime = new Date();        
+		var urlparameters = '/GetByCompactFilters?';
+        var mykeys = Object.keys(filters);
+        var addtionalFiltersValues = null;
+
+        for (var i in mykeys) {
+			var propName = mykeys[i];
+            var propValue = filters[propName];
+            var ignoreFilter = ((propName.indexOf("Operator") > 0 && propValue == "Equals") || propName == "AdditionalFilters" || propName == "TreeFilters"  || propName == "ParentEntity");
+
+            if (urlparameters != "?") {
+                urlparameters = urlparameters.concat('&');
+            }
+
+            if (!ignoreFilter) {
+				propValue = encodeURIComponent(propValue);
+				urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+			}
+
+			if (propName == "TreeFilters" && propValue && propValue.length > 0) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+			
+			if (propName == "ParentEntity" && propValue) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+
+            if (propName == "AdditionalFilters" && propValue.length > 0) {
+                addtionalFiltersValues = JSON.stringify(propValue);
+			}
+        }
+
+        if (addtionalFiltersValues) {
+            urlparameters = urlparameters.concat("&AdditionalFilters=").concat(addtionalFiltersValues);
+        }
+
+        var callUrl = this._apiUrl.concat(urlparameters);
+        		
+		return defer(() => {
+			return this._http.get(callUrl, ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var serviceResponse: ServiceResponse = response.body;
+						var _mappedListsArray: Array<<#= listName #>> = [];
+
+						if (serviceResponse.Result) {
+							for (var key in serviceResponse.Result) {				
+								var entity: <#= listName #> = this.MapJsonToEntityList(serviceResponse.Result[key]);
+								_mappedListsArray.push(entity);
+							}
+						}
+
+						serviceResponse.Result = _mappedListsArray; 
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetByCompactFilters", "PageIndex:" + filters.PageIndex + ", PageSize:" + filters.PageSize + ", GetAll:" + filters.GetAll); 
+                 
+						return serviceResponse;
+					}),
+				
+					catchError(ServiceHelper.HandleServiceError));
+		});        
+	}
+<#+
+    }
+#>
+<#+
+}
+else{
+#>
+	getSingle(<#= primarykeyParam #>) {
+
+		var callTime = new Date();
+
+		return defer(() => {
+			return this._http.get(this._apiUrl + '/getsingle/?' + <#= primaryonlyparam #>, ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var list = response.body;                    
+						var entity: <#= listName #>;
+						if (list) {
+							entity = this.MapJsonToEntityList(list);
+						}
+
+						var serviceResponse: ServiceResponse = new ServiceResponse(); 
+						serviceResponse.Result = entity;  
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetSingleList", <#= primaryonlyparam #>); 
+
+						return serviceResponse;
+					}),
+					
+					catchError(ServiceHelper.HandleServiceError));
+		});
+	}
+
+	getAll() {
+
+		var callTime = new Date();
+
+		return defer(() => {
+			return this._http.get(this._apiUrl + '/getall', ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var allLists = response.body;
+						var _mappedListsArray: Array<<#= listName #>> = [];
+						if (allLists) {
+							for (var key in allLists) {			
+								var entity: <#= listName #> = this.MapJsonToEntityList(allLists[key]);
+								_mappedListsArray.push(entity);
+							}
+						}
+
+						var serviceResponse: ServiceResponse = new ServiceResponse(); 
+						serviceResponse.Result = _mappedListsArray;  
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetAll", ""); 
+
+						return serviceResponse;
+					}),
+
+					catchError(ServiceHelper.HandleServiceError));
+		});
+	}
+	
+	getByFilters(filters: ApiQueryFilters) {
+
+		var callTime = new Date();       
+		var urlparameters = '/getbyfilters?';
+        var mykeys = Object.keys(filters);
+        var addtionalFiltersValues = null;
+
+        for (var i in mykeys) {
+			var propName = mykeys[i];
+			var propValue = filters[propName];
+			var ignoreFilter = ((propName.indexOf("Operator") > 0 && propValue == "Equals") || propName == "AdditionalFilters" || propName == "TreeFilters"  || propName == "ParentEntity");
+
+            if (urlparameters != "?") {
+                urlparameters = urlparameters.concat('&');
+            }
+
+			if (!ignoreFilter) {
+				propValue = encodeURIComponent(propValue);
+				urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+			}
+
+			if (propName == "TreeFilters" && propValue && propValue.length > 0) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+			
+			if (propName == "ParentEntity" && propValue) {
+                urlparameters = urlparameters.concat(propName.concat('=').concat(propValue));
+            }
+
+			if (propName == "AdditionalFilters" && propValue.length > 0) {
+				addtionalFiltersValues = JSON.stringify(propValue);
+			}
+        }
+
+        if (addtionalFiltersValues) {
+            urlparameters = urlparameters.concat("&AdditionalFilters=").concat(addtionalFiltersValues);
+        }
+
+		var callUrl = this._apiUrl.concat(urlparameters);
+        		
+		return defer(() => {
+			return this._http.get(callUrl, ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+
+						var serviceResponse: ServiceResponse = response.body;
+						var _mappedListsArray: Array<<#= listName #>> = [];
+
+						if (serviceResponse.Result) {
+							for (var key in serviceResponse.Result) {				
+								var entity: <#= listName #> = this.MapJsonToEntityList(serviceResponse.Result[key]);
+								_mappedListsArray.push(entity);
+							}
+						}   
+
+						serviceResponse.Result = _mappedListsArray;      
+						serviceResponse.CallTime = callTime;
+
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetByFilters", "PageIndex:" +filters.PageIndex +", PageSize:"+filters.PageSize + ", GetAll:" + filters.GetAll); 
+                 								            
+						return serviceResponse;
+					}),
+
+					catchError(ServiceHelper.HandleServiceError));
+		});
+	}
+
+	getSingleFromCache(<#= primarykeyParam #>) {
+
+		var callTime = new Date(); 	    
+
+		if (!SessionLocator.UseCachedData) {
+            return this.getSingle(<#= primaryMethodParamText #>);
+        }
+
+        var serviceResponse: ServiceResponse = new ServiceResponse();
+
+		if (<#= listName #>Service.CachedData.length > 0) {
+			return defer(() => {
+				var filteredData = <#= listName #>Service.CachedData.filter(a => <#= primarykeyCondition #>)[0];
+				serviceResponse.CallTime = callTime;
+				serviceResponse.Result = filteredData; 
+                return of(serviceResponse);
+            });
+        }
+
+        else {
+            return CachedDataManager.GetClosedTableData("<#= entity.ObjectTableName.Trim('"') #>").pipe(
+				map((cachedJson:any) => {
+
+					var _mappedListsArray: Array<<#= listName #>> = [];
+
+					if (cachedJson) {
+						for (var key in cachedJson) {
+							var entity: <#= listName #> = this.MapJsonToEntityList(cachedJson[key]);
+							_mappedListsArray.push(entity);
+						}
+					}
+
+					<#= listName #>Service.CachedData = _mappedListsArray;
+
+					var filteredData = <#= listName #>Service.CachedData.filter(a => <#= primarykeyCondition #>)[0];
+					serviceResponse.Result = filteredData; 
+					serviceResponse.CallTime = callTime;
+			     
+					PerformanceLogger.InsertPerformanceLog(callTime, new Date(), 0, "<#= tableName #>", "GetSingleListFromCache", <#= primaryonlyparam #>); 
+
+					return serviceResponse;
+				}),
+
+				catchError(ServiceHelper.HandleServiceError));
+        }
+    }
+
+    getAllFromCache(filters: ApiQueryFilters= new ApiQueryFilters(true)) {
+
+		var callTime = new Date();
+
+		if (!SessionLocator.UseCachedData) {
+			return this.getByFilters(filters);
+        }
+
+        var mykeys = Object.keys(filters);
+        var addtionalFiltersValues = null;
+
+        for (var i in mykeys) {
+            var propName = mykeys[i];
+            var propValue = filters[propName];
+
+            if (propName == "AdditionalFilters" && propValue.length > 0) {
+                addtionalFiltersValues = JSON.stringify(propValue);
+			}
+        }
+
+        var serviceResponse: ServiceResponse = new ServiceResponse();
+
+        if (<#= listName #>Service.CachedData.length > 0) {
+            return defer(() => {
+                if (filters.GetAll) {
+					serviceResponse.Result = <#= listName #>Service.CachedData; 
+				}
+
+				else {
+					var filteredData = InfraGenericFilter.GetFilteredArray(<#= listName #>Service.CachedData, filters);
+					serviceResponse.Result = filteredData; 
+					serviceResponse.CallTime = callTime;
+				}
+
+                return of(serviceResponse);
+            });
+        }
+
+        else {
+            return CachedDataManager.GetClosedTableData("<#= entity.ObjectTableName.Trim('"') #>").pipe(
+				map((cachedJson:any) => {
+
+					var _mappedListsArray: Array<<#= listName #>> = [];
+					if (cachedJson) {
+						for (var key in cachedJson) {
+							var entity: <#= listName #> = this.MapJsonToEntityList(cachedJson[key]);
+							_mappedListsArray.push(entity);
+						}
+					}
+
+					<#= listName #>Service.CachedData = _mappedListsArray;
+
+					if (filters.GetAll) {
+						serviceResponse.Result = _mappedListsArray; 
+					}
+
+					else {
+<#+ if(hasCustomFilter && cacheOnClient)
+{
+#>
+					if (addtionalFiltersValues) {
+							_mappedListsArray = <#= tableName #>CustomFilter.GetFilteredQuery(addtionalFiltersValues, _mappedListsArray);
+					}
+<#+
+}
+#>
+
+						_mappedListsArray = InfraGenericFilter.GetFilteredArray(_mappedListsArray, filters);
+
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), 0, "<#= tableName #>", "GetAllFromCache", "PageIndex:" + filters.PageIndex + ", PageSize:" + filters.PageSize + ", GetAll:" + filters.GetAll); 
+                 	
+						serviceResponse.Result = _mappedListsArray; 
+						serviceResponse.CallTime = callTime;
+					}
+
+					return serviceResponse;
+				}),
+			
+				catchError(ServiceHelper.HandleServiceError));
+        }		 
+    }
+<#+ 
+}
+#>	
+	    MapJsonToEntityList(jsonList: any) {
+       
+            var entityList: <#=listName #>;
+            entityList = new <#=listName #>();
+            var jsonListKeys = Object.keys(jsonList);
+
+            for (var key in jsonListKeys) {
+                var property = jsonListKeys[key];
+                entityList[property] = jsonList[property];
+            }
+			
+
+        return entityList;
+    }
+
+}
+
+<#+		  
+     
+}
+#>
+<#+
+public string BuildListImportEntitesString( dynamic entity)
+{
+	string importentitystring = "";
+	
+
+	foreach(var field in entity["field"])  //get all classes
+	 { 
+		  if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(field);
+		   if(type == "List" || (field.IsMulti.GetType() == typeof(string) && field.IsMulti == "true"))
+           {
+			    string pmname = field.FieldName.ToString().Trim('"').TrimEnd('s') + "PM";
+				importentitystring += Environment.NewLine + "import {"+pmname+"} from '../../entity-pms/generated/" + pmname + ".generated';";
+
+           }
+		   
+	 }
+
+	 return importentitystring;
+}
+#>
+<#+
+//Create an elastic object
+private dynamic FromEntityListServiceFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

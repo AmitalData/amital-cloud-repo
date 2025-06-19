@@ -1,0 +1,6 @@
+@AmitalCloud.Shipment.Web_HostAddress = http://localhost:9998
+
+GET {{AmitalCloud.Shipment.Web_HostAddress}}/api/AccountingTransferTypeViews/GetAll
+Accept: application/json
+
+###

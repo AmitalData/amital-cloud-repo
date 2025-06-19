@@ -1,0 +1,238 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AutoGenerators\AmitalClassesGenerator.tt" />
+    <None Remove="ElasticDemoModel\ElasticDemoGen.tt" />
+    <None Remove="ElasticDemoModel\ElasticDemoModel.xml" />
+    <None Remove="ElasticDemoModel\ReadMe-ElasticObject.cs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AutoGenerators\AmitalClassesGenerator.tt">
+      <LastGenOutput>AmitalClassesGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+    <Content Include="ElasticDemoModel\ElasticDemoGen.tt">
+      <LastGenOutput>ElasticDemoGen.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+    <Content Include="ElasticDemoModel\ElasticDemoModel.xml" />
+    <Content Include="ElasticDemoModel\ReadMe-ElasticObject.cs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AutoGenerators\AmitalClassesGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AmitalClassesGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="AutoGenerators\ContextGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ElasticDemoModel\ElasticDemoGen.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ElasticDemoGen.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AutoGenerators\ContextGenerator.tt">
+      <LastGenOutput>ContextGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="EntityFiles\AccountingPartner.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\AccountingSetting.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\AdditionalService.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Address.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\APILogs.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\BIReport.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Branch.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\BusinessHoursHoliday.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Card.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\CardExternalCodeByCurrency.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\CommunicationLog.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ComputingPartnerTable.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Contact.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Customer.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\CustomerAccountManagerByProduct.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\CustomerAdditionalService.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\CustomerProduct.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Department.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\DimensionsUnit.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\DocumentFilingBackupBatch.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\DocumentFilingBackupSetting.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\DocumentsFiling.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\EmailAlertSetting.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\EntityStatus.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\EventType.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\EventTypeCategory.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\FeatureAccessLevel.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\AnalyzeQueue.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\BatchServicesDefinition.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\BluesnapContractType.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\BluesnapTransaction.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\HelpResource.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\PaymentChannel.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\TenantAddOn.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\TenantManagement.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\TenantManagementLicense.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\TenantManagmentPrivateLabels.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\GlobalModel\WebhookKeys.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\IATACode.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\InboundEmailLine.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\LogitudeMessagesTransmissionLog.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\LogsModel\ErrorLog.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\MoveType.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\NumberFormat.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\PaymentTerm.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ProductType.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\QuoteTemplate.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Report.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\SharedLogisticsInvitationStatus.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\SharedLogisticsSetting.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\State.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Tenant.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\TermsofUseSignature.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\TraceEvent.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\User.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\UsoCFDI.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\VatType.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Vendor.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\VolumeUnit.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\WeightUnit.lxml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,866 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+ 
+
+<#+
+
+dynamic controlernamespace;
+bool UpdateClassesRegisterarNameSpaceTS;
+bool UseUpdateClassesNameSpaceTS;
+string SrcFolderts;
+public void GenerateAllControllers(string sourceFolder,string destinationFolder,string modelProjectName,string modelFolderName,Dictionary<string,string> namespacesparam)
+{
+NamespacesDictionary = namespacesparam;
+ SrcFolderts = sourceFolder;
+
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+
+     controlernamespace =GetControllerNameSpace(destinationFolder+"/" + modelFolderName+ "/Generated/PMControllers");
+	GenerateEntityController(file,destinationFolder+"/" + modelFolderName+ "/Generated/PMControllers/"+fileNameWithoutExtension+"Controller.Generated.cs",modelProjectName);
+     controlernamespace =GetControllerNameSpace(destinationFolder+"/"+modelFolderName +"/Generated/ListControllers");
+	GenerateEntityViewController(file,destinationFolder+"/"+modelFolderName +"/Generated/ListControllers/"+fileNameWithoutExtension+"ViewsController.Generated.cs",modelProjectName);
+}
+
+}
+#>
+
+<#+  
+
+public void GenerateEntityController(string xmlFilePath,string outputFilePath,string modelname)
+{
+	 
+
+        var entity = FromEntityControllerFile(xmlFilePath);
+	        
+	  if( entity.IsComposition.GetType() == typeof(string))
+      	{
+	    	if(entity.IsComposition == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		if( entity.NoPMController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoPMController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		if( entity.IsClosed.GetType() == typeof(string))
+      	{
+	    	if(entity.IsClosed == "true" && entity.ObjectTableName.Trim('"') != "PortTimeZone")
+	    	{
+	    		return;
+	    	}
+	    } 
+		 if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+          WriteEntityControllerMethod(entity,modelname); 
+          SaveEntityControllerOutput(outputFilePath);
+ }
+
+public void GenerateEntityViewController(string xmlFilePath,string outputFilePath,string modelname)
+{
+        var entity = FromEntityControllerFile(xmlFilePath);
+		 if( entity.NoViewController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoViewController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+         if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+	  
+
+          WriteEntityViewControllerMethod(entity,modelname); 
+          SaveEntityControllerOutput(outputFilePath);
+        
+
+ }
+
+//
+
+#>
+
+<#+
+
+public dynamic GetControllerNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+    spacestring = spacestring.ToString().Trim('.');
+
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveEntityControllerOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+
+
+
+<#+
+ private void WriteEntityControllerMethod(dynamic entity,string modelname)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string fullTableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string queryName = FirstServiceCharacterToLowerTS(tableName)+"Query";
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+	bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+    }
+	 bool enableSecurity = false;
+	if( entity.EnableSecurity.GetType() == typeof(string))
+	{
+	    enableSecurity = (entity.EnableSecurity == "true");
+    }
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+				}
+			}
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			}
+		 }
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+		 	 string tenantStringParam = "entityPM.Tenant";
+		 if(tableName == "Tenant" || tableName == "TenantManagement" || tableName == "AccountingSetting")
+			 tenantStringParam = "entityPM.Id";
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+         }
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+	 bool isCachedOnClient = false;
+	if( entity.CacheOnClient.GetType() == typeof(string))
+	{
+	    isCachedOnClient = (entity.CacheOnClient == "true");
+    }  
+     string enableSecurityString = "false";
+     string HasTenantString = "false";
+     string saveHistoryString = "false";
+     if (hasTenant) HasTenantString = "true";
+     if(enableSecurity) enableSecurityString = "true";
+     if(!isClosed  && isCachedOnClient) saveHistoryString = "true";
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityControllerGenerator.tt from <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+
+using AmitalCloud.Infrastructure.Web.BaseClasses;
+using <#= NamespacesDictionary["pmsspacestring"] #> ;
+using <#= NamespacesDictionary["updateservicespacestring"] #>;
+using <#= NamespacesDictionary["queryeservicespacestring"] #>;
+using <#= NamespacesDictionary["pocosspacestring"] #>;
+
+namespace <#= controlernamespace #>
+{ 
+
+    public partial class <#= dBTableName + "Controller" #> : BasePMControler <<#= tableName #>QueryService, <#= tableName #>UpdateService, <#= pmName #>,<#= tableName #>>
+    {
+    	public <#= dBTableName + "Controller" #>() :base("<#= entity.ObjectTableName.Trim('"') #>", <#= enableSecurityString #> , <#= HasTenantString #>, <#= saveHistoryString #>)  {}
+    }
+}
+<#+
+return ;
+#>
+    
+    public partial class old<#= dBTableName + "Controller" #> : ApiController
+    {
+        public HttpResponseMessage GetSingle(<#= primarykeyParam #>)
+        {
+		  try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+			    string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+#>
+                <#= tableName #>QueryService <#= queryName #> = new <#= tableName #>QueryService(authToken.Tenant);
+				<#= queryName #>.InitializeSettings();
+                <#= pmName #> <#= FirstServiceCharacterToLower(pmName) #> = <#= queryName #>.GetSingle(<#= primaryonlyparam #>,true,false);
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                return Request.CreateResponse(HttpStatusCode.OK, <#= FirstServiceCharacterToLower(pmName) #>);
+			 }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+            }
+        }
+	<#+
+		 if(hasTenant)
+         {
+	#>
+    <#= ""
+	 #>
+	   public HttpResponseMessage Post(<#= pmName #> entityPM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (TransactionScope scope = TransactionFactory.GetTransaction())
+                    {
+                        string logKey = PerformanceLogger.LogCurrentTime();
+                        string token = HttpContext.Current.Request.Headers["Token"];
+                        AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                        AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                        AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "NEW", authToken.Tenant);
+	<#+
+}
+
+if(hasTenant && enableSecurity)
+{
+	#>
+                        AmitalCloudSecurityUtility.AuthenticationOnEntityTenant("<#= tableName #>", entityPM.Tenant, authToken.Tenant);
+	<#+
+}
+
+#>
+                        <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(entityPM.Tenant, new Dictionary<string, IContext>(), entityPM.Tenant);
+                        entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Insert;
+                        service.Update(entityPM, true);
+<#+
+			 if(!isClosed  && isCachedOnClient)
+             {
+#>
+                        TableLastUpdateClass.UpdateTableHistory(<#= tenantStringParam #>, "<#= fullTableName #>");
+<#+
+             }
+#>
+                        scope.Complete();
+                        PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                        return Request.CreateResponse(HttpStatusCode.OK, entityPM);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+                }
+            }
+            else
+            { 
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildModelException(ModelState));
+            }
+        }
+        public HttpResponseMessage Put(<#= pmName #> entityPM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (TransactionScope scope = TransactionFactory.GetTransaction())
+                    {
+                        string logKey = PerformanceLogger.LogCurrentTime();					                        
+                        string token = HttpContext.Current.Request.Headers["Token"];
+                        AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                        AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                        AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "UPDATE", authToken.Tenant);
+	<#+
+}
+if(hasTenant && enableSecurity)
+{
+	#>
+                        AmitalCloudSecurityUtility.AuthenticationOnEntityTenant("<#= tableName #>", entityPM.Tenant, authToken.Tenant);
+	<#+
+}
+#>
+                        <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(entityPM.Tenant, new Dictionary<string, IContext>(), entityPM.Tenant);
+						service.InitializeEntityPM(entityPM);
+                        entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Update;
+                        service.Update(entityPM, true);
+<#+
+			 if(!isClosed  && isCachedOnClient)
+             {
+#>
+                        TableLastUpdateClass.UpdateTableHistory(<#= tenantStringParam #>, "<#= fullTableName #>");
+<#+
+             }
+#>
+                        scope.Complete();
+                        PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                        return Request.CreateResponse(HttpStatusCode.OK, entityPM);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+                }
+            }
+            else
+            { 
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildModelException(ModelState));
+            }
+        }
+        // DELETE api/<controller>/5
+        public void Delete(int id)
+        {
+        }
+			 <#+
+         }
+		 #>
+    }
+}
+	 <#+
+}
+#>
+<#+
+ private void WriteEntityViewControllerMethod(dynamic entity,string modelname)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+    }
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string queryName = FirstServiceCharacterToLower(tableName)+"Query";
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+	  bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+				 
+    }
+	 bool enableSecurity = false;
+	if( entity.EnableSecurity.GetType() == typeof(string))
+	{
+	    enableSecurity = (entity.EnableSecurity == "true");
+    }
+	bool hasCustomFields = false;
+	if( entity.HasCustomFields.GetType() == typeof(string))
+	{
+	    hasCustomFields = (entity.HasCustomFields == "true");
+    }
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+				}
+			}
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			}
+		 }
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+         string enableSecurityString = "";
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+         }
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+if(!isClosed && enableSecurity)
+{
+                enableSecurityString = " , true";
+}
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityControllerGenerator.tt from <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+<#+ if(hasCustomFields){ #>
+using System.Linq;
+<#+ } #>
+using AmitalCloud.Infrastructure.Web.BaseClasses;
+using <#= NamespacesDictionary["entitylistsnamespace"] #>;
+using <#= NamespacesDictionary["entitylistqueryeservicespacestring"] #>;
+
+namespace <#= controlernamespace #>
+{ 
+    public partial class <#= tableName + "ViewsController" #> : BaseListController<<#= tableName #>ListQueryService, <#= listName #>>
+    {
+       <#+if(hasCustomFields){#>
+       new bool hasCustomFields = true;
+       <#+}#>
+	   public <#= tableName + "ViewsController" #>() :base("<#= entity.ObjectTableName.Trim('"') #>", "<#= entity.ObjectTableName.Trim('"') #>s"<#= enableSecurityString #>)  {}
+    }
+}
+
+<#+ return;#>
+
+<#+if(hasCustomFields){#>
+        protected override object GetResult( int tenant, IEnumerable<KeyValuePair<string, string>> paramList ) 
+        {
+                <#= listName #> result = new <#= tableName #>ListQueryService(tenant).GetSingle(paramList);
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  tenant, new List<<#= listName #>> { result }.Cast<object>().ToList());
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+         }
+        protected override object GetResult(int tenant)
+        {
+                List<<#= listName #>> result =new <#= tableName #>ListQueryService(tenant).GetList(tenant);
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  tenant, result.Cast<object>().ToList());
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+<#+}else{#>
+        protected override object GetResult(int tenant, IEnumerable<KeyValuePair<string, string>> paramList) => Request.CreateResponse(HttpStatusCode.OK, new <#= tableName #>ListQueryService(tenant).GetSingle(paramList));
+        protected override object GetResult(int tenant) => Request.CreateResponse(HttpStatusCode.OK, new <#= tableName #>ListQueryService(tenant).GetList(tenant));
+<#+}#>
+        protected override object GetResult(int tenant, QueryOperations queryOperations, TreeFilterQueryArgs treeFilterQueryArgs, bool getCount, ref int count)
+        {
+            <#= tableName #>ListQueryService <#= tableName #>AnswerStatusQuery = new <#= tableName #>ListQueryService(tenant);
+            if (getCount)
+            {
+            <#+
+		 if(hasTenant)
+         {
+#>
+         count = <#= tableName #>AnswerStatusQuery.GetListCount(queryOperations, tenant , treeFilterQueryArgs);
+<#+
+         }
+		 else
+         {
+#>
+         count = <#= tableName #>AnswerStatusQuery.GetListCount(queryOperations , treeFilterQueryArgs);
+<#+
+         }
+#>
+            }
+            return <#= tableName #>AnswerStatusQuery.GetList(queryOperations, tenant ,treeFilterQueryArgs);
+        }
+    }
+}
+<#+
+return ;
+#>
+    public class old<#= tableName + "ViewsController" #> : ApiController
+    {
+        public HttpResponseMessage GetSingle(<#= primarykeyParam #>)
+        {
+		  try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                <#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(authToken.Tenant);
+                <#= listName #> <#= FirstServiceCharacterToLowerTS(listName) #> = <#= queryName #>.GetSingle(<#= primaryonlyparam #>);
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, new List<<#= listName #>> { <#= FirstServiceCharacterToLowerTS(listName) #> }.Cast<object>().ToList());
+<#+
+}
+#>
+ 				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                return Request.CreateResponse(HttpStatusCode.OK,  <#= FirstServiceCharacterToLowerTS(listName) #>);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+            }
+           
+        }
+
+        public HttpResponseMessage GetAll()
+        {
+            try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+#>
+                <#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(authToken.Tenant);
+                List<<#= listName #>> result = <#= queryName #>.GetList(authToken.Tenant);
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, result.Cast<object>().ToList());
+<#+
+}
+#>
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+            }
+        }
+        
+		[HttpGet]
+        public HttpResponseMessage GetByFilters([FromUri] ApiQueryFilters filters)
+        {
+            try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                AmitalCloudSecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                AmitalCloudSecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                
+				int tenant = authToken.Tenant;
+<#+
+if(tableName == "Port" || tableName == "Carrier"  || tableName == "Currency")
+{
+	#>
+            if(filters.Tenant != null)
+	                tenant = filters.Tenant.Value;
+	<#+
+}
+#>
+
+                QueryOperations queryOperations = new QueryOperations()
+                {
+                    ObjectTableName = "<#= entity.ObjectTableName.Trim('"') #>",
+                    PageIndex = filters.PageIndex,
+                    PageSize = filters.PageSize,
+                    QuerySection = "<#= entity.ObjectTableName.Trim('"') #>s",
+                    SortByColumnName = filters.SortBy,
+                    SortDirectin = filters.SortDirection,
+					GetAll = filters.GetAll, 
+                };
+
+				
+				List<ObjectField> <#= tableName #>ObjectFields = ObjectFieldRepository.GetObjectFieldsByObjectTableName("<#= entity.ObjectTableName.Trim('"') #>",tenant);
+                List<PropertyInfo> filterProperties = filters.GetType().GetProperties().ToList();
+                for (int i = 1; i <= 10; i++)
+                {
+                    object filterNameProp = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Name")).GetValue(filters);
+                    object filterValue1 = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Value")).GetValue(filters);
+                    object filterOperatorProp = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Operator")).GetValue(filters);
+					object filterValue2 = null;
+
+                    if (filterNameProp != null)
+                    {
+                        string filterName = filterNameProp.ToString();
+                        string filterOperator = filterOperatorProp != null ? filterOperatorProp.ToString() : "Equals";
+						//if (filterValue1 != null && filterValue1.GetType() == typeof(string))
+                        //{
+                           //string[] values = filterValue1.ToString().Split(',');
+                            //if (values.Count() > 1)
+                            //{
+                                //filterValue1 = values[0];
+                                //filterValue2 = values[1];
+                            //}
+						//}
+                        //ToDo: Get object field by name and set the remained filter properties
+						ObjectField field = <#= tableName #>ObjectFields.FirstOrDefault(f => f.FieldName == filterName);
+                       if (field != null)
+                        {
+                            string valuestring1 = filterValue1 != null ? filterValue1.ToString() : null;
+                            object value1 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring1);
+
+                            string valuestring2 = filterValue2 != null ? filterValue2.ToString() : null;
+                            object value2 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring2);
+
+                            //queryOperations.SetFilter(filterName, value1, field.IsCustomFilter, filterOperator, value2, field.DisplayInList);
+							  queryOperations.SetFilter(filterName, value1, field.IsCustomFilter, filterOperator, value2, field.DisplayInList, field.IsCustom, field.DataTypeCode, field.IsListFilter);
+
+                        }
+                        else
+                            queryOperations.SetFilter(filterName, filterValue1, false, filterOperator, filterValue2, true);
+                    }
+
+
+
+                }
+
+               if (!string.IsNullOrEmpty(filters.AdditionalFilters))
+                {
+                    JavaScriptSerializer JsonConvert = new JavaScriptSerializer();
+                    var filters_list = JsonConvert.Deserialize<List<QueryFilterItem>>(filters.AdditionalFilters);
+
+                    foreach (QueryFilterItem filter in filters_list)
+                    {
+                        ObjectField field = <#= tableName #>ObjectFields.FirstOrDefault(f => f.FieldName == filter.FieldName);
+                        if (field != null)
+                        {
+
+
+                            string valuestring1 = filter.FieldValue != null ? filter.FieldValue.ToString() : null;
+                            object value1 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring1);
+
+                            string valuestring2 = filter.FieldValue2 != null ? filter.FieldValue2.ToString() : null;
+                            object value2 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring2);
+
+                            //queryOperations.SetFilter(filter.FieldName, value1, field.IsCustomFilter, filter.Operator, value2, field.DisplayInList);
+							  queryOperations.SetFilter(filter.FieldName, value1, field.IsCustomFilter, filter.Operator, value2, field.DisplayInList, field.IsCustom, field.DataTypeCode, field.IsListFilter);
+
+                        }
+                        else
+                        {
+                            queryOperations.SetFilter(filter.FieldName, filter.FieldValue, filter.IsCustom, filter.Operator, filter.FieldValue2, filter.DisplayInList);
+                        }
+                    }
+                }
+				<#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(tenant);
+                TreeFilterQueryArgs treeFilterQueryArgs = new TreeFilterQueryArgs()
+                 { 
+                     AdditionalTreeFilter = filters.TreeFilters,
+                     ObjectTableName = "<#= entity.ObjectTableName.Trim('"') #>",
+                     ParentEntityId = filters.ParentEntityId,
+                     ParentObjectTableName = filters.ParentObjectTableName, 
+                     Tenant = tenant ,
+                     ParentEntity = filters.ParentEntity
+                 };
+                List<<#= listName #>> entityLists = <#= queryName #>.GetList(queryOperations, tenant , treeFilterQueryArgs);
+				ServiceResponse response = new ServiceResponse();
+                if (filters.GetCount)
+                {
+<#+
+#>
+<#+
+		 if(hasTenant)
+         {
+#>
+                    int count = <#= queryName #>.GetListCount(queryOperations, tenant , treeFilterQueryArgs);
+<#+
+         }
+		 else
+         {
+#>
+                    int count = <#= queryName #>.GetListCount(queryOperations , treeFilterQueryArgs);
+<#+
+         }
+#>
+                    response.Count = count;
+                }
+                response.Result = entityLists;
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, entityLists.Cast<object>().ToList());
+<#+
+}
+#>
+                HttpResponseMessage reponseMessage = Request.CreateResponse(HttpStatusCode.OK, response);
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                return reponseMessage;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, AmitalCloudApiExceptionBuilder.BuildException(ex));
+            }
+        }
+    }
+}
+	 <#+
+}
+#>
+<#+
+public  string FirstServiceCharacterToLowerTS(string str)
+{
+    if (String.IsNullOrEmpty(str) || Char.IsLower(str, 0))
+        return str;
+    return Char.ToLowerInvariant(str[0]).ToString() + str.Substring(1);
+}
+#>
+
+
+
+
+
+<#+
+//Create an elastic object
+private dynamic FromEntityControllerFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

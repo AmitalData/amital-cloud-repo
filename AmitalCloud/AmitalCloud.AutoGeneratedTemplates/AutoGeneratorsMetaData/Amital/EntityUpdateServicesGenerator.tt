@@ -1,0 +1,324 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+<#+
+
+dynamic servicenamespacestring;
+public void GenerateAllUpdateServices(string sourceFolder,string destinationFolder,string contextName,Dictionary<string,string> namespacesparam)
+{
+	NamespacesDictionary = namespacesparam;	
+ servicenamespacestring = GetServiceNameSpace(destinationFolder);
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	GenerateEntityService(file,destinationFolder+"/Generated/"+fileNameWithoutExtension+"UpdateService.Generated.cs",contextName);
+}
+
+ 
+}
+#>
+
+<#+  
+
+public void GenerateEntityService(string xmlFilePath,string outputFilePath,string contextName)
+{
+	if(string.IsNullOrEmpty(servicenamespacestring))
+    {
+		servicenamespacestring = GetServiceNameSpace(outputFilePath);
+    }
+
+var entity = FromEntityServiceFile(xmlFilePath);
+ if( entity.NoObjectTable.GetType() == typeof(string))
+	{
+		if(entity.NoObjectTable == "true")
+		{
+			return;
+		}
+	}
+		 if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+ 
+    WriteEntityServiceMethod(entity,contextName);
+    SaveEntityServiceOutput(outputFilePath);
+
+ }
+#>
+
+<#+
+
+public dynamic GetServiceNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+
+	spacestring = spacestring.ToString().Trim('.');
+
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveEntityServiceOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+    
+	   var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+
+
+<#+
+ private void WriteEntityServiceMethod(dynamic entity,dynamic contextName)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+    }
+	         string[] namespacearr = servicenamespacestring.ToString().Split('.');
+		     string projectname = namespacearr[1].Replace("Lib","");
+	string parententity = "IEntityPM";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName.Trim('"') + "PM";
+    }
+    string pmName = tableName + "PM";
+    string listName = tableName + "List";
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	  string keytype = "";
+	  bool IsAutoFill = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+					keysstring += field.FieldName.Trim('"') + " = entityPM."+field.FieldName.Trim('"')+", ";
+					keytype = GetDataType(field);
+				}
+			}
+			if( field.EnableAutoFill.GetType() == typeof(string))
+			{
+				if(field.EnableAutoFill == "true")
+				{ 
+					IsAutoFill = true;
+				}
+			}
+		 }
+		 keysstring = keysstring.TrimEnd(' ').TrimEnd(',');
+		 	 var IsDateCreated = false;
+		 	var TenantServerConfigration = false;
+			var IdCounter = false;
+			var IsContactCreated = false;
+			var HttpContext = true;
+			var ContactRepository = false;
+			var Contact = false;
+			foreach (var field in entity["field"])
+			{
+				if (field.EnableAutoFill.GetType() == typeof(string))
+				{
+					if (field.EnableAutoFill == "true")
+					{
+						if (field.FieldName.GetType() == typeof(string))
+						{
+							if ((field.FieldName.Trim('"') == "CreateDate" || field.FieldName.Trim('"') == "UpdateDate") && IsDateCreated == false)
+							{
+								IsDateCreated = true;
+								TenantServerConfigration = true;
+							}
+								if (field.FieldName.Trim('"') == "Id")
+								{
+									IdCounter = true;
+								}
+								if ((field.FieldName.Trim('"') == "CreatedByUserId" || field.FieldName.Trim('"') == "UpdatedByUserId") && IsContactCreated == false)
+								{
+									IsContactCreated = true;
+									HttpContext = true;
+									ContactRepository = true;
+									Contact = true;
+								}
+								if (field.FieldName.Trim('"') == "CreatedByUserId")
+								{
+									if (field.FieldName.Trim('"') == "UpdatedByUserId")
+									{
+									}
+								}
+						}
+					}
+
+				}
+			}
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityUpdateServicesGenerator.tt from <#= Path.GetFileName(Host.TemplateFile) #>
+//--- 
+using System.Collections.Generic;
+using AmitalCloud.Infrastructure.Application.BaseClasses;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Data.Repositories;
+using AmitalCloud.Infrastructure.Model.Interfaces;
+<#+ 
+if(tableName != "Task" && tableName != "TaskStatus")
+{
+#>
+using System.Threading.Tasks;
+<#+
+}
+#>
+<#+ if(TenantServerConfigration) { #>
+using System;
+using AmitalCloud.Infrastructure.Data.Helpers;
+<#+ }#>
+<#+ if(IdCounter) { #>
+using AmitalCloud.Infrastructure.Data.Counters;
+<#+ }#>
+<#+ if(HttpContext) { #>
+using System.Web;
+<#+ }#>
+<#+ if(Contact) { #>
+<#+ }#>
+using POCO = <#= NamespacesDictionary["pocosspacestring"] #> ;
+using <#= NamespacesDictionary["pmsspacestring"] #>;
+using <#= NamespacesDictionary["keysspacestring"] #>;
+using <#= NamespacesDictionary["entitylistsnamespace"] #>;
+using <#= NamespacesDictionary["datamappingspacestring"] #>;
+<#+ 
+if(1==0)   //NamespacesDictionary["dataprojectnamespace"]!=NamespacesDictionary["contextspacestring"])
+{
+#>
+using <#= NamespacesDictionary["dataprojectnamespace"] #>;
+using <#= NamespacesDictionary["domaininterfacesspacestring"] #>;
+using <#= NamespacesDictionary["contextspacestring"] #>;
+<#+
+}
+#>
+
+namespace <#= servicenamespacestring #>
+{ 
+   public partial class <#=tableName #>UpdateService:BaseEntityUpdateService<POCO.<#=tableName #>,<#= pmName #>,<#= parententity #>,<#= listName #>,<#= keytype #>>
+   {
+   		<#+  if (false) { #>
+		<#+ } #>	
+        public <#=tableName #>UpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
+            : base(mainContext,additionalContexts, tenant)
+        {
+            Mapping = new <#=tableName #>DataMapping();
+            Repository = new Repository<POCO.<#=tableName #>>(mainContext);
+        }
+        public <#=tableName #>UpdateService(int tenant) :  base( tenant)  
+		{
+            Mapping = new <#=tableName #>DataMapping();
+            Repository = new Repository<POCO.<#=tableName #>>(tenant);
+		}
+        public <#=tableName #>UpdateService(IContext context) :  this(context, null, 0) {}
+		protected override IEntityKeyFields<POCO.<#=tableName #>,<#= keytype #>> GetKeys(<#= pmName #> entityPM) => new <#=tableName #>Keys<<#= keytype #>>() { <#= keysstring #> };
+<#+   if (IsAutoFill)  {  #>
+		protected override void FillDefaultValuesOnCreate(<#= pmName #> entityPM)
+		{
+<#+ 
+			  IsDateCreated = false;
+			  IsContactCreated = false;
+			 foreach(var field in entity["field"])
+			 {
+				if( field.EnableAutoFill.GetType() == typeof(string))
+				{
+					if(field.EnableAutoFill == "true")
+					{ 
+						if( field.FieldName.GetType() == typeof(string))
+						{
+							if ((field.FieldName.Trim('"') == "CreateDate"  || field.FieldName.Trim('"') == "UpdateDate") && IsDateCreated == false )
+							{
+								IsDateCreated = true;
+							}
+							if (field.FieldName.Trim('"') == "CreateDate")
+							{
+						#>
+			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);
+<#+ 	if (field.FieldName.Trim('"') == "UpdateDate")	{ #> 
+			entityPM.UpdateDate =  entityPM.CreateDate;
+<#+ }}	if (field.FieldName.Trim('"') == "Id")		{#>
+			entityPM.Id = IdCounter.GetNumber("<#=tableName #>", entityPM.Tenant); 
+<#+ }	if ((field.FieldName.Trim('"') == "CreatedByUserId"  || field.FieldName.Trim('"') == "UpdatedByUserId") && IsContactCreated == false )
+{IsContactCreated = true;}if (field.FieldName.Trim('"') == "CreatedByUserId"){#>
+			entityPM.CreatedByUserId = GetLoggedUserid(entityPM.Tenant);
+<#+ if (field.FieldName.Trim('"') == "UpdatedByUserId"){ #> 
+			entityPM.UpdatedByUserId = entityPM.CreatedByUserId;
+<#+ }}}}}} #>
+		}
+		protected override void FillDefaultValuesOnUpdate(<#= pmName #> entityPM)
+        {       
+           <#+ 
+		 foreach(var field in entity["field"])
+		 {
+		    if( field.EnableAutoFill.GetType() == typeof(string))
+			{
+				if(field.EnableAutoFill == "true")
+				{ 
+					if( field.FieldName.GetType() == typeof(string))
+                    {
+                        if (field.FieldName.Trim('"') == "UpdateDate")
+                        {
+                     #>
+	entityPM.UpdateDate = TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);
+<#+ }if (field.FieldName.Trim('"') == "UpdatedByUserId") { #>
+			entityPM.UpdatedByUserId = GetLoggedUserid(entityPM.Tenant);
+<#+ }                    }				}			}		 }		  #>
+		}
+<#+} else{#>
+protected override void FillDefaultValuesOnCreate(<#= pmName #> entityPM)
+		{
+		}
+		protected override void FillDefaultValuesOnUpdate(<#= pmName #> entityPM)
+		{
+		}
+<#+}#>
+	}
+}
+<#+}#>
+<#+
+//Create an elastic object
+private dynamic FromEntityServiceFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

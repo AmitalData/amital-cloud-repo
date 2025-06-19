@@ -1,0 +1,1027 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<entity
+  Id="&quot;ad00cc2c-a90d-4e5e-b126-559752516010&quot;"
+  ObjectTableName="&quot;Toggle&quot;"
+  IsNew="true"
+  DBTableName="&quot;Toggles&quot;"
+  DBTableOldNames="Toggles"
+  ObjectTableSingular="&quot;Toggle&quot;"
+  ObjectTablePlural="&quot;Toggles&quot;"
+  HasCustomFilter="false"
+  HasCustomFields="false"
+  AvailableInCustomization="false"
+  SupportSubEntity="false"
+  ApplyGenericCustomFields="false"
+  AvailableInDocumentTypes="false"
+  HasHelper="false"
+  HasShortTitle="false"
+  HasFiltersMenu="false"
+  HasCustomValidator="false"
+  IsEditable="false"
+  IsNewWizard="false"
+  LookUp1="&quot;Code&quot;"
+  LookUp2="&quot;Name&quot;"
+  KeyPropertyPath="&quot;Code&quot;"
+  AutoCompleteSearchWindow="false"
+  IsClosed="true"
+  CacheOnClient="true"
+  EditableFromAutoCompleteWindow="false"
+  HasCounter="false"
+  EnableAddFromLOV="false"
+  IsRestrictable="false"
+  IsMain="false"
+  IsAutoComplete="true"
+  EnableEditFromLOV="false"
+  SortingByObjectField="&quot;Name&quot;"
+  SortingByDirection="&quot;Ascending&quot;"
+  InActive="false"
+  IsSaveButtonVisible="false"
+  IsComposition="false"
+  EnableSecurity="false"
+  AllowCustomFields="false"
+  HasDynamicHeader="false"
+  ObjectTableTypeCode="&quot;MD&quot;"
+  MaxNumberOfCustomFields="0"
+  DefaultText="&quot;Toggle&quot;"
+  Code="&quot;d215&quot;"
+  Name="&quot; Query Group&quot;"
+  CloseTableCode="&quot;Code&quot;"
+  CloseTableName="&quot;Name&quot;"
+  GenerateDomainService="false"
+  ClientModuleName="&quot;Infrastructure&quot;"
+  ServerModuleName="&quot;Infrastructure&quot;"
+  NoViewController="true"
+  NoPMController="true"
+  NoTS="false"
+  NoDefaultFeatures="false"
+  HasCompactSearch="false"
+  ApplyDefaultValues="false"
+  HasMenuButtons="false"
+  ApplyOnPropertyChangedCode="false"
+  HasApiHelper="false"
+  AllowedForComputingPartners="false"
+  IsBusinessUnitEnabled="false"
+  TenantZeroData="false"
+  Code1="&quot;3c31&quot;"
+  Name1="&quot; Query Group&quot;"
+  CustomFieldsCount="0"
+  DisableSearchBox="false"
+  HasDocuments="false"
+  IsLookUp="false"
+  IsTabsHidden="false"
+  DxmlDatabaseTypeCode="Main"
+  DxmlDatabaseSchemaCode="dbo">
+  <field
+    Id="&quot;e2c2eccb-a53a-4781-ade4-abff679a9dfc&quot;"
+    FieldName="&quot;Code&quot;"
+    OldNames="Code"
+    IsNew="false"
+    IsChecked="true"
+    IsDeleted="false"
+    ObjectTableName="&quot;Toggle&quot;"
+    FieldsDataType="&quot;Text&quot;"
+    MinLength="0"
+    MaxLength="3"
+    IsRequired="true"
+    CopyToDW="false"
+    DisplayOnLookUp="true"
+    DisplayOnLookUpLocal="false"
+    CanFilter="false"
+    DisplayOnly="false"
+    SystemRequired="false"
+    ObjectFieldNotRequired="false"
+    SystemMaxLength="3"
+    DisplayInList="false"
+    IsCustomFilter="false"
+    IsListFilter="false"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="true"
+    PMPropertyPath="&quot;Code&quot;"
+    ListPropertyPath="&quot;Code&quot;"
+    DisplayInLookUpIndex="0"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="0"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    DependencyFilter3IsList="false"
+    ValidForQuerySection1="&quot;Toggle&quot;"
+    IsRestrictable="false"
+    DisplayInEntityVariables="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInSearchWindowFilters="false"
+    DisplayInSearchWindowFiltersIndex="0"
+    DisplayInDocumentReferences="false"
+    InActive="false"
+    DisplayLongName="false"
+    FullFieldLable="&quot;Code&quot;"
+    DefaultText="&quot;Code&quot;"
+    ListFieldLable="&quot;CodeListLable&quot;"
+    ListLableDefaultText="&quot;Code&quot;"
+    IsNullable="false"
+    IsForeignKey="false"
+    DontBuildRelationOnDB="false"
+    IsPrimaryKey="true"
+    HasDataBaseField="true"
+    HasPMField="true"
+    IsComposition="false"
+    IsMaxLength="false"
+    NoMetaDataField="false"
+    GenerateInList="true"
+    IsFixedLength="false"
+    EnableAutoFill="false"
+    IncludeInSearchField="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    DisplayInAutomationAsEnitity="false"
+    DisplayInRequiredFields="false"
+    HasTemplate="false"
+    IsCustom="false"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    IsSpellCheckedShortLocalDefaultText="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    EnableFullscreenTextBox="false" />
+  <field
+    Id="&quot;5f449aff-1b66-401e-95cc-6e6043b3e653&quot;"
+    FieldName="&quot;Name&quot;"
+    OldNames="Name"
+    IsNew="false"
+    IsChecked="true"
+    IsDeleted="false"
+    ObjectTableName="&quot;Toggle&quot;"
+    FieldsDataType="&quot;Text&quot;"
+    MinLength="0"
+    MaxLength="100"
+    IsRequired="true"
+    CopyToDW="false"
+    DisplayOnLookUp="true"
+    DisplayOnLookUpLocal="false"
+    CanFilter="false"
+    DisplayOnly="false"
+    SystemRequired="false"
+    ObjectFieldNotRequired="false"
+    SystemMaxLength="100"
+    DisplayInList="false"
+    IsCustomFilter="false"
+    IsListFilter="false"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="true"
+    PMPropertyPath="&quot;Name&quot;"
+    ListPropertyPath="&quot;Name&quot;"
+    DisplayInLookUpIndex="1"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="1"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    DependencyFilter3IsList="false"
+    ValidForQuerySection1="&quot;Toggle&quot;"
+    IsRestrictable="false"
+    DisplayInEntityVariables="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInSearchWindowFilters="false"
+    DisplayInSearchWindowFiltersIndex="0"
+    DisplayInDocumentReferences="false"
+    InActive="false"
+    DisplayLongName="false"
+    FullFieldLable="&quot;Name&quot;"
+    DefaultText="&quot;Name&quot;"
+    ListFieldLable="&quot;NameListLable&quot;"
+    ListLableDefaultText="&quot;Name&quot;"
+    IsNullable="false"
+    IsForeignKey="false"
+    DontBuildRelationOnDB="false"
+    IsPrimaryKey="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    IsComposition="false"
+    IsMaxLength="false"
+    NoMetaDataField="false"
+    GenerateInList="true"
+    IsFixedLength="false"
+    EnableAutoFill="false"
+    IncludeInSearchField="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    DisplayInAutomationAsEnitity="false"
+    DisplayInRequiredFields="false"
+    HasTemplate="false"
+    IsCustom="false"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    IsSpellCheckedShortLocalDefaultText="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    EnableFullscreenTextBox="false" />
+  <field
+    Id="&quot;80be495f-9193-496f-a709-280062c6fe23&quot;"
+    FieldName="&quot;SearchFields&quot;"
+    OldNames="SearchFields"
+    IsNew="false"
+    IsChecked="true"
+    IsDeleted="false"
+    ObjectTableName="&quot;Toggle&quot;"
+    FieldsDataType="&quot;nText&quot;"
+    MinLength="0"
+    MaxLength="1000"
+    IsRequired="false"
+    CopyToDW="false"
+    DisplayOnLookUp="false"
+    DisplayOnLookUpLocal="false"
+    CanFilter="false"
+    DisplayOnly="false"
+    SystemRequired="false"
+    ObjectFieldNotRequired="false"
+    SystemMaxLength="1000"
+    DisplayInList="false"
+    IsCustomFilter="false"
+    IsListFilter="false"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="false"
+    PMPropertyPath="&quot;SearchFields&quot;"
+    ListPropertyPath="&quot;SearchFields&quot;"
+    DisplayInLookUpIndex="0"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="0"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    DependencyFilter3IsList="false"
+    ValidForQuerySection1="&quot;Toggle&quot;"
+    IsRestrictable="false"
+    DisplayInEntityVariables="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInSearchWindowFilters="false"
+    DisplayInSearchWindowFiltersIndex="0"
+    DisplayInDocumentReferences="false"
+    InActive="false"
+    DisplayLongName="false"
+    FullFieldLable="&quot;SearchFields&quot;"
+    DefaultText="&quot;Search ...&quot;"
+    ListFieldLable="&quot;SearchFieldsListLable&quot;"
+    ListLableDefaultText="&quot;Search ...&quot;"
+    IsNullable="true"
+    IsForeignKey="false"
+    DontBuildRelationOnDB="false"
+    IsPrimaryKey="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    IsComposition="false"
+    IsMaxLength="false"
+    NoMetaDataField="false"
+    GenerateInList="true"
+    IsFixedLength="false"
+    EnableAutoFill="false"
+    IncludeInSearchField="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    DisplayInAutomationAsEnitity="false"
+    DisplayInRequiredFields="false"
+    HasTemplate="false"
+    IsCustom="false"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    IsSpellCheckedShortLocalDefaultText="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    EnableFullscreenTextBox="false" />
+  <field
+    Id="&quot;e761c962-4e10-43ae-a4aa-a06b37a8b89d&quot;"
+    FieldName="&quot;Description&quot;"
+    OldNames="Description"
+    IsNew="true"
+    IsChecked="true"
+    IsDeleted="false"
+    ObjectTableName="&quot;Toggle&quot;"
+    FieldsDataType="&quot;nText&quot;"
+    MinLength="0"
+    MaxLength="400"
+    IsRequired="false"
+    CopyToDW="false"
+    DisplayOnLookUp="true"
+    DisplayOnLookUpLocal="false"
+    CanFilter="false"
+    DisplayOnly="false"
+    SystemRequired="false"
+    ObjectFieldNotRequired="false"
+    SystemMaxLength="400"
+    DisplayInList="true"
+    IsCustomFilter="false"
+    IsListFilter="false"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="true"
+    PMPropertyPath="&quot;Description&quot;"
+    ListPropertyPath="&quot;Description&quot;"
+    DisplayInLookUpIndex="2"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="2"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    DependencyFilter3IsList="false"
+    ValidForQuerySection1="&quot;Toggle&quot;"
+    IsRestrictable="false"
+    DisplayInEntityVariables="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInSearchWindowFilters="false"
+    DisplayInSearchWindowFiltersIndex="0"
+    DisplayInDocumentReferences="false"
+    InActive="false"
+    DisplayLongName="false"
+    FullFieldLable="&quot;Description&quot;"
+    DefaultText="&quot;Description&quot;"
+    ListFieldLable="&quot;DescriptionListLable&quot;"
+    ListLableDefaultText="&quot;Description&quot;"
+    IsNullable="false"
+    IsForeignKey="false"
+    DontBuildRelationOnDB="false"
+    IsPrimaryKey="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    IsComposition="false"
+    IsMaxLength="false"
+    NoMetaDataField="false"
+    GenerateInList="false"
+    IsFixedLength="false"
+    EnableAutoFill="false"
+    IncludeInSearchField="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    DisplayInAutomationAsEnitity="false"
+    DisplayInRequiredFields="false"
+    HasTemplate="false"
+    IsCustom="false"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    IsSpellCheckedShortLocalDefaultText="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    EnableFullscreenTextBox="false" />
+  <Screen
+    Name="&quot;ToggleHeaderScreen&quot;"
+    ObjectTableName="&quot;Toggle&quot;"
+    IsReadOnly="true"
+    IsHeaderScreen="true"
+    NumberOfColumns="2"
+    NumberOfRows="1">
+    <ScreenFields />
+  </Screen>
+  <EventTypes>
+    <EventType
+      Code="&quot;CREV&quot;"
+      ObjectTableName="&quot;Toggle&quot;"
+      EnglishName="&quot;Created&quot;"
+      LocalName="&quot;Created&quot;"
+      IsManualEntry="false"
+      ShortView="true"
+      IsAgentView="false"
+      IsCustomerView="false"
+      IsSharedLogisticsEnabled="false"
+      AllowedInAutomation="false"
+      ManualActivatedFollowUp="false"
+      IsFollowUp="false" />
+    <EventType
+      Code="&quot;UPEV&quot;"
+      ObjectTableName="&quot;Toggle&quot;"
+      EnglishName="&quot;Updated&quot;"
+      LocalName="&quot;Updated&quot;"
+      IsManualEntry="false"
+      ShortView="false"
+      IsAgentView="false"
+      IsCustomerView="false"
+      IsSharedLogisticsEnabled="false"
+      AllowedInAutomation="false"
+      ManualActivatedFollowUp="false"
+      IsFollowUp="false" />
+  </EventTypes>
+  <Records>
+    <Record
+      Code="&quot;TST&quot;"
+      Name="&quot;Test Toggle&quot;"
+      SearchFields="&quot;TST,Test Toggle&quot;"
+      Description="&quot;Test Toggle&quot;" />
+    <Record
+      Name="&quot;EnableAzureRootFolder&quot;"
+      SearchFields="&quot;EZR,EnableAzureRootFolder&quot;"
+      Code="&quot;EZR&quot;"
+      Description="&quot;Enable storing azure files under main root folder&quot;" />
+    <Record
+      Code="&quot;LEX&quot;"
+      Name="&quot;LogBoxExport&quot;"
+      SearchFields="&quot;LEX,LogBoxExport&quot;"
+      Description="&quot;Enable Export Shipment&quot;" />
+    <Record
+      Code="&quot;URT&quot;"
+      Name="&quot;Unicargo Report Toggle&quot;"
+      SearchFields="&quot;URT,Unicargo Report Toggle,Activated a special report for Unicargo&quot;"
+      Description="&quot;Activated a special report for Unicargo&quot;" />
+    <Record
+      Code="&quot;FPG&quot;"
+      Name="&quot;ARPayment Fetcha Pago&quot;"
+      SearchFields="&quot;FPG,ARPayment Fetcha Pago&quot;"
+      Description="&quot;Display Fetcha Pago in ARPayment  Screens&quot;" />
+    <Record
+      Code="&quot;RRS&quot;"
+      Name="&quot;Run Report on Secondary DB&quot;"
+      SearchFields="&quot;RRS,Run Report on Secondary DB&quot;"
+      Description="&quot;Running Report on Secondery DB&quot;" />
+    <Record
+      Code="&quot;LV2&quot;"
+      Name="&quot;LogGrid V2&quot;"
+      SearchFields="&quot;LGV2,LogGrid V2&quot;"
+      Description="&quot;Use Logitude Grid  version 2&quot;" />
+    <Record
+      Code="&quot;SUB&quot;"
+      Name="&quot;Shipment Sub Type&quot;"
+      SearchFields="&quot;SUB,Shipment Sub Type,Enables users to manage the shipment sub-types,&quot;"
+      Description="&quot;Enables users to manage the shipment sub-types&quot;" />
+    <Record
+      Code="&quot;HRS&quot;"
+      Name="&quot;Horse&quot;"
+      SearchFields="&quot;HRS,Horse,Activates Horse Management in shipments&quot;"
+      Description="&quot;Activates Horse Management in shipments&quot;" />
+    <Record
+      Code="&quot;KPI&quot;"
+      Name="&quot;KPI Document Fields&quot;"
+      SearchFields="&quot;KPI,KPI Document Fields&quot;"
+      Description="&quot;Display KPI documents fields in Bi report&quot;" />
+    <Record
+      Code="&quot;STR&quot;"
+      SearchFields="&quot;STR,Storage Pricing,Enables the storage invoicing mechanism&quot;"
+      Name="&quot;Storage Pricing&quot;"
+      Description="&quot;Enables the storage invoicing mechanism&quot;" />
+    <Record
+      Code="&quot;OI2&quot;"
+      Name="&quot;OceanInsightsV2&quot;"
+      SearchFields="&quot;OI2,OceanInsightsV2&quot;"
+      Description="&quot;Use Ocean insights tracking api version 2&quot;" />
+    <Record
+      Name="&quot;Shipment Warning Checkbox&quot;"
+      Code="&quot;SWC&quot;"
+      SearchFields="&quot;SWC,Shipment Warning Checkbox,Enables the credit limit new shipment warning&quot;"
+      Description="&quot;Enables the credit limit new shipment warning&quot;" />
+    <Record
+      Code="&quot;AMS&quot;"
+      Name="&quot;AMS in Export&quot;"
+      SearchFields="&quot;AMS,AMS in Export,Activates AMS customs transmission in export shipments&quot;"
+      Description="&quot;Activates AMS customs transmission in export shipments&quot;" />
+    <Record
+      Code="&quot;API&quot;"
+      SearchFields="&quot;API,API Update,Allows tenants to update shipments via API&quot;"
+      Name="&quot;API Update&quot;"
+      Description="&quot;Allows tenants to update shipments via API&quot;" />
+    <Record
+      Name="&quot;Charges Types Direction Restrictions&quot;"
+      Code="&quot;CTR&quot;"
+      SearchFields="&quot;CTR,Charges Types Direction Restrictions,Charges Types Direction Restrictions&quot;"
+      Description="&quot;Charges Types Direction Restrictions&quot;" />
+    <Record
+      Name="&quot;Branch Code in Counters&quot;"
+      SearchFields="&quot;BCC,Branch Code in Counters,Branch Code in Counters&quot;"
+      Description="&quot;Branch Code in Counters&quot;"
+      Code="&quot;BCC&quot;" />
+    <Record
+      Code="&quot;ACP&quot;"
+      SearchFields="&quot;ACP,Accruals Approvement,Activates the accruals approve checkbox in shipment profit&quot;"
+      Name="&quot;Accruals Approvement&quot;"
+      Description="&quot;Activates the accruals approve checkbox in shipment profit&quot;" />
+    <Record
+      Code="&quot;EQW&quot;"
+      Name="&quot;Export Query Data Via WorkerRole&quot;"
+      Description="&quot;Export Query Data to Excel Via WorkerRole&quot;"
+      SearchFields="&quot;EQW,Export Query Data Via WorkerRole,Export Query Data to Excel Via WorkerRole&quot;" />
+    <Record
+      Code="&quot;TAR&quot;"
+      Name="&quot;All Tariffs&quot;"
+      SearchFields="&quot;TAR,All Tariffs,Hide Tariffs Menu&quot;"
+      Description="&quot;Hide Tariffs Menu&quot;" />
+    <Record
+      Code="&quot;QMC&quot;"
+      Name="&quot;Quote Multi Currency Mode&quot;"
+      SearchFields="&quot;QMC,Quote Multi Currency Mode,Quote Multi Currency Mode&quot;"
+      Description="&quot;Quote Multi Currency Mode&quot;" />
+    <Record
+      Code="&quot;ADC&quot;"
+      Name="&quot;Automation Document Copies&quot;"
+      SearchFields="&quot;ADC,Automation Document Copies&quot;"
+      Description="&quot;Automation Document Copies&quot;" />
+    <Record
+      Code="&quot;DSR&quot;"
+      Name="&quot;Documents Send Result in AP Invoices Automation&quot;"
+      Description="&quot;Documents Send Result in AP Invoices Automation&quot;"
+      SearchFields="&quot;DSR,Documents Send Result in AP Invoices Automation&quot;" />
+    <Record
+      Name="&quot;AWB Multiple Commodities&quot;"
+      Code="&quot;AMC&quot;"
+      SearchFields="&quot;AMC,AWB Multiple Commodities&quot;"
+      Description="&quot;AWB Multiple Commodities&quot;" />
+    <Record
+      Code="&quot;MAP&quot;"
+      Name="&quot;Multipile AP Shipment&quot;"
+      SearchFields="&quot;MAP,Multipile AP Shipment&quot;"
+      Description="&quot;Multipile AP Shipment&quot;" />
+    <Record
+      Code="&quot;CPH&quot;"
+      Name="&quot;Consequent Pickup_Delivery&quot;"
+      SearchFields="&quot;CPH,Consequent Pickup/Delivery&quot;"
+      Description="&quot;Consequent Pickup/Delivery&quot;" />
+    <Record
+      Code="&quot;PRE&quot;"
+      Name="&quot;Master Pre_On Carriage&quot;"
+      SearchFields="&quot;PRE,Master Pre/On Carriage&quot;"
+      Description="&quot;Master Pre/On Carriage&quot;" />
+    <Record
+      Code="&quot;BIF&quot;"
+      Name="&quot;Invoices DWH&quot;"
+      SearchFields="&quot;BIF,Invoices DWH,Allow Tenants to Show Invoice Fact on the BI Report Screen&quot;"
+      Description="&quot;Allow Tenants to Show Invoice Fact on the BI Report Screen&quot;" />
+    <Record
+      Code="&quot;SAS&quot;"
+      Name="&quot;Standalone Shipment&quot;"
+      SearchFields="&quot;SAS,Standalone Shipment&quot;"
+      Description="&quot;Standalone Shipment&quot;" />
+    <Record
+      Name="&quot;Quotes Request Activated In Shared Logistic&quot;"
+      Code="&quot;QRA&quot;"
+      SearchFields="&quot;QRA, Quotes Request Activated In Shared Logistic&quot;"
+      Description="&quot;Quotes Request Activated In Shared Logistic&quot;" />
+    <Record
+      Name="&quot;Ocean Insights Containers&quot;"
+      Code="&quot;OIC&quot;"
+      SearchFields="&quot;OIC,Ocean Insights Containers&quot;"
+      Description="&quot;Ocean Insights Containers&quot;" />
+    <Record
+      Code="&quot;CTL&quot;"
+      Name="&quot;CollaborationTool&quot;"
+      SearchFields="&quot;CTL,CollaborationTool&quot;"
+      Description="&quot;Collaboration Tool&quot;" />
+    <Record
+      Code="&quot;SDE&quot;"
+      Name="&quot;Solve Duplicated Events Code&quot;"
+      SearchFields="&quot;SDE,Duplicated Events code&quot;"
+      Description="&quot;Solve Duplicated Events Code&quot;" />
+    <Record
+      Name="&quot;Lock Counter Procedure&quot;"
+      SearchFields="&quot;LCP,Lock Counter Procedure&quot;"
+      Description="&quot;Lock Counter Procedure&quot;"
+      Code="&quot;LCP&quot;" />
+    <Record
+      Code="&quot;TCR&quot;"
+      Name="&quot;Toggle OCR&quot;"
+      SearchFields="&quot;TOCR&quot;"
+      Description="&quot;Toggle for OCR&quot;" />
+    <Record
+      Code="&quot;CPT&quot;"
+      Name="&quot;Carta Porte&quot;"
+      Description="&quot;Carta Porte&quot;"
+      SearchFields="&quot;CPT,Carta Porte&quot;" />
+    <Record
+      Code="&quot;OPD&quot;"
+      Name="&quot;Standalone Pickups_Deliveries Only &quot;"
+      SearchFields="&quot;OPD,Standalone Pickups/Deliveries Only &quot;"
+      Description="&quot;Only Allow Pickups/Deliveries to be Created with a Standalone Shipment&quot;" />
+    <Record
+      Code="&quot;OIU&quot;"
+      Name="&quot;Shipment Update from Container&quot;"
+      SearchFields="&quot;OIU,Shipment Update from Container&quot;"
+      Description="&quot;Shipment Update from Container&quot;" />
+    <Record
+      Code="&quot;SFC&quot;"
+      Name="&quot;Show file name as computed&quot;"
+      SearchFields="&quot;Show file name as computed,SFC&quot;"
+      Description="&quot;Show file name as computed&quot;" />
+    <Record
+      Code="&quot;POD&quot;"
+      Name="&quot;Convert POD Image to Pdf File&quot;"
+      SearchFields="&quot;POD,Convert POD Image to Pdf File&quot;"
+      Description="&quot;Convert POD Image to Pdf File&quot;" />
+    <Record
+      Code="&quot;BAF&quot;"
+      Name="&quot;ARInvoices DWH&quot;"
+      SearchFields="&quot;BAF,ARInvoices DWH,Allow Tenants to Show ARInvoices Fact on the BI Report Screen&quot;"
+      Description="&quot;Allow Tenants to Show ARInvoice Fact on the BI Report Screen&quot;" />
+    <Record
+      Code="&quot;MLS&quot;"
+      Name="&quot;Shipment Number In Generic Interface&quot;"
+      SearchFields="&quot;MLS,Shipment Number In Generic Interface&quot;"
+      Description="&quot;Sending shipment number for multiple AP invoice in generic interface&quot;" />
+    <Record
+      Code="&quot;IDS&quot;"
+      Name="&quot;InlandDomesticShipments DWH&quot;"
+      SearchFields="&quot;IDS,InlandDomesticShipments DWH&quot;"
+      Description="&quot;Allow Tenants to Show InlandDomesticShipments  Fact on the BI Report Screen&quot;" />
+    <Record
+      Name="&quot;Ocean Insights Sending Automatically Logic&quot;"
+      Code="&quot;AOI&quot;"
+      SearchFields="&quot;AOI,Ocean Insights Sending Automatically Logic&quot;"
+      Description="&quot;Ocean Insights Sending Automatically Logic&quot;" />
+    <Record
+      Code="&quot;SAL&quot;"
+      Name="&quot;Use Security Access Level&quot;"
+      SearchFields="&quot;SAL,Use Security Access Level&quot;"
+      Description="&quot;Use Security Access Level&quot;" />
+    <Record
+      Name="&quot;Same User Login Enabled&quot;"
+      Description="&quot;User can login to different environment at the same time&quot;"
+      Code="&quot;ULE&quot;"
+      SearchFields="&quot;ULE,Same User Login Enabled&quot;" />
+    <Record
+      Code="&quot;AFO&quot;"
+      Name="&quot;Advanced Filters Options&quot;"
+      SearchFields="&quot;AFO,Advanced Filters Options,Enable New Option for Date Advanced Filters&quot;"
+      Description="&quot;Enable New Option for Date Advanced Filters&quot;" />
+    <Record
+      Code="&quot;QBT&quot;"
+      Name="&quot;QBO Tax Id Calculations&quot;"
+      SearchFields="&quot;QBT,QBO Tax Id Calculations&quot;"
+      Description="&quot;QBO Tax Id Calculations&quot;" />
+    <Record
+      Code="&quot;OPS&quot;"
+      Name="&quot;Operational Status&quot;"
+      SearchFields="&quot;OPS,Operational Status&quot;"
+      Description="&quot;Operational Status&quot;" />
+    <Record
+      Code="&quot;ODA&quot;"
+      Name="&quot;On Update Document Automation Tab&quot;"
+      SearchFields="&quot;ODA,On Update Document Automation Tab&quot;"
+      Description="&quot;On Update Document Automation Tab&quot;" />
+    <Record
+      Code="&quot;FHR&quot;"
+      Name="&quot;FixHtmlResolverVariable&quot;"
+      SearchFields="&quot;FHR,FixHtmlResolverVariable&quot;"
+      Description="&quot;Fix Html Resolver Variable&quot;" />
+    <Record
+      Code="&quot;OPF&quot;"
+      Name="&quot;Open Format RTL&quot;"
+      SearchFields="&quot;OPF,Open Format RTL&quot;"
+      Description="&quot;Open Format RTL Issues&quot;" />
+    <Record
+      Code="&quot;CUS&quot;"
+      Name="&quot;Customization&quot;"
+      SearchFields="&quot;CUS,Customization&quot;"
+      Description="&quot;Customization screen and actions&quot;" />
+    <Record
+      Code="&quot;EST&quot;"
+      Name="&quot;Entity Status&quot;"
+      Description="&quot;Allow to Display and Edit Entity Status&quot;"
+      SearchFields="&quot;EST,Entity Status,Allow to Display and Edit Entity Status&quot;" />
+    <Record
+      Code="&quot;AVT&quot;"
+      Name="&quot;API Credential Valid Key Token&quot;"
+      SearchFields="&quot;AVT,API Credential Valid Key Token&quot;"
+      Description="&quot;API Credential Valid Key Token&quot;" />
+    <Record
+      Code="&quot;DFF&quot;"
+      SearchFields="&quot;DFF,support forwarding file format in External Document&quot;"
+      Name="&quot;support forwarding file format in External Document&quot;"
+      Description="&quot;Support forwarding file format in External Document&quot;" />
+    <Record
+      Code="&quot;VSL&quot;"
+      Name="&quot;Vessel Free Text&quot;"
+      SearchFields="&quot;VSL,Vessel Free Text&quot;"
+      Description="&quot;Vessel Free Text&quot;" />
+    <Record
+      Code="&quot;CCT&quot;"
+      Name="&quot;Customs Charges Tariffs&quot;"
+      SearchFields="&quot;CCT,Customs Charges Tariffs&quot;"
+      Description="&quot;Customs Charges Tariffs&quot;" />
+    <Record
+      Code="&quot;DFP&quot;"
+      Name="&quot;Sharing Documents Via Shared links&quot;"
+      SearchFields="&quot;DFP,Sharing Documents Via Shared links Permission&quot;"
+      Description="&quot;Sharing Documents Via Shared links Permission&quot;" />
+    <Record
+      Code="&quot;CTF&quot;"
+      Name="&quot;Customer Team Field&quot;"
+      SearchFields="&quot;CTF,Customer Team Field&quot;"
+      Description="&quot;Show Customer Team Field&quot;" />
+    <Record
+      Name="&quot;INTTRA FROB&quot;"
+      Description="&quot;INTTRA option to manage FROB &quot;"
+      SearchFields="&quot;INTTRA FROB,FOB&quot;"
+      Code="&quot;FOB&quot;" />
+    <Record
+      Code="&quot;TAU&quot;"
+      Name="&quot;Ticket Entity In Automation&quot;"
+      SearchFields="&quot;TAU,Ticket Entity In Automation&quot;"
+      Description="&quot;Use Ticket Entity In Automation&quot;" />
+    <Record
+      Name="&quot;Managing Destination Warehouse Leg&quot;"
+      Description="&quot;Managing Destination Warehouse Leg in Drop Shipments&quot;"
+      SearchFields="&quot;MDW,Managing Destination Warehouse Leg&quot;"
+      Code="&quot;MDW&quot;" />
+    <Record
+      Code="&quot;TTS&quot;"
+      Name="&quot;Total Traslado SAT Issue&quot;"
+      SearchFields="&quot;TTS,Total Traslado SAT Issue&quot;"
+      Description="&quot;Build a new XML to solve total traslado SAT issue&quot;" />
+    <Record
+      Code="&quot;ARN&quot;"
+      Name="&quot;Aging Report Get From GLAccountAgingData&quot;"
+      Description="&quot;Aging Report Get From GLAccountAgingData, new method new way&quot;"
+      SearchFields="&quot;Aging Report Get From GLAccountAgingData, new method new way,ARN&quot;" />
+    <Record
+      Code="&quot;TSV&quot;"
+      Name="&quot;Test Server Validations&quot;"
+      SearchFields="&quot;TSV,Test Server Validations&quot;"
+      Description="&quot;Test Operational/ Accounting close rules validations in server side&quot;" />
+    <Record
+      Code="&quot;BAR&quot;"
+      Name="&quot;ARInvoice BI Report Scheduler&quot;"
+      SearchFields="&quot;BAR,ARInvoice BI Report Scheduler&quot;"
+      Description="&quot;ARInvoice BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BCH&quot;"
+      Name="&quot;Shipment Charges BI Report Scheduler&quot;"
+      SearchFields="&quot;BCH,Shipment Charges BI Report Scheduler&quot;"
+      Description="&quot;Shipment Charges BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BCO&quot;"
+      Name="&quot;Container BI Report Scheduler&quot;"
+      SearchFields="&quot;BCO,Container BI Report Scheduler&quot;"
+      Description="&quot;Container BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BID&quot;"
+      Name="&quot;Inland Domestic Shipments BI Report Scheduler&quot;"
+      SearchFields="&quot;BID,Inland Domestic Shipments BI Report Scheduler&quot;"
+      Description="&quot;Inland Domestic Shipments BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BIN&quot;"
+      Name="&quot;Invoice BI Report Scheduler&quot;"
+      SearchFields="&quot;BIN,Invoice BI Report Scheduler&quot;"
+      Description="&quot;Invoice BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BMC&quot;"
+      Name="&quot;Master Charges BI Report Scheduler&quot;"
+      SearchFields="&quot;BMC, Master Charges BI Report Scheduler&quot;"
+      Description="&quot;Master Charges BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BMA&quot;"
+      Name="&quot;Master BI Report Scheduler&quot;"
+      SearchFields="&quot;BMA,Master BI Report Scheduler&quot;"
+      Description="&quot;Master BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BQU&quot;"
+      Name="&quot;Quote BI Report Scheduler&quot;"
+      SearchFields="&quot;BQU,Quote BI Report Scheduler&quot;"
+      Description="&quot;Quote BI Report Scheduler&quot;" />
+    <Record
+      Code="&quot;BSH&quot;"
+      Name="&quot;Shipment BI Report Scheduler&quot;"
+      SearchFields="&quot;BSH,Shipment BI Report Scheduler&quot;"
+      Description="&quot;Shipment BI Report Scheduler&quot;" />
+    <Record
+      Name="&quot;Show Agents in Opportunities Customers LOV&quot;"
+      Description="&quot;Show Agents in Opportunities' Customers LOV&quot;"
+      Code="&quot;SAC&quot;"
+      SearchFields="&quot;Show Agents in Opportunities' Customers LOV&quot;" />
+    <Record
+      Code="&quot;CCR&quot;"
+      Name="&quot;Activate Customer Nested Of Card In Html Editor&quot;"
+      Description="&quot;Activate Customer Nested Of Card In Html Editor&quot;"
+      SearchFields="&quot;CCR,Activate Customer Nested Of Card In Html Editor&quot;" />
+    <Record
+      Code="&quot;HDF&quot;"
+      Name="&quot;HTML Editor Style Fixed&quot;"
+      SearchFields="&quot;HDF , HTML Editor Style Fixed&quot;"
+      Description="&quot;HTML Editor Style Fixed&quot;" />
+    <Record
+      Code="&quot;VIP&quot;"
+      Name="&quot;Container Tracking_Pilot Customer&quot;"
+      SearchFields="&quot;VIP,Container Tracking - Pilot Customer&quot;"
+      Description="&quot;Container Tracking - Pilot Customer&quot;" />
+    <Record
+      Code="&quot;SCD&quot;"
+      Name="&quot;Second context DB&quot;"
+      SearchFields="&quot;SCD,Second context DB&quot;"
+      Description="&quot;to get the secondary database for the context &quot;" />
+    <Record
+      Code="&quot;EHA&quot;"
+      Name="&quot;House Entity Automation Test&quot;"
+      SearchFields="&quot;EHA,House Entity Automation Test&quot;"
+      Description="&quot;House Entity Automation Test&quot;" />
+    <Record
+      Code="&quot;QPI&quot;"
+      Name="&quot;Query Performance Inhancement&quot;"
+      SearchFields="&quot;QPI,Query Performance Inhancement&quot;"
+      Description="&quot;Query Performance Inhancement&quot;" />
+    <Record
+      Code="&quot;QMU&quot;"
+      SearchFields="&quot;QMU,Quote Markup Currency&quot;"
+      Name="&quot;Quote Markup Currency&quot;"
+      Description="&quot;Quote Markup Currency&quot;" />
+    <Record
+      Code="&quot;ARS&quot;"
+      Name="&quot;ARInvoice Sent Icon&quot;"
+      SearchFields="&quot;ARS,ARInvoice Sent Icon&quot;"
+      Description="&quot;ARInvoice Sent Icon&quot;" />
+    <Record
+      Code="&quot;BRS&quot;"
+      Name="&quot;BI Report Security&quot;"
+      SearchFields="&quot;BRS,BI Report Security&quot;"
+      Description="&quot;BI Report Security&quot;" />
+    <Record
+      Code="&quot;UNV&quot;"
+      Name="&quot;Unicargo Server Validations&quot;"
+      SearchFields="&quot;Unicargo Server Validations&quot;"
+      Description="&quot;Unicargo Server Validations&quot;" />
+    <Record
+      Code="&quot;OT2&quot;"
+      Name="&quot;Only TLS 12 For Tranzilla&quot;"
+      SearchFields="&quot;Only TLS 12 For Tranzilla&quot;"
+      Description="&quot;Only TLS 12 For Tranzilla&quot;" />
+    <Record
+      Code="&quot;CTT&quot;"
+      Name="&quot;Connect Tranzilla on Test Links&quot;"
+      SearchFields="&quot;Connect Tranzilla on Test Links&quot;"
+      Description="&quot;Connect Tranzilla on Test Links&quot;" />
+    <Record
+      Code="&quot;ABD&quot;"
+      Name="&quot;Auto Build in Document Send&quot;"
+      SearchFields="&quot;ABD,Auto Build in Document Send&quot;"
+      Description="&quot;Auto Build in Document Send&quot;" />
+    <Record
+      Code="&quot;PUP&quot;"
+      Name="&quot;Patch Update&quot;"
+      SearchFields="&quot;PUP,Patch Update&quot;"
+      Description="&quot;Enable Patch Update&quot;" />
+    <Record
+      Code="&quot;SPB&quot;"
+      Name="&quot;Separate Per Branch in Counters&quot;"
+      SearchFields="&quot;SPB,Separate Per Branch in Counters&quot;"
+      Description="&quot;Separate Per Branch in Counters&quot;" />
+    <Record
+      Code="&quot;ADL&quot;"
+      Name="&quot;Audit Log&quot;"
+      SearchFields="&quot;ADL, Audit Log&quot;"
+      Description="&quot;Audit Logs&quot;" />
+    <Record
+      Code="&quot;XUP&quot;"
+      Name="&quot;Export To Excel Using Parallel&quot;"
+      SearchFields="&quot;XUP,Export To Excel Using Parallel&quot;"
+      Description="&quot;Export To Excel Using Parallel&quot;" />
+    <Record
+      Code="&quot;NWR&quot;"
+      Name="&quot;Run worker on new environment&quot; "
+      SearchFields="&quot;NWR,Run worker on new environment&quot;"
+      Description="&quot;Run worker on new environment&quot; " />
+    <Record
+      Code="&quot;LCT&quot;"
+      Name="&quot;Login Cargo Tracking&quot;"
+      SearchFields="&quot;CTL,Login Cargo Tracking&quot;"
+      Description="&quot;Cargo Tracking Login For Normal Users&quot;" />
+    <Record
+      Name="&quot;AR Invoice Printing&quot;"
+      Code="&quot;ARP&quot;"
+      SearchFields="&quot;ARP,AR Invoice Printing&quot;"
+      Description="&quot;AR Invoice Printing&quot;" />
+    <Record
+      Code="&quot;DCS&quot;"
+      Name="&quot;Disable Storage Cache&quot;"
+      SearchFields="&quot;DCS,Disable Storage Cache&quot;"
+      Description="&quot;Disable Storage Cache&quot;" />
+    <Record
+      Code="&quot;CTI&quot;"
+      Name="&quot;Customers API&quot;"
+      SearchFields="&quot;CTI,Customers API&quot;"
+      Description="&quot;Customers API&quot;" />
+    <Record
+      Code="&quot;DMS&quot;"
+      Name="&quot;Dispose Memory Stream&quot;"
+      SearchFields="&quot;DMS,Dispose Memory Stream&quot;"
+      Description="&quot;Dispose Memory Stream&quot;" />
+    <Record
+      Code="&quot;CXE&quot;"
+      Name="&quot;Cargo Tracking Excel sheet export features&quot;"
+      SearchFields="&quot;CXE,Cargo Tracking Excel sheet export features&quot;"
+      Description="&quot;Cargo Tracking Excel sheet export features&quot;" />
+    <Record
+      Code="&quot;INU&quot;"
+      Name="&quot;Invoice Concurrency&quot;"
+      SearchFields="&quot;INU, Invoice Concurrency&quot;"
+      Description="&quot;&quot;" />
+    <Record
+      Code="&quot;SKP&quot;"
+      Name="&quot;Use synch kafka producer&quot;"
+      SearchFields="&quot;SKP,Use synch kafka producer&quot;"
+      Description="&quot;Use synch kafka producer&quot;" />
+    <Record
+      Code="&quot;AVC&quot;"
+      Name="&quot;AR Invoice VATs Calculation per line&quot;"
+      SearchFields="&quot;AVC,AR Invoice VATs Calculation per line&quot;"
+      Description="&quot;AR Invoice VATs Calculation per line&quot;" />
+    <Record
+      Code="&quot;SSP&quot;"
+      Name="&quot;Stimulsoft Printing&quot;"
+      SearchFields="&quot;SSP,Stimulsoft Printing&quot;"
+      Description="&quot;Stimulsoft Printing&quot;" />
+    <Record
+      Code="&quot;RDT&quot;"
+      Name="&quot;Digital Portal Required Documents&quot;"
+      Description="&quot;Toggle Feature for Digital Portal Required Documents&quot;"
+      SearchFields="&quot;RDT,Digital Portal Required Documents&quot;" />
+    <Record
+      Name="&quot;Remove Exception Logic&quot;"
+      Code="&quot;REL&quot;"
+      SearchFields="&quot;REL,Remove Exception Logic&quot;"
+      Description="&quot;Remove Exception Logic&quot;" />
+    <Record
+      Code="&quot;DBA&quot;"
+      Name="&quot;Dashboard Analytics&quot;"
+      SearchFields="&quot;DBA,Dashboard Analytics&quot;"
+      Description="&quot;Dashboard Analytics&quot;" />
+    <Record
+      Name="&quot;Remove Shared Logistics&quot;"
+      Code="&quot;RSL&quot;"
+      Description="&quot;Remove Shared Logistics Tab Feature&quot;"
+      SearchFields="&quot;RSL,Remove Shared Logistics Tab Feature&quot;" />
+    <Record
+      Code="&quot;WRR&quot;"
+      Name="&quot;Run reconciliation using WorkerRole&quot;"
+      SearchFields="&quot;WRR,Run reconciliation using WorkerRole&quot;"
+      Description="&quot;Run reconciliation using WorkerRole&quot;" />
+    <Record
+      Code="&quot;UDD&quot;"
+      Name="&quot;Upload File using Drag and Drop&quot;"
+      SearchFields="&quot;UDD,Upload File using Drag and Drop&quot;"
+      Description="&quot;Upload File using Drag and Drop&quot;" />
+    <Record
+      Code="&quot;DE2&quot;"
+      Name="&quot;Document Execution WR Version 2&quot;"
+      SearchFields="&quot;DE2,Document Execution WR Version 2&quot;"
+      Description="&quot;Document Execution WR Version 2&quot;" />
+    <Record
+      Code="&quot;ICC&quot;"
+      Name="&quot;AR Invoice Customized Counter&quot;"
+      SearchFields="&quot;ICC,AR Invoice Customized Counter&quot;"
+      Description="&quot;AR Invoice Customized Counter&quot;" />
+    <Record
+      Code="&quot;EVG&quot;"
+      Name="&quot;Enable Virtual Grid&quot;"
+      SearchFields="&quot;EVG,Enable Virtual Grid&quot;"
+      Description="&quot;Enable Virtual Grid&quot;" />
+    <Record
+      Code="&quot;AHS&quot;"
+      Name="&quot;Automation Master House Set Field Value&quot;"
+      SearchFields="&quot;AHS,Automation Master House Set Field Value&quot;"
+      Description="&quot;Automation Master House Set Field Value&quot;" />
+    <Record
+      Code="&quot;CPI&quot;"
+      Name="&quot;Centralized POD images when convert to PDF files&quot;"
+      SearchFields="&quot;CPI,Centralized POD images when convert to PDF files&quot;"
+      Description="&quot;Centralized POD images when convert to PDF files&quot;" />
+    <Record
+      SearchFields="&quot;PSR, Payment Status based on Reco&quot;"
+      Code="&quot;PSR&quot;"
+      Description="&quot;Payment Status based on Reco&quot;"
+      Name="&quot; AP Invoice Payment Status based on Reconciliation&quot;" />
+    <Record
+      Code="&quot;RE2&quot;"
+      Name="&quot;Reports Execution WR Version 2&quot;"
+      SearchFields="&quot;RE2, Reports Execution WR Version 2&quot;"
+      Description="&quot;Reports Execution WR Version 2&quot;" />
+    <Record
+      Code="&quot;JAM&quot;"
+      Name="&quot;Journal Approval MultiThreading&quot;"
+      SearchFields="&quot;JAM, Journal Approval MultiThreading&quot;"
+      Description="&quot;Journal Approval MultiThreading 2&quot;" />
+    <Record
+      SearchFields="&quot;UAD, Update GLA Aging Data using WR&quot;"
+      Code="&quot;UAD&quot;"
+      Description="&quot;Update GLA Aging Data using WR&quot;"
+      Name="&quot;Update GLA Aging Data using WR&quot;" />
+    <Record
+      Code="&quot;SML&quot;"
+      Name="&quot;Select More Lines&quot;"
+      SearchFields="&quot;SML, Select More Lines&quot;"
+      Description="&quot;Select 2000 Lines &quot;" />
+    <Record
+      Code="&quot;MC1&quot;"
+      Name="&quot;IsMulti With ReconcileMethodCode Equal One&quot;"
+      SearchFields="&quot;MC1&quot;"
+      Description="&quot;לאפשר הגדרת כרטיס מולטי ככרטיס שמותאם במטז&quot;" />
+    <Record
+      Code="&quot;UQD&quot;"
+      Name="&quot;Update Quote Documents&quot;"
+      SearchFields="&quot;UQD,Update Quote Documents&quot;"
+      Description="&quot;Update Quote Documents&quot;" />
+    <Record
+      Code="&quot;ILO&quot;"
+      Name="&quot;Invoice Status According To Ledger Open Amount&quot;"
+      SearchFields="&quot;ILO,Invoice Status According To Ledger Open Amount&quot;"
+      Description="&quot;Invoice Status According To Ledger Open Amount&quot;" />
+  </Records>
+  <DataContracts />
+  <AdditionalTextCodes />
+  <AdditionalFeatures />
+</entity>

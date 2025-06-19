@@ -1,0 +1,86 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AutoGenerators\InvoiceClassesGenerator.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AutoGenerators\InvoiceClassesGenerator.tt">
+      <LastGenOutput>InvoiceClassesGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AutoGenerators\InvoiceClassesGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InvoiceClassesGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EntityFiles\AccountingSystemsSyncStatus.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\AccountingTransferHeader.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\AccountingTransferLine.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\APInvoice.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\APInvoiceTotalVAT.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\APPayment.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARInvoice.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARInvoiceLine.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARInvoiceStock.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARInvoiceTotalVat.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARPayment.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ARPaymentBankTranfer.lxml">
+      <SubType>Component</SubType>
+    </None>
+    <None Update="EntityFiles\ARPaymentChequeReplica.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\BankAccountLite.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\SATInterfaceSetting.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\SATInvoiceStatus.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\SATTransferStatus.lxml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

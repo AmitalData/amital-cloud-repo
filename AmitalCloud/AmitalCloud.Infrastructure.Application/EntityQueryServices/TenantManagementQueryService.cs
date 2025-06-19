@@ -1,0 +1,74 @@
+﻿using AmitalCloud.Infrastructure.Application.BaseClasses;
+using AmitalCloud.Infrastructure.Domain.EntityKeys;
+using AmitalCloud.Infrastructure.Domain.EntityLists;
+using AmitalCloud.Infrastructure.Domain.EntityPMs;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
+using Azure.Storage.Blobs.Models;
+using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
+
+
+namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
+{
+    public partial class TenantManagementQueryService : BaseEntityQueryService<POCO.TenantManagement, TenantManagementKeys<int>, TenantManagementPM, TenantManagementList, int>
+    {
+
+        public   TenantStatusPM GetTenantStatusPM(int tenant, string userId)
+        {
+            TenantManagementPM tenantPM = GetSingle(tenant, true, true);
+            var pm = new TenantStatusPM();
+
+            if (tenantPM.PaymentFailure)
+                HandleBlocking(pm, tenantPM.SuspendDate, BlockingType.Suspend,
+                               v => pm.SuspendDaysLeft = v);
+
+            if (tenantPM.IsTrial)
+                HandleBlocking(pm, tenantPM.TrialEndDate, BlockingType.Company,
+                               v => pm.TrialDaysLeft = v);
+
+            else if (!tenantPM.IsRecurring)
+                HandleBlocking(pm, tenantPM.PaidUntilDate, BlockingType.Company,
+                               v => pm.PaidDaysLeft = v);
+
+            EnrichWithUser(pm, userId, tenant);
+
+
+            return pm;
+        }
+
+
+        private static void EnrichWithUser(TenantStatusPM pm, string userId, int tenant)
+        {
+            UserQueryService service = new UserQueryService(tenant);
+            UserPM user = service.GetSingle(userId, true, true);
+
+            if (user?.ExpirationDate == null) return;
+
+           pm.ExpirationDate = user.ExpirationDate ;
+
+            HandleBlocking(pm, user.ExpirationDate, BlockingType.User,
+                           daysLeftSetter: v => pm.ExpirationDaysLeft = v);
+        }
+        private static void HandleBlocking(
+        TenantStatusPM pm,
+        DateTime? date,
+        BlockingType blockType,
+        Action<int> daysLeftSetter)
+        {
+            if (date == null) return;
+
+            var daysLeft = (date.Value.Date - DateTime.Now.Date).Days;
+
+            if (daysLeft < 0)
+            {
+                pm.DoBlocking = true;
+                pm.BlockType = blockType;
+            }
+            else
+            {
+                daysLeftSetter(daysLeft);
+            }
+        }
+
+
+    }
+}

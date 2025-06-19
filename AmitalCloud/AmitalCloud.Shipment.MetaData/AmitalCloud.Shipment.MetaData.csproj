@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AutoGenerators\ShipmentClassesGenerator.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AutoGenerators\ShipmentClassesGenerator.tt">
+      <LastGenOutput>ShipmentClassesGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AutoGenerators\ShipmentClassesGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ShipmentClassesGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EntityFiles\Master\Master.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\Shipment.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ShipmentCommodity.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ShipmentCustomsTransmission.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ShipmentPackage.lxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="EntityFiles\ShipmentPickUpDeliveryPackage.lxml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

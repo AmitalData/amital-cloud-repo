@@ -1,0 +1,120 @@
+﻿<#@ template  debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System.Security.Cryptography" #>
+<#@ import namespace="System.Security" #>
+ 
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ template debug="true" #>
+<#
+	#>// Typed Script Tools<#+
+#>
+<#+
+private string GetTSDataType(dynamic field)
+        {
+			
+
+			string typecode = field.FieldsDataType.ToString().Trim('"') as string;
+			string result = "string";
+            if (typecode == "Boolean")
+            {
+                result = "boolean";
+            }
+            if (typecode == "Integer" || typecode == "UnsInteger")
+            {
+                result = "number";
+            }
+
+            if (typecode == "Date" || typecode == "DateTime"  || typecode == "DateTime2")
+            {
+                result = "Date";
+            }
+
+            if (typecode == "Double" || typecode == "SigDouble")
+            {
+                result = "number";
+            }
+
+			 if (typecode == "Decimal" || typecode == "UnsDecimal")
+            {
+                result = "number";
+            }
+			if(typecode == "List")
+            {
+				result = typecode;
+            }
+
+			if(typecode == "Byte[]")
+            {
+				result = "any";
+            }
+
+            
+          string isNullable = field.IsNullable as string;
+		  if(isNullable == "true" && result != "string")
+		  {
+			  result = result;
+          }
+
+		  return result;
+
+        }
+
+		private string GetObjectTableName(string tableName)
+        {
+			if(tableName.ToString().Trim('"').Contains("."))
+			{
+				tableName = tableName.ToString().Split('.')[1];
+		 
+          
+			}
+
+			return tableName;
+        }
+
+		private string GetFieldName(dynamic field)
+        {
+			return field.FieldName.ToString().Trim('"');
+		}
+
+		private string GetFieldObjectTableName(dynamic field)
+        {
+			return this.GetObjectTableName(field.ObjectTableName.ToString().Trim('"'));
+        }
+		private string GetFieldMultiTableName(dynamic field)
+        {
+			return this.GetObjectTableName(field.MultiTableName.ToString().Trim('"'));
+		}
+
+		public dynamic GetEntityFromlxmlFile(string fileName)
+        {
+			dynamic lxmlEntity = null;
+			string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+			string xmlFilePath = Path.Combine(templateDirectory, SrcFolder) + "/"+fileName + ".lxml";
+			if(Directory.Exists(xmlFilePath) || File.Exists(xmlFilePath))
+			{
+				 int gcount = 0;
+				  lxmlEntity = FromEntityPMServiceFile(xmlFilePath);
+			}
+
+			return lxmlEntity;
+        }
+
+#>
+

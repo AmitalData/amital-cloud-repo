@@ -1,0 +1,1087 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Core.dll" #> 
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+ 
+
+<#+
+
+dynamic domainservicenamespacestring;
+bool UpdateClassesRegisterarNameSpace;
+bool UseUpdateClassesNameSpace;
+string SrcFolder;
+public void GenerateAllDomainServices(string sourceFolder,string destinationFolder,string contextName,string modelname,string domainServiceName,Dictionary<string,string> namespacesparam)
+{
+ NamespacesDictionary = namespacesparam;
+ SrcFolder = sourceFolder;
+ domainservicenamespacestring = GetDomainServiceNameSpace(destinationFolder);
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	GenerateEntityDomainService(file,destinationFolder+"/DomainServices/Generated/"+fileNameWithoutExtension+"DomainService.Generated.cs",contextName,modelname,domainServiceName);
+}
+}
+#>
+<#+  
+public void GenerateEntityDomainService(string xmlFilePath,string outputFilePath,string contextName,string modelname,string domainServiceName)
+{
+	if(string.IsNullOrEmpty(domainservicenamespacestring))
+    {
+		domainservicenamespacestring = GetDomainServiceNameSpace(outputFilePath);
+    }
+        var entity = FromEntityDomainServiceFile(xmlFilePath);
+        if( entity.GenerateDomainService.GetType() == typeof(string))
+      	{
+	    	if(entity.GenerateDomainService == "false" || entity.GenerateDomainService == null)
+	    	{
+	    		return;
+	    	}
+	    } 
+		else
+        {
+	      return;      
+        }
+          WriteEntityDomainServiceMethod(entity,modelname,contextName,domainServiceName); 
+          SaveEntityDomainServiceOutput(outputFilePath);
+ }
+public void GenerateEntityDomainServiceUpdateClass(string xmlFilePath,string outputFilePath,string contextName,string modelname,string domainServiceName)
+{
+	if(string.IsNullOrEmpty(domainservicenamespacestring))
+    {
+		domainservicenamespacestring = GetDomainServiceNameSpace(outputFilePath);
+    }
+var entity = FromEntityDomainServiceFile(xmlFilePath);
+    if( entity.GenerateDomainService.GetType() == typeof(string))
+	{
+		if(entity.GenerateDomainService == "false" || entity.GenerateDomainService == null)
+		{
+			return;
+		}
+	}
+    else
+    {
+	   return;      
+    }
+	       UseUpdateClassesNameSpace = true;
+          WriteEntityDomainServiceUpdateClasses(entity,modelname,contextName,domainServiceName); 
+          SaveEntityDomainServiceOutput(outputFilePath);
+ }
+public void GenerateEntityDomainServiceUpdateClassRegisterar(string xmlFilePath,string outputFilePath,string contextName,string modelname,string domainServiceName)
+{
+	if(string.IsNullOrEmpty(domainservicenamespacestring))
+    {
+		domainservicenamespacestring = GetDomainServiceNameSpace(outputFilePath);
+    }
+   var entity = FromEntityDomainServiceFile(xmlFilePath);
+   if( entity.GenerateDomainService.GetType() == typeof(string))
+	{
+		if(entity.GenerateDomainService == "false" || entity.GenerateDomainService == null)
+		{
+			return;
+		}
+	}
+	else
+    {
+	   return;      
+    }
+		 string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+         string filepath = Path.Combine(templateDirectory, outputFilePath);
+	     bool generate = true;
+		 generate = !File.Exists(filepath);
+		if(generate)
+         {
+			 UpdateClassesRegisterarNameSpace = true;
+		     WriteEntityDomainServiceUpdateClassesRegisterar(entity,modelname,contextName,domainServiceName);
+			 SaveEntityDomainServiceOutput(outputFilePath);
+         }
+ }
+public void GenerateEntityDomainServiceRegistrationManager(string sourceFolder,string outputFilePath,string contextName,string modelname,string domainServiceName)
+{
+	if(string.IsNullOrEmpty(domainservicenamespacestring))
+    {
+		domainservicenamespacestring = GetDomainServiceNameSpace(outputFilePath);
+    }
+          WriteEntityDomainServiceRegistrationManager(sourceFolder,modelname,contextName,domainServiceName); 
+          SaveEntityDomainServiceOutput(outputFilePath);
+ }
+#>
+<#+
+public dynamic GetDomainServiceNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+	spacestring = spacestring.ToString().Replace("JustWebFreight.","").Trim('.');
+	return spacestring;
+}
+#>
+<#+
+void SaveEntityDomainServiceOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+<#+
+ private void WriteEntityDomainServiceMethod(dynamic entity,string modelname,dynamic contextName,string domainserivcename)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	var IsClosed = entity.IsClosed;
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+    }
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string context = FirstServiceCharacterToLower(contextName);
+	string queryName = FirstServiceCharacterToLower(tableName)+"Query";
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+				}
+			}
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			}
+		 }
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+         }
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityDomainServiceGenerator.tt from <#= Path.GetFileName(Host.TemplateFile) #>
+//---
+using System.Collections.Generic;
+//using System.ServiceModel.DomainServices.Hosting;
+using AmitalCloud.Infrastructure.Application.BaseClasses;
+using AmitalCloud.Infrastructure.Application.Helpers;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Data.Security;
+using AmitalCloud.Infrastructure.Domain.DataContracts;
+using <#= NamespacesDictionary["pmsspacestring"] #> ;
+using <#= NamespacesDictionary["entitylistsnamespace"] #> ;
+using <#= NamespacesDictionary["queryeservicespacestring"] #> ;
+using <#= NamespacesDictionary["entitylistqueryeservicespacestring"] #> ;
+namespace <#= domainservicenamespacestring + ".DomainServices" #>
+{ 
+
+    //[EnableClientAccess()]
+    public partial class <#= tableName + "DomainService" #> : AmitalCloudDomainService
+    {
+	    IDomainServiceUpdateClass<<#= pmName #>> service;
+     	public <#= tableName + "DomainService" #>()
+		{ 
+		  //service = ContainerAccessor.Container.Resolve(typeof(IDomainServiceUpdateClass<<#= pmName #>>), "<#= domainserivcename + "UpdateClass" #>", new ParameterOverride("", 1)) as IDomainServiceUpdateClass<<#= pmName #>>;
+		}
+        public <#= pmName #> GetSingle<#= pmName #>(<#= primarykeyParam #>,int tenant)
+        {
+            <#= tableName #>QueryService <#= queryName #> = new <#= tableName #>QueryService(tenant);
+            <#= pmName #> <#= FirstServiceCharacterToLower(pmName) #> = <#= queryName #>.GetSingle(<#= primaryonlyparam #>,false,false);
+            return <#= FirstServiceCharacterToLower(pmName) #>;
+        }
+		public <#= listName #> GetSingle<#= listName #>(<#= primarykeyParam #>,int tenant)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(tenant);
+			 <#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature(<#= entity.ObjectTableName #>, "READ", tenant); <#+ } #>
+            <#= listName #>QueryService listService = new <#= listName #>QueryService(tenant);
+            return listService.GetSingle(<#= primaryonlyparam #>);
+        }
+		public List<<#= listName #>> Get<#= listName #>s(int tenant)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(tenant);
+			 <#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature(<#= entity.ObjectTableName #>, "READ", tenant);<#+ } #>
+            <#= listName #>QueryService listService = new <#= listName #>QueryService(tenant);
+            return listService.GetList(tenant);
+        }
+	    public List<<#= listName #>> Get<#= tableName #>Filters(byte[] xmlFilters, int tenant)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(tenant);
+			<#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature(<#= entity.ObjectTableName #>, "READ", tenant);<#+ } #>
+            <#= listName #>QueryService listService = new <#= listName #>QueryService(tenant);
+            QueryOperations queryOperations = EntityListFilter.GetQueryOperations(xmlFilters);
+            return listService.GetList(queryOperations, tenant);
+        }
+	    public int Get<#= tableName #>FiltersCount(byte[] xmlFilters, int tenant)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(tenant);
+			<#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature(<#= entity.ObjectTableName #>, "READ", tenant);<#+ } #>
+            <#= listName #>QueryService queryService = new <#= listName #>QueryService(tenant);
+            QueryOperations queryOperations = EntityListFilter.GetQueryOperations(xmlFilters);
+            return queryService.GetListCount(queryOperations<#= tenantonlyParam #>);
+        }
+		<#+
+		 if(hasTenant)
+         {
+	#><#= ""
+	 #>
+	    public void Insert<#= tableName #>(<#= pmName #> entityPM)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(entityPM.Tenant);
+			<#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature("<#= tableName #>", "NEW", entityPM.Tenant);<#+ } #>
+            <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(tenant,new Dictionary<string,IContext>(), entityPM.Tenant);
+            entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Insert;
+			<#+ 
+		  	foreach(var field in entity["field"])  
+	        { 
+		   
+		      string type = GetDataType(field);
+		      if(type == "List")
+              {
+			    if(field.IsComposition.GetType() == typeof(string) && field.IsComposition.ToString().ToLower() == "true")
+                { 
+					if(field.MultiTableName.GetType() == typeof(string))
+                    {
+						  string multitablename = field.MultiTableName.Trim('"');
+					      if(!string.IsNullOrEmpty(multitablename) && multitablename.Contains("."))
+					      {
+							multitablename = multitablename.Split('.')[1]; 
+						  } 
+			              GenerateChangeSetCombosition(entity,pmName,multitablename,"entityPM");
+				     }  
+                }
+              }
+			}
+			 #>
+		    service.Update(entityPM,true); 
+
+			ObjectTableRepository objectTabelRepository = new ObjectTableRepository(entityPM.Tenant);
+            ObjectTable objectTable = objectTabelRepository.GetObjectTableByName("<#= tableName #>", 0, true);
+			string email = HttpContext.Current.User.Identity.Name;
+            ContactRepository contactRepository = new ContactRepository(entityPM.Tenant);
+            Contact loggedContact = contactRepository.GetSingleContactByEmail(email, entityPM.Tenant);
+            if (loggedContact != null)
+            {
+			    AmitalCloudActivityLog.AddAcitivityLog(entityPM.Id, objectTable.Id, entityPM.Tenant, "U", loggedContact.Id); 
+            } 
+        }
+
+
+		public void Update<#= tableName #>(<#= pmName #> entityPM)
+        {
+            AmitalCloudSecurityUtility.AuthenticationOnTenant(entityPM.Tenant);
+			<#+ if(IsClosed == "false"){ #>
+            AmitalCloudSecurityUtility.CheckContactFeature("<#= tableName #>", "UPDATE", entityPM.Tenant);<#+ } #>
+            <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(tenant,new Dictionary<string,IContext>(), entityPM.Tenant);
+            entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Update;
+			<#+ 
+		  	foreach(var field in entity["field"])  
+	        { 
+		   
+		      string type = GetDataType(field);
+		      if(type == "List")
+              {
+			    if(field.IsComposition.GetType() == typeof(string) && field.IsComposition.ToString().ToLower() == "true")
+                { 
+					if(field.MultiTableName.GetType() == typeof(string))
+                    {
+						  string multitablename = field.MultiTableName.Trim('"');
+					      if(!string.IsNullOrEmpty(multitablename) && multitablename.Contains("."))
+					      {
+							multitablename = multitablename.Split('.')[1]; 
+						  } 
+			#>
+
+			Set<#= multitablename #>ChangeSet(entityPM); <#+ 
+				     }  
+                }
+              }
+			}
+			 #>
+			 
+		    service.Update(entityPM,true);
+
+			ObjectTableRepository objectTabelRepository = new ObjectTableRepository(entityPM.Tenant);
+            ObjectTable objectTable = objectTabelRepository.GetObjectTableByName("<#= tableName #>", 0, true);
+			string email = HttpContext.Current.User.Identity.Name;
+            ContactRepository contactRepository = new ContactRepository(entityPM.Tenant);
+            Contact loggedContact = contactRepository.GetSingleContactByEmail(email, entityPM.Tenant);
+            if (loggedContact != null)
+            {
+			    AmitalCloudActivityLog.AddAcitivityLog(entityPM.Id, objectTable.Id, entityPM.Tenant, "U", loggedContact.Id); 
+            } 
+        } 
+
+		
+			 <#+
+			GenerateSetChangeSetMethod(entity,pmName);
+         }
+		 #>
+		
+      
+    }
+}
+	 <#+
+
+
+
+}
+
+#>
+
+<#+ private void GenerateSetChangeSetMethod(dynamic entity,string pmName)
+    {
+		    string multitablenewname = "";
+		    string multitablename = "";
+	    	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+             string outputFilePath = Path.Combine(templateDirectory, SrcFolder);
+		  	foreach(var field in entity["field"])  
+	        { 
+		   
+		      string type = GetDataType(field);  
+		      if(type == "List")
+              { 
+			    if(field.IsComposition.GetType() == typeof(string) && field.IsComposition.ToString().ToLower() == "true")
+                { 
+					if(field.MultiTableName.GetType() == typeof(string))
+                    {
+						  multitablename = field.MultiTableName.Trim('"');
+					      if(!string.IsNullOrEmpty(multitablename) && multitablename.Contains("."))
+					      {
+							multitablename = multitablename.Split('.')[1]; 
+						  } 
+			#>
+
+		private void Set<#= multitablename #>ChangeSet(<#= pmName #> entityPM)
+        {
+            List<<#= multitablename #>PM> <#= multitablename #>sChangeSet = ChangeSet.GetAssociatedChanges(entityPM, d => d.<#= multitablename #>s).Cast<<#= multitablename #>PM>().ToList();
+
+            foreach (<#= multitablename #>PM itemPM in <#= multitablename #>sChangeSet)
+            {
+                switch (ChangeSet.GetChangeOperation(itemPM))
+                {
+                    case ChangeOperation.Insert:
+                        { <#+
+						
+                        string file = Directory.EnumerateFiles(outputFilePath, "*.lxml").Where(a => a.Contains(multitablename)).FirstOrDefault();
+						string Keys = "";
+						List<string> CompositionMethods = new List<string>();
+						List<string> KeysList = new List<string>();
+                        if (!string.IsNullOrEmpty(file))
+                        { 
+							var temp = FromEntityDomainServiceFile(file);
+							foreach(var field1 in temp["field"])  
+	                        {  
+								string fieldtype = GetDataType(field);
+							    if( field1.IsPrimaryKey.GetType() == typeof(string))
+      	                        {
+	                                if(field1.IsPrimaryKey == "true")
+	                            	{
+										if( field1.IsPrimaryKey.GetType() == typeof(string))
+      	                                {
+											KeysList.Add( field1.FieldName.Trim('"'));
+                                            if (string.IsNullOrEmpty(Keys))
+                                            {
+		                                        Keys = "d." + field1.FieldName.Trim('"') + " == itemPM." + field1.FieldName.Trim('"');
+                                            }
+                                            else
+                                            {
+	                                            Keys += " && d." + field1.FieldName.Trim('"') + " == itemPM." + field1.FieldName.Trim('"');
+                                            } 
+                                        } 			 
+	    	                        }
+	                            }
+                                        if(fieldtype == "List")
+                                        {
+			                                if(field1.IsComposition.GetType() == typeof(string) && field1.IsComposition.ToString().ToLower() == "true")
+                                            { 
+				                              	if(field1.MultiTableName.GetType() == typeof(string))
+                                                {
+						                            multitablenewname = field1.MultiTableName.Trim('"');
+					                                if(!string.IsNullOrEmpty(multitablenewname) && multitablenewname.Contains("."))
+					                                {
+						                               	multitablenewname = multitablenewname.Split('.')[1]; 
+						                            } 
+													CompositionMethods.Add("Set" + multitablenewname + "ChangeSet(currentItemPM);"); 
+											    }  
+                                            }
+                                        } 
+                            }
+                        }
+						#>
+
+                            <#= multitablename #>PM currentItemPM = entityPM.<#= multitablename #>s.Where(d => <#= Keys #>).FirstOrDefault();
+                            currentItemPM.ChangeSetOp = ChangeSetOperation.Insert; <#+ 
+						 
+		  	foreach(var item in CompositionMethods)  
+	        {  
+			#>
+
+		                	<#= item #>
+			                <#+     
+			}
+			 #>
+                           
+                            break;
+                        }
+
+                    case ChangeOperation.Update:
+                        {
+                           <#= multitablename #>PM currentItemPM = entityPM.<#= multitablename #>s.Where(d => <#= Keys #>).FirstOrDefault();
+						    currentItemPM.ChangeSetOp = ChangeSetOperation.Update; <#+ 
+						 
+		  	foreach(var item in CompositionMethods)  
+	        {  
+			#>
+
+		                	<#= item #>
+			                <#+     
+			}
+			 #>
+
+                            break;
+                        }
+
+                    case ChangeOperation.Delete:
+                        {
+                            <#= multitablename #>PM currentItemPM = new <#= multitablename #>PM()
+                            {
+                                ChangeSetOp = ChangeSetOperation.Delete, <#+ 
+						 
+		  	foreach(var item in KeysList)  
+	        {  
+			#>
+
+		                	    <#= item #> = itemPM.<#= item #>, <#+     
+			}
+			 #> 
+
+                            };
+
+                            entityPM.Deleted<#= multitablename #>s.Add(currentItemPM);
+                            break;
+                        }
+
+                    default:
+                        {
+                           <#= multitablename #>PM currentItemPM = entityPM.<#= multitablename #>s.Where(d => <#= Keys #>).FirstOrDefault();
+						   currentItemPM.ChangeSetOp = ChangeSetOperation.None;
+                           break;
+                        }
+                }
+            }
+        } 
+		<#+ 
+				     }  
+                }
+              }
+			}
+
+			if (!string.IsNullOrEmpty(multitablenewname) && !string.IsNullOrEmpty(multitablename))
+            { 
+			     string tempfile = Directory.EnumerateFiles(outputFilePath, "*.lxml").Where(a => a.Contains(multitablename)).FirstOrDefault();
+			     if (!string.IsNullOrEmpty(tempfile))
+                 { 
+				    dynamic temp = FromEntityDomainServiceFile(tempfile); 
+					GenerateSetChangeSetMethod(temp,multitablename + "PM");
+                 }
+            }
+	}
+#>
+
+<#+ private void GenerateChangeSetCombosition(dynamic entity,string pmName,string ForLoop,string MainEntity)
+    {
+		    string multitablenewname = "";
+		    string multitablename = "";
+	    	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+             string outputFilePath = Path.Combine(templateDirectory, SrcFolder);
+		  	foreach(var field in entity["field"])  
+	        { 
+		   
+		      string type = GetDataType(field);  
+		      if(type == "List")
+              { 
+			    if(field.IsComposition.GetType() == typeof(string) && field.IsComposition.ToString().ToLower() == "true")
+                { 
+					if(field.MultiTableName.GetType() == typeof(string))
+                    {
+						  multitablename = field.MultiTableName.Trim('"');
+					      if(!string.IsNullOrEmpty(multitablename) && multitablename.Contains("."))
+					      {
+							multitablename = multitablename.Split('.')[1]; 
+						  } 
+			#>
+
+            List<<#= multitablename #>PM> <#= multitablename #>sChangeSet = ChangeSet.GetAssociatedChanges(<#= MainEntity #>, d => d.<#= multitablename #>s).Cast<<#= multitablename #>PM>().ToList();
+            foreach (<#= multitablename #>PM <#= ForLoop #> in <#= multitablename #>sChangeSet)
+            {  <#+
+						string file = Directory.EnumerateFiles(outputFilePath, "*.lxml").Where(a => a.Contains(multitablename)).FirstOrDefault();
+						string Keys = "";
+						List<string> CompositionMethods = new List<string>();
+						List<string> KeysList = new List<string>();
+                        if (!string.IsNullOrEmpty(file))
+                        { 
+							var temp = FromEntityDomainServiceFile(file);
+							foreach(var field1 in temp["field"])  
+	                        {  
+								string fieldtype = GetDataType(field);
+							    if( field1.IsPrimaryKey.GetType() == typeof(string))
+      	                        {
+	                                if(field1.IsPrimaryKey == "true")
+	                            	{
+										if( field1.IsPrimaryKey.GetType() == typeof(string))
+      	                                {
+											KeysList.Add( field1.FieldName.Trim('"'));
+                                            if (string.IsNullOrEmpty(Keys))
+                                            {
+		                                        Keys = "d." + field1.FieldName.Trim('"') + " == " + ForLoop + "." + field1.FieldName.Trim('"');
+                                            }
+                                            else
+                                            {
+	                                            Keys += " && d." + field1.FieldName.Trim('"') + " == " + ForLoop + "." + field1.FieldName.Trim('"');
+                                            } 
+                                        } 			 
+	    	                        }
+	                            }
+                                        if(fieldtype == "List")
+                                        {
+			                                if(field1.IsComposition.GetType() == typeof(string) && field1.IsComposition.ToString().ToLower() == "true")
+                                            { 
+				                              	if(field1.MultiTableName.GetType() == typeof(string))
+                                                {
+						                            multitablenewname = field1.MultiTableName.Trim('"');
+					                                if(!string.IsNullOrEmpty(multitablenewname) && multitablenewname.Contains("."))
+					                                {
+						                               	multitablenewname = multitablenewname.Split('.')[1]; 
+						                            } 
+													CompositionMethods.Add("Set" + multitablenewname + "ChangeSet(currentItemPM);"); 
+											    }  
+                                            }
+                                        } 
+                            }
+                        }
+						#>
+
+                <#= MainEntity #>.<#= multitablename #>s.Where(d => <#= Keys #>).FirstOrDefault().ChangeSetOp = ChangeSetOperation.Insert; <#+
+				if (!string.IsNullOrEmpty(multitablenewname) && !string.IsNullOrEmpty(multitablename))
+                { 
+			     string tempfile = Directory.EnumerateFiles(outputFilePath, "*.lxml").Where(a => a.Contains(multitablename)).FirstOrDefault();
+			     if (!string.IsNullOrEmpty(tempfile))
+                 { 
+				    dynamic temp = FromEntityDomainServiceFile(tempfile); 
+					GenerateChangeSetCombosition(temp,multitablename + "PM",multitablenewname,multitablename);
+                 }
+                }
+				#> 
+            }
+        
+		<#+ 
+				     }  
+                }
+              }
+			} 
+	}
+#>
+
+<#+
+public  string FirstServiceCharacterToLower(string str)
+{
+    if (String.IsNullOrEmpty(str) || Char.IsLower(str, 0))
+        return str;
+
+    return Char.ToLowerInvariant(str[0]).ToString() + str.Substring(1);
+}
+#>
+
+<#+
+ private void WriteEntityDomainServiceUpdateClasses(dynamic entity,string modelname,dynamic contextName,string domainserivcename)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string pocosspacestring = modelname+ ".Data.EntityPOCOs;";
+	string pmsspacestring =  modelname +  ".BL.EntityPMs;";
+	string listspacestring  = modelname + ".Data.EntityLists;";
+	string dataspacestring = modelname + ".Data;";
+	string blspacestring = modelname + ".BL;";
+	string queryeservicespacestring = modelname + ".BL.EntityQueryServices;";
+	string entityqueryservicespacestring = modelname + ".Data.EntityListQueryServices;";
+	string updateservicespacestring = modelname + ".BL.EntityUpdateServices;";
+	if (tableName =="Shipment.")
+	{
+		pmsspacestring = pmsspacestring.Replace("Data","Def");
+		pocosspacestring = pocosspacestring.Replace("Data","Def");
+	}
+
+	string context = FirstServiceCharacterToLower(contextName);
+	string queryName = FirstServiceCharacterToLower(tableName)+"Query";
+
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+
+
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		// string keyprimarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		  
+     
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityDomainServiceGenerator.tt from <#= Path.GetFileName(Host.TemplateFile) #>
+//---
+using Simplog.Data.InfrastructureModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Data.InfrastructureModel.Repositories;
+using Simplog.Server.Infrastructure.DataContracts;
+using Simplog.Server.Infrastructure.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Logitude.BL.Security;;
+using Logitude.BL.Helpers;
+using Simplog.Server.Infrastructure;
+using Logitude.Server.Tools.Helpers;
+using Logitude.Server.Tools.Interfaces;
+using <#= pocosspacestring #>
+using <#= pmsspacestring #>
+using <#= dataspacestring #>
+using <#= blspacestring #>
+using <#= listspacestring #>
+using <#= updateservicespacestring #>
+using <#= entityqueryservicespacestring #>
+using <#= queryeservicespacestring #>
+
+namespace <#= domainservicenamespacestring + ".DomainServicesUpdateClasses" #>
+{ 
+
+    public class <#= tableName + "DomainServiceUpdateClass" #> : IDomainServiceUpdateClass<<#= pmName #>>
+    { 
+        public void Insert(<#= pmName #> entityPM)
+        {
+		    <#= "I" + contextName #> MyContext = <#= contextName #>.GetContext(entityPM.Tenant);
+            <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(MyContext,new Dictionary<string,IContext>(), entityPM.Tenant);
+            entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Insert;
+		    service.Update(entityPM,true);
+           
+        }
+
+		public void Update(<#= pmName #> entityPM)
+        {
+		    <#= "I" + contextName #> MyContext = <#= contextName #>.GetContext(entityPM.Tenant);
+            <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(MyContext,new Dictionary<string,IContext>(), entityPM.Tenant);
+            entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Update;
+		    service.Update(entityPM,true);
+           
+        }
+
+		public void Delete(<#= pmName #> entityPM)
+        {
+		    
+        }
+    }
+}
+
+<#+
+}
+#>
+
+
+<#+
+
+ private void WriteEntityDomainServiceUpdateClassesRegisterar(dynamic entity,string modelname,dynamic contextName,string domainserivcename)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string pocosspacestring = modelname+ ".Data.EntityPOCOs;";
+	string pmsspacestring =  modelname +  ".BL.EntityPMs;";
+	string listspacestring  = modelname + ".Data.EntityLists;";
+	string dataspacestring = modelname + ".Data;";
+	string blspacestring = modelname + ".BL;";
+	string queryeservicespacestring = modelname + ".BL.EntityQueryServices;";
+	string entityqueryservicespacestring = modelname + ".Data.EntityListQueryServices;";
+	string updateservicespacestring = modelname + ".BL.EntityUpdateServices;";
+	
+	if (pmsspacestring.Contains("Shipment"))
+	{
+		pmsspacestring = pmsspacestring.Replace("Data","Def");
+		pocosspacestring = pocosspacestring.Replace("Data","Def");
+	}
+
+	string context = FirstServiceCharacterToLower(contextName);
+	string queryName = FirstServiceCharacterToLower(tableName)+"Query";
+
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+
+
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		// string keyprimarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		  
+     
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a Amital
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> EntityDomainServiceGenerator.tt from<#= Path.GetFileName(Host.TemplateFile) #>
+//---
+using Simplog.Data.InfrastructureModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Data.InfrastructureModel.Repositories;
+using Simplog.Server.Infrastructure.DataContracts;
+using Simplog.Server.Infrastructure.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Logitude.BL.Security;;
+using Logitude.BL.Helpers;
+using Simplog.Server.Infrastructure;
+using Logitude.Server.Tools.Helpers;
+using Logitude.Server.Tools.Interfaces;
+using Logitude.Server.Tools; 
+using Microsoft.Practices.Unity;
+<#+ if (UseUpdateClassesNameSpace == true){#>using <#= domainservicenamespacestring + ".DomainServicesUpdateClasses" #>;<#+ } #>
+using <#= pocosspacestring #>
+using <#= pmsspacestring #>
+using <#= dataspacestring #>
+using <#= blspacestring #>
+using <#= listspacestring #>
+using <#= updateservicespacestring #>
+using <#= entityqueryservicespacestring #>
+using <#= queryeservicespacestring #>
+
+namespace <#= domainservicenamespacestring + ".DomainServicesUpdateClassesRegisterar" #>
+{ 
+
+    public class <#= tableName + "DomainServiceUpdateClassRegisterar" #>
+    {
+       
+        public static void Register()
+        {
+		      ContainerAccessor.Container.RegisterType<IDomainServiceUpdateClass<<#= pmName #>>, <#= tableName + "DomainServiceUpdateClass" #>>("<#= tableName + "DomainServiceUpdateClass" #>", new InjectionFactory(c => new <#= tableName + "DomainServiceUpdateClass" #>()));        
+        }
+    }
+}
+
+<#+
+}
+#>
+
+<#+
+private void WriteEntityDomainServiceRegistrationManager(string sourceFolder,string modelname,dynamic contextName,string domainserivcename)
+{
+#>
+using Simplog.Data.InfrastructureModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Data.InfrastructureModel.Repositories;
+using Simplog.Server.Infrastructure.DataContracts;
+using Simplog.Server.Infrastructure.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Logitude.BL.Security;;
+using Logitude.BL.Helpers;
+using Simplog.Server.Infrastructure; 
+<#+
+    if (UpdateClassesRegisterarNameSpace == true)
+    {
+	#>
+using <#= domainservicenamespacestring + ".DomainServicesUpdateClassesRegisterar" #>;
+<#+
+    }
+#>
+namespace <#= domainservicenamespacestring #>
+{ 
+
+    public class <#= domainserivcename + "RegistrationManager" #>
+    {
+            public static void RegisterAllClasses()
+			{  <#+ 
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+    string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+	foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+	var entity = FromEntityDomainServiceFile(file);
+    if( entity.GenerateDomainService.GetType() == typeof(string))
+	{
+		if(entity.GenerateDomainService == "true")
+		{
+			string tableName = entity.ObjectTableName.Trim('"');
+			if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		
+          
+    }
+			#>
+
+			   <#= tableName + "DomainServiceUpdateClassRegisterar" #>.Register(); 
+			   <#+ 
+		}
+	} 
+}
+#>
+
+		    } 
+	}
+}
+
+<#+
+}
+#>
+
+
+
+
+
+<#+
+//Create an elastic object
+private dynamic FromEntityDomainServiceFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

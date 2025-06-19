@@ -1,0 +1,958 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<entity
+  Id="&quot;02663621-083b-42a6-ad33-d7b2fccfad5c&quot;"
+  ObjectTableName="&quot;AWBInformation&quot;"
+  DBTableName="&quot;AWBInformations&quot;"
+  ObjectTableSingular="&quot;AWB Information&quot;"
+  ObjectTablePlural="&quot;AWB Informations&quot;"
+  DefaultText="&quot;AWB Information&quot;"
+  Name="&quot;AWBInformation&quot;"
+  IsNewWizard="false"
+  LookUp1="&quot;Code&quot;"
+  HasCustomValidator="false"
+  KeyPropertyPath="&quot;Code&quot;"
+  AutoCompleteSearchWindow="false"
+  IsClosed="true"
+  CacheOnClient="true"
+  EditableFromAutoCompleteWindow="false"
+  HasCounter="false"
+  EnableEditFromLOV="false"
+  EnableAddFromLOV="false"
+  IsRestrictable="false"
+  IsMain="true"
+  IsAutoComplete="true"
+  CustomFieldsCount="0"
+  HasCustomFields="false"
+  InActive="false"
+  SearchFields="&quot;AWBInformation,AWBInformations,,Code,&quot;"
+  IsSaveButtonVisible="true"
+  EnableSecurity="false"
+  ObjectTableTypeCode="&quot;MD&quot;"
+  IsComposition="false"
+  MaxNumberOfCustomFields="0"
+  AllowCustomFields="false"
+  HasDynamicHeader="false"
+  HasDocuments="false"
+  IsLookUp="true"
+  IsEditable="true"
+  ClientModuleName="&quot;Shipment&quot;"
+  CloseTableCode="&quot;Code&quot;"
+  CloseTableName="&quot;Name&quot;"
+  DxmlDatabaseTypeCode="Main"
+  DxmlDatabaseSchemaCode="dbo">
+  <field
+    Id="&quot;a38de818-dedf-47f3-ad30-8e778786f926&quot;"
+    FieldName="&quot;Code&quot;"
+    ObjectTableName="&quot;AWBInformation&quot;"
+    FieldsDataType="&quot;Text&quot;"
+    DataTypeCode="&quot;Text&quot;"
+    MaxLength="3"
+    IsRequiered="true"
+    IsCustom="false"
+    MinLength="0"
+    DisplayOnLookUp="true"
+    CanFilter="true"
+    DisplayOnly="false"
+    SystemRequired="false"
+    SystemMaxLength="0"
+    DisplayInList="true"
+    IsCustomFilter="false"
+    Operator="&quot;StartsWith&quot;"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="true"
+    DisplayInSearchWindowFilters="true"
+    PMPropertyPath="&quot;Code&quot;"
+    ListPropertyPath="&quot;Code&quot;"
+    DisplayInLookUpIndex="0"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="0"
+    DisplayInSearchWindowFiltersIndex="0"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    IsRestrictable="false"
+    DisplayInEntityVariables="true"
+    DigitsAfterPoint="0"
+    InActive="false"
+    DisplayLongName="false"
+    NumberOfDigits="0"
+    IsMaxLength="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    AllowedInAirlineMessaging="false"
+    FullFieldLable="&quot;Code&quot;"
+    DefaultText="&quot;Code&quot;"
+    ListFieldLable="&quot;CodeListLable&quot;"
+    ListLableDefaultText="&quot;Code&quot;"
+    HelpTextCode="&quot;Code&quot;"
+    HelpTextDefaultText="&quot;&quot;"
+    IsPrimaryKey="true"
+    Code="&quot;Code&quot;"
+    DependencyFilter3IsList="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInDocumentReferences="false"
+    CopyToDW="false"
+    HasTemplate="false"
+    IsRequired="true"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    NoMetaDataField="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    GenerateInList="true" />
+  <field
+    Id="&quot;da2e2242-8160-454e-b427-2b40f0126194&quot;"
+    FieldName="&quot;Name&quot;"
+    ObjectTableName="&quot;AWBInformation&quot;"
+    FieldsDataType="&quot;Text&quot;"
+    DataTypeCode="&quot;Text&quot;"
+    MaxLength="200"
+    IsRequiered="true"
+    IsCustom="false"
+    MinLength="0"
+    DisplayOnLookUp="true"
+    CanFilter="true"
+    DisplayOnly="false"
+    SystemRequired="false"
+    SystemMaxLength="0"
+    DisplayInList="true"
+    IsCustomFilter="false"
+    Operator="&quot;StartsWith&quot;"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="true"
+    DisplayInSearchWindowFilters="true"
+    PMPropertyPath="&quot;Name&quot;"
+    ListPropertyPath="&quot;Name&quot;"
+    DisplayInLookUpIndex="1"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="1"
+    DisplayInSearchWindowFiltersIndex="1"
+    IsMulti="false"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    IsRestrictable="false"
+    DisplayInEntityVariables="true"
+    DigitsAfterPoint="0"
+    InActive="false"
+    DisplayLongName="false"
+    NumberOfDigits="0"
+    IsMaxLength="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    AllowedInAirlineMessaging="false"
+    FullFieldLable="&quot;Name&quot;"
+    DefaultText="&quot;Name&quot;"
+    ListFieldLable="&quot;NameListLable&quot;"
+    ListLableDefaultText="&quot;Name&quot;"
+    HelpTextCode="&quot;Name&quot;"
+    HelpTextDefaultText="&quot;&quot;"
+    Code="&quot;Name&quot;"
+    DependencyFilter3IsList="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInDocumentReferences="false"
+    CopyToDW="false"
+    HasTemplate="false"
+    IsRequired="true"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedListLocalDefaultText="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    NoMetaDataField="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    GenerateInList="true" />
+  <field
+    Id="&quot;d3006a91-8d65-46a1-94e1-239edb7a12ad&quot;"
+    FieldName="&quot;SearchFields&quot;"
+    ObjectTableName="&quot;AWBInformation&quot;"
+    FieldsDataType="&quot;nText&quot;"
+    DataTypeCode="&quot;Text&quot;"
+    MaxLength="1000"
+    IsRequiered="false"
+    IsCustom="false"
+    MinLength="0"
+    DisplayOnLookUp="false"
+    CanFilter="true"
+    DisplayOnly="false"
+    SystemRequired="false"
+    SystemMaxLength="1000"
+    DisplayInList="false"
+    IsCustomFilter="false"
+    Operator="&quot;Contains&quot;"
+    MultiLine="false"
+    IsTimeFrameFilter="false"
+    DisplayInSearchWindowList="false"
+    DisplayInSearchWindowFilters="false"
+    DisplayInLookUpIndex="0"
+    AutomaticField="false"
+    UniqueField="false"
+    DisplayInSearchWindowListIndex="0"
+    DisplayInSearchWindowFiltersIndex="0"
+    IsMulti="false"
+    ValidForQuerySection1="&quot;AWBInformation&quot;"
+    DependencyFilter1IsList="false"
+    DependencyFilter2IsList="false"
+    IsRestrictable="false"
+    DisplayInEntityVariables="true"
+    DigitsAfterPoint="0"
+    InActive="false"
+    DisplayLongName="false"
+    NumberOfDigits="0"
+    IsMaxLength="false"
+    AllowedinAutomationConditions="false"
+    AutomationEmailRecipient="false"
+    CanAutomateSetValue="false"
+    AllowedInAirlineMessaging="false"
+    FullFieldLable="&quot;SearchFields&quot;"
+    DefaultText="&quot;Search..&quot;"
+    HelpTextCode="&quot;SearchFields&quot;"
+    HelpTextDefaultText="&quot;Searching by :&#xA;1: code&#xA;2: name&quot;"
+    Code="&quot;SearchFields&quot;"
+    DependencyFilter3IsList="false"
+    AllowedInCustomerFieldsSettings="false"
+    DisplayInDocumentReferences="false"
+    CopyToDW="false"
+    HasTemplate="false"
+    IsRequired="false"
+    IsSpellCheckedFullFieldLable="false"
+    IsSpellCheckedHelpLocalDefaultText="false"
+    NoMetaDataField="false"
+    HasDataBaseField="true"
+    HasPMField="true"
+    GenerateInList="true" />
+  <EventTypes />
+  <Records>
+    <Record
+      Code="&quot;ABI&quot;"
+      SearchFields="&quot;ABI,AWB Amount Detail Information&quot;"
+      Name="&quot;AWB Amount Detail Information&quot;" />
+    <Record
+      Code="&quot;ABS&quot;"
+      SearchFields="&quot;ABS,AWB Supplementary Information&quot;"
+      Name="&quot;AWB Supplementary Information&quot;" />
+    <Record
+      Code="&quot;ABT&quot;"
+      SearchFields="&quot;ABT,AWB Total Amount Information&quot;"
+      Name="&quot;AWB Total Amount Information&quot;" />
+    <Record
+      Code="&quot;ACC&quot;"
+      SearchFields="&quot;ACC,Accounting Information&quot;"
+      Name="&quot;Accounting Information&quot;" />
+    <Record
+      Code="&quot;ACD&quot;"
+      SearchFields="&quot;ACD,AWB Consignment Details&quot;"
+      Name="&quot;AWB Consignment Details&quot;" />
+    <Record
+      Code="&quot;ACK&quot;"
+      SearchFields="&quot;ACK,Reason for Acknowledgement&quot;"
+      Name="&quot;Reason for Acknowledgement&quot;" />
+    <Record
+      Code="&quot;ACS&quot;"
+      SearchFields="&quot;ACS,AWB Charge Summary&quot;"
+      Name="&quot;AWB Charge Summary&quot;" />
+    <Record
+      Code="&quot;AGT&quot;"
+      SearchFields="&quot;AGT,Agent&quot;"
+      Name="&quot;Agent&quot;" />
+    <Record
+      Code="&quot;AID&quot;"
+      SearchFields="&quot;AID,Arrival Information Details&quot;"
+      Name="&quot;Arrival Information Details&quot;" />
+    <Record
+      Code="&quot;AIR&quot;"
+      SearchFields="&quot;AIR,Airline Header&quot;"
+      Name="&quot;Airline Header&quot;" />
+    <Record
+      Code="&quot;ALA&quot;"
+      SearchFields="&quot;ALA,Allotment Availability Information&quot;"
+      Name="&quot;Allotment Availability Information&quot;" />
+    <Record
+      Code="&quot;ALI&quot;"
+      SearchFields="&quot;ALI,Allotment Information&quot;"
+      Name="&quot;Allotment Information&quot;" />
+    <Record
+      Code="&quot;ALR&quot;"
+      SearchFields="&quot;ALR,Allotment Remaining&quot;"
+      Name="&quot;Allotment Remaining&quot;" />
+    <Record
+      Code="&quot;ALT&quot;"
+      SearchFields="&quot;ALT,Allotment Total&quot;"
+      Name="&quot;Allotment Total&quot;" />
+    <Record
+      Code="&quot;AMD&quot;"
+      SearchFields="&quot;AMD,Amendment Identification&quot;"
+      Name="&quot;Amendment Identification&quot;" />
+    <Record
+      Code="&quot;API&quot;"
+      SearchFields="&quot;API,Air Waybill Piece Information&quot;"
+      Name="&quot;Air Waybill Piece Information&quot;" />
+    <Record
+      Code="&quot;ARD&quot;"
+      SearchFields="&quot;ARD,Agent Reference Data&quot;"
+      Name="&quot;Agent Reference Data&quot;" />
+    <Record
+      Code="&quot;ARI&quot;"
+      SearchFields="&quot;ARI,AWB Recapitulation Information&quot;"
+      Name="&quot;AWB Recapitulation Information&quot;" />
+    <Record
+      Code="&quot;ATH&quot;"
+      SearchFields="&quot;ATH,Authorization&quot;"
+      Name="&quot;Authorization&quot;" />
+    <Record
+      Code="&quot;ATW&quot;"
+      SearchFields="&quot;ATW,AWB Total Weight Summary&quot;"
+      Name="&quot;AWB Total Weight Summary&quot;" />
+    <Record
+      Code="&quot;AUD&quot;"
+      SearchFields="&quot;AUD,Allotment Used Details&quot;"
+      Name="&quot;Allotment Used Details&quot;" />
+    <Record
+      Code="&quot;AVS&quot;"
+      SearchFields="&quot;AVS,Availability Supplementary Details&quot;"
+      Name="&quot;Availability Supplementary Details&quot;" />
+    <Record
+      Code="&quot;BGD&quot;"
+      SearchFields="&quot;BGD,Baggage Detail Information&quot;"
+      Name="&quot;Baggage Detail Information&quot;" />
+    <Record
+      Code="&quot;BGT&quot;"
+      SearchFields="&quot;BGT,Baggage Tag Identification&quot;"
+      Name="&quot;Baggage Tag Identification&quot;" />
+    <Record
+      Code="&quot;BRK&quot;"
+      SearchFields="&quot;BRK,Broker&quot;"
+      Name="&quot;Broker&quot;" />
+    <Record
+      Code="&quot;CAI&quot;"
+      SearchFields="&quot;CAI,CCA/Adjustment Information&quot;"
+      Name="&quot;CCA/Adjustment Information&quot;" />
+    <Record
+      Code="&quot;CAN&quot;"
+      SearchFields="&quot;CAN,Customs Action Notification&quot;"
+      Name="&quot;Customs Action Notification&quot;" />
+    <Record
+      Code="&quot;CAS&quot;"
+      SearchFields="&quot;CAS,CCA/Adjustment Supplementary Information&quot;"
+      Name="&quot;CCA/Adjustment Supplementary Information&quot;" />
+    <Record
+      Code="&quot;CBD&quot;"
+      SearchFields="&quot;CBD,CASS Billing Details&quot;"
+      Name="&quot;CASS Billing Details&quot;" />
+    <Record
+      Code="&quot;CBI&quot;"
+      SearchFields="&quot;CBI,CASS Billing Information&quot;"
+      Name="&quot;CASS Billing Information&quot;" />
+    <Record
+      Code="&quot;CBP&quot;"
+      SearchFields="&quot;CBP,CASS Billing Period&quot;"
+      Name="&quot;CASS Billing Period&quot;" />
+    <Record
+      Code="&quot;CBR&quot;"
+      SearchFields="&quot;CBR,Courier Baggage Receiver&quot;"
+      Name="&quot;Courier Baggage Receiver&quot;" />
+    <Record
+      Code="&quot;CBS&quot;"
+      SearchFields="&quot;CBS,Courier Baggage Sender&quot;"
+      Name="&quot;Courier Baggage Sender&quot;" />
+    <Record
+      Code="&quot;CBV&quot;"
+      SearchFields="&quot;CBV,Courier Baggage Voucher Identification&quot;"
+      Name="&quot;Courier Baggage Voucher Identification&quot;" />
+    <Record
+      Code="&quot;CCD&quot;"
+      SearchFields="&quot;CCD,Consignment Control Details&quot;"
+      Name="&quot;Consignment Control Details&quot;" />
+    <Record
+      Code="&quot;CCL&quot;"
+      SearchFields="&quot;CCL,Cargo Control Location&quot;"
+      Name="&quot;Cargo Control Location&quot;" />
+    <Record
+      Code="&quot;CDC&quot;"
+      SearchFields="&quot;CDC,CC Charges in Destination Currency&quot;"
+      Name="&quot;CC Charges in Destination Currency&quot;" />
+    <Record
+      Code="&quot;CDI&quot;"
+      SearchFields="&quot;CDI,Charge Declarations&quot;"
+      Name="&quot;Charge Declarations&quot;" />
+    <Record
+      Code="&quot;CER&quot;"
+      SearchFields="&quot;CER,AWB Content Certification&quot;"
+      Name="&quot;AWB Content Certification&quot;" />
+    <Record
+      Code="&quot;CID&quot;"
+      SearchFields="&quot;CID,Correction Identification&quot;"
+      Name="&quot;Correction Identification&quot;" />
+    <Record
+      Code="&quot;CIH&quot;"
+      SearchFields="&quot;CIH,CASS Invoice Header Details&quot;"
+      Name="&quot;CASS Invoice Header Details&quot;" />
+    <Record
+      Code="&quot;CIN&quot;"
+      SearchFields="&quot;CIN,CASS Identification Number&quot;"
+      Name="&quot;CASS Identification Number&quot;" />
+    <Record
+      Code="&quot;CMI&quot;"
+      SearchFields="&quot;CMI,Consignment Onward Movement Information&quot;"
+      Name="&quot;Consignment Onward Movement Information&quot;" />
+    <Record
+      Code="&quot;CND&quot;"
+      SearchFields="&quot;CND,Customs Notification Details&quot;"
+      Name="&quot;Customs Notification Details&quot;" />
+    <Record
+      Code="&quot;CNE&quot;"
+      SearchFields="&quot;CNE,Consignee&quot;"
+      Name="&quot;Consignee&quot;" />
+    <Record
+      Code="&quot;COI&quot;"
+      SearchFields="&quot;COI,Commission Information&quot;"
+      Name="&quot;Commission Information&quot;" />
+    <Record
+      Code="&quot;COL&quot;"
+      SearchFields="&quot;COL,Collect Charge Summary&quot;"
+      Name="&quot;Collect Charge Summary&quot;" />
+    <Record
+      Code="&quot;COM&quot;"
+      SearchFields="&quot;COM,Embargoed Commodities&quot;"
+      Name="&quot;Embargoed Commodities&quot;" />
+    <Record
+      Code="&quot;COR&quot;"
+      SearchFields="&quot;COR,Customs Origin&quot;"
+      Name="&quot;Customs Origin&quot;" />
+    <Record
+      Code="&quot;CRD&quot;"
+      SearchFields="&quot;CRD,Carrier Reference Data&quot;"
+      Name="&quot;Carrier Reference Data&quot;" />
+    <Record
+      Code="&quot;CRR&quot;"
+      SearchFields="&quot;CRR,Embargo Carriage Restrictions&quot;"
+      Name="&quot;Embargo Carriage Restrictions&quot;" />
+    <Record
+      Code="&quot;CTI&quot;"
+      SearchFields="&quot;CTI,CCA/Adjustment Total Information&quot;"
+      Name="&quot;CCA/Adjustment Total Information&quot;" />
+    <Record
+      Code="&quot;CTW&quot;"
+      SearchFields="&quot;CTW,CCA/Adjustment Total Weight Summary&quot;"
+      Name="&quot;CCA/Adjustment Total Weight Summary&quot;" />
+    <Record
+      Code="&quot;CUR&quot;"
+      SearchFields="&quot;CUR,Currency Details&quot;"
+      Name="&quot;Currency Details&quot;" />
+    <Record
+      Code="&quot;CUS&quot;"
+      SearchFields="&quot;CUS,Customer Identification&quot;"
+      Name="&quot;Customer Identification&quot;" />
+    <Record
+      Code="&quot;CVD&quot;"
+      SearchFields="&quot;CVD,Charge Declarations&quot;"
+      Name="&quot;Charge Declarations&quot;" />
+    <Record
+      Code="&quot;CWI&quot;"
+      SearchFields="&quot;CWI,CASS AWB Information&quot;"
+      Name="&quot;CASS AWB Information&quot;" />
+    <Record
+      Code="&quot;DAI&quot;"
+      SearchFields="&quot;DAI,DGD Additional Handling Information&quot;"
+      Name="&quot;DGD Additional Handling Information&quot;" />
+    <Record
+      Code="&quot;DAP&quot;"
+      SearchFields="&quot;DAP,DGD “All Packed in One” Indication&quot;"
+      Name="&quot;DGD “All Packed in One” Indication&quot;" />
+    <Record
+      Code="&quot;DAT&quot;"
+      SearchFields="&quot;DAT,DGD “All Packed in One” Total&quot;"
+      Name="&quot;DGD “All Packed in One” Total&quot;" />
+    <Record
+      Code="&quot;DAU&quot;"
+      SearchFields="&quot;DAU,DGD Item authorization&quot;"
+      Name="&quot;DGD Item authorization&quot;" />
+    <Record
+      Code="&quot;DCI&quot;"
+      SearchFields="&quot;DCI,DGD Emergency Contact Information&quot;"
+      Name="&quot;DGD Emergency Contact Information&quot;" />
+    <Record
+      Code="&quot;DCL&quot;"
+      SearchFields="&quot;DCL,Declarant&quot;"
+      Name="&quot;Declarant&quot;" />
+    <Record
+      Code="&quot;DES&quot;"
+      SearchFields="&quot;DES,Despatch Information&quot;"
+      Name="&quot;Despatch Information&quot;" />
+    <Record
+      Code="&quot;DHD&quot;"
+      SearchFields="&quot;DHD,DGD Header Details&quot;"
+      Name="&quot;DGD Header Details&quot;" />
+    <Record
+      Code="&quot;DII&quot;"
+      SearchFields="&quot;DII,DGD Item Information&quot;"
+      Name="&quot;DGD Item Information&quot;" />
+    <Record
+      Code="&quot;DIM&quot;"
+      SearchFields="&quot;DIM,Dimensions Information&quot;"
+      Name="&quot;Dimensions Information&quot;" />
+    <Record
+      Code="&quot;DNR&quot;"
+      SearchFields="&quot;DNR,DGD Item Number&quot;"
+      Name="&quot;DGD Item Number&quot;" />
+    <Record
+      Code="&quot;DOC&quot;"
+      SearchFields="&quot;DOC,Documentation Identification&quot;"
+      Name="&quot;Documentation Identification&quot;" />
+    <Record
+      Code="&quot;DOS&quot;"
+      SearchFields="&quot;DOS,DGD Overpack Summary&quot;"
+      Name="&quot;DGD Overpack Summary&quot;" />
+    <Record
+      Code="&quot;DPI&quot;"
+      SearchFields="&quot;DPI,DGD Item Packing Group and Instructions&quot;"
+      Name="&quot;DGD Item Packing Group and Instructions&quot;" />
+    <Record
+      Code="&quot;DQP&quot;"
+      SearchFields="&quot;DQP,DGD Item Quantity and Type of Packing&quot;"
+      Name="&quot;DGD Item Quantity and Type of Packing&quot;" />
+    <Record
+      Code="&quot;DRA&quot;"
+      SearchFields="&quot;DRA,DGD Radioactive Activity Information&quot;"
+      Name="&quot;DGD Radioactive Activity Information&quot;" />
+    <Record
+      Code="&quot;DRC&quot;"
+      SearchFields="&quot;DRC,DGD Radioactive Consignment Information&quot;"
+      Name="&quot;DGD Radioactive Consignment Information&quot;" />
+    <Record
+      Code="&quot;DRP&quot;"
+      SearchFields="&quot;DRP,DGD Radioactive Packing Instructions&quot;"
+      Name="&quot;DGD Radioactive Packing Instructions&quot;" />
+    <Record
+      Code="&quot;DSN&quot;"
+      SearchFields="&quot;DSN,DGD Item Shipping Name&quot;"
+      Name="&quot;DGD Item Shipping Name&quot;" />
+    <Record
+      Code="&quot;DSU&quot;"
+      SearchFields="&quot;DSU,DGD Signatory Details&quot;"
+      Name="&quot;DGD Signatory Details&quot;" />
+    <Record
+      Code="&quot;DTN&quot;"
+      SearchFields="&quot;DTN,Date/Time of Notification&quot;"
+      Name="&quot;Date/Time of Notification&quot;" />
+    <Record
+      Code="&quot;EIC&quot;"
+      SearchFields="&quot;EIC,Empty Equipment in Compartment Information&quot;"
+      Name="&quot;Empty Equipment in Compartment Information&quot;" />
+    <Record
+      Code="&quot;EXP&quot;"
+      SearchFields="&quot;EXP,Export&quot;"
+      Name="&quot;Export&quot;" />
+    <Record
+      Code="&quot;FLT&quot;"
+      SearchFields="&quot;FLT,Flight Booking&quot;"
+      Name="&quot;Flight Booking&quot;" />
+    <Record
+      Code="&quot;GRI&quot;"
+      SearchFields="&quot;GRI,Grand AWB Recapitulation Information&quot;"
+      Name="&quot;Grand AWB Recapitulation Information&quot;" />
+    <Record
+      Code="&quot;GTI&quot;"
+      SearchFields="&quot;GTI,Grand Total Information&quot;"
+      Name="&quot;Grand Total Information&quot;" />
+    <Record
+      Code="&quot;HAH&quot;"
+      SearchFields="&quot;HAH,HWB Agent’s Head Office&quot;"
+      Name="&quot;HWB Agent’s Head Office&quot;" />
+    <Record
+      Code="&quot;HBS&quot;"
+      SearchFields="&quot;HBS,House Waybill Summary Details&quot;"
+      Name="&quot;House Waybill Summary Details&quot;" />
+    <Record
+      Code="&quot;HCD&quot;"
+      SearchFields="&quot;HCD,HWB Consignment Details&quot;"
+      Name="&quot;HWB Consignment Details&quot;" />
+    <Record
+      Code="&quot;HDL&quot;"
+      SearchFields="&quot;HDL,Handling Details&quot;"
+      Name="&quot;Handling Details&quot;" />
+    <Record
+      Code="&quot;HLC&quot;"
+      SearchFields="&quot;HLC,HWB Letter of Credit Details&quot;"
+      Name="&quot;HWB Letter of Credit Details&quot;" />
+    <Record
+      Code="&quot;HPI&quot;"
+      SearchFields="&quot;HPI,House Waybill Piece Information&quot;"
+      Name="&quot;House Waybill Piece Information&quot;" />
+    <Record
+      Code="&quot;HTS&quot;"
+      SearchFields="&quot;HTS,Harmonised Tariff Schedule Information&quot;"
+      Name="&quot;Harmonised Tariff Schedule Information&quot;" />
+    <Record
+      Code="&quot;HWB&quot;"
+      SearchFields="&quot;HWB,House Waybill&quot;"
+      Name="&quot;House Waybill&quot;" />
+    <Record
+      Code="&quot;IMP&quot;"
+      SearchFields="&quot;IMP,Import&quot;"
+      Name="&quot;Import&quot;" />
+    <Record
+      Code="&quot;ISS&quot;"
+      SearchFields="&quot;ISS,The Regulated Agent Issuing the Security Status for a Consignment&quot;"
+      Name="&quot;The Regulated Agent Issuing the Security Status for a Consignment&quot;" />
+    <Record
+      Code="&quot;ISU&quot;"
+      SearchFields="&quot;ISU,AWB Issue Details&quot;"
+      Name="&quot;AWB Issue Details&quot;" />
+    <Record
+      Code="&quot;ITA&quot;"
+      SearchFields="&quot;ITA,Invoice Total Amount Information&quot;"
+      Name="&quot;Invoice Total Amount Information&quot;" />
+    <Record
+      Code="&quot;ITW&quot;"
+      SearchFields="&quot;ITW,Invoice Total Weight Summary&quot;"
+      Name="&quot;Invoice Total Weight Summary&quot;" />
+    <Record
+      Code="&quot;JST&quot;"
+      SearchFields="&quot;JST,Embargo Justification&quot;"
+      Name="&quot;Embargo Justification&quot;" />
+    <Record
+      Code="&quot;MAL&quot;"
+      SearchFields="&quot;MAL,Mail&quot;"
+      Name="&quot;Mail&quot;" />
+    <Record
+      Code="&quot;MAT&quot;"
+      SearchFields="&quot;MAT,Message Advice Type&quot;"
+      Name="&quot;Message Advice Type&quot;" />
+    <Record
+      Code="&quot;MBI&quot;"
+      SearchFields="&quot;MBI,Master Waybill Identification&quot;"
+      Name="&quot;Master Waybill Identification&quot;" />
+    <Record
+      Code="&quot;MCH&quot;"
+      SearchFields="&quot;MCH,Mail Consignment Header&quot;"
+      Name="&quot;Mail Consignment Header&quot;" />
+    <Record
+      Code="&quot;MCT&quot;"
+      SearchFields="&quot;MCT,Mail Consignment Total&quot;"
+      Name="&quot;Mail Consignment Total&quot;" />
+    <Record
+      Code="&quot;MID&quot;"
+      SearchFields="&quot;MID,Mail Inbound Data&quot;"
+      Name="&quot;Mail Inbound Data&quot;" />
+    <Record
+      Code="&quot;MLI&quot;"
+      SearchFields="&quot;MLI,Mail Label Identification&quot;"
+      Name="&quot;Mail Label Identification&quot;" />
+    <Record
+      Code="&quot;MOD&quot;"
+      SearchFields="&quot;MOD,Mail Outbound Data&quot;"
+      Name="&quot;Mail Outbound Data&quot;" />
+    <Record
+      Code="&quot;MPI&quot;"
+      SearchFields="&quot;MPI,Movement Priority Information&quot;"
+      Name="&quot;Movement Priority Information&quot;" />
+    <Record
+      Code="&quot;MSD&quot;"
+      SearchFields="&quot;MSD,Mail Status Details&quot;"
+      Name="&quot;Mail Status Details&quot;" />
+    <Record
+      Code="&quot;MSU&quot;"
+      SearchFields="&quot;MSU,Message Sequence and ULD Origin&quot;"
+      Name="&quot;Message Sequence and ULD Origin&quot;" />
+    <Record
+      Code="&quot;MUD&quot;"
+      SearchFields="&quot;MUD,Mail ULD Information&quot;"
+      Name="&quot;Mail ULD Information&quot;" />
+    <Record
+      Code="&quot;NBI&quot;"
+      SearchFields="&quot;NBI,Net Billing Information&quot;"
+      Name="&quot;Net Billing Information&quot;" />
+    <Record
+      Code="&quot;NEW&quot;"
+      SearchFields="&quot;NEW,New Information&quot;"
+      Name="&quot;New Information&quot;" />
+    <Record
+      Code="&quot;NFY&quot;"
+      SearchFields="&quot;NFY,Also Notify&quot;"
+      Name="&quot;Also Notify&quot;" />
+    <Record
+      Code="&quot;NNS&quot;"
+      SearchFields="&quot;NNS,Net/Net Sales&quot;"
+      Name="&quot;Net/Net Sales&quot;" />
+    <Record
+      Code="&quot;NOM&quot;"
+      SearchFields="&quot;NOM,Nominated Handling Party&quot;"
+      Name="&quot;Nominated Handling Party&quot;" />
+    <Record
+      Code="&quot;OCI&quot;"
+      SearchFields="&quot;OCI,Other Customs Information&quot;"
+      Name="&quot;Other Customs Information&quot;" />
+    <Record
+      Code="&quot;OLD&quot;"
+      SearchFields="&quot;OLD,Original Information&quot;"
+      Name="&quot;Original Information&quot;" />
+    <Record
+      Code="&quot;OPI&quot;"
+      SearchFields="&quot;OPI,Other Participant Information&quot;"
+      Name="&quot;Other Participant Information&quot;" />
+    <Record
+      Code="&quot;OSI&quot;"
+      SearchFields="&quot;OSI,Other Service Information&quot;"
+      Name="&quot;Other Service Information&quot;" />
+    <Record
+      Code="&quot;OSS&quot;"
+      SearchFields="&quot;OSS,The Regulated Agent Accepting the Security Status for a Consignment Issued by Another Regulated Agent&quot;"
+      Name="&quot;The Regulated Agent Accepting the Security Status for a Consignment Issued by Another Regulated Agent&quot;" />
+    <Record
+      Code="&quot;OTH&quot;"
+      SearchFields="&quot;OTH,Other Charges&quot;"
+      Name="&quot;Other Charges&quot;" />
+    <Record
+      Code="&quot;PAS&quot;"
+      SearchFields="&quot;PAS,Passenger Information&quot;"
+      Name="&quot;Passenger Information&quot;" />
+    <Record
+      Code="&quot;PID&quot;"
+      SearchFields="&quot;PID,Product Information&quot;"
+      Name="&quot;Product Information&quot;" />
+    <Record
+      Code="&quot;PPD&quot;"
+      SearchFields="&quot;PPD,Prepaid Charge Summary&quot;"
+      Name="&quot;Prepaid Charge Summary&quot;" />
+    <Record
+      Code="&quot;PRD&quot;"
+      SearchFields="&quot;PRD,Planning Request Details&quot;"
+      Name="&quot;Planning Request Details&quot;" />
+    <Record
+      Code="&quot;RCI&quot;"
+      SearchFields="&quot;RCI,Recapitulation Amount Information&quot;"
+      Name="&quot;Recapitulation Amount Information&quot;" />
+    <Record
+      Code="&quot;REC&quot;"
+      SearchFields="&quot;REC,Receptacle Information&quot;"
+      Name="&quot;Receptacle Information&quot;" />
+    <Record
+      Code="&quot;REF&quot;"
+      SearchFields="&quot;REF,Booking References&quot;"
+      Name="&quot;Booking References&quot;" />
+    <Record
+      Code="&quot;RID&quot;"
+      SearchFields="&quot;RID,Rate Information Answer Details&quot;"
+      Name="&quot;Rate Information Answer Details&quot;" />
+    <Record
+      Code="&quot;RIH&quot;"
+      SearchFields="&quot;RIH,Rate Information Answer Header&quot;"
+      Name="&quot;Rate Information Answer Header&quot;" />
+    <Record
+      Code="&quot;RIR&quot;"
+      SearchFields="&quot;RIR,Rate Information Request Details&quot;"
+      Name="&quot;Rate Information Request Details&quot;" />
+    <Record
+      Code="&quot;RQD&quot;"
+      SearchFields="&quot;RQD,Charge Calculation Answer Details&quot;"
+      Name="&quot;Charge Calculation Answer Details&quot;" />
+    <Record
+      Code="&quot;RQH&quot;"
+      SearchFields="&quot;RQH,Charge Calculation Request Header&quot;"
+      Name="&quot;Charge Calculation Request Header&quot;" />
+    <Record
+      Code="&quot;RQT&quot;"
+      SearchFields="&quot;RQT,Charge Calculation Answer Totals&quot;"
+      Name="&quot;Charge Calculation Answer Totals&quot;" />
+    <Record
+      Code="&quot;RQU&quot;"
+      SearchFields="&quot;RQU,Charge Calculation Request — ULD&quot;"
+      Name="&quot;Charge Calculation Request — ULD&quot;" />
+    <Record
+      Code="&quot;RQV&quot;"
+      SearchFields="&quot;RQV,Charge Calculation Request — Volume&quot;"
+      Name="&quot;Charge Calculation Request — Volume&quot;" />
+    <Record
+      Code="&quot;RTD&quot;"
+      SearchFields="&quot;RTD,Rate Description&quot;"
+      Name="&quot;Rate Description&quot;" />
+    <Record
+      Code="&quot;RTG&quot;"
+      SearchFields="&quot;RTG,Routing&quot;"
+      Name="&quot;Routing&quot;" />
+    <Record
+      Code="&quot;RTI&quot;"
+      SearchFields="&quot;RTI,Recapitulation Total Information&quot;"
+      Name="&quot;Recapitulation Total Information&quot;" />
+    <Record
+      Code="&quot;RTS&quot;"
+      SearchFields="&quot;RTS,Embargo Routes/Areas&quot;"
+      Name="&quot;Embargo Routes/Areas&quot;" />
+    <Record
+      Code="&quot;SAA&quot;"
+      SearchFields="&quot;SAA,Schedule and Availability Information Answer Details&quot;"
+      Name="&quot;Schedule and Availability Information Answer Details&quot;" />
+    <Record
+      Code="&quot;SAR&quot;"
+      SearchFields="&quot;SAR,Schedule and Availability Information Request Details&quot;"
+      Name="&quot;Schedule and Availability Information Request Details&quot;" />
+    <Record
+      Code="&quot;SCI&quot;"
+      SearchFields="&quot;SCI,Special Customs Information&quot;"
+      Name="&quot;Special Customs Information&quot;" />
+    <Record
+      Code="&quot;SCS&quot;"
+      SearchFields="&quot;SCS,Surface Charge Summary&quot;"
+      Name="&quot;Surface Charge Summary&quot;" />
+    <Record
+      Code="&quot;SDI&quot;"
+      SearchFields="&quot;SDI,Surface Delivery Information&quot;"
+      Name="&quot;Surface Delivery Information&quot;" />
+    <Record
+      Code="&quot;SHP&quot;"
+      SearchFields="&quot;SHP,Shipper&quot;"
+      Name="&quot;Shipper&quot;" />
+    <Record
+      Code="&quot;SII&quot;"
+      SearchFields="&quot;SII,Sales Incentive Information&quot;"
+      Name="&quot;Sales Incentive Information&quot;" />
+    <Record
+      Code="&quot;SKH&quot;"
+      SearchFields="&quot;SKH,Schedule Information Answer Header&quot;"
+      Name="&quot;Schedule Information Answer Header&quot;" />
+    <Record
+      Code="&quot;SLC&quot;"
+      SearchFields="&quot;SLC,Status List Criteria&quot;"
+      Name="&quot;Status List Criteria&quot;" />
+    <Record
+      Code="&quot;SPH&quot;"
+      SearchFields="&quot;SPH,Special Handling Details&quot;"
+      Name="&quot;Special Handling Details&quot;" />
+    <Record
+      Code="&quot;SPI&quot;"
+      SearchFields="&quot;SPI,Surface Pickup Information&quot;"
+      Name="&quot;Surface Pickup Information&quot;" />
+    <Record
+      Code="&quot;SRA&quot;"
+      SearchFields="&quot;SRA,Supplementary Rate Information Answer Details&quot;"
+      Name="&quot;Supplementary Rate Information Answer Details&quot;" />
+    <Record
+      Code="&quot;SRI&quot;"
+      SearchFields="&quot;SRI,Shipment Reference Information&quot;"
+      Name="&quot;Shipment Reference Information&quot;" />
+    <Record
+      Code="&quot;SRR&quot;"
+      SearchFields="&quot;SRR,Supplementary Rate Information Request Details&quot;"
+      Name="&quot;Supplementary Rate Information Request Details&quot;" />
+    <Record
+      Code="&quot;SSI&quot;"
+      SearchFields="&quot;SSI,Supplementary Status Information&quot;"
+      Name="&quot;Supplementary Status Information&quot;" />
+    <Record
+      Code="&quot;SSR&quot;"
+      SearchFields="&quot;SSR,Special Service Request&quot;"
+      Name="&quot;Special Service Request&quot;" />
+    <Record
+      Code="&quot;STI&quot;"
+      SearchFields="&quot;STI,Storage Information&quot;"
+      Name="&quot;Storage Information&quot;" />
+    <Record
+      Code="&quot;STS&quot;"
+      SearchFields="&quot;STS,Status Details&quot;"
+      Name="&quot;Status Details&quot;" />
+    <Record
+      Code="&quot;SVA&quot;"
+      SearchFields="&quot;SVA,Surface Vehicle Arrival Information&quot;"
+      Name="&quot;Surface Vehicle Arrival Information&quot;" />
+    <Record
+      Code="&quot;SVD&quot;"
+      SearchFields="&quot;SVD,Surface Vehicle Departure Information&quot;"
+      Name="&quot;Surface Vehicle Departure Information&quot;" />
+    <Record
+      Code="&quot;SVL&quot;"
+      SearchFields="&quot;SVL,Surface Vehicle Delay Information&quot;"
+      Name="&quot;Surface Vehicle Delay Information&quot;" />
+    <Record
+      Code="&quot;SVN&quot;"
+      SearchFields="&quot;SVN,Surface Vehicle Next Information&quot;"
+      Name="&quot;Surface Vehicle Next Information&quot;" />
+    <Record
+      Code="&quot;TAR&quot;"
+      SearchFields="&quot;TAR,Total AWB Recapitulation Information&quot;"
+      Name="&quot;Total AWB Recapitulation Information&quot;" />
+    <Record
+      Code="&quot;TCC&quot;"
+      SearchFields="&quot;TCC,Total Collect Charges&quot;"
+      Name="&quot;Total Collect Charges&quot;" />
+    <Record
+      Code="&quot;TID&quot;"
+      SearchFields="&quot;TID,Terminal Identification&quot;"
+      Name="&quot;Terminal Identification&quot;" />
+    <Record
+      Code="&quot;TOT&quot;"
+      SearchFields="&quot;TOT,Total Amount&quot;"
+      Name="&quot;Total Amount&quot;" />
+    <Record
+      Code="&quot;TRA&quot;"
+      SearchFields="&quot;TRA,Transit&quot;"
+      Name="&quot;Transit&quot;" />
+    <Record
+      Code="&quot;TRN&quot;"
+      SearchFields="&quot;TRN,Transfer/Transit Information&quot;"
+      Name="&quot;Transfer/Transit Information&quot;" />
+    <Record
+      Code="&quot;TXS&quot;"
+      SearchFields="&quot;TXS,Tax Summary&quot;"
+      Name="&quot;Tax Summary&quot;" />
+    <Record
+      Code="&quot;TXT&quot;"
+      SearchFields="&quot;TXT,Free Text Description&quot;"
+      Name="&quot;Free Text Description&quot;" />
+    <Record
+      Code="&quot;UCI&quot;"
+      SearchFields="&quot;UCI,ULD Connection Information&quot;"
+      Name="&quot;ULD Connection Information&quot;" />
+    <Record
+      Code="&quot;UDI&quot;"
+      SearchFields="&quot;UDI,ULD Destination Information&quot;"
+      Name="&quot;ULD Destination Information&quot;" />
+    <Record
+      Code="&quot;UII&quot;"
+      SearchFields="&quot;UII,ULD Inclusion Information&quot;"
+      Name="&quot;ULD Inclusion Information&quot;" />
+    <Record
+      Code="&quot;ULD&quot;"
+      SearchFields="&quot;ULD,ULD Description&quot;"
+      Name="&quot;ULD Description&quot;" />
+    <Record
+      Code="&quot;UMI&quot;"
+      SearchFields="&quot;UMI,ULD Movement Information&quot;"
+      Name="&quot;ULD Movement Information&quot;" />
+    <Record
+      Code="&quot;UPI&quot;"
+      SearchFields="&quot;UPI,Unique Piece Information&quot;"
+      Name="&quot;Unique Piece Information&quot;" />
+    <Record
+      Code="&quot;VCD&quot;"
+      SearchFields="&quot;VCD,Void/Cancel Details&quot;"
+      Name="&quot;Void/Cancel Details&quot;" />
+    <Record
+      Code="&quot;VOD&quot;"
+      SearchFields="&quot;VOD,Vehicle Operator Details&quot;"
+      Name="&quot;Vehicle Operator Details&quot;" />
+    <Record
+      Code="&quot;WBD&quot;"
+      SearchFields="&quot;WBD,Waybill Details&quot;"
+      Name="&quot;Waybill Details&quot;" />
+    <Record
+      Code="&quot;WBH&quot;"
+      SearchFields="&quot;WBH,Waybill Header Details&quot;"
+      Name="&quot;Waybill Header Details&quot;" />
+    <Record
+      Code="&quot;WBI&quot;"
+      SearchFields="&quot;WBI,Waybill Identification&quot;"
+      Name="&quot;Waybill Identification&quot;" />
+    <Record
+      Code="&quot;WBL&quot;"
+      SearchFields="&quot;WBL,Waybill Details&quot;"
+      Name="&quot;Waybill Details&quot;" />
+  </Records>
+  <AdditionalTextCodes></AdditionalTextCodes>
+  <AdditionalFeatures />
+</entity>

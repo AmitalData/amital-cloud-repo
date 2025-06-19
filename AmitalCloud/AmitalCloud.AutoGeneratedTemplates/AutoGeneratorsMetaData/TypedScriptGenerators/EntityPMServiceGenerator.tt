@@ -1,0 +1,1261 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+ 
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+ 
+
+<#+
+
+dynamic pmnamespacestringts;
+
+
+
+public void GenerateAllServices(string sourceFolder,string destinationFolder,string modelname)
+{
+ SrcFolder = sourceFolder;
+ pmnamespacestringts = GetPMServiceNameSpace(destinationFolder);
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	GenerateEntityPMService(file,destinationFolder+"/"+fileNameWithoutExtension+"PMService.ts",modelname);
+ 
+}
+
+}
+#>
+
+<#+  
+
+public void GenerateEntityPMService(string xmlFilePath,string outputFilePath,string modelname)
+{
+	if(string.IsNullOrEmpty(pmnamespacestringts))
+    {
+		pmnamespacestringts = GetPMServiceNameSpace(outputFilePath);
+    }
+
+        var entity = FromEntityPMServiceFile(xmlFilePath);
+        if( entity.IsComposition.GetType() == typeof(string))
+      	{
+	    	if(entity.IsComposition == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		 if( entity.NoPMController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoPMController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		 if( entity.IsClosed.GetType() == typeof(string))
+      	{
+	    	if(entity.IsClosed == "true" && entity.ObjectTableName.Trim('"') != "PortTimeZone")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+          if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+		
+          WriteEntityPMServiceMethod(entity,modelname); 
+          SaveEntityPMServiceOutput(outputFilePath);
+        
+
+ }
+
+
+
+#>
+
+<#+
+
+public dynamic GetPMServiceNameSpace(string destinationFolder)
+{
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+
+	spacestring = spacestring.ToString().Replace("JustWebFreight.","").Trim('.');
+
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveEntityPMServiceOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+     
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+
+
+
+<#+
+ private void WriteEntityPMServiceMethod(dynamic entity,string modelname)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	bool isComposition = false;
+	if( entity.IsComposition.GetType() == typeof(string))
+	{
+	    isComposition = (entity.IsComposition == "true");
+				 
+    }
+
+	bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+				 
+    }
+	 
+	
+	bool applyDefaultValues = false;
+	if( entity.ApplyDefaultValues.GetType() == typeof(string))
+	{
+	    applyDefaultValues = (entity.ApplyDefaultValues == "true");
+				 
+    }
+	bool hasCustomValidator = false;
+	if( entity.HasCustomValidator.GetType() == typeof(string))
+	{
+	    hasCustomValidator = (entity.HasCustomValidator == "true");
+				 
+    }	 
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string controllerName = dBTableName.ToLower();
+    int maxNumberOfCustomFields = entity.HasCustomFields.ToString() == "true" && !String.IsNullOrEmpty(entity.MaxNumberOfCustomFields.ToString()) ? Int32.Parse(entity.MaxNumberOfCustomFields.ToString()) + 1 : 11;
+
+   
+	   string importentitytring = Environment.NewLine + "import {"+pmName+"} from '../../EntityPMs/" + pmName + "';";
+	   importentitytring += Environment.NewLine + BuildPMImportEntitesString(entity,pmName);
+	 
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetTSDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		// string keyprimarykeyCondition = "";
+		int index = 0;
+		 foreach(string key in primaryKeys.Keys)
+         {
+		   if(index > 0)
+           {
+			   primaryonlyparam += "+'&'+";
+           }
+			 primarykeyParam +=  key.ToLower() + ": " + primaryKeys[key]+ ", ";
+			 primaryonlyparam +="'" +key.ToLower() + "=' + " + key.ToLower() ;
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+
+
+
+			index++;
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd('&');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		 // import {InfraSettings} from '../../../../Infrastructure/Utilities/InfraSettings';
+		// import {ServiceHelper} from '../../../Infrastructure/Utilities/ServiceHelper';
+		//import { Observable }     from 'rxjs/Observable';
+		 string infrastructureImportString = "";
+		 if(modelname != null && modelname.ToLower() == "infrastructure")
+         {
+			 infrastructureImportString += "import {ServiceResponse} from '../../DataContracts/ServiceResponse';";
+			 infrastructureImportString += Environment.NewLine + "import {ClassLevelValidator} from '../../Validators/ClassLevelValidator';";
+			 infrastructureImportString += Environment.NewLine + "import {Guid} from '../../Utilities/Guid';";
+			 infrastructureImportString += Environment.NewLine + "import {InfraSettings} from '../../Utilities/InfraSettings';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceHelper} from '../../Utilities/ServiceHelper';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionInfo} from '../../Utilities/SessionInfo';";
+			 infrastructureImportString += Environment.NewLine + "import {PerformanceLogger} from '../../Utilities/PerformanceLogger';";
+			 infrastructureImportString += Environment.NewLine + "import {CustomFieldClass} from '../../DataContracts/CustomFieldClass'";
+			 if(entity.SupportSubEntity.ToString() == "true") {
+			 infrastructureImportString += Environment.NewLine + "import { CustomChildObjectPMService } from '../../Infrastructure/Services/ExtendedPMs/CustomChildObjectPMService'";
+			 }
+
+         }
+		 else{
+			 infrastructureImportString += "import {ServiceResponse} from '../../../Infrastructure/DataContracts/ServiceResponse';";
+			 infrastructureImportString += Environment.NewLine + "import {ClassLevelValidator} from '../../../Infrastructure/Validators/ClassLevelValidator';";
+			 infrastructureImportString += Environment.NewLine + "import {Guid} from '../../../Infrastructure/Utilities/Guid';";
+			 infrastructureImportString += Environment.NewLine + "import {InfraSettings} from '../../../Infrastructure/Utilities/InfraSettings';";
+			 infrastructureImportString += Environment.NewLine + "import {ServiceHelper} from '../../../Infrastructure/Utilities/ServiceHelper';";
+			 infrastructureImportString += Environment.NewLine + "import {SessionInfo} from '../../../Infrastructure/Utilities/SessionInfo';";	
+			 infrastructureImportString += Environment.NewLine + "import {CustomFieldClass} from '../../../Infrastructure/DataContracts/CustomFieldClass'";
+		     if(entity.SupportSubEntity.ToString() == "true") {
+			 infrastructureImportString += Environment.NewLine + "import { CustomChildObjectPMService } from '../../../Infrastructure/Services/ExtendedPMs/CustomChildObjectPMService'";
+			 }
+			
+			 infrastructureImportString += Environment.NewLine + "import {PerformanceLogger} from '../../../Infrastructure/Utilities/PerformanceLogger';";			  
+         }
+
+		 if(applyDefaultValues)
+         {
+			importentitytring  += Environment.NewLine + "import {"+pmName+"InitService} from '../../EntityPMInitServices/" + pmName + "InitService';";
+         }
+		 if(hasCustomValidator)
+         {
+			importentitytring  += Environment.NewLine + "import {"+tableName+"Validator} from '../../Validators/" + tableName + "Validator';";
+         }
+		 string pmInitService = pmName+"InitService";
+
+     
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     Angular 9.1.1
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { defer, of } from 'rxjs';
+<#= infrastructureImportString #>
+<#= importentitytring #>
+
+@Injectable()
+
+export class <#= pmName #>Service {
+ private _http: HttpClient;
+ private _apiUrl: string;
+ constructor() {
+        this._http = ServiceHelper.HttpClient;
+        this._apiUrl = ServiceHelper.GetLogitudeURL() + 'api/<#= controllerName #>';      
+    }
+
+	get(<#= primarykeyParam #>) {       
+
+		var callTime = new Date();		
+
+		return defer(() => {
+			return this._http.get(this._apiUrl + '/getsingle?' + <#= primaryonlyparam #>, ServiceHelper.GetHttpFullHeaders())
+				.pipe(
+					map((response: HttpResponse<any>) => {
+						var pm = response.body;
+				
+						var entity: <#= pmName #>;
+						if (pm) {
+							entity = this.MapJsonToEntityPM(pm);
+<#+ if(applyDefaultValues)
+    {
+#>
+                      <#= pmInitService #>.InitValues(entity, false);
+                      <#= pmInitService #>.ApplyUIPoperties(entity, false);
+<#+
+    }
+#>
+						}
+
+						var serviceResponse: ServiceResponse = new ServiceResponse();
+						serviceResponse.Result = entity;
+              
+						var servertime = response.headers.get('ServerExecutionTime');
+						PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "GetSinglePM", <#= primaryonlyparam #>);
+				 
+						return serviceResponse;
+
+					}),
+					
+					catchError(ServiceHelper.HandleServiceError));
+		});                    
+	}
+
+	insert(entityPM: <#= pmName #>) {
+ 
+		var callTime = new Date();  
+		
+		return defer(() => {
+
+			var serviceResponse: ServiceResponse = new ServiceResponse();
+			var validator: ClassLevelValidator = new ClassLevelValidator();                
+			var errorsArray = validator.Validate("<#= entity.ObjectTableName.Trim('"') #>", entityPM);
+
+<#+
+if(hasCustomValidator)
+{
+#>
+			var customValidator :<#= tableName#>Validator = new <#= tableName#>Validator();
+			var validationErrorsArr = customValidator.Validate(entityPM);
+			if(validationErrorsArr)
+			{
+				errorsArray = errorsArray.concat(validationErrorsArr);
+			}
+<#+
+}
+#>
+
+			if (errorsArray.length == 0) {
+
+				var mappedEntity: <#= pmName #> = this.MapJsonToEntityPM(entityPM, false);
+				
+				return this._http.post(this._apiUrl, JSON.stringify(mappedEntity), ServiceHelper.GetHttpFullHeaders())
+					.pipe(
+						map((response: HttpResponse<any>) => {
+
+							var pm = response.body;
+							if (pm) {
+								var mappedResult: <#= pmName #> = this.MapJsonToEntityPM(pm, true, entityPM);
+								serviceResponse.Result = mappedResult;
+							}						
+
+							var servertime = response.headers.get('ServerExecutionTime');
+							PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "SaveChanges", "");                    
+												                             
+							return serviceResponse;
+						}),
+
+						catchError(ServiceHelper.HandleServiceError));
+			}
+
+			else {
+				serviceResponse.HasError = true;
+				serviceResponse.ErrorsArray = errorsArray;
+				return of(serviceResponse);
+			}
+		});
+	}
+
+	update(entityPM: <#= pmName #>) {
+
+		var callTime = new Date();     
+		
+		return defer(() => {
+
+			var serviceResponse: ServiceResponse = new ServiceResponse();
+			var validator: ClassLevelValidator = new ClassLevelValidator();               
+			var errorsArray = validator.Validate("<#= entity.ObjectTableName.Trim('"') #>", entityPM);
+
+<#+
+if(hasCustomValidator)
+{
+#>
+			var customValidator :<#= tableName#>Validator = new <#= tableName#>Validator();
+			var validationErrorsArr = customValidator.Validate(entityPM);
+			if(validationErrorsArr)
+			{
+				errorsArray = errorsArray.concat(validationErrorsArr);
+			}
+<#+
+}
+#>
+
+			if (errorsArray.length == 0) {
+
+				var mappedEntity: <#= pmName #> = this.MapJsonToEntityPM(entityPM, false);
+				
+				return this._http.put(this._apiUrl, JSON.stringify(mappedEntity), ServiceHelper.GetHttpFullHeaders())
+					.pipe(
+						map((response: HttpResponse<any>) => {
+                 
+							var pm = response.body;
+							if (pm) {
+								var mappedResult: <#= pmName #> = this.MapJsonToEntityPM(pm, true, entityPM);
+								serviceResponse.Result = mappedResult;
+							}
+							 
+							var servertime = response.headers.get('ServerExecutionTime');
+							PerformanceLogger.InsertPerformanceLog(callTime, new Date(), Number(servertime), "<#= tableName #>", "SaveChanges", "");                    
+					                           
+							return serviceResponse;
+						}),
+
+						catchError(ServiceHelper.HandleServiceError));
+			}
+
+			else {
+				serviceResponse.HasError = true;
+				serviceResponse.ErrorsArray = errorsArray;
+				return of(serviceResponse);
+			}
+		});
+	}
+
+   
+
+	  MapJsonToEntityPM(jsonPM: any, mapParent: boolean = true, entityPM: <#= pmName #> = null) {
+
+         
+        if (!entityPM) {
+            
+            entityPM = new <#= pmName #>();
+			entityPM.DisableMarkAsDirty = true;
+        }
+
+		var customFields: Array<string> = [];
+        for (var i = 1; i < <#= maxNumberOfCustomFields #>; i++) {
+            customFields.push("Field" + i);
+        }
+            var jsonPMKeys = Object.keys(jsonPM);
+
+            for (var key in jsonPMKeys) {
+			 if (jsonPMKeys[key] === "UIProperties" || jsonPMKeys[key] === "PropertyChanged") {
+
+                continue;
+            }
+                var property = jsonPMKeys[key];
+				
+			  if(customFields.indexOf(property) > -1)
+                {
+                if (jsonPM[property]) {
+                    var customFieldClass: CustomFieldClass = new CustomFieldClass(jsonPM[property].Value, jsonPM[property].FieldName, jsonPM[property].TableName);
+                    entityPM[property] = customFieldClass;
+                }
+            }
+            else {
+                entityPM[property] = jsonPM[property];
+            }
+                 
+            }
+			
+<#+ 
+		 foreach(var field in entity["field"])  //get all classes
+	     { 
+		   string fieldName = field.FieldName.ToString().Trim('"');
+		   if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(field);
+		   if(type == "List" || (field.IsMulti.GetType() == typeof(string) && field.IsMulti == "true"))
+           {
+			   string multitableName = GetFieldMultiTableName(field);
+			   if(multitableName.ToLower() == "string")
+               {
+				   continue;
+               }
+#>
+               this.Map<#= fieldName #>(entityPM, jsonPM, mapParent); // Call composition tables map methods
+<#+
+				//this.GenerateMultiFieldMapping(entity,field);
+		   }
+		 
+         }
+
+		 if(entity.SupportSubEntity.ToString() == "true") {
+		 #>
+		 let customChildObjectPMService: CustomChildObjectPMService = new CustomChildObjectPMService(entityPM, "<#= tableName#>");
+		 customChildObjectPMService.MapCustomChildEntities(jsonPM, mapParent);
+		 <#+
+		 }
+#>
+			 
+            
+
+		if (mapParent) {
+                entityPM.OldEntityPM = this.clone(entityPM);
+<#+
+		 foreach(var field in entity["field"])  //get all classes
+	     { 
+		   if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(field);
+		   if(type == "List" || (field.IsMulti.GetType() == typeof(string) && field.IsMulti == "true"))
+           {
+			   string multitableName = GetFieldMultiTableName(field);
+			    //multitableName = GetObjectTableName(multitableName);
+			    string fieldName = field.FieldName.ToString().Trim('"');
+			    string pmname = multitableName + "PM";
+			    
+			   if(multitableName.ToLower() == "string")
+               {
+				   continue;
+               }
+			   if(multitableName.ToLower() != "string")
+               {
+			   #>
+			   			   
+            entityPM.OldEntityPM.<#= fieldName #> = [];
+            for (var item in entityPM.<#= fieldName #>) {
+            var my<#= pmname #> = entityPM.<#= fieldName #>[item];
+            var new<#= pmname #>: <#= pmname #> = this.clone(my<#= pmname #>);
+						
+<#+
+                this.GenerateInsideCompositionOnGetInitilization(field);
+#>
+							 
+            entityPM.OldEntityPM.<#= fieldName #>.push(new<#= pmname #>);
+            }
+			   <#+
+               }
+           }
+
+
+		 }
+#>
+
+		}
+        else {
+
+            entityPM.OldEntityPM = null;
+        }
+		entityPM.IsDirty = false;
+	    entityPM.DisableMarkAsDirty = false;
+
+        return entityPM;
+    }
+
+<#+
+ foreach(var field in entity["field"])  
+	     { 
+		   string fieldName = field.FieldName.ToString().Trim('"');
+		   if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(field);
+		   if(type == "List" || (field.IsMulti.GetType() == typeof(string) && field.IsMulti == "true"))
+           { 
+			   if( field.IsComposition.GetType() == typeof(string) && field.IsComposition == "true")
+                {
+					 this.GenerateCompositionFieldMap(entity,field);
+                }
+				else{
+					 //islam
+					bool iscompositionTable = false;
+					string multiTableName = GetFieldMultiTableName(field);
+					dynamic multiEntity  = GetEntityFromlxmlFile(multiTableName);
+					if(multiEntity != null)
+                    {
+						string parentTableName = multiEntity.ParentTableName.ToString().Trim('"');
+					
+						if( multiEntity.IsComposition.GetType() == typeof(string) && multiEntity.IsComposition == "true" && parentTableName == tableName)
+						 {
+							 iscompositionTable = true;
+						 }
+                    }
+					if(iscompositionTable)
+                    {
+						this.GenerateCompositionFieldMap(entity,field);
+                    }
+					else{
+						this.GenerateNonCompositionFieldMap(entity,field);
+                    }
+                }
+		   }
+		 
+         }
+#>
+
+	  public clone(jsonPM: any) {
+        var entityPM: any;
+        entityPM = {};
+
+        var jsonPMKeys = Object.keys(jsonPM);
+        for (var key in jsonPMKeys) {
+            
+            if ((jsonPMKeys[key] === "entityParentPM") || jsonPMKeys[key] === "UIProperties" || jsonPMKeys[key] === "OldEntityPM" || jsonPMKeys[key] === "PropertyChanged") {
+                continue;
+            }
+
+            var property = jsonPMKeys[key];
+            entityPM[property] = jsonPM[property];
+
+        }
+        return entityPM;
+    }
+
+<#+ if(!isClosed)
+     {
+#>
+	  public GetNewEntityPM() {		 
+		    var entityPM: <#= pmName #>;
+			entityPM = new <#= pmName #>();
+<#+
+		 if(hasTenant)
+         {
+#>
+			entityPM.Tenant = InfraSettings.TenantPM.Id;
+<#+
+         }
+#>
+<#+ if(applyDefaultValues)
+    {
+#>
+
+			<#= pmInitService #>.InitValues(entityPM, true);
+			<#= pmInitService #>.ApplyUIPoperties(entityPM, true);
+
+<#+
+    }
+#>
+			return entityPM;
+    }
+		 <#+
+
+     }
+
+		 #>
+
+
+}
+<#+
+
+
+
+}
+
+#>
+
+<#+
+private void GenerateInsideCompositionOnGetInitilization(dynamic field){
+
+	string multitableName = GetFieldMultiTableName(field);
+	//multitableName = GetObjectTableName(multitableName);
+	string fieldName = field.FieldName.ToString().Trim('"');
+	string pmname = multitableName + "PM";
+
+	string parentpmname = GetFieldObjectTableName(field) + "PM";
+
+	if(multitableName.ToLower() == "string")
+               {
+				   return;
+               }
+
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+string xmlFilePath = Path.Combine(templateDirectory, SrcFolder) + "/"+multitableName + ".lxml";
+if(Directory.Exists(xmlFilePath) || File.Exists(xmlFilePath))
+  {
+	  int gcount = 0;
+	 var childEntity = FromEntityPMServiceFile(xmlFilePath);
+	 foreach(var childEntityfield in childEntity["field"])  
+	     { 
+		  // string childEntityfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   if( childEntityfield.HasPMField.GetType() == typeof(string))
+           {
+             if(childEntityfield.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(childEntityfield);
+		   string childfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   string childEntityPMName = GetFieldMultiTableName(childEntityfield) + "PM";
+		   if(type == "List" || (childEntityfield.IsMulti.GetType() == typeof(string) && childEntityfield.IsMulti == "true"))
+           { 
+			   string childmultitableName = GetFieldMultiTableName(childEntityfield);
+			   if(childmultitableName.ToLower() == "string")
+               {
+				   continue;
+               }
+			   if( childEntityfield.IsComposition.GetType() == typeof(string) && childEntityfield.IsComposition == "true")
+                {
+						gcount++;
+#>
+                new<#= pmname #>.<#= childfieldName #> = [];
+                for (var k in my<#= pmname #>.<#= childfieldName #>) {
+				    var my<#= childEntityPMName #> =my<#= pmname #>.<#= childfieldName #>[k];
+				    var new<#= childEntityPMName #>=this.clone(my<#= pmname #>.<#= childfieldName #>[k]);
+                    new<#= pmname #>.<#= childfieldName #>.push(new<#= childEntityPMName #>);
+
+					 <#+  
+					    this.GenerateInsideCompositionOnGetInitilization(childEntityfield);
+					 #>
+                }
+<#+
+					 
+				}
+		    }
+         }
+
+  }
+ 
+}
+
+    List<string> AddeMappingFunctions = new  List<string>();
+private void GenerateCompositionFieldMap(dynamic entity,dynamic field,bool insideComposition = false){
+			
+	string multitableName = GetFieldMultiTableName(field);
+	 	
+	string fieldName = field.FieldName.ToString().Trim('"');
+	string pmname = multitableName + "PM";
+	bool hasCompstionCustomField = false;
+	int numberOfCustomFields = entity.HasCustomFields.ToString() == "true" && !String.IsNullOrEmpty(entity.MaxNumberOfCustomFields.ToString()) ? Int32.Parse(entity.MaxNumberOfCustomFields.ToString()) + 1 : 51;
+
+		string templateDirectory2 = Path.GetDirectoryName(Host.TemplateFile);
+       string xmlFilePath2 = Path.Combine(templateDirectory2, SrcFolder) + "/"+multitableName + ".lxml";
+        if(Directory.Exists(xmlFilePath2) || File.Exists(xmlFilePath2))
+         {
+	       var childEntity = FromEntityPMServiceFile(xmlFilePath2);
+		   if(childEntity.AllowCustomFields.GetType() == typeof(string)  && childEntity.AllowCustomFields == "true" && childEntity.IsComposition.GetType() == typeof(string)  && childEntity.IsComposition == "true")
+             {
+	                     hasCompstionCustomField = true;
+              }
+ 
+	 }
+
+
+	
+	string parentpmname = GetFieldObjectTableName(field) + "PM";
+
+	if(multitableName.ToLower() == "string")
+               {
+				   return;
+               }
+
+        string newMapMethod= fieldName + parentpmname;
+        if(AddeMappingFunctions.Contains(newMapMethod))
+            return;
+        else
+            AddeMappingFunctions.Add(newMapMethod);
+#>
+    Map<#= fieldName #>(entityPM: <#= parentpmname #>, jsonPM: any, mapParent: boolean = true) {
+
+        var old<#= fieldName #>: <#= pmname #>[] = [];
+        if (entityPM.OldEntityPM && !mapParent) {
+            old<#= fieldName #> = entityPM.OldEntityPM.<#= fieldName #>;
+        }
+
+        entityPM.<#= fieldName #> = new Array<<#= pmname #>>();
+        for (var item in jsonPM.<#= fieldName #>) {
+            var jItem = jsonPM.<#= fieldName #>[item];
+            if (mapParent && (jItem.ChangeSetOp == "Delete" || jItem.ChangeSetOp == 3)) {
+                continue;
+            }
+            var new<#= pmname #>: <#= pmname #>;
+	  
+            if (mapParent) {
+                new<#= pmname #> = new <#= pmname #>(entityPM);
+            }
+            else
+            {
+                new<#= pmname #> = new <#= pmname #>(null);
+            }
+ 			new<#= pmname #>.DisableMarkAsDirty = true;
+               
+            var pmKeysArray = Object.keys(jItem);
+            for (var pmKey in pmKeysArray) {
+                if ((!mapParent && pmKeysArray[pmKey] === "entityParentPM" )|| pmKeysArray[pmKey] === "UIProperties" || pmKeysArray[pmKey] === "PropertyChanged") {
+                    continue;
+                }
+				  <#+
+if(hasCompstionCustomField)
+{
+#>      <#+
+#>
+             
+			    var customFields: Array<string> = [];
+                for (var i = 1; i < <#= numberOfCustomFields #>; i++) {
+                    customFields.push("Field" + i);
+                }
+
+                var property = pmKeys[key];
+                if (customFields.indexOf(property) > -1) {
+                    if (jItem[property]) {
+                        var customFieldClass: CustomFieldClass = new CustomFieldClass(jItem[property].Value, jItem[property].FieldName, jItem[property].TableName);
+                        new<#= pmname #>[property] = customFieldClass;
+                    }
+                }
+                else {
+                    new<#= pmname #>[property] = jItem[property];
+                }
+<#+
+}
+else{
+#>
+                var pmProperty = pmKeysArray[pmKey];
+                new<#= pmname #>[pmProperty] = jItem[pmProperty];
+<#+
+} 
+	   #>
+            }
+           
+			 
+            if (mapParent) {
+                new<#= pmname #>.UniqueKey = Guid.newGuid();
+                new<#= pmname #>.ChangeSetOp = "None";
+                jItem.ChangeSetOp = "None";
+                new<#= pmname #>.OldEntityPM = this.clone(new<#= pmname #>);
+<#+
+	string pmclassname = "new"+pmname;
+	string codestring = "                this.Map{ChildFieldName}("+pmclassname+", jItem, mapParent);" + Environment.NewLine +
+					    "                "+pmclassname+".OldEntityPM.{ChildFieldName} = [];"+Environment.NewLine +
+		                "                for (var k in "+pmclassname+".{ChildFieldName}) {"+Environment.NewLine +
+                        "                    //var clonedInside = this.clone("+pmclassname+".{ChildFieldName}[k]);"+Environment.NewLine +
+						"                    "+pmclassname+".OldEntityPM.{ChildFieldName}.push("+pmclassname+".{ChildFieldName}[k].OldEntityPM); // clone old {ChildFieldName}//"+Environment.NewLine +
+						"                }";
+	this.GenerateInsideCompisitionCode(multitableName,codestring);
+#>
+
+				
+            }
+            else {
+<#+
+if(insideComposition)
+{
+#>
+                if (entityPM.ChangeSetOp === "Delete") {
+                    new<#= pmname #>.ChangeSetOp = "Delete";
+                }
+                else {
+                    if (new<#= pmname #>.UniqueKey) {
+
+                    if (jItem.IsDirty)
+                        new<#= pmname #>.ChangeSetOp = "Update";
+                    }
+                else {
+                        new<#= pmname #>.ChangeSetOp = "Insert";
+                    }
+                }
+<#+
+}
+else{
+#>
+                if (new<#= pmname #>.UniqueKey) {
+
+                    if (jItem.IsDirty)
+                        new<#= pmname #>.ChangeSetOp = "Update";
+                }
+                else {
+                        new<#= pmname #>.ChangeSetOp = "Insert";
+                }
+<#+
+}
+#>
+<#+
+    codestring = "                this.Map{ChildFieldName}("+pmclassname+", jItem, mapParent);";
+	this.GenerateInsideCompisitionCode(multitableName,codestring);
+#>
+ 
+                new<#= pmname #>.OldEntityPM = null;
+                new<#= pmname #>.EntityParentPM = null;
+            }
+			 new<#= pmname #>.DisableMarkAsDirty = false;
+			 new<#= pmname #>.IsDirty = false;
+            entityPM.<#= fieldName #>.push(new<#= pmname #>);
+        }
+        if (old<#= fieldName #>) {
+            
+            for (var itemKey in old<#= fieldName #>) {
+                if (entityPM.<#= fieldName #>.filter(p=> p.UniqueKey === old<#= fieldName #>[itemKey].UniqueKey).length === 0) {
+				
+                    if (old<#= fieldName #>[itemKey]) {
+                        //old<#= fieldName #>[itemKey].ChangeSetOp = "Delete";
+                        //entityPM.<#= fieldName #>.push(old<#= fieldName #>[itemKey]);
+						var oldItemJson = old<#= fieldName #>[itemKey];
+                        var deletedPM: <#= pmname #> = new <#= pmname #>(null);
+						deletedPM.DisableMarkAsDirty = true;
+                        var pmKeys = Object.keys(oldItemJson);
+                        for (var key in pmKeys) {
+
+                            if ((!mapParent && pmKeys[key] === "entityParentPM") || pmKeys[key] === "UIProperties" || pmKeys[key] === "OldEntityPM" || pmKeys[key] === "PropertyChanged") {
+                                continue;
+                            }
+
+                            var property = pmKeys[key];
+                            deletedPM[property] = oldItemJson[property];
+                        }
+
+					    deletedPM.DisableMarkAsDirty = false;
+                        deletedPM.IsDirty = false;
+                        deletedPM.ChangeSetOp = "Delete";
+                        
+<#+
+    codestring = "                        this.Map{ChildFieldName}(deletedPM, oldItemJson, mapParent);";
+	this.GenerateInsideCompisitionCode(multitableName,codestring);
+#>
+                        deletedPM.OldEntityPM = null;
+                        entityPM.<#= fieldName #>.push(deletedPM);
+                    }
+                }
+            }
+        }
+    }
+<#+
+
+//>checking the file for QuoteCharge with path  C:\LogitudeWorld\main\Logitude.MetaData\AutoGenerators\../EntityFiles/QuoteModel/QuoteCharge.lxml
+string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+string xmlFilePath = Path.Combine(templateDirectory, SrcFolder) + "/"+multitableName + ".lxml";
+if(Directory.Exists(xmlFilePath) || File.Exists(xmlFilePath))
+  {
+	  int gcount = 0;
+	 var childEntity = FromEntityPMServiceFile(xmlFilePath);
+	 foreach(var childEntityfield in childEntity["field"])  
+	     { 
+		  // string childEntityfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   if( childEntityfield.HasPMField.GetType() == typeof(string))
+           {
+             if(childEntityfield.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(childEntityfield);
+		   if(type == "List" || (childEntityfield.IsMulti.GetType() == typeof(string) && childEntityfield.IsMulti == "true"))
+           { 
+			   if( childEntityfield.IsComposition.GetType() == typeof(string) && childEntityfield.IsComposition == "true")
+                {
+						gcount++;
+					 this.GenerateCompositionFieldMap(childEntity,childEntityfield,true);
+				}
+		    }
+         }
+		 if(gcount > 0)
+         {
+#>
+ 
+<#+
+         }
+  }
+  else{
+#>
+//file not found! for child composition <#= multitableName #>
+<#+
+}
+}
+#>
+
+<#+
+Dictionary<string,List<dynamic>> InsideEntitiesDic = new Dictionary<string,List<dynamic>>();
+private string GenerateInsideCompisitionCode(string multitableName,string codeString,bool printCode = true)
+{
+	string outputString = "";
+//>checking the file for QuoteCharge with path  C:\LogitudeWorld\main\Logitude.MetaData\AutoGenerators\../EntityFiles/QuoteModel/QuoteCharge.lxml
+	multitableName = GetObjectTableName(multitableName);
+int gcount = 0;
+string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+string xmlFilePath = Path.Combine(templateDirectory, SrcFolder) + "/"+multitableName + ".lxml";
+if(Directory.Exists(xmlFilePath) || File.Exists(xmlFilePath))
+  {
+	 
+	 var childEntity = FromEntityPMServiceFile(xmlFilePath);
+	 foreach(var childEntityfield in childEntity["field"])  
+	     { 
+		  // string childEntityfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   if( childEntityfield.HasPMField.GetType() == typeof(string))
+           {
+             if(childEntityfield.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		  
+		   string childfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   string childTableName  = GetObjectTableName(childEntityfield.MultiTableName.ToString().Trim('"'));
+		   string childEntityPMName =  childTableName + "PM";
+		   string type = GetTSDataType(childEntityfield);
+		   if(type == "List" || (childEntityfield.IsMulti.GetType() == typeof(string) && childEntityfield.IsMulti == "true"))
+           { 
+			   if( childEntityfield.IsComposition.GetType() == typeof(string) && childEntityfield.IsComposition == "true" && childTableName.ToLower() != "string")
+                {
+					  
+						gcount++;
+					 if(printCode){
+  				 	    outputString = Environment.NewLine +  codeString.Replace("{ChildFieldName}",childfieldName).Replace("{ChildEntityPMName}",childEntityPMName);
+                     }
+					else
+                     {
+						 outputString += Environment.NewLine +  codeString.Replace("{ChildFieldName}",childfieldName).Replace("{ChildEntityPMName}",childEntityPMName);
+						 outputString += this.GenerateInsideCompisitionCode(childTableName,"import {{ChildEntityPMName}} from '../../EntityPMs/{ChildEntityPMName}';",false);
+                     }
+					   //codeString = codeString.Replace("{ChildEntityPMName}",childEntityPMName);
+if(printCode)
+{
+#>
+ 
+<#= outputString #>
+<#+
+}
+					 
+				}
+		    }
+         }
+		 if(gcount > 0)
+         {
+#>
+<#+
+         }
+		 else
+			 {
+				 //codeString = "";
+             }
+  }
+  else{
+if(true)
+{
+#>
+//file not found! child composition <#= multitableName #>
+<#+
+}
+}
+ if(gcount == 0)
+ {
+	  outputString = "";
+ }
+  return outputString;
+}
+
+#>
+
+<#+
+private void GenerateNonCompositionFieldMap(dynamic entity,dynamic field){
+	
+	string fieldName = field.FieldName.ToString().Trim('"');
+	string pmname = GetFieldMultiTableName(field) + "PM";
+	string multitableName = GetFieldMultiTableName(field);
+	string parentpmname = GetFieldObjectTableName(field) + "PM";
+
+	if(multitableName.ToLower() == "string")
+               {
+				   return;
+               }
+
+         string newMapMethod= fieldName + parentpmname;
+        if(AddeMappingFunctions.Contains(newMapMethod))
+            return;
+        else
+            AddeMappingFunctions.Add(newMapMethod);
+#>
+    Map<#= fieldName #>(entityPM: <#= parentpmname #>, jsonPM: any, mapParent: boolean = true) {
+
+        entityPM.<#= fieldName #> = new Array<<#= pmname #>>();
+        for (var item in jsonPM.<#= fieldName #>) {
+
+            var jItem = jsonPM.<#= fieldName #>[item];
+            if (mapParent && (jItem.ChangeSetOp == "Delete" || jItem.ChangeSetOp == 3)) {
+                continue;
+            }
+            var new<#= pmname #>: <#= pmname #>;
+            new<#= pmname #> = new <#= pmname #>();
+		    new<#= pmname #>.DisableMarkAsDirty = true;                
+            var pmKeysArray = Object.keys(jItem);
+            for (var pmKey in pmKeysArray) {
+			
+                if ((!mapParent && pmKeysArray[pmKey] === "entityParentPM" )|| pmKeysArray[pmKey] === "UIProperties" || pmKeysArray[pmKey] === "PropertyChanged") {
+                    continue;
+                }
+                var pmProperty = pmKeysArray[pmKey];
+                new<#= pmname #>[pmProperty] = jItem[pmProperty];
+            }
+			new<#= pmname #>.DisableMarkAsDirty = false;
+            new<#= pmname #>.IsDirty = false;
+            entityPM.<#= fieldName #>.push(new<#= pmname #>);
+        }
+    }
+<#+
+}
+#>
+
+<#+
+public string BuildPMImportEntitesString( dynamic entity,string entityPmname)
+{
+	string importentitystring = "";
+	
+
+	foreach(var field in entity["field"])  //get all classes
+	 { 
+		  if( field.HasPMField.GetType() == typeof(string))
+           {
+             if(field.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(field);
+		   if(type == "List" || (field.IsMulti.GetType() == typeof(string) && field.IsMulti == "true"))
+           {
+			   string multitableName = GetFieldMultiTableName(field);
+			   if(multitableName.ToLower() != "string")
+               {
+				     multitableName = GetObjectTableName(multitableName);
+					string pmname = multitableName + "PM";
+				    string newImport = Environment.NewLine + "import {"+pmname+"} from '../../EntityPMs/" + pmname + "';";
+		            if(field.ModelName.GetType() == typeof(string) && field.ModelName != null)
+                    {
+                         newImport = Environment.NewLine + "import {"+pmname+"} from '../../../" + field.ModelName.ToString().Trim('"') + "/EntityPMs/" + pmname + "';";
+                    }
+					if(!importentitystring.Contains(newImport) && pmname != entityPmname)
+					 {
+                        importentitystring += newImport;//Environment.NewLine + "import {"+pmname+"} from '../../EntityPMs/" + pmname + "';";
+
+						 string importInsideEntitiesString = this.GenerateInsideCompisitionCode(multitableName,"import {{ChildEntityPMName}} from '../../EntityPMs/{ChildEntityPMName}';",false);
+						  //importInsideEntitiesString = this.GenerateInsideCompositionImportStrings(field,importentitystring);
+						 if(!string.IsNullOrEmpty(importInsideEntitiesString) &&  !importentitystring.Contains(importInsideEntitiesString))
+                         {
+							 importentitystring += Environment.NewLine + importInsideEntitiesString;
+                         }
+                     }
+               }
+
+
+
+           }
+		   
+	 }
+
+	 return importentitystring;
+}
+
+private string GenerateInsideCompositionImportStrings(dynamic field,string importInsideEntitiesString){
+
+	string multitableName = GetFieldMultiTableName(field);
+	multitableName = GetObjectTableName(multitableName);
+	string fieldName = field.FieldName.ToString().Trim('"');
+	string pmname = GetFieldMultiTableName(field) + "PM";
+
+	string parentpmname = GetFieldObjectTableName(field) + "PM";
+
+	if(multitableName.ToLower() == "string")
+               {
+				   return "";
+               }
+
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+string xmlFilePath = Path.Combine(templateDirectory, SrcFolder) + "/"+multitableName + ".lxml";
+if(Directory.Exists(xmlFilePath) || File.Exists(xmlFilePath))
+  {
+	  int gcount = 0;
+	 var childEntity = FromEntityPMServiceFile(xmlFilePath);
+	 foreach(var childEntityfield in childEntity["field"])  
+	     { 
+		  // string childEntityfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   if( childEntityfield.HasPMField.GetType() == typeof(string))
+           {
+             if(childEntityfield.HasPMField == "false")
+               {
+                  continue;
+               }
+           }
+		   string type = GetTSDataType(childEntityfield);
+		   string childfieldName = childEntityfield.FieldName.ToString().Trim('"');
+		   string childEntityPMName = GetFieldMultiTableName(childEntityfield) + "PM";
+		   if(type == "List" || (childEntityfield.IsMulti.GetType() == typeof(string) && childEntityfield.IsMulti == "true"))
+           { 
+			   string childmultitableName = GetFieldMultiTableName(childEntityfield);
+			   if(childmultitableName.ToLower() == "string")
+               {
+				   continue;
+               }
+			   if( childEntityfield.IsComposition.GetType() == typeof(string) && childEntityfield.IsComposition == "true")
+                {
+						gcount++;
+				      importInsideEntitiesString = Environment.NewLine + this.GenerateInsideCompisitionCode(childmultitableName,"import {{ChildEntityPMName}} from '../../EntityPMs/{ChildEntityPMName}';",false);
+					 //importInsideEntitiesString = this.GenerateInsideCompositionImportStrings(childEntityfield, importInsideEntitiesString);
+				}
+		    }
+         }
+
+  }
+ 
+  return importInsideEntitiesString;
+}
+ #>
+
+
+
+
+
+
+<#+
+//Create an elastic object
+private dynamic FromEntityPMServiceFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

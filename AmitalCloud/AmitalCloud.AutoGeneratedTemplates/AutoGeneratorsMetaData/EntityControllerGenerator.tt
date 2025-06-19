@@ -1,0 +1,1086 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+
+<#@ Assembly Name="Microsoft.CSharp.dll" #>
+<#@ Assembly name="$(SolutionDir)packages\AmazedSaint.ElasticObject.1.2.0\lib\net40\AmazedSaint.Elastic.dll" #>
+
+<#@ Import Namespace="System.Xml" #>
+<#@ Import Namespace="System.Xml.Linq" #>
+<#@ Import Namespace="System.Linq" #>
+<#@ Import Namespace="AmazedSaint.Elastic" #>
+<#@ Import Namespace="AmazedSaint.Elastic.Lib" #>
+<#@ output extension=".cs" #>
+<#@ import Namespace="System.IO" #>
+<#@ import Namespace="System.Collections.Generic" #>
+ 
+ 
+
+<#+
+
+dynamic controlernamespace;
+bool UpdateClassesRegisterarNameSpaceTS;
+bool UseUpdateClassesNameSpaceTS;
+string SrcFolderts;
+public void GenerateAllControllers(string sourceFolder,string destinationFolder,string contextName,string modelProjectName,string modelFolderName)
+{
+ SrcFolderts = sourceFolder;
+
+ string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+ string outputFilePath = Path.Combine(templateDirectory, sourceFolder);
+foreach (string file in Directory.EnumerateFiles(outputFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+
+     controlernamespace =GetControllerNameSpace(destinationFolder+"/" + modelFolderName+ "/Generated/PMControllers");
+	GenerateEntityController(file,destinationFolder+"/" + modelFolderName+ "/Generated/PMControllers/"+fileNameWithoutExtension+"Controller.Generated.cs",contextName,modelProjectName);
+     controlernamespace =GetControllerNameSpace(destinationFolder+"/"+modelFolderName +"/Generated/ListControllers");
+	GenerateEntityViewController(file,destinationFolder+"/"+modelFolderName +"/Generated/ListControllers/"+fileNameWithoutExtension+"ViewsController.Generated.cs",contextName,modelProjectName);
+}
+
+}
+#>
+
+<#+  
+
+public void GenerateEntityController(string xmlFilePath,string outputFilePath,string contextName,string modelname)
+{
+	 
+
+        var entity = FromEntityControllerFile(xmlFilePath);
+	        
+	  if( entity.IsComposition.GetType() == typeof(string))
+      	{
+	    	if(entity.IsComposition == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		if( entity.NoPMController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoPMController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		if( entity.IsClosed.GetType() == typeof(string))
+      	{
+	    	if(entity.IsClosed == "true" && entity.ObjectTableName.Trim('"') != "PortTimeZone")
+	    	{
+	    		return;
+	    	}
+	    } 
+
+		 if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+       // if( entity.GenerateDomainService.GetType() == typeof(string))
+      	//{
+	   // 	if(entity.GenerateDomainService == "false" || entity.GenerateDomainService == null)
+	   // 	{
+	   // 		return;
+	   // 	}
+	   // } 
+		//else
+      //  {
+	  //    return;      
+       // }
+          WriteEntityControllerMethod(entity,modelname,contextName); 
+          SaveEntityControllerOutput(outputFilePath);
+        
+
+ }
+
+public void GenerateEntityViewController(string xmlFilePath,string outputFilePath,string contextName,string modelname)
+{
+	
+	
+        var entity = FromEntityControllerFile(xmlFilePath);
+		 if( entity.NoViewController.GetType() == typeof(string))
+      	{
+	    	if(entity.NoViewController == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+         if( entity.IsMetadataOnlyTable.GetType() == typeof(string))
+      	{
+	    	if(entity.IsMetadataOnlyTable == "true")
+	    	{
+	    		return;
+	    	}
+	    } 
+        //if( entity.GenerateDomainService.GetType() == typeof(string))
+      	//{
+	    	//if(entity.GenerateDomainService == "false" || entity.GenerateDomainService == null)
+	    	//{
+	    	//	return;
+	    	//}
+	   // } 
+		//else
+       // {
+	   //   return;      
+       // }
+
+	  
+
+          WriteEntityViewControllerMethod(entity,modelname,contextName); 
+          SaveEntityControllerOutput(outputFilePath);
+        
+
+ }
+
+//
+
+#>
+
+<#+
+
+public dynamic GetControllerNameSpace(string destinationFolder)
+{
+    if(destinationFolder.Contains("WebFreight.Web"))
+    {
+        return "WebFreight.Web.App_Code.AngularJS_App_Code.Generated";
+	}
+	string spacestring = "";
+	string[] path = destinationFolder.Split('/');
+	foreach(string dir in path)
+    {
+		if(dir != "..")
+        {
+			spacestring += dir + ".";
+        }
+    }
+    spacestring = spacestring.ToString().Trim('.');
+
+	return spacestring;
+}
+
+#>
+
+<#+
+void SaveEntityControllerOutput(string outputFileName)
+  {
+      string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+      string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+     
+	    var manager = Manager.Create(Host, GenerationEnvironment);
+	  manager.CreateTestFile(outputFilePath,this.GenerationEnvironment.ToString());
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+  }
+#>
+
+
+
+<#+
+ private void WriteEntityControllerMethod(dynamic entity,string modelname,dynamic contextName)
+{
+
+
+    string tableName = entity.ObjectTableName.Trim('"');
+	string fullTableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string pocosspacestring = modelname+ ".Data.EntityPOCOs;";
+	string location="BL";
+	if(modelname.Contains("Accounting") || modelname.Contains("Customs") || modelname.Contains("CargoTracking") || modelname.Contains("ShipmentOrder")|| modelname.Contains("Shipment")){
+	location="Def";
+	}
+    if(modelname.Contains("QuoteOPM") ){
+	location="Def";
+	}
+
+	string pmsspacestring =  modelname + "."+ location +".EntityPMs;";
+	string listspacestring  = modelname + ".Data.EntityLists;";
+	string dataspacestring = modelname + ".Data;";
+	string blspacestring = modelname + ".BL;";
+	string queryeservicespacestring = modelname + ".BL.EntityQueryServices;";
+	string entityqueryservicespacestring = modelname + ".Data.EntityListQueryServices;";
+	string updateservicespacestring = modelname + ".BL.EntityUpdateServices;";
+ 	string contextspacestring = modelname + ".Data;";
+	if( modelname.Contains("ShipmentM"))
+	{
+		contextspacestring = modelname + ".Data.Context;";
+	}
+
+	string context = FirstServiceCharacterToLowerTS(contextName);
+	string queryName = FirstServiceCharacterToLowerTS(tableName)+"Query";
+
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+
+	bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+				 
+    }
+
+	 bool enableSecurity = false;
+	if( entity.EnableSecurity.GetType() == typeof(string))
+	{
+	    enableSecurity = (entity.EnableSecurity == "true");
+				 
+    }
+
+
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 	 string tenantStringParam = "entityPM.Tenant";
+		 if(tableName == "Tenant" || tableName == "TenantManagement" || tableName == "AccountingSetting")
+			 tenantStringParam = "entityPM.Id";
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+
+
+		// string keyprimarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		
+	 
+	 bool isCachedOnClient = false;
+	if( entity.CacheOnClient.GetType() == typeof(string))
+	{
+	    isCachedOnClient = (entity.CacheOnClient == "true");
+				 
+    }  
+     
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+using Logitude.BL.Security;
+using Logitude.BL.Helpers;
+using Logitude.Server.Tools.Helpers;
+using Simplog.Data.CommonDataModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Data.CommonDataModel.Repositories;
+using Simplog.Data.InfrastructureModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Server.Infrastructure.DataContracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
+using System.Web;
+using System.Web.Http;
+using System.Web.Script.Serialization;
+using WebFreight.Web.DataContracts;
+using WebFreight.Web.Helpers;
+using Simplog.Server.Infrastructure.Helpers;
+using System.Transactions;
+using Simplog.Server.Infrastructure;
+using <#= listspacestring #>
+using <#= updateservicespacestring #>
+using <#= entityqueryservicespacestring #>
+using <#= queryeservicespacestring #>
+using <#= pocosspacestring #>
+using <#= pmsspacestring #>
+using <#= dataspacestring #>
+using <#= blspacestring #>
+using <#= contextspacestring #>
+
+
+
+namespace <#= controlernamespace #>
+{ 
+
+    
+    public partial class <#= dBTableName + "Controller" #> : ApiController
+    {
+	  
+       
+        public HttpResponseMessage GetSingle(<#= primarykeyParam #>)
+        {
+		  try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+			    string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                
+                I<#= contextName #> MyContext = <#= contextName #>.GetContext(authToken.Tenant);
+                <#= tableName #>QueryService <#= queryName #> = new <#= tableName #>QueryService(MyContext);
+				<#= queryName #>.InitializeSettings();
+                <#= pmName #> <#= FirstServiceCharacterToLower(pmName) #> = <#= queryName #>.GetSingle(<#= primaryonlyparam #>,true,false);
+
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+            
+                return Request.CreateResponse(HttpStatusCode.OK, <#= FirstServiceCharacterToLower(pmName) #>);
+			 }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+            }
+           
+        }
+
+         
+		
+		<#+
+		 if(hasTenant)
+         {
+	#><#= ""
+	 #>
+	   public HttpResponseMessage Post(<#= pmName #> entityPM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (TransactionScope scope = TransactionFactory.GetTransaction())
+                    {
+                        string logKey = PerformanceLogger.LogCurrentTime();
+                        string token = HttpContext.Current.Request.Headers["Token"];
+                        AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                        SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                        SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "NEW", authToken.Tenant);
+	<#+
+}
+
+if(hasTenant && enableSecurity)
+{
+	#>
+                        SecurityUtility.AuthenticationOnEntityTenant("<#= tableName #>", entityPM.Tenant, authToken.Tenant);
+	<#+
+}
+
+#>
+                    
+                        I<#= contextName #> MyContext = <#= contextName #>.GetContext(entityPM.Tenant);
+                        <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(MyContext, new Dictionary<string, IContext>(), entityPM.Tenant);
+                        entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Insert;
+                        service.Update(entityPM, true);
+
+                        //ObjectTableRepository objectTabelRepository = new ObjectTableRepository(entityPM.Tenant);
+                        //ObjectTable objectTable = objectTabelRepository.GetObjectTableByName("<#= tableName #>", 0, true);
+                        //string email = HttpContext.Current.User.Identity.Name;
+                        //ContactRepository contactRepository = new ContactRepository(entityPM.Tenant);
+                        //Contact loggedContact = contactRepository.GetSingleContactByEmail(email, entityPM.Tenant);
+                        //if (loggedContact != null)
+                        //{
+                           //ActivityLog.AddAcitivityLog(entityPM.Id, objectTable.Id, entityPM.Tenant, "N", loggedContact.Id);
+                        //}
+<#+
+			 if(!isClosed  && isCachedOnClient)
+             {
+#>
+                        TableLastUpdateClass.UpdateTableHistory(<#= tenantStringParam #>, "<#= fullTableName #>");
+<#+
+				
+             }
+
+#>
+                        scope.Complete();
+                        PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+
+                        return Request.CreateResponse(HttpStatusCode.OK, entityPM);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+                }
+            }
+            else
+            { 
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildModelException(ModelState));
+            }
+        }
+
+
+        public HttpResponseMessage Put(<#= pmName #> entityPM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (TransactionScope scope = TransactionFactory.GetTransaction())
+                    {
+                        string logKey = PerformanceLogger.LogCurrentTime();					                        
+                        string token = HttpContext.Current.Request.Headers["Token"];
+                        AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                        SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(enableSecurity)
+{
+	#>
+                        SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "UPDATE", authToken.Tenant);
+	<#+
+}
+if(hasTenant && enableSecurity)
+{
+	#>
+                        SecurityUtility.AuthenticationOnEntityTenant("<#= tableName #>", entityPM.Tenant, authToken.Tenant);
+	<#+
+}
+#>
+
+                        I<#= contextName #> MyContext = <#= contextName #>.GetContext(entityPM.Tenant);
+                        <#= tableName #>UpdateService service = new <#= tableName #>UpdateService(MyContext, new Dictionary<string, IContext>(), entityPM.Tenant);
+						service.InitializeEntityPM(entityPM);
+                        entityPM.ChangeSetOp = Simplog.Server.Infrastructure.ChangeSetOperation.Update;
+                        service.Update(entityPM, true);
+<#+
+			 if(!isClosed  && isCachedOnClient)
+             {
+#>
+                        TableLastUpdateClass.UpdateTableHistory(<#= tenantStringParam #>, "<#= fullTableName #>");
+<#+
+				
+             }
+
+#>
+                        //ObjectTableRepository objectTabelRepository = new ObjectTableRepository(entityPM.Tenant);
+                        //ObjectTable objectTable = objectTabelRepository.GetObjectTableByName("<#= tableName #>", 0, true);
+                        //string email = HttpContext.Current.User.Identity.Name;
+                        //ContactRepository contactRepository = new ContactRepository(entityPM.Tenant);
+                        //Contact loggedContact = contactRepository.GetSingleContactByEmail(email, entityPM.Tenant);
+                        //if (loggedContact != null)
+                        //{
+                           //ActivityLog.AddAcitivityLog(entityPM.Id, objectTable.Id, entityPM.Tenant, "U", loggedContact.Id);
+                        //}
+
+                        scope.Complete();
+                        PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                        return Request.CreateResponse(HttpStatusCode.OK, entityPM);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+                }
+            }
+            else
+            { 
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildModelException(ModelState));
+            }
+        }
+
+        // DELETE api/<controller>/5
+        public void Delete(int id)
+        {
+        }
+	    
+
+
+		
+          
+			
+			 
+		  
+        
+
+		
+			 <#+
+			
+         }
+		 #>
+		
+      
+    }
+}
+	 <#+
+
+
+
+}
+
+#>
+
+
+<#+
+ private void WriteEntityViewControllerMethod(dynamic entity,string modelname,dynamic contextName)
+{
+    string tableName = entity.ObjectTableName.Trim('"');
+	string dBTableName = entity.DBTableName.Trim('"');
+	if(tableName.ToString().Trim('"').Contains("."))
+    {
+		tableName = tableName.ToString().Split('.')[1];
+		dBTableName = dBTableName.ToString().Split('.')[1];
+          
+    }
+
+	string parententity = "object";
+	string parentKeys = tableName + "Keys";
+	if(entity.ParentTableName.GetType() == typeof(string))
+    {
+		parententity = entity.ParentTableName +"PM";
+		parentKeys =entity.ParentTableName + "Keys";
+    }
+
+    string listName = tableName + "List";
+    string pmName = tableName + "PM";
+	string keysName = tableName+"Keys";
+	string pocosspacestring = modelname+ ".Data.EntityPOCOs;";
+	string location="BL";
+	if(modelname.Contains("Accounting") || modelname.Contains("Customs")|| modelname.Contains("CargoTracking") || modelname.Contains("ShipmentOrder")|| modelname.Contains("Shipment")){
+	  location="Def";
+	}
+	string pmsspacestring =  modelname + "."+ location +".EntityPMs;";
+	string listspacestring  = modelname + ".Data.EntityLists;";
+	string dataspacestring = modelname + ".Data;";
+	string blspacestring = modelname + ".BL;";
+	string queryeservicespacestring = modelname + ".BL.EntityQueryServices;";
+	string entityqueryservicespacestring = modelname + ".Data.EntityListQueryServices;";
+	string updateservicespacestring = modelname + ".BL.EntityUpdateServices;";
+	string contextspacestring = dataspacestring;
+    if (modelname.Contains("ShipmentM"))
+    {
+	    contextspacestring = modelname + ".Data.Context;"; 
+    }
+ 
+
+	string context = FirstServiceCharacterToLower(contextName);
+	string queryName = FirstServiceCharacterToLower(tableName)+"Query";
+
+	 string sortbycolumnname="";
+	 if(entity.SortingByObjectField.GetType() == typeof(string))
+	 {
+		 sortbycolumnname = entity.SortingByObjectField.Trim('"');
+     }
+
+	 if(string.IsNullOrEmpty(sortbycolumnname))
+     {
+		 sortbycolumnname = entity["field"][0].FieldName.Trim('"');
+     }
+
+	  bool isClosed = false;
+	if( entity.IsClosed.GetType() == typeof(string))
+	{
+	    isClosed = (entity.IsClosed == "true");
+				 
+    }
+
+	 bool enableSecurity = false;
+	if( entity.EnableSecurity.GetType() == typeof(string))
+	{
+	    enableSecurity = (entity.EnableSecurity == "true");
+				 
+    }
+
+	bool hasCustomFields = false;
+	if( entity.HasCustomFields.GetType() == typeof(string))
+	{
+	    hasCustomFields = (entity.HasCustomFields == "true");
+				 
+    }
+
+	if(hasCustomFields){
+		blspacestring += Environment.NewLine + "using Logitude.BL.Helpers;";
+	}
+
+	  Dictionary<string,string> primaryKeys = new Dictionary<string,string>();
+	  string keysstring = "";
+	   
+	  bool hasTenant = false;
+		 foreach(var field in entity["field"])
+		 {
+		  if( field.IsPrimaryKey.GetType() == typeof(string))
+			{
+				if(field.IsPrimaryKey.ToString() == "true")
+				{ 
+					 primaryKeys.Add(field.FieldName.Trim('"'),GetDataType(field));
+
+				}
+			}
+
+			if( field.FieldName.ToString().Trim('"') == "Tenant")
+			{
+				 hasTenant = true;
+			 
+			}
+		 }
+
+
+		 string tenantParam ="";
+		 string tenantonlyParam = "";
+		 string tenantCondition = "";
+		 string tenantKeyCondition = "";
+		 string getalltenantCondition = "";
+
+		 if(hasTenant)
+         {
+			 tenantParam = ", int tenant";
+			 tenantonlyParam = ", tenant";
+			 tenantCondition = "&& a.Tenant == tenant";
+			 getalltenantCondition = "\n                   where a.Tenant == tenant";
+
+		     tenantKeyCondition = "&& a.Tenant == keys.Tenant";
+         }
+
+		 string primarykeyParam="";
+		 string primaryonlyparam = "";
+		 string primarykeyCondition = "";
+		// string keyprimarykeyCondition = "";
+		 foreach(string key in primaryKeys.Keys)
+         {
+			 primarykeyParam += primaryKeys[key]+ " " + key.ToLower() + ", ";
+			 primaryonlyparam += key.ToLower() + ", ";
+			 primarykeyCondition += " a." + key +" == "  + key.ToLower() +" &&";
+			// keyprimarykeyCondition += " a." + key +" == a."  + key +" &&";
+         }
+		 
+		 primarykeyParam = primarykeyParam.TrimEnd(' ').TrimEnd(',');
+		 primaryonlyparam = primaryonlyparam.TrimEnd(' ').TrimEnd(',');
+		 primarykeyCondition = primarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		// keyprimarykeyCondition = keyprimarykeyCondition.TrimEnd('&').TrimEnd('&').Trim(' ');
+		  
+     
+   #>
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a logitude.
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated> <#= Path.GetFileName(Host.TemplateFile) #>
+//------------------------------------------------------------------------------
+using Simplog.Data.InfrastructureModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using Simplog.Data.InfrastructureModel.Repositories;
+using Simplog.Server.Infrastructure.DataContracts;
+using Simplog.Server.Infrastructure.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using WebFreight.Web.Security;
+using WebFreight.Web.Helpers;
+using Simplog.Server.Infrastructure;
+using Logitude.Server.Tools.Helpers;
+using Logitude.Server.Tools.Interfaces;
+using Logitude.Server.Tools;
+using System.Web;
+using Simplog.Data.CommonDataModel.Repositories;
+using Simplog.Data.CommonDataModel.EntityPOCOs; using Simplog.Global.Data.GlobalModel.EntityPOCOs;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using WebFreight.Web.Helpers;
+using WebFreight.Web.Security;
+using System.Web.Script.Serialization;
+using WebFreight.Web.DataContracts;
+using <#= pocosspacestring #>
+using <#= pmsspacestring #>
+using <#= dataspacestring #>
+using <#= blspacestring #>
+using <#= listspacestring #>
+using <#= updateservicespacestring #>
+using <#= entityqueryservicespacestring #>
+using <#= queryeservicespacestring #>
+using <#= contextspacestring #>
+
+
+
+namespace <#= controlernamespace #>
+{ 
+
+    
+    public partial class <#= tableName + "ViewsController" #> : ApiController
+    {
+	  
+       
+        public HttpResponseMessage GetSingle(<#= primarykeyParam #>)
+        {
+		  try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                I<#= contextName #> MyContext = <#= contextName #>.GetContext(authToken.Tenant);
+                <#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(MyContext);
+                <#= listName #> <#= FirstServiceCharacterToLowerTS(listName) #> = <#= queryName #>.GetSingle(<#= primaryonlyparam #>);
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, new List<<#= listName #>> { <#= FirstServiceCharacterToLowerTS(listName) #> }.Cast<object>().ToList());
+<#+
+}
+#>
+ 				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+				           
+                return Request.CreateResponse(HttpStatusCode.OK,  <#= FirstServiceCharacterToLowerTS(listName) #>);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+            }
+           
+        }
+
+        public HttpResponseMessage GetAll()
+        {
+            try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                I<#= contextName #> MyContext = <#= contextName #>.GetContext(authToken.Tenant);
+                <#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(MyContext);
+                List<<#= listName #>> result = <#= queryName #>.GetList(authToken.Tenant);
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, result.Cast<object>().ToList());
+<#+
+}
+#>
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+            }
+        }
+        
+		[HttpGet]
+        public HttpResponseMessage GetByFilters([FromUri] ApiQueryFilters filters)
+        {
+            try
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                string token = HttpContext.Current.Request.Headers["Token"];
+                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                SecurityUtility.AuthenticationOnTenant(authToken.Tenant);
+<#+ 
+if(!isClosed && enableSecurity)
+{
+	#>
+                SecurityUtility.CheckContactFeature("<#= entity.ObjectTableName.Trim('"') #>", "READ", authToken.Tenant);
+	<#+
+}
+
+#>
+                
+				int tenant = authToken.Tenant;
+<#+
+if(tableName == "Port" || tableName == "Carrier"  || tableName == "Currency")
+{
+	#>
+            if(filters.Tenant != null)
+	                tenant = filters.Tenant.Value;
+	<#+
+}
+#>
+
+                QueryOperations queryOperations = new QueryOperations()
+                {
+                    ObjectTableName = "<#= entity.ObjectTableName.Trim('"') #>",
+                    PageIndex = filters.PageIndex,
+                    PageSize = filters.PageSize,
+                    QuerySection = "<#= entity.ObjectTableName.Trim('"') #>s",
+                    SortByColumnName = filters.SortBy,
+                    SortDirectin = filters.SortDirection,
+					GetAll = filters.GetAll, 
+                };
+
+				
+				List<ObjectField> <#= tableName #>ObjectFields = ObjectFieldRepository.GetObjectFieldsByObjectTableName("<#= entity.ObjectTableName.Trim('"') #>",tenant);
+                List<PropertyInfo> filterProperties = filters.GetType().GetProperties().ToList();
+                for (int i = 1; i <= 10; i++)
+                {
+                    object filterNameProp = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Name")).GetValue(filters);
+                    object filterValue1 = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Value")).GetValue(filters);
+                    object filterOperatorProp = filterProperties.FirstOrDefault(f => f.Name == ("Filter" + i + "Operator")).GetValue(filters);
+					object filterValue2 = null;
+
+                    if (filterNameProp != null)
+                    {
+                        string filterName = filterNameProp.ToString();
+                        string filterOperator = filterOperatorProp != null ? filterOperatorProp.ToString() : "Equals";
+						//if (filterValue1 != null && filterValue1.GetType() == typeof(string))
+                        //{
+                           //string[] values = filterValue1.ToString().Split(',');
+                            //if (values.Count() > 1)
+                            //{
+                                //filterValue1 = values[0];
+                                //filterValue2 = values[1];
+                            //}
+						//}
+                        //ToDo: Get object field by name and set the remained filter properties
+						ObjectField field = <#= tableName #>ObjectFields.FirstOrDefault(f => f.FieldName == filterName);
+                       if (field != null)
+                        {
+                            string valuestring1 = filterValue1 != null ? filterValue1.ToString() : null;
+                            object value1 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring1);
+
+                            string valuestring2 = filterValue2 != null ? filterValue2.ToString() : null;
+                            object value2 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring2);
+
+                            //queryOperations.SetFilter(filterName, value1, field.IsCustomFilter, filterOperator, value2, field.DisplayInList);
+							  queryOperations.SetFilter(filterName, value1, field.IsCustomFilter, filterOperator, value2, field.DisplayInList, field.IsCustom, field.DataTypeCode, field.IsListFilter);
+
+                        }
+                        else
+                            queryOperations.SetFilter(filterName, filterValue1, false, filterOperator, filterValue2, true);
+                    }
+
+
+
+                }
+
+               if (!string.IsNullOrEmpty(filters.AdditionalFilters))
+                {
+                    JavaScriptSerializer JsonConvert = new JavaScriptSerializer();
+                    var filters_list = JsonConvert.Deserialize<List<QueryFilterItem>>(filters.AdditionalFilters);
+
+                    foreach (QueryFilterItem filter in filters_list)
+                    {
+                        ObjectField field = <#= tableName #>ObjectFields.FirstOrDefault(f => f.FieldName == filter.FieldName);
+                        if (field != null)
+                        {
+
+
+                            string valuestring1 = filter.FieldValue != null ? filter.FieldValue.ToString() : null;
+                            object value1 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring1);
+
+                            string valuestring2 = filter.FieldValue2 != null ? filter.FieldValue2.ToString() : null;
+                            object value2 = Logitude.Server.Tools.Helpers.FieldValueResolver.GetFieldDataValue(field, valuestring2);
+
+                            //queryOperations.SetFilter(filter.FieldName, value1, field.IsCustomFilter, filter.Operator, value2, field.DisplayInList);
+							  queryOperations.SetFilter(filter.FieldName, value1, field.IsCustomFilter, filter.Operator, value2, field.DisplayInList, field.IsCustom, field.DataTypeCode, field.IsListFilter);
+
+                        }
+                        else
+                        {
+                            queryOperations.SetFilter(filter.FieldName, filter.FieldValue, filter.IsCustom, filter.Operator, filter.FieldValue2, filter.DisplayInList);
+                        }
+                    }
+                }
+
+                I<#= contextName #> MyContext = <#= contextName #>.GetContext(tenant);
+<#+ 
+                if(tableName == "Activity")
+{
+#>              
+
+                if (FeatureToggleHelper.HasFeatureToggle("SCD", tenant))
+                {
+                  MyContext = <#= contextName #>.GetSecContext(tenant);
+                }
+<#+
+}#>
+				<#= tableName #>ListQueryService <#= queryName #> = new <#= tableName #>ListQueryService(MyContext);
+
+                TreeFilterQueryArgs treeFilterQueryArgs = new TreeFilterQueryArgs()
+                 { 
+                     AdditionalTreeFilter = filters.TreeFilters,
+                     ObjectTableName = "<#= entity.ObjectTableName.Trim('"') #>",
+                     ParentEntityId = filters.ParentEntityId,
+                     ParentObjectTableName = filters.ParentObjectTableName, 
+                     Tenant = tenant ,
+                     ParentEntity = filters.ParentEntity
+                 };
+
+
+                List<<#= listName #>> entityLists = <#= queryName #>.GetList(queryOperations, tenant , treeFilterQueryArgs);
+
+				ServiceResponse response = new ServiceResponse();
+                if (filters.GetCount)
+                {
+<#+
+#>
+
+<#+
+		 if(hasTenant)
+         {
+#>
+                    int count = <#= queryName #>.GetListCount(queryOperations, tenant , treeFilterQueryArgs);
+<#+
+         }
+		 else
+         {
+#>
+                    int count = <#= queryName #>.GetListCount(queryOperations , treeFilterQueryArgs);
+<#+
+         }
+#>
+                    response.Count = count;
+                }
+
+                response.Result = entityLists;
+<#+
+if(hasCustomFields){
+#>
+                CustomFieldResolver customFieldResolver = new CustomFieldResolver(authToken.Tenant);
+                customFieldResolver.SetCustomFieldsValues("<#= tableName #>",  authToken.Tenant, entityLists.Cast<object>().ToList());
+<#+
+}
+#>
+                HttpResponseMessage reponseMessage = Request.CreateResponse(HttpStatusCode.OK, response);
+				PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+
+                return reponseMessage;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ApiExceptionBuilder.BuildException(ex));
+            }
+
+        }
+
+		 
+		
+      
+    }
+}
+	 <#+
+
+
+
+}
+
+#>
+
+
+
+<#+
+public  string FirstServiceCharacterToLowerTS(string str)
+{
+    if (String.IsNullOrEmpty(str) || Char.IsLower(str, 0))
+        return str;
+
+    return Char.ToLowerInvariant(str[0]).ToString() + str.Substring(1);
+}
+#>
+
+
+
+
+
+<#+
+//Create an elastic object
+private dynamic FromEntityControllerFile(string file)
+{
+   var path= Host.ResolvePath(file);
+   return XDocument.Load(path).Root.ToElastic();
+}
+
+#>

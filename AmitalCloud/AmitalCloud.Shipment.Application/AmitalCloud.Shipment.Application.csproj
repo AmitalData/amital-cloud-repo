@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <BaseOutputPath>..\Library\Bin</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Application\AmitalCloud.Infrastructure.Application.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Data\AmitalCloud.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Domain\AmitalCloud.Infrastructure.Domain.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Shipment.Data\AmitalCloud.Shipment.Data.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Shipment.Domain\AmitalCloud.Shipment.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

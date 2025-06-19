@@ -1,0 +1,17 @@
+@AmitalCloud.Infrastructure.Web.Core_HostAddress = http://localhost:9996
+
+### test login
+POST {{AmitalCloud.Infrastructure.Web.Core_HostAddress}}/api/Authentication/PostUserValidation
+Content-Type: application/json
+
+{
+  "email": "jeremy1@amital.co.il",
+  "password": "sekuTy3$",
+  "ClientType": "Web"
+}
+
+### test a controller
+GET {{AmitalCloud.Infrastructure.Web.Core_HostAddress}}/api/ngMetaData/GetAdvanceQueryFiltersPMs
+Accept: application/json
+
+###

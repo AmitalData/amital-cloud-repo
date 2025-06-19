@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <OutputType>Library</OutputType>
+	  <BaseOutputPath>..\Library\Bin</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\HelpPage\HelpPage.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Application\AmitalCloud.Infrastructure.Application.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Data\AmitalCloud.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Domain\AmitalCloud.Infrastructure.Domain.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Web\AmitalCloud.Infrastructure.Web.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Invoice.Application\AmitalCloud.Invoice.Application.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Invoice.Data\AmitalCloud.Invoice.Data.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Invoice.Domain\AmitalCloud.Invoice.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
