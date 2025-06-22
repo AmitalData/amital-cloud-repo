@@ -33,6 +33,9 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public double? Price { get; set; }
         [Column("TotalPrice")]
 	    public double? TotalPrice { get; set; }
+        [ForeignKey("Tenant")]
+        public virtual TenantManagement TenantManagement { get; set; }
+
     }
 }
 	 

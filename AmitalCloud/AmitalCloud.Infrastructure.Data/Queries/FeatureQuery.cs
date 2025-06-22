@@ -1,15 +1,16 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
- using AmitalCloud.Infrastructure.Model.EntityClasses ;
- using AmitalCloud.Infrastructure.Domain.EntityPMs;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Helpers;
- using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using System.Linq.Expressions;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class FeatureQuery
@@ -145,18 +146,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
             return myResult;
         }
-        public FeaturePM GetSingleFeaturePMByCodeAndObjectTable(string code, string objectTableId, int tenant)
-        {
-            return (from a in context.Features.Include("NameTextCode")
-                    where a.Code == code && a.ObjectTableId == objectTableId
-                    select new FeaturePM(a)).FirstOrDefault();
-        }
-
+  
         public LoggedUserFeatures GetAllowedFeaturesForLoggedUser(string loggedUserId, int tenant)
         {
             LoggedUserFeatures loggedUserFeatures;
-             if (!SettingUtil.DeploymentStage.IsDBStage(SettingUtil.DeploymentStage.LogboxAndAccountingProduction))
-             {
+            if (!SettingUtil.DeploymentStage.IsDBStage(SettingUtil.DeploymentStage.LogboxAndAccountingProduction))
+            {
                 string key = $"GetAllowedFeaturesForLoggedUser,{loggedUserId},{tenant}";
                 loggedUserFeatures = CacheManager.GetOrInsertNewObject<LoggedUserFeatures>(key, () =>
                 {
@@ -169,8 +164,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             }
             return loggedUserFeatures;
         }
-        LoggedUserFeatures GetAllowedFeaturesForLoggedUserBL(string loggedUserId, int tenant)
+        public LoggedUserFeatures GetAllowedFeaturesForLoggedUserBL(string loggedUserId, int tenant)
         {
+
+
+ 
+
             LoggedUserFeatures myResult = new LoggedUserFeatures();
             bool isDistributor = false;
             bool isCustomerCare = false;

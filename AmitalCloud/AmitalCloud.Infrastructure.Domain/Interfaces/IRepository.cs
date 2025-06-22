@@ -33,6 +33,8 @@ namespace AmitalCloud.Infrastructure.Domain.Interfaces
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate);
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select);
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, string include);
+        List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, params Expression<Func<TEntity, object>>[] includes);
+
         List<TResult> GetMultiFromCache<TResult>(string cacheKey, Expression<Func<TEntity, bool>> predicate, string include = null, Expression<Func<TEntity, TResult>> select = null);
 
         List<TResult> GetMulti<TResult, TKey>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TKey>> orderBy, int skip, int take);
@@ -47,6 +49,8 @@ namespace AmitalCloud.Infrastructure.Domain.Interfaces
         IEnumerable<TEntity> GetMulti<TKey>(ISpecification<TEntity, TKey> spec);
         TEntity GetSingle<TKeyType>(IEntityKeyFields<TEntity, TKeyType> entityKeys);
         TEntity GetSingle(Expression<Func<TEntity, bool>> predicate, string include = null);
+        TEntity GetSingle(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes);
+
         TResult GetSingle<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select = null, string include = null);
         List<TEntity> GetMultiByParent<TEntityParentKeys>(TEntityParentKeys entityKeys);
     }

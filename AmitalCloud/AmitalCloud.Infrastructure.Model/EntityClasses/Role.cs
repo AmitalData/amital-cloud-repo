@@ -42,6 +42,9 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public bool IsCustomRole { get; set; }
         [Column("Inactive")]
 	    public bool Inactive { get; set; }
+
+        public virtual ICollection<RoleFeature> RoleFeatures { get; set; }
+
     }
 }
 	 
