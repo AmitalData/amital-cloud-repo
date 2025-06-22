@@ -12,36 +12,36 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
     {
 
 
-        public List<RoleFeature> GetUserAllowedFeatures(UserPM user, int tenant)
+        public HashSet<RoleFeature> GetUserAllowedFeatures(UserPM user, int tenant)
         {
             var repository = new Repository<ContactTenantRole>(tenant);
 
             var allRoles = repository.GetMulti(
                 predicate: ct => ct.ContactTenantId == user.Id &&
-                                 ct.Tenant == tenant  &&
+                                 ct.Tenant == tenant &&
                                  ct.Role != null &&
                                  !ct.Role.Inactive,
 
-                select: ct => ct.Role,   
+                select: ct => ct.Role,
 
                 ct => ct.Role,
                 ct => ct.Role.RoleFeatures
             )
             .Select(f => f)
-            .Distinct()
-            .ToList();
+            .Distinct();
+           
 
             var customParentIds = allRoles
                 .Where(r => r.IsCustomRole && !string.IsNullOrEmpty(r.ParentRoleId))
                 .Select(r => r.ParentRoleId)
                 .Distinct()
-                .ToList();
+                .ToHashSet();
 
             var roleFeatures = allRoles
                 .Where(r => !customParentIds.Contains(r.Id))
                 .SelectMany(r => r.RoleFeatures)
                 .Distinct()
-                .ToList();
+                .ToHashSet();
 
 
 
@@ -52,7 +52,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 
  
 
-        public List<FeaturePM> GetAllowedFeaturesForRoles(List<RoleFeature> allRoleFeatures, List<string> allowedPackages, int tenant)
+        public HashSet<FeaturePM> GetAllowedFeaturesForRoles(HashSet<RoleFeature> allRoleFeatures, HashSet<string> allowedPackages, int tenant)
         {
             var _roleRepo = new Repository<Role>(tenant);
             var _featureRepo = new Repository<Feature>(tenant);
@@ -66,17 +66,17 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 
             var roleFeatureDict = allRoleFeatures
                 .GroupBy(rf => rf.FeatureUniqeCode)
-                .ToDictionary(g => g.Key, g => g.First());
+                .ToDictionary(g => g.Key, g => g.FirstOrDefault());
 
             var allowedPackageFeatures = _packageFeatureRepo
                 .GetMulti(pf => allowedPackages.Contains(pf.PackageCode) && (pf.Tenant == tenant || pf.Tenant == 0))
-                .ToList();
+                .ToHashSet();
 
             var packageFeatureMap = allowedPackageFeatures
                 .GroupBy(pf => pf.FeatureUniqeCode)
-                .ToDictionary(g => g.Key, g => g.First().PackageCode);
+                .ToDictionary(g => g.Key, g => g.FirstOrDefault().PackageCode);
 
-            var allowedFeatures = new List<FeaturePM>();
+            var allowedFeatures = new HashSet<FeaturePM>();
             var allowedFeatureIds = new HashSet<string>();
 
             foreach (var (featureCode, roleFeature) in roleFeatureDict)
@@ -92,24 +92,34 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             return allowedFeatures;
         }
 
-    
+
 
         private FeaturePM MapFeatureAccess(FeaturePM feature, RoleFeature roleFeature, Dictionary<string, string> packageMap)
         {
             feature.RoleId = roleFeature.RoleId;
 
-            string pkg =string.Empty;
+            if (!feature.Packagable)
+            {
+                feature.Exists = true;
+                return feature;
+            }
 
-            feature.Exists = !feature.Packagable || packageMap.TryGetValue(feature.FeatureUniqeCode, out pkg);
-
-            if (feature.Exists && feature.Packagable)
+            if (packageMap.TryGetValue(feature.FeatureUniqeCode, out var pkg))
+            {
+                feature.Exists = true;
                 feature.PackageCode = pkg;
+            }
+            else
+            {
+                feature.Exists = false;
+            }
 
             return feature;
         }
 
 
-        private List<FeaturePM> ApplyFeatureToggles(List<FeaturePM> features, int tenant)
+
+        private HashSet<FeaturePM> ApplyFeatureToggles(HashSet<FeaturePM> features, int tenant)
         {
           var  _featureToggleRepo = new Repository<FeatureToggle>(tenant);  
 
@@ -117,16 +127,16 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
                 .Where(f => !string.IsNullOrEmpty(f.ToggleCode))
                 .Select(f => f.ToggleCode)
                 .Distinct()
-                .ToList();
+                .ToHashSet();
 
             if (toggleCodes.Count == 0) return features;
 
             var toggles = _featureToggleRepo
                 .GetMulti(t => toggleCodes.Contains(t.ToggleCode) && !t.Inactive)
-                .ToList();
+                .ToHashSet();
 
             var toggleMap = toggles
-                .GroupBy(t => t.ToggleCode)
+                .ToLookup(t => t.ToggleCode)
                 .ToDictionary(g => g.Key, g => g.ToList());
 
             return features
@@ -136,13 +146,13 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
                      toggleList.Any(t =>
                          t.TenantNumber == tenant ||
                          (tenant >= t.FromTenantNumber && tenant <= t.ToTenantNumber))))
-                .ToList();
+                .ToHashSet();
         }
 
 
 
 
-        public List<FeaturePM> GetAllowedFeaturesForLoggedUser(string email, int tenant)
+        public HashSet<FeaturePM> GetAllowedFeaturesForLoggedUser(string email, int tenant)
         {
             try
             {
@@ -152,7 +162,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 
                 var userId = contactQuery.GetContactByEmailOnly(email, tenant)?.Id;
                 if (string.IsNullOrEmpty(userId))
-                    return new List<FeaturePM>();
+                    return new HashSet<FeaturePM>();
 
                 var user = userQuery.GetSinglePM(userId, tenant);
                 var roleIds = featureService.GetUserAllowedFeatures(user, tenant);
@@ -172,7 +182,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             catch (Exception ex)
             {
                 NetCommonHelper.Logger.DevLog.Instance.WriteError($"Error retrieving features for user {email} in tenant {tenant}: {ex.Message}");
-                return new List<FeaturePM>();
+                return new HashSet<FeaturePM>();
             }
         }
 

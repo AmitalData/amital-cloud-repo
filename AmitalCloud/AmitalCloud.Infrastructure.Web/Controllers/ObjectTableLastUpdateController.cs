@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ObjectTableLastUpdateController : ControllerBase
     {
         [HttpGet("GetLastUpdatedTables")]

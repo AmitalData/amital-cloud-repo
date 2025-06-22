@@ -2,8 +2,8 @@
 {
     public class APIException
     {
-        public string ErrorType { get; set; }
-        public string ShortErrorMessage { get; set; }
-        public string ErrorMessage { get; set; }
+        public string ErrorType { get; set; } = string.Empty;
+        public string ShortErrorMessage { get; set; } = string.Empty;
+        public string ErrorMessage { get; set; } = string.Empty;
     }
 }

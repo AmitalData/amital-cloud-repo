@@ -1,10 +1,10 @@
 
-namespace AmitalCloud.Infrastructure.Web.DataContracts
+namespace AmitalCloud.Infrastructure.Domain.DataContracts
 {
     public class LoginParameters
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public bool IsUser { get; set; }
         public string? CardId { get; set; }
         public string? CardType { get; set; }
@@ -14,7 +14,7 @@ namespace AmitalCloud.Infrastructure.Web.DataContracts
         public int MobileVersion { get; set; }
         public bool IsAngularLogin { get; set; }
         public bool InternalLoginValidationCall { get; set; }
-        public string ClientType { get; set; }
+        public string ClientType { get; set; } = string.Empty;
         public string? CaptchaKey { get; set; }
         public string? CaptchaCode { get; set; }
         public bool GetInvalidDocumentToken { get; set; }

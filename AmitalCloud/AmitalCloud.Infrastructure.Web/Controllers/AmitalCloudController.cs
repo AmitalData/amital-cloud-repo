@@ -7,7 +7,7 @@ using AmitalCloud.Infrastructure.Application.Helpers;
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class AmitalCloudController : ControllerBase
     {
         [HttpGet]

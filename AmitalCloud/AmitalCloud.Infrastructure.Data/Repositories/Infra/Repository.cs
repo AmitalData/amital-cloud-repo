@@ -5,12 +5,8 @@ using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model;
 using AmitalCloud.Infrastructure.Model.Enums;
 using AmitalCloud.Infrastructure.Model.Interfaces;
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -25,7 +21,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         private bool _isDisposed;
         IUnitOfWork _unitOfWork;
         protected DbSet<TEntity> DbSet => _dbSet;
-        //protected IContext DbContext => _dbContext;
         internal Repository(int tenant)
         {
             _dbContext = GetContext(tenant);

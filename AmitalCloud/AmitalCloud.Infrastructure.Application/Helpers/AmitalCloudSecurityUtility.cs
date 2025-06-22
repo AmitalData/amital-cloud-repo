@@ -719,30 +719,8 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                 {
                     throw new AutenticationException("Sorry! this user is not authorized!");
                 }
-                TenantManagmentPrivateLabelsPM privatelabel = null;
-                var url = getLoggedDomain();
-                if (!url.Contains("system.logbox.co.il") && !url.Contains("cloud.amital.co.il"))
-                {
-                    using (TransactionScope scope = TransactionFactory.GetNewTransaction())
-                    {
-                        TenantManagmentPrivateLabelsQuery query = new TenantManagmentPrivateLabelsQuery(tenant);
-                        privatelabel = query.GetSingleActivePMByUrl_Cache(url);
-                        if (privatelabel != null)
-                        {
-                            IGlobalContext globalContext = GlobalContext.GetContext();
-                            GlobalTenant myTenant = (from d in globalContext.GlobalTenants where d.Id == tenant select d).FirstOrDefault();
-                            if (contactinfo.Tenant != 0)
-                            {
-                                if (myTenant == null || string.IsNullOrEmpty(myTenant.PrivateLabelId) || myTenant.PrivateLabelId != privatelabel.Id)
-                                {
-                                    throw new AutenticationException("Sorry! this user is not authorized!");
-                                }
-                            }
-
-                        }
-                        scope.Complete();
-                    }
-                }
+                 var url = getLoggedDomain();
+   
 
 
                 if (HttpContextHelper.Request != null)
@@ -871,32 +849,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             if (entityTenant != authTokenTenant)
                 throw new AutenticationException("Sorry! you have no permission to do this operation on Tenant:" + entityTenant + ". Please contact your administrator.");
         }
-        public static bool CheckPackageFeature(string objectTableName, string featureCode, int tenant)
-        {
-            bool exists = false;
-            IAmitalCloudContext context = AmitalCloudContext.GetContext(tenant);
-            PackagesCodesManager iManager = new PackagesCodesManager(tenant, null, false);
-            List<string> allowedPackages = iManager.BasePackagesCodes;
-            ObjectTablePM objectTable = ObjectTableQuery.GetObjectTableByCode(objectTableName, tenant);
-            if (objectTable != null)
-            {
-                FeatureQuery featuresQuery = new FeatureQuery(tenant);
-                FeaturePM myFeature = featuresQuery.GetSingleFeaturePMByCodeAndObjectTable(featureCode, objectTable.Id, tenant);
-                if (myFeature != null)
-                {
-                    List<PackageFeature> packageFeatures = (from a in context.PackageFeatures
-                                                            where allowedPackages.Contains(a.PackageCode)
-                                                            && (a.Tenant == tenant || a.Tenant == 0)
-                                                            && a.FeatureUniqeCode == myFeature.FeatureUniqeCode
-                                                            select a).ToList();
-                    if (packageFeatures.Count > 0)
-                    {
-                        exists = true;
-                    }
-                }
-            }
-            return exists;
-        }
+ 
         public static string getLoggedDomain()
         {
             var isAppServiceENV = Environment.GetEnvironmentVariable("IsAppService") == "true";

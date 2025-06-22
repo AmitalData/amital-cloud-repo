@@ -12,9 +12,6 @@ using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Enums;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Web.DataContracts;
-using AmitalCloud.Infrastructure.Web.Helpers;
-using AmitalCloud.Infrastructure.Web.Helpers.MixPanel;
 using System.Linq.Expressions;
 using System.Text;
 using System.Transactions;
@@ -71,7 +68,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
             GlobalTenantQueryService globalTenantQueryService = new GlobalTenantQueryService(globalContext);
 
-            data = CheckCaptchaState(loginParameters);
+            
             if (!data.HasError)
             {
                 data = CheckUserState(email.ToLower(), password, ref contactPassword, loginParameters.ByToken, loginParameters.ClientType);
@@ -342,13 +339,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                             contactPassword = contactPasswordQueryService.GetMulti(c => c.Email.ToLower() == email).FirstOrDefault();
                         }
 
-                        if (contactPassword != null && contactPassword.NumberOfRetries++ >= 5)
-                        {
-                            CaptchaHelper captchaHelper = new CaptchaHelper();
-                            captchaHelper.AddCaptchaKey(loginParameters.Email, data, "Login");
-
-                            UpdateContactPassword(contactPassword, new ContactPasswordUpdateService(tenant), captchaKey: data.CaptchaKey);
-                        }
+                      
                     }
                 }
             }
@@ -507,8 +498,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             int executionTime = (int)((DateTime.Now.Ticks - DateBeforePostLoginData.Ticks) / TimeSpan.TicksPerMillisecond);
             AddServerTimeToHeaderRespose(executionTime);
 
-            AuthenticationMixPanelService.CreateLoginEventForMixPanel(parameters, tenant);
-            return user;
+             return user;
         }
 
         private void AddAuthenticationToken(AuthenticationToken authentication, AuthenticationTokenUpdateService authenticationUpdateService)
@@ -1019,8 +1009,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
         private UserData CheckCaptchaState(LoginParameters loginParameters, bool withoutCheckUsed = false)
         {
-            CaptchaHelper captchaHelper = new CaptchaHelper();
-            UserData data = new UserData();
+             UserData data = new UserData();
             if (!loginParameters.IsMobileLogin && loginParameters.ClientType == "Web")
             {
                 bool isCheckCaptchaCode = !string.IsNullOrEmpty(loginParameters.CaptchaCode) && !string.IsNullOrEmpty(loginParameters.CaptchaKey);
@@ -1037,16 +1026,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                     }
                 }
 
-                string userCaptchaKey = contactPassword?.CaptchaKey;
-
-                if (isCheckCaptchaCode && !captchaHelper.CheckCaptchaCodeValidated(loginParameters.CaptchaCode, loginParameters.CaptchaKey, userCaptchaKey, withoutCheckUsed))
-                {
-                    captchaHelper.AddCaptchaKey(loginParameters.Email, data, "Login");
-                    if (contactPassword != null)
-                    {
-                        UpdateContactPassword(contactPassword, new ContactPasswordUpdateService(tenant), captchaKey: data.CaptchaKey);
-                    }
-                }
+              
             }
             return data;
         }
@@ -1202,7 +1182,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                 ObjectTablePM objectTable = objectTableQueryService.GetMultiFromCache(nameof(TwoFactorAuthenticationDevice) + 0, d => d.Name == nameof(TwoFactorAuthenticationDevice) && d.Tenant == 0).FirstOrDefault();
 
                 string myObjectTableId = objectTable?.Id;
-                string environment = AmitalCloudSettingConfigration.IsLogBoxEnvironment() ? "Logbox" : AmitalCloudSettings.WorkEnvironment == "cloud" ? "Cloud" : "Amital";
+                string environment =   AmitalCloudSettings.WorkEnvironment == "cloud" ? "Cloud" : "Amital";
                 string body = $"Please use the code {device.AuthenticationCode} to verify your {environment} Account";
                 byte[] bytearray = Encoding.ASCII.GetBytes(body);
 

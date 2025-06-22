@@ -1,5 +1,6 @@
 ﻿using AmitalCloud.Infrastructure.Application.CloseTables;
 using AmitalCloud.Infrastructure.Data.Repositories;
+using AmitalCloud.Infrastructure.Domain.Constants;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
@@ -17,13 +18,12 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
         private readonly IRepository<UserLicense> _userLicenseRepo;
         private readonly IRepository<Package> _packageRepo;
 
-        public List<string> BasePackages => _state.BasePackagesCodes;
-
+ 
         public PackagesQueryService(PackageManager state)
         {
             _state = state;
 
-            _tenantRepo = new Repository<TenantManagement>(0); // Global DB = tenant 0
+            _tenantRepo = new Repository<TenantManagement>(EnvironmentConstants.GlobalTenantId); 
             _userRepo = new Repository<User>(_state.Tenant);
             _connectedRepo = new Repository<PackageConnectedPackage>(_state.Tenant);
             _userLicenseRepo = new Repository<UserLicense>(_state.Tenant);
@@ -33,39 +33,71 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 
         public void GetAllPackagesByTenant()
         {
+            try
+            {
             LoadTenantConfiguration();
             LoadUserPreferences();
             ResolveEffectivePackageAccess();
             AddConnectedPackages(_state.AddonsPackagesCodes);
+            }
+            
+                 catch (Exception ex)
+            {
+ 
+                throw new ApplicationException("An error occurred while loading tenant packages.", ex);
+             
+            }
+         
         }
 
 
         private void LoadTenantConfiguration()
         {
-            var tenant = _tenantRepo.GetSingle(
-               predicate: t => t.Id == _state.Tenant,
-                t => t.TenantAddOns,
-                t => t.TenantManagementLicenses);
+            try
+            {
+                NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] Starting to load tenant configuration for tenant: {_state.Tenant}");
 
-            if (tenant == null) return;
+                var tenant = _tenantRepo.GetSingle(
+                    predicate: t => t.Id == _state.Tenant,
+                    t => t.TenantAddOns,
+                    t => t.TenantManagementLicenses);
 
-            _state.MainPackageCode = IsTemporalActive(tenant)
-                ? tenant.TemporalPackageCode
-                : tenant.PackageCode;
+                if (tenant == null)
+                {
+                    NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] Tenant not found for ID: {_state.Tenant}");
+                    return;
+                }
 
-            _state.IsMultiPackage = tenant.IsMultiPackage;
-            _state.MainAdditionalPackageApplied = tenant.MainAdditionalPackageApplied;
+                _state.MainPackageCode = IsTemporalActive(tenant)
+                    ? tenant.TemporalPackageCode
+                    : tenant.PackageCode;
 
-            _state.AddonsPackagesCodes = tenant.TenantAddOns
-                .Select(a => a.PackageCode)
-                .Distinct()
-                .ToList();
+                NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] MainPackageCode set to: {_state.MainPackageCode}");
 
-            _state.AdditionalPackagesCodes = tenant.TenantManagementLicenses
-                .Select(l => l.PackageCode)
-                .Distinct()
-                .ToList();
+                _state.IsMultiPackage = tenant.IsMultiPackage;
+                _state.MainAdditionalPackageApplied = tenant.MainAdditionalPackageApplied;
+
+                _state.AddonsPackagesCodes = tenant.TenantAddOns
+                    .Select(a => a.PackageCode)
+                    .Distinct()
+                    .ToList();
+
+                _state.AdditionalPackagesCodes = tenant.TenantManagementLicenses
+                    .Select(l => l.PackageCode)
+                    .Distinct()
+                    .ToList();
+
+                NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] Loaded AddonsPackagesCodes: {string.Join(", ", _state.AddonsPackagesCodes)}");
+                NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] Loaded AdditionalPackagesCodes: {string.Join(", ", _state.AdditionalPackagesCodes)}");
+                NetCommonHelper.Logger.DevLog.Instance.WriteDebug($"[LoadTenantConfiguration] Configuration loaded successfully for tenant: {_state.Tenant}");
+            }
+            catch (Exception ex)
+            {
+                NetCommonHelper.Logger.DevLog.Instance.WriteFatal( ex, $"[LoadTenantConfiguration] Error loading tenant configuration for tenant: {_state.Tenant}. Exception: {ex.Message}");
+                throw;
+            }
         }
+
 
         private void LoadUserPreferences()
         {
@@ -125,11 +157,8 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
                 .Select(cp => cp.ConnectedPackageCode)
                 .Distinct();
 
-            foreach (var code in connected)
-            {
-                if (!_state.BasePackagesCodes.Contains(code))
-                    _state.BasePackagesCodes.Add(code);
-            }
+                _state.BasePackagesCodes.UnionWith(connected);
+            
         }
 
         private List<string> FilterUserLicensed(List<string> packages)

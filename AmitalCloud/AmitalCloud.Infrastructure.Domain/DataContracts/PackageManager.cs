@@ -17,7 +17,7 @@ namespace AmitalCloud.Infrastructure.Domain.DataContracts
         public bool MainAdditionalPackageApplied { get; set; }
         public bool IsUserAdditionalOnly { get; set; }
 
-        public List<string> BasePackagesCodes { get; set; } = new();
+        public HashSet<string> BasePackagesCodes { get; set; } = new();
         public List<string> AddonsPackagesCodes { get; set; } = new();
         public List<string> AdditionalPackagesCodes { get; set; } = new();
     }
