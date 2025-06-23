@@ -2,6 +2,7 @@
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using Azure.Storage.Blobs.Models;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
@@ -10,11 +11,20 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
 namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 {
     public partial class TenantManagementQueryService : BaseEntityQueryService<POCO.TenantManagement, TenantManagementKeys<int>, TenantManagementPM, TenantManagementList, int>
-    {
+	{
+		private readonly IBaseQueryService<TenantManagementPM, TenantManagement, int> _tenantManagementQueryService;
+		private readonly IBaseQueryService<UserPM,User,string> _userQueryService;
 
-        public   TenantStatusPM GetTenantStatusPM(int tenant, string userId)
+		public TenantManagementQueryService(IBaseQueryService<TenantManagementPM, TenantManagement, int> tenantManagementQueryService, IBaseQueryService<UserPM, User, string> userQueryService)
         {
-            TenantManagementPM tenantPM = GetSingle(tenant, true, true);
+
+			_tenantManagementQueryService = tenantManagementQueryService;
+			_userQueryService = userQueryService;
+
+		}
+		public   TenantStatusPM GetTenantStatusPM(int tenant, string userId)
+        {
+            TenantManagementPM tenantPM = _tenantManagementQueryService.GetSingle(tenant, true, true);
             var pm = new TenantStatusPM();
 
             if (tenantPM.PaymentFailure)
@@ -36,10 +46,9 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
         }
 
 
-        private static void EnrichWithUser(TenantStatusPM pm, string userId, int tenant)
+        private void EnrichWithUser(TenantStatusPM pm, string userId, int tenant)
         {
-            UserQueryService service = new UserQueryService(tenant);
-            UserPM user = service.GetSingle(userId, true, true);
+            UserPM user = _userQueryService.GetSingle(userId, true, true);
 
             if (user?.ExpirationDate == null) return;
 
