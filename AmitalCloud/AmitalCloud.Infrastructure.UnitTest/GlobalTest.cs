@@ -34,7 +34,7 @@ namespace AmitalCloud.Infrastructure.UnitTest
 				IsRecurring = true
 			};
 
-			var userPM = new UserPM(); // ללא ExpirationDate
+			var userPM = new UserPM();  
 
 			var service = CreateService(tenantManagementPM, userPM);
 
