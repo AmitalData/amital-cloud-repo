@@ -25,8 +25,8 @@ using AmitalCloud.Infrastructure.Domain.EntityLists;
 
 namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 { 
-   public partial class UserQueryService: BaseEntityQueryService<POCO.User,UserKeys<string>,UserPM,UserList,string>
-   {
+   public partial class UserQueryService: BaseEntityQueryService<POCO.User,UserKeys<string>,UserPM,UserList,string>, IBaseQueryService<UserPM, POCO.User,string>
+	{
         public UserQueryService(int tenant) : base(new Repository<POCO.User>(tenant),new UserDataMapping()) {}
         public UserQueryService(IAmitalCloudContext context) : base(new Repository<POCO.User>(context),new UserDataMapping()) {}
 		public  UserPM GetSingle(string id,bool getComposition, bool getFromCache) => base.GetSingle(new UserKeys<string>(){ Id = id }, getComposition, getFromCache);
