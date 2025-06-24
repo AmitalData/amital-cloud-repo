@@ -1,4 +1,5 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.DBHelpers;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
@@ -162,27 +163,6 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             var lambda = Expression.Lambda<Func<TEntity, TEntityList>>(newExpr, param);
             return lambda.Compile();
         }
-
-        private IContext GetContext(int tenant)
-        {
-            Type type = typeof(TEntity);
-            var attribute = (DataBaseAttribute?)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
-            if (attribute == null)
-                throw new InvalidOperationException($"Missing DataBaseAttribute on type {type.Name}");
-
-            switch (attribute.Name)
-            {
-                case AmitalCloudDBSchema.AMITAL_MAIN:
-                    return AmitalCloudContext.GetContext(tenant);
-                case AmitalCloudDBSchema.AMITAL_LOGS:
-                case AmitalCloudDBSchema.AMITAL_SYSTEMLOGS:
-                    return SystemLogContext.GetContext(tenant);
-                case AmitalCloudDBSchema.AMITAL_GLOBAL:
-                    return GlobalContext.GetContext(tenant);
-                default:
-                    throw new Exception("Invalid schema");
-            }
-        }
-
+        private IContext GetContext(int tenant) => DbContextBaseUtil.GetContext<TEntity>(tenant);
     }
 }
