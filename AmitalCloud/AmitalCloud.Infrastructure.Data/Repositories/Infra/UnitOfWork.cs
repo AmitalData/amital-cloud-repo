@@ -11,30 +11,24 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
     //While Creating an Instance of the UnitOfWork object, we need to specify the actual type for the TContext Generic Type
     //In our example, TContext is going to be EmployeeDBContext
     //new() constraint will make sure that this type is going to be a non-abstract type with a parameterless constructor
-    public class UnitOfWork<TContext> : IUnitOfWork, IDisposable where TContext : IContext
+    public class UnitOfWork<TContext>(int tenant) : IUnitOfWork, IDisposable where TContext : IContext
     {
         private bool _disposed;
         private string _errorMessage = string.Empty;
         private Action _commit;
         private Action _rollback;
         private Action _dispose;
-        private TContext _context;
+        private TContext _context = (TContext)typeof(TContext).GetMethod("GetContext", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { tenant });
         //The following Object is going to hold the Transaction Object
         //private DbContextTransaction _objTran;
         TransactionScope _tranScope; //= TransactionFactory.GetNewTransaction()
-        //Using the Constructor we are initializing the Context Property which is declared in the IUnitOfWork Interface
-        //This is nothing but we are storing the DBContext (EmployeeDBContext) object in Context Property
-        public UnitOfWork(int tenant)
-        {
-            _context = (TContext)typeof(TContext).GetMethod("GetContext", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { tenant });
+                                     //public UnitOfWork(TContext context)
+                                     //{
+                                     //    _context = context;
+                                     //}
+                                     //The Dispose() method is used to free unmanaged resources like files, 
+                                     //database connections etc. at any time.
 
-        }
-        public UnitOfWork(TContext context)
-        {
-            _context = context;
-        }
-        //The Dispose() method is used to free unmanaged resources like files, 
-        //database connections etc. at any time.
         public void Dispose()
         {
             Dispose(true);

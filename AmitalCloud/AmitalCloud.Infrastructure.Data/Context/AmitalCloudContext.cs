@@ -68,10 +68,11 @@ namespace AmitalCloud.Infrastructure.Data.Context
 
             return new AmitalCloudContext(optionsBuilder.Options, tenant);
         }
-		protected override AmitalCloudDBSchema AmitalCloudDBSchema
+		public override AmitalCloudDBSchema AmitalCloudDBSchema
         {
             get { return AmitalCloudDBSchema.AMITAL_MAIN; }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Disable cascade delete globally by configuring each relationship
@@ -437,5 +438,6 @@ namespace AmitalCloud.Infrastructure.Data.Context
 	public DbSet<WorkerRoleName> WorkerRoleNames  {  get; set; }
 	
 public int Tenant => _tenant;
- }
-}
+
+    }
+}

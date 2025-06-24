@@ -1,6 +1,7 @@
-﻿using System.Data.Common;
+﻿using AmitalCloud.Infrastructure.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Data.Common;
 
 namespace AmitalCloud.Infrastructure.Model.Interfaces
 {
@@ -14,5 +15,7 @@ namespace AmitalCloud.Infrastructure.Model.Interfaces
         int SaveChanges();
         int Tenant { get; }
         DatabaseFacade Database { get; }
+        AmitalCloudDBSchema AmitalCloudDBSchema { get; }
+
     }
 }

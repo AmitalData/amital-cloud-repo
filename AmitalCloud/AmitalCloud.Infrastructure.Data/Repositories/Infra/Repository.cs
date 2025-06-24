@@ -24,7 +24,7 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         private readonly DbSet<TEntity> _dbSet;
         private string _errorMessage = string.Empty;
         private bool _isDisposed;
-        IUnitOfWork _unitOfWork;
+        IUnitOfWork? _unitOfWork;
         protected DbSet<TEntity> DbSet => _dbSet;
         //protected IContext DbContext => _dbContext;
         internal Repository(int tenant)
@@ -33,16 +33,30 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             _isDisposed = false;
             _dbSet = (_dbContext).Set<TEntity>();
         }
-
-
         internal Repository(IUnitOfWork unitOfWork) : this(unitOfWork.Context)
         {
+            Type type = typeof(TEntity);
+            var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
+            if ( attribute.Name != unitOfWork.Context.AmitalCloudDBSchema)
+            {                 
+                throw new Exception($"Entity {type.Name} does not match the UnitOfWork schema {unitOfWork.Context.AmitalCloudDBSchema}");
+            }
+
+
+
             _unitOfWork = unitOfWork;
         }
         internal Repository(IContext dbContext)
         {
+            Type type = typeof(TEntity);
+            var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
+            if (attribute.Name != dbContext.AmitalCloudDBSchema)
+            {
+                throw new Exception($"Entity {type.Name} does not match the Context schema {dbContext.AmitalCloudDBSchema}");
+            }
+
             //todo: validate if entity match dbcontext schema
-            _isDisposed = false;
+            _isDisposed = false
             _dbContext = dbContext;
             _dbSet = (dbContext).Set<TEntity>();
         }
