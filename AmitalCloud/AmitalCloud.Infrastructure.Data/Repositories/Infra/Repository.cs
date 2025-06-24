@@ -35,15 +35,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         }
         internal Repository(IUnitOfWork unitOfWork) : this(unitOfWork.Context)
         {
-            Type type = typeof(TEntity);
-            var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
-            if ( attribute.Name != unitOfWork.Context.AmitalCloudDBSchema)
-            {                 
-                throw new Exception($"Entity {type.Name} does not match the UnitOfWork schema {unitOfWork.Context.AmitalCloudDBSchema}");
-            }
-
-
-
             _unitOfWork = unitOfWork;
         }
         internal Repository(IContext dbContext)
@@ -56,7 +47,7 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             }
 
             //todo: validate if entity match dbcontext schema
-            _isDisposed = false
+            _isDisposed = false;
             _dbContext = dbContext;
             _dbSet = (dbContext).Set<TEntity>();
         }
