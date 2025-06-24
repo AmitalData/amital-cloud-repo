@@ -1,5 +1,8 @@
-﻿using AmitalCloud.Infrastructure.Domain.DataContracts;
+﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Domain.DataContracts;
+using AmitalCloud.Infrastructure.Model;
 using AmitalCloud.Infrastructure.Model.Enums;
+using AmitalCloud.Infrastructure.Model.Interfaces;
 using Oracle.ManagedDataAccess.Client;
 
 namespace AmitalCloud.Infrastructure.Data.DBHelpers
@@ -100,6 +103,22 @@ namespace AmitalCloud.Infrastructure.Data.DBHelpers
             }
             csb = GetOracleConStrBuilder(dbConnectionInfo);
             return csb.UserID.ToUpper();
+        }
+        public static IContext GetContext<TEntity>(int tenant) where TEntity : class
+        {
+            Type type = typeof(TEntity);
+            var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
+            switch (attribute.Name)
+            {
+                case AmitalCloudDBSchema.AMITAL_MAIN:
+                    return AmitalCloudContext.GetContext(tenant);
+                case AmitalCloudDBSchema.AMITAL_LOGS:
+                    return SystemLogContext.GetContext(tenant);
+                case AmitalCloudDBSchema.AMITAL_GLOBAL:
+                    return GlobalContext.GetContext(tenant);
+                default:
+                    throw new Exception("Invalid schema");
+            }
         }
     }
 

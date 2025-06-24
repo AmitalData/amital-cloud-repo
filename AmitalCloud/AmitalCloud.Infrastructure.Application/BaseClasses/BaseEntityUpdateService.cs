@@ -1,18 +1,19 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.DBHelpers;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
-using AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.Enums;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Model;
+using AmitalCloud.Infrastructure.Model.EntityClasses ;
+using AmitalCloud.Infrastructure.Model.Enums;
+using AmitalCloud.Infrastructure.Model.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 using System.Xml;
 using System.Xml.Serialization;
-using AmitalCloud.Infrastructure.Model.Interfaces;
-using AmitalCloud.Infrastructure.Model;
-using AmitalCloud.Infrastructure.Model.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
 {
@@ -413,24 +414,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         {
 
         }
-        private IContext GetContext(int tenant)
-        {
-            Type type = typeof(TEntity);
-            var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
-            switch (attribute.Name)
-            {
-                case AmitalCloudDBSchema.AMITAL_MAIN:
-                    return AmitalCloudContext.GetContext(tenant);
-                case AmitalCloudDBSchema.AMITAL_LOGS:
-                case AmitalCloudDBSchema.AMITAL_SYSTEMLOGS:
-                    return SystemLogContext.GetContext(tenant);
-                case AmitalCloudDBSchema.AMITAL_GLOBAL:
-                    return GlobalContext.GetContext(tenant);
-                default:
-                    throw new Exception("Invalid schema");
-            }
-        }
-
+        private IContext GetContext(int tenant) => DbContextBaseUtil.GetContext<TEntity>(tenant);
     }
 
 

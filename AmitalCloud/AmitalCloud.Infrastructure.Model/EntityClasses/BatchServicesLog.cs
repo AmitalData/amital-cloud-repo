@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace AmitalCloud.Infrastructure.Model.EntityClasses
 {
-	[DataBase(AmitalCloudDBSchema.AMITAL_SYSTEMLOGS)]
+	[DataBase(AmitalCloudDBSchema.AMITAL_LOGS)]
 	[Table("BatchServicesLogs")]
     public class BatchServicesLog : BaseEntity
 	{
