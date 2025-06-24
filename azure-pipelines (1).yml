@@ -1,0 +1,156 @@
+# Opt out of CI triggers
+trigger: none
+# Configure PR trigger
+pr:
+  branches:
+    include:
+    - '*'
+  autoCancel: true
+  drafts: false
+
+stages:
+- stage: pr_agent
+  displayName: 'PR Agent Stage'
+  jobs:
+  - job: pr_agent_job
+    displayName: 'PR Agent Job'
+    pool:
+      vmImage: 'ubuntu-latest'
+    container:
+      image: codiumai/pr-agent:latest
+      options: --entrypoint ""
+    variables:
+      - group: pr_agent
+    steps:      
+    - script: |
+            cat > .configuration.toml <<EOF
+            # ------------------------------------------------------------------
+            # Custom prompt for the automatic /review tool
+            # ------------------------------------------------------------------
+            [config]
+            #model = "gemini/gemini-2.5-flash-preview-04-17"   # official model ID
+            model = "gemini/gemini-2.0-flash"   # official model ID
+            custom_model_max_tokens = 24000  # keep CI bills predictable
+            [ignore]
+            glob = ['*.xml','*.lxml']
+            EOF
+
+            mkdir -p ~/.config/pr-agent
+            mv .configuration.toml ~/.config/pr-agent/configuration.toml
+      displayName: 'Generate .configuration.toml'    
+    - script: |
+            cat > .secrets.toml <<EOF
+            # ------------------------------------------------------------------
+            # Custom prompt for the automatic /review tool
+            # ------------------------------------------------------------------
+            [config]
+            model = "gemini/gemini-2.0-flash"   # official model ID
+            custom_model_max_tokens = 24000  # keep CI bills predictable
+            [ignore]
+            glob = ['*.xml','*.lxml']
+
+            [google_ai_studio]
+            gemini_api_key = "${GEMINI_KEY}"
+            reasoning_effort = "low"
+            [pr_code_suggestions]
+            structured_output_format = "json"
+            # extra_instructions = """
+            # Return ONLY valid YAML. For every code suggestion include:
+            # suggestion_content:
+            # """
+            [pr_reviewer]                     # <-- same section name the /review
+            enabled               = true      # tool uses in its comment shortcut
+            model                 = "gemini/gemini-2.0-flash"  # or bedrock/claude-3-sonnet … etc.
+            max_model_tokens = 24000
+            custom_model_max_tokens = 24000
+
+            # 1. Full system prompt (replaces the built-in one)
+            system_prompt = """
+            You are a senior full-stack engineer who specialises in modern .NET (C#, ASP.NET Core 8, Entity-Framework, DDD) and Angular 17 (RxJS, NgRx, SCSS).  
+            Review the pull-request diff and provide **actionable, technically precise feedback** that helps a professional team ship high-quality code.
+
+            Focus on:
+            1. **Correctness & logical bugs**
+            2. **Security** – OWASP, authZ/authN, CSRF/XSS, SQL injection, secrets in code
+            3. **Performance** – async/await, EF query shape, caching, change-detection
+            4. **Architecture & SOLID / Clean-Arch boundaries**
+            5. **Code style & maintainability** – naming, duplication, complexity
+            6. **Unit / e2e test coverage** (xUnit, Jest/Karma) and test quality
+            7. **Accessibility (WCAG) & i18n** in Angular templates
+
+            Return the review in this structure:
+
+            ### Overall impression
+            <one-sentence summary>
+
+            ### Backend (.NET) findings
+            - `<File.cs:Line>` short description …
+
+            ### Frontend (Angular) findings
+            - `<file.component.ts:Line>` short description …
+
+            ### Tests & Docs
+            - …
+
+            ### Suggested follow-up tasks
+            - …
+
+            Be concise, reference file paths & line numbers where possible, and keep a helpful, respectful tone.
+            """
+
+            # 2. Extra instructions the team can override ad-hoc
+            extra_instructions = """
+            • If the diff only touches Angular (*.ts / *.html / *.scss), omit the backend section.  
+            • If it only touches .NET (*.cs or *.csproj), omit the frontend section.  
+            • If the PR changes ≤ 5 lines, respond with: “Looks good — no issues found.”  
+            """
+
+            # 3. Optional token / file filters (helps stay within context limits)
+            file_patterns_include = ["**/*.cs", "**/*.csproj", "**/*.ts", "**/*.html", "**/*.scss"]
+            file_patterns_exclude = ["**/*.md", "**/package-lock.json", "**/yarn.lock"]
+            max_tokens          = 24000        # keeps the model from blowing CI minutes
+
+            EOF
+
+            mkdir -p ~/.config/pr-agent
+            mv .secrets.toml ~/.config/pr-agent/secrets.toml
+      displayName: 'Generate .secrets.toml'    
+
+    - script: |
+        echo "Running PR Agent action step"
+
+        # Construct PR_URL
+        PR_URL="${SYSTEM_COLLECTIONURI}${SYSTEM_TEAMPROJECT}/_git/${BUILD_REPOSITORY_NAME}/pullrequest/${SYSTEM_PULLREQUEST_PULLREQUESTID}"
+        #PR_URL="https://amitaldata.visualstudio.com/Amital/_git/log-repo/pullrequest/5152"
+        #PR_URL="https://amitaldata.visualstudio.com/Amital/_git/log-repo/pullrequest/5156"
+        #PR_URL="https://amitaldata.visualstudio.com/Amital/_git/log-repo/pullrequest/5122"
+        #PR_URL="https://amitaldata.visualstudio.com/Amital/_git/log-repo/pullrequest/5189"
+        #PR_URL="https://amitaldata.visualstudio.com/Amital/_git/log-repo/pullrequest/5230"
+        echo "PR_URL=$PR_URL"
+
+        # Extract organization URL from System.CollectionUri
+        ORG_URL=$(echo "$(System.CollectionUri)" | sed 's/\/$//') # Remove trailing slash if present
+        echo "Organization URL: $ORG_URL"
+
+        export azure_devops__org="$ORG_URL"
+        export config__git_provider="azure"
+
+        # === GEMINI MODEL CONFIGURATION ===
+        # Tell PR-Agent to use gemini-2.0-flash-lite
+        # export config__model="gemini/gemini-2.0-flash"
+        # export config__fallback_models='["gemini/gemini-2.0-flash"]'
+        # Provide your Gemini API key from Google AI Studio
+        export config__model="gemini/gemini-2.0-flash"
+        export config__fallback_models='["o4-mini"]'
+        export google_ai_studio__gemini_api_key="$GEMINI_KEY"
+
+        pr-agent --pr_url="$PR_URL" describe
+        pr-agent --pr_url="$PR_URL" review
+        pr-agent --pr_url="$PR_URL" improve
+      env:
+        azure_devops__pat: $(azure_devops_pat)
+        openai__key: $(OPENAI_KEY)
+        GOOGLE_AI_STUDIO__GEMINI_API_KEY: $(GEMINI_KEY)
+        model: "gemini/gemini-2.0-flash"
+        max__model_tokens: 24000
+      displayName: 'Run Qodo Merge'
