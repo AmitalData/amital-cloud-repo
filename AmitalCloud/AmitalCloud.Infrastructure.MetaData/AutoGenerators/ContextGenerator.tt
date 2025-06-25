@@ -238,7 +238,7 @@ namespace <#= contextnamespacestring #>
 
             return new <#= contextname #>(optionsBuilder.Options, tenant);
         }
-		protected override AmitalCloudDBSchema AmitalCloudDBSchema
+		public override AmitalCloudDBSchema AmitalCloudDBSchema
         {
             get { return AmitalCloudDBSchema.AMITAL_MAIN; }
         }

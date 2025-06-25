@@ -54,7 +54,7 @@ namespace AmitalCloud.Infrastructure.Data.Context
 
             return new SystemLogContext(optionsBuilder.Options);
         }
-        protected override AmitalCloudDBSchema AmitalCloudDBSchema
+        public override AmitalCloudDBSchema AmitalCloudDBSchema
         {
             get { return AmitalCloudDBSchema.AMITAL_LOGS; }
         }
