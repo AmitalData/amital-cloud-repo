@@ -1,6 +1,5 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Data.Counters;
-using AmitalCloud.Infrastructure.Data.DataMapping;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.EntityClasses ;
@@ -38,7 +37,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 Id = itemPM.Id,
             };
 
-            DocumentsFilingMetaDataValueMapping.MapEntity(itemPM, itemPoco, true);
+          //  DocumentsFilingMetaDataValueMapping.MapEntity(itemPM, itemPoco, true);
             repository.Insert(itemPoco);
         }
 
@@ -91,7 +90,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 var itemPoco = new DocumentsFilingMetaDataValue();
 
                 mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
-                DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
+             //   DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
                 //var repository = new DocumentsFilingMetaDataValueRepository(context);
                 repository.Update(itemPoco);
                 var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
@@ -151,7 +150,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 var itemPoco = new DocumentsFilingMetaDataValue();
 
                 mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
-                DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
+              //  DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
                 var repository = new DocumentsFilingMetaDataValueRepository(context);
                 repository.Update(itemPoco);
                 var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
