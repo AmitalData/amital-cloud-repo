@@ -1,6 +1,6 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Data.Counters;
-using AmitalCloud.Infrastructure.Data.DataMapping;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.EntityClasses ;
@@ -58,7 +58,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
             this.entityPM.UpdatedBy = this.loggedContact != null ? this.loggedContact.Id : this.entityPM.UpdatedBy;
             this.entityPM.CreatedBy = this.loggedContact != null ? this.loggedContact.Id : this.entityPM.CreatedBy;
             var Poco = new CustomChildObject();
-            CustomChildObjectMapping.MapEntity(theEntityPm, Poco, isNewEntity);
+           // CustomChildObjectMapping.MapEntity(theEntityPm, Poco, isNewEntity);
             repo.Insert(Poco);
             this.isChange = true;
 
@@ -73,7 +73,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
 
             var Poco = repo.GetSingle(new CustomChildObjectKeys<string>() { Id = theEntityPm.Id });   //, entityPM.Tenant);
             if (Poco == null) return;
-            CustomChildObjectMapping.MapEntity(theEntityPm, Poco, isNewEntity);
+            //CustomChildObjectMapping.MapEntity(theEntityPm, Poco, isNewEntity);
             repo.Update(Poco);
             this.isChange = true;
         }
