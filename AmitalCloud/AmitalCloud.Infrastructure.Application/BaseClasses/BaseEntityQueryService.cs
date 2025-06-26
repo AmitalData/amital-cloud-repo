@@ -1,10 +1,7 @@
 ﻿using AmitalCloud.Infrastructure.Data.Helpers;
-using AmitalCloud.Infrastructure.Domain.BaseClasses;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.BaseClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
@@ -21,10 +18,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         protected IRepository<TEntityPOCO> Repository;
         protected IContext MainContext;
         protected TEntityKeys EntityKeys;
-        protected BaseEntityQueryService()
-        {
-
-        }
+        
         public BaseEntityQueryService(IRepository<TEntityPOCO> repository, IMapping<TEntityPM, TEntityPOCO, TEntityList> mapping)
         {
             this.Repository = repository;
@@ -169,9 +163,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         => Repository.GetMulti(predicate,select);
         public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TEntityPM>> select, string include)
         => Repository.GetMulti(predicate, select,include);
-        // public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate, string include)
-        //=> Repository.GetMulti<TEntityPM>(predicate, include);
- 
+
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TResult>> select)
             => Repository.GetMulti(predicate, select);
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TResult>> select, string include)

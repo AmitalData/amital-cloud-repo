@@ -1,7 +1,6 @@
 ﻿using AmitalCloud.Infrastructure.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
 using System.Text;
 
 namespace AmitalCloud.Infrastructure.Data.DBHelpers
@@ -12,12 +11,8 @@ namespace AmitalCloud.Infrastructure.Data.DBHelpers
         private Action _DisposeMe;
         private readonly Action<string> _logAction;
 
-        private DbContextLogger()
-        {
-        }
         internal DbContextLogger(DatabaseFacade database)
         {
-            // TODO: Complete member initialization
             _StringBuilder = new StringBuilder();
             _logAction = LogMe;
 

@@ -7,14 +7,8 @@ using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Transactions;
-using System.Web;
 using AmitalCloud.Infrastructure.Model.Interfaces;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers

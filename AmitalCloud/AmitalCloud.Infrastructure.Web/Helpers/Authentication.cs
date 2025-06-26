@@ -1335,9 +1335,9 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             }
         }
 
-        private PasswordParameter ResolvePassword(string password)
+        private PasswordParameter? ResolvePassword(string password)
         {
-            PasswordParameter? result = null;
+            PasswordParameter result = null;
 
             if (!string.IsNullOrEmpty(password) && (password.Contains("@OneTimePassword") || password.Contains(@"HashPassword")))
             {
@@ -1353,7 +1353,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             return result;
         }
 
-        private CompanyLogin CreateCompanyLogin(string email, string companyName, bool isUser, int tenantId, string cardId, string cardType, string contactId, bool licensedUser, bool internetAccess, string privateLabelId, string customerName = null)
+        private CompanyLogin CreateCompanyLogin(string email, string companyName, bool isUser, int tenantId, string cardId, string cardType, string contactId, bool licensedUser, bool internetAccess, string privateLabelId, string customerName="")
             => new CompanyLogin
             {
                 Email = email,
@@ -1398,7 +1398,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
         {
             UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
             List<UserPM> entities = userQueryService.GetMulti(record => record.Contact.Email == email && (record.Tenant == tenant || record.Tenant == 0));
-            UserPM loggedUser = entities.Where(a => a.Tenant == tenant).FirstOrDefault() ?? entities.Where(a => a.Tenant == 0).FirstOrDefault();
+            UserPM? loggedUser = entities.Where(a => a.Tenant == tenant).FirstOrDefault() ?? entities.Where(a => a.Tenant == 0).FirstOrDefault();
             return loggedUser?.UserRoles != null && loggedUser.UserRoles.Contains("Administrator");
         }
 

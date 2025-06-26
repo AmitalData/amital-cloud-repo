@@ -1,7 +1,5 @@
 ﻿using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers
@@ -10,11 +8,11 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
     {
         public static QueryOperations GetQueryOperations(byte[] xmlFilters)
         {
-            MemoryStream memorystream = new MemoryStream(xmlFilters);
-            XmlSerializer serializer = new XmlSerializer(typeof(QueryOperations));
-            QueryOperations queryOperations = (QueryOperations)serializer.Deserialize(memorystream);
-            return queryOperations;
+            using var memorystream = new MemoryStream(xmlFilters);
+            var serializer = new XmlSerializer(typeof(QueryOperations));
+            return (QueryOperations)serializer.Deserialize(memorystream)!;
         }
+
         public static IQueryable<T> ApplyEntityNonListFilters<T>(QueryOperations queryOperations, IQueryable<T> iQueryable)
         {
             GenericFilter filter = new GenericFilter();

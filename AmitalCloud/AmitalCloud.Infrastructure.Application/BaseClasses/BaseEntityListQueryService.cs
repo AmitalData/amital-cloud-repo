@@ -41,12 +41,12 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             IQueryable<TEntityList> query = GetQuery(queryOperations, treeFilterQueryArgs, out sortClass, out skipCount);
             if (!string.IsNullOrEmpty(queryOperations.SortByColumnName) && !string.IsNullOrEmpty(queryOperations.SortDirection))
             {
-                PropertyInfo propInfo = typeof(TEntityList).GetProperty(queryOperations.SortByColumnName);
+                PropertyInfo? propInfo = typeof(TEntityList).GetProperty(queryOperations.SortByColumnName);
                 if (propInfo == null)
                     throw new InvalidOperationException($"Sort column '{queryOperations.SortByColumnName}' does not exist on type {typeof(TEntityList).Name}");
 
                 List<ObjectField> objectFields = ObjectFieldRepository.GetObjectFieldsByObjectTableName(nameof(AccountingInformationIdentifier), tenant).ToList();
-                ObjectField objectField = (from a in objectFields
+                ObjectField? objectField = (from a in objectFields
                                            where a.FieldName == queryOperations.SortByColumnName
                                            select a).FirstOrDefault();
                 if (objectField != null)
