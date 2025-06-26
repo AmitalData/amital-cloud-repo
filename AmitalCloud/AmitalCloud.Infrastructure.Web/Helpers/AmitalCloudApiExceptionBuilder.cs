@@ -40,14 +40,13 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
                 if (ex.InnerException != null)
                 {
 
-                    //errorMessage = errorMessage + " (" + (ex.InnerException.InnerException != null ? ex.InnerException.InnerException.Message : ex.InnerException.Message) + ")" + Environment.NewLine;
-                    //shortErrorMessage = shortErrorMessage + " (" + (ex.InnerException.InnerException != null ? ex.InnerException.InnerException.Message : ex.InnerException.Message) + ")" + Environment.NewLine;
-                }
+                    errorMessage = errorMessage + " (" + (ex.InnerException.InnerException != null ? ex.InnerException.InnerException.Message : ex.InnerException.Message) + ")" + Environment.NewLine;
+                 }
 
                 apiException = new APIException()
                 {
                     ErrorType = ex.GetType().Name,
-                    ErrorMessage = errorMessage,    //    + " (" + ex.StackTrace + ")",
+                    ErrorMessage = errorMessage  + " (" + ex.StackTrace + ")",
                     ShortErrorMessage = shortErrorMessage
                 };
             }
@@ -66,8 +65,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             {
                 foreach (var error in modValue.Errors)
                 {
-                    //ErrorMessage += error.ErrorMessage + Environment.NewLine;
-                    ErrorMessage += (String.IsNullOrWhiteSpace(error.ErrorMessage) ? error.Exception.Message : error.ErrorMessage) + Environment.NewLine;
+                     ErrorMessage += (String.IsNullOrWhiteSpace(error.ErrorMessage) ? error.Exception?.Message : error.ErrorMessage) + Environment.NewLine;
                     ShortErrorMessage += error.ErrorMessage + Environment.NewLine;
                 }
             }
@@ -81,42 +79,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
 
             return apiException;
         }
-
-        public static object BuildJsonPatchException(JsonPatchException exception, string entityId, object jsonPatch)
-        {
-            string errorMessage = "Error Message: " + exception.Message + Environment.NewLine +
-                                  "Entity Id: " + entityId + Environment.NewLine +
-                                  "Json Patch: " + JsonConvert.SerializeObject(jsonPatch);
-
-            string shortErrorMessage = GetShortErrorMessage(exception);
-
-            return new APIException()
-            {
-                ErrorType = exception.GetType().Name,
-                ErrorMessage = errorMessage,
-                ShortErrorMessage = shortErrorMessage
-            };
-        }
-
-        private static string GetShortErrorMessage(JsonPatchException exception)
-        {
-            if (Regex.IsMatch(exception.Message, @"The current value '.*' at path '.*' is not equal to the test value '.*'\."))
-            {
-                return "Some of the " + GetChildEntityName(exception) + " were deleted.";
-            }
-            else
-            {
-                return "Invalid update";
-            }
-        }
-
-        private static string GetChildEntityName(JsonPatchException exception)
-        {
-            var failedOperation = exception.FailedOperation;
-            string entityNameInCamelCase = failedOperation.path.Split('/')[1];
-
-            string returnedEntityName = Regex.Replace(entityNameInCamelCase, @"\p{Lu}", m => " " + m.Value.ToLowerInvariant());
-            return returnedEntityName;
-        }
+ 
+ 
     }
 }

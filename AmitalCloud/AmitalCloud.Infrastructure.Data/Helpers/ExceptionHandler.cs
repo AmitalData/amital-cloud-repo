@@ -31,8 +31,7 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
                 }
 
                 NetCommonHelper.Logger.DevLog.Instance.WriteFatal(exception);
-                AmitalCloudDebuggerUtil.Break(AmitalDebuggerLevel.Error);
-
+                
 
                 if (!string.IsNullOrEmpty(ip) && ip.StartsWith("150.70"))
                 {

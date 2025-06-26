@@ -5,12 +5,8 @@ using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model;
 using AmitalCloud.Infrastructure.Model.Enums;
 using AmitalCloud.Infrastructure.Model.Interfaces;
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using AmitalCloud.Infrastructure.Data.DBHelpers;
@@ -26,7 +22,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         private bool _isDisposed;
         IUnitOfWork? _unitOfWork;
         protected DbSet<TEntity> DbSet => _dbSet;
-        //protected IContext DbContext => _dbContext;
         internal Repository(int tenant)
         {
             _dbContext = GetContext(tenant);
@@ -185,6 +180,8 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         public List<TEntity> GetAll<TKey>(int tenant, Expression<Func<TEntity, TKey>> orderBy, OrderByDirection orderByDirection = OrderByDirection.Ascending) => ApplyOrderedBy<TKey>(orderBy, orderByDirection, GetQuery(tenant)).ToList();
         public List<TEntity> GetMulti<TKeyType>(IEntityKeyFields<TEntity, TKeyType> entityKeys) => GetMulti(entityKeys.Predicate);
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, string include) => ApplyInclude(predicate, include).Select(select).ToList();
+        public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, params Expression<Func<TEntity, object>>[] includes) => ApplyInclude(predicate, includes).Select(select).ToList();
+
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select) => _dbSet.Where(predicate).Select(select).ToList();
 
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate) => _dbSet.Where(predicate).ToList().AsEnumerable().Select(a => NewObject<TResult>(a)).ToList();
@@ -242,6 +239,12 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             IQueryable<TEntity> entity = include != null ? ApplyInclude(predicate, include) : _dbSet.Where(predicate);
             return entity.Select(select).FirstOrDefault();
         }
+        public TEntity GetSingle(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        {
+            IQueryable<TEntity> entity = includes != null ? ApplyInclude(predicate, includes) : _dbSet.Where(predicate);
+            return entity.FirstOrDefault();
+        }
+
         public TEntity GetSingle(Expression<Func<TEntity, bool>> predicate, string include = null)
         {
             IQueryable<TEntity> entity = include != null ? ApplyInclude(predicate, include) : _dbSet.Where(predicate);
@@ -477,8 +480,12 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             => (TResult)typeof(TResult).GetConstructor(new Type[] { typeof(TEntity) }).Invoke(new object[] { entity });
         private IQueryable<TEntity> ApplyInclude(Expression<Func<TEntity, bool>> predicate, string include)
         => include.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(_dbSet.Where(predicate), (current, next) => { return current.Include(next); });
-        private IContext GetContext(int tenant)=> DbContextBaseUtil.GetContext<TEntity>(tenant);
 
+        private IContext GetContext(int tenant)=> DbContextBaseUtil.GetContext<TEntity>(tenant);
+        private IQueryable<TEntity> ApplyInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        => includes.Aggregate(_dbSet.Where(predicate), (current, include) => current.Include(include));
+
+     
         #endregion  Private Methods 
     }
 }

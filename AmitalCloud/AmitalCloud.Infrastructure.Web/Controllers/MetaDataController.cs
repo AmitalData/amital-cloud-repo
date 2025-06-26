@@ -6,12 +6,11 @@ using AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using AmitalCloud.Infrastructure.Data.Repositories;
 
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
     [ApiController]
-    [Route("api/ngMetaData")]
+    [Route("api/v1/[controller]")]
     public class MetaDataController : ControllerBase
     {
         private readonly LoggedContactResolver _loggedContactResolver;

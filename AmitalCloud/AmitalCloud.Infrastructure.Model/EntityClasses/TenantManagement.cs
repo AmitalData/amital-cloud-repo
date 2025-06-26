@@ -408,6 +408,11 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public bool TranzilaPaymentWithBit { get; set; }
         [Column("SearchAbsoluteValuePublic")]
 	    public bool SearchAbsoluteValuePublic { get; set; }
+
+        public virtual ICollection<TenantAddOn> TenantAddOns { get; set; }
+
+        public virtual ICollection<TenantManagementLicense> TenantManagementLicenses { get; set; }
+
     }
 }
 	 
