@@ -5,116 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class AutoSignupEmailDataMapping: IMapping<AutoSignupEmailPM, POCO.AutoSignupEmail  ,AutoSignupEmailList >,IMappingEncodeBase64NVARCHARFields<AutoSignupEmailPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         EmailBody, 
-	         EmailSubject, 
-	         Status, 
-	         Retries, 
-	         CreateDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         EmailBody, 
-	         EmailSubject, 
-	         Status, 
-	         Retries, 
-	         CreateDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AutoSignupEmailPM entityPM, POCO.AutoSignupEmail entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailBody)) { entityPOCO.EmailBody = entityPM.EmailBody;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailSubject)) { entityPOCO.EmailSubject = entityPM.EmailSubject;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status)) { entityPOCO.Status = entityPM.Status;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Retries)) { entityPOCO.Retries = entityPM.Retries;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-					}
-		public void POCOToPM(AutoSignupEmailPM entityPM, POCO.AutoSignupEmail entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EmailBody))
-            {
-					entityPM.EmailBody = entityPOCO.EmailBody;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EmailSubject))
-            {
-					entityPM.EmailSubject = entityPOCO.EmailSubject;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Status))
-            {
-					entityPM.Status = entityPOCO.Status;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Retries))
-            {
-					entityPM.Retries = entityPOCO.Retries;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-		}
-		public void PMToOldPM(AutoSignupEmailPM entityPM, AutoSignupEmailPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailBody))
-            {
-                oldEntityPM.EmailBody = entityPM.EmailBody;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailSubject))
-            {
-                oldEntityPM.EmailSubject = entityPM.EmailSubject;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status))
-            {
-                oldEntityPM.Status = entityPM.Status;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Retries))
-            {
-                oldEntityPM.Retries = entityPM.Retries;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-					}
-		public void POCOToList(POCO.AutoSignupEmail entityPOCO, AutoSignupEmailList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AutoSignupEmailList> GetIqueryableList(IQueryable<POCO.AutoSignupEmail> iQueryable)
-		{
-			IQueryable<AutoSignupEmailList> query = (from a in iQueryable
-                                            select new AutoSignupEmailList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class AutoSignupEmailDataMapping: BaseMappingProfile<AutoSignupEmailPM, POCO.AutoSignupEmail>, IMapping<AutoSignupEmailPM, POCO.AutoSignupEmail, AutoSignupEmailList >,IMappingEncodeBase64NVARCHARFields<AutoSignupEmailPM>
+    {
 	    public void EncodeBase64NVARCHARFields(AutoSignupEmailPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -127,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

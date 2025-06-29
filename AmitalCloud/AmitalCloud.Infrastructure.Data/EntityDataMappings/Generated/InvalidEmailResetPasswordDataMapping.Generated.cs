@@ -5,94 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class InvalidEmailResetPasswordDataMapping: IMapping<InvalidEmailResetPasswordPM, POCO.InvalidEmailResetPassword  ,InvalidEmailResetPasswordList >,IMappingEncodeBase64NVARCHARFields<InvalidEmailResetPasswordPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         IP, 
-	         CreateDate, 
-	         Email,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         IP, 
-	         CreateDate, 
-	         Email,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(InvalidEmailResetPasswordPM entityPM, POCO.InvalidEmailResetPassword entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP)) { entityPOCO.IP = entityPM.IP;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-					}
-		public void POCOToPM(InvalidEmailResetPasswordPM entityPM, POCO.InvalidEmailResetPassword entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IP))
-            {
-					entityPM.IP = entityPOCO.IP;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-		}
-		public void PMToOldPM(InvalidEmailResetPasswordPM entityPM, InvalidEmailResetPasswordPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP))
-            {
-                oldEntityPM.IP = entityPM.IP;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-					}
-		public void POCOToList(POCO.InvalidEmailResetPassword entityPOCO, InvalidEmailResetPasswordList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<InvalidEmailResetPasswordList> GetIqueryableList(IQueryable<POCO.InvalidEmailResetPassword> iQueryable)
-		{
-			IQueryable<InvalidEmailResetPasswordList> query = (from a in iQueryable
-                                            select new InvalidEmailResetPasswordList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class InvalidEmailResetPasswordDataMapping: BaseMappingProfile<InvalidEmailResetPasswordPM, POCO.InvalidEmailResetPassword>, IMapping<InvalidEmailResetPasswordPM, POCO.InvalidEmailResetPassword, InvalidEmailResetPasswordList >,IMappingEncodeBase64NVARCHARFields<InvalidEmailResetPasswordPM>
+    {
 	    public void EncodeBase64NVARCHARFields(InvalidEmailResetPasswordPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -101,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,89 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class HybridTenantThresholdDataMapping: IMapping<HybridTenantThresholdPM, POCO.HybridTenantThreshold  ,HybridTenantThresholdList >,IMappingEncodeBase64NVARCHARFields<HybridTenantThresholdPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         FailedThresold, 
-	         WaitingThresold, 
-	         TypeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         FailedThresold, 
-	         WaitingThresold, 
-	         TypeCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(HybridTenantThresholdPM entityPM, POCO.HybridTenantThreshold entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FailedThresold)) { entityPOCO.FailedThresold = entityPM.FailedThresold;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingThresold)) { entityPOCO.WaitingThresold = entityPM.WaitingThresold;}
-					}
-		public void POCOToPM(HybridTenantThresholdPM entityPM, POCO.HybridTenantThreshold entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FailedThresold))
-            {
-					entityPM.FailedThresold = entityPOCO.FailedThresold;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.WaitingThresold))
-            {
-					entityPM.WaitingThresold = entityPOCO.WaitingThresold;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TypeCode))
-            {
-					entityPM.TypeCode = entityPOCO.TypeCode;
-            }
-		}
-		public void PMToOldPM(HybridTenantThresholdPM entityPM, HybridTenantThresholdPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FailedThresold))
-            {
-                oldEntityPM.FailedThresold = entityPM.FailedThresold;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingThresold))
-            {
-                oldEntityPM.WaitingThresold = entityPM.WaitingThresold;
-            }
-					}
-		public void POCOToList(POCO.HybridTenantThreshold entityPOCO, HybridTenantThresholdList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<HybridTenantThresholdList> GetIqueryableList(IQueryable<POCO.HybridTenantThreshold> iQueryable)
-		{
-			IQueryable<HybridTenantThresholdList> query = (from a in iQueryable
-                                            select new HybridTenantThresholdList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class HybridTenantThresholdDataMapping: BaseMappingProfile<HybridTenantThresholdPM, POCO.HybridTenantThreshold>, IMapping<HybridTenantThresholdPM, POCO.HybridTenantThreshold, HybridTenantThresholdList >,IMappingEncodeBase64NVARCHARFields<HybridTenantThresholdPM>
+    {
 	    public void EncodeBase64NVARCHARFields(HybridTenantThresholdPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -96,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

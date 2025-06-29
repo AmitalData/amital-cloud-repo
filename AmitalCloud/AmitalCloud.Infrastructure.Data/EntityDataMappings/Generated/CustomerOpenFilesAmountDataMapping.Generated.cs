@@ -5,84 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CustomerOpenFilesAmountDataMapping: IMapping<CustomerOpenFilesAmountPM, POCO.CustomerOpenFilesAmount  ,CustomerOpenFilesAmountList >,IMappingEncodeBase64NVARCHARFields<CustomerOpenFilesAmountPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         CustomerId, 
-	         TotalOpenFilesAmount, 
-	         Tenant,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         CustomerId, 
-	         TotalOpenFilesAmount, 
-	         Tenant, 
-	         CustomerCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomerOpenFilesAmountPM entityPM, POCO.CustomerOpenFilesAmount entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalOpenFilesAmount)) { entityPOCO.TotalOpenFilesAmount = entityPM.TotalOpenFilesAmount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-					}
-		public void POCOToPM(CustomerOpenFilesAmountPM entityPM, POCO.CustomerOpenFilesAmount entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerId))
-            {
-					entityPM.CustomerId = entityPOCO.CustomerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalOpenFilesAmount))
-            {
-					entityPM.TotalOpenFilesAmount = entityPOCO.TotalOpenFilesAmount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-		}
-		public void PMToOldPM(CustomerOpenFilesAmountPM entityPM, CustomerOpenFilesAmountPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalOpenFilesAmount))
-            {
-                oldEntityPM.TotalOpenFilesAmount = entityPM.TotalOpenFilesAmount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-					}
-		public void POCOToList(POCO.CustomerOpenFilesAmount entityPOCO, CustomerOpenFilesAmountList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomerOpenFilesAmountList> GetIqueryableList(IQueryable<POCO.CustomerOpenFilesAmount> iQueryable)
-		{
-			IQueryable<CustomerOpenFilesAmountList> query = (from a in iQueryable
-                                            select new CustomerOpenFilesAmountList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CustomerOpenFilesAmountDataMapping: BaseMappingProfile<CustomerOpenFilesAmountPM, POCO.CustomerOpenFilesAmount>, IMapping<CustomerOpenFilesAmountPM, POCO.CustomerOpenFilesAmount, CustomerOpenFilesAmountList >,IMappingEncodeBase64NVARCHARFields<CustomerOpenFilesAmountPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CustomerOpenFilesAmountPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -91,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

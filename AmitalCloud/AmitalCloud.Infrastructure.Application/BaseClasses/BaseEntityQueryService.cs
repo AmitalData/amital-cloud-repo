@@ -83,12 +83,14 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             {
                 return default(TEntityPM);
             }
-            mapping.POCOToPM(entityPM, entityPOCO);
+
+            var mapper = mapping.CreateMapper();
+            entityPM = mapper.Map<TEntityPM>(entityPOCO);
+
             if (getComposition && entityKeys != null)
             {
                 GetComposition(entityKeys, entityPM);
             }
-            mapping.CustomPOCOToPM(entityPM, entityPOCO);
             return entityPM;
         }
         public virtual void GetComposition(IEntityKeyFields<TEntityPOCO, TkeyType> entityKeys, TEntityPM entityPM)
@@ -114,8 +116,8 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                         GetComposition(entityKeys, entityPM);
                     }
                 }
-                mapping.CustomPOCOToPM(entityPM, entityPOCO);
-                mapping.POCOToPM(entityPM, entityPOCO);
+                var mapper = mapping.CreateMapper();
+                entityPM = mapper.Map<TEntityPM>(entityPOCO);
                 entityPMs.Add(entityPM);
             }
             return entityPMs;

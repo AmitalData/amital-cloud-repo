@@ -5,105 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DocumentFilingBackupSettingDataMapping: IMapping<DocumentFilingBackupSettingPM, POCO.DocumentFilingBackupSetting  ,DocumentFilingBackupSettingList >,IMappingEncodeBase64NVARCHARFields<DocumentFilingBackupSettingPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ActivationDate, 
-	         DeactivationDate, 
-	         IsActive, 
-	         FTPDetailId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ActivationDate, 
-	         DeactivationDate, 
-	         IsActive, 
-	         FTPDetailId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DocumentFilingBackupSettingPM entityPM, POCO.DocumentFilingBackupSetting entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ActivationDate)) { entityPOCO.ActivationDate = entityPM.ActivationDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DeactivationDate)) { entityPOCO.DeactivationDate = entityPM.DeactivationDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive)) { entityPOCO.IsActive = entityPM.IsActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FTPDetailId)) { entityPOCO.FTPDetailId = entityPM.FTPDetailId;}
-					}
-		public void POCOToPM(DocumentFilingBackupSettingPM entityPM, POCO.DocumentFilingBackupSetting entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ActivationDate))
-            {
-					entityPM.ActivationDate = entityPOCO.ActivationDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DeactivationDate))
-            {
-					entityPM.DeactivationDate = entityPOCO.DeactivationDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsActive))
-            {
-					entityPM.IsActive = entityPOCO.IsActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FTPDetailId))
-            {
-					entityPM.FTPDetailId = entityPOCO.FTPDetailId;
-            }
-		}
-		public void PMToOldPM(DocumentFilingBackupSettingPM entityPM, DocumentFilingBackupSettingPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ActivationDate))
-            {
-                oldEntityPM.ActivationDate = entityPM.ActivationDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DeactivationDate))
-            {
-                oldEntityPM.DeactivationDate = entityPM.DeactivationDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive))
-            {
-                oldEntityPM.IsActive = entityPM.IsActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FTPDetailId))
-            {
-                oldEntityPM.FTPDetailId = entityPM.FTPDetailId;
-            }
-					}
-		public void POCOToList(POCO.DocumentFilingBackupSetting entityPOCO, DocumentFilingBackupSettingList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DocumentFilingBackupSettingList> GetIqueryableList(IQueryable<POCO.DocumentFilingBackupSetting> iQueryable)
-		{
-			IQueryable<DocumentFilingBackupSettingList> query = (from a in iQueryable
-                                            select new DocumentFilingBackupSettingList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class DocumentFilingBackupSettingDataMapping: BaseMappingProfile<DocumentFilingBackupSettingPM, POCO.DocumentFilingBackupSetting>, IMapping<DocumentFilingBackupSettingPM, POCO.DocumentFilingBackupSetting, DocumentFilingBackupSettingList >,IMappingEncodeBase64NVARCHARFields<DocumentFilingBackupSettingPM>
+    {
 	    public void EncodeBase64NVARCHARFields(DocumentFilingBackupSettingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -112,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

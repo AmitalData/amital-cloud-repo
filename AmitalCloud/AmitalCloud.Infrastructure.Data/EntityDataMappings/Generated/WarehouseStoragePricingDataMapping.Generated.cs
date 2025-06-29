@@ -5,138 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class WarehouseStoragePricingDataMapping: IMapping<WarehouseStoragePricingPM, POCO.WarehouseStoragePricing  ,WarehouseStoragePricingList >,IMappingEncodeBase64NVARCHARFields<WarehouseStoragePricingPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         WarehouseId, 
-	         StepFrom, 
-	         StepTo, 
-	         Days, 
-	         SalePrice, 
-	         LineNumber,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         WarehouseId, 
-	         StepFrom, 
-	         StepTo, 
-	         Days, 
-	         SalePrice, 
-	         LineNumber,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(WarehouseStoragePricingPM entityPM, POCO.WarehouseStoragePricing entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WarehouseId)) { entityPOCO.WarehouseId = entityPM.WarehouseId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StepFrom)) { entityPOCO.StepFrom = entityPM.StepFrom;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StepTo)) { entityPOCO.StepTo = entityPM.StepTo;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Days)) { entityPOCO.Days = entityPM.Days;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SalePrice)) { entityPOCO.SalePrice = entityPM.SalePrice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LineNumber)) { entityPOCO.LineNumber = entityPM.LineNumber;}
-					}
-		public void POCOToPM(WarehouseStoragePricingPM entityPM, POCO.WarehouseStoragePricing entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.WarehouseId))
-            {
-					entityPM.WarehouseId = entityPOCO.WarehouseId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StepFrom))
-            {
-					entityPM.StepFrom = entityPOCO.StepFrom;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StepTo))
-            {
-					entityPM.StepTo = entityPOCO.StepTo;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Days))
-            {
-					entityPM.Days = entityPOCO.Days;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SalePrice))
-            {
-					entityPM.SalePrice = entityPOCO.SalePrice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LineNumber))
-            {
-					entityPM.LineNumber = entityPOCO.LineNumber;
-            }
-		}
-		public void PMToOldPM(WarehouseStoragePricingPM entityPM, WarehouseStoragePricingPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WarehouseId))
-            {
-                oldEntityPM.WarehouseId = entityPM.WarehouseId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StepFrom))
-            {
-                oldEntityPM.StepFrom = entityPM.StepFrom;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StepTo))
-            {
-                oldEntityPM.StepTo = entityPM.StepTo;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Days))
-            {
-                oldEntityPM.Days = entityPM.Days;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SalePrice))
-            {
-                oldEntityPM.SalePrice = entityPM.SalePrice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LineNumber))
-            {
-                oldEntityPM.LineNumber = entityPM.LineNumber;
-            }
-					}
-		public void POCOToList(POCO.WarehouseStoragePricing entityPOCO, WarehouseStoragePricingList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<WarehouseStoragePricingList> GetIqueryableList(IQueryable<POCO.WarehouseStoragePricing> iQueryable)
-		{
-			IQueryable<WarehouseStoragePricingList> query = (from a in iQueryable
-                                            select new WarehouseStoragePricingList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class WarehouseStoragePricingDataMapping: BaseMappingProfile<WarehouseStoragePricingPM, POCO.WarehouseStoragePricing>, IMapping<WarehouseStoragePricingPM, POCO.WarehouseStoragePricing, WarehouseStoragePricingList >,IMappingEncodeBase64NVARCHARFields<WarehouseStoragePricingPM>
+    {
 	    public void EncodeBase64NVARCHARFields(WarehouseStoragePricingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -145,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

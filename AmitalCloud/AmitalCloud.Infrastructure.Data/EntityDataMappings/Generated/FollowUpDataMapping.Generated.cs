@@ -16,10 +16,11 @@ using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class FollowUpDataMapping: IMapping<FollowUpPM, POCO.FollowUp  ,FollowUpList >,IMappingEncodeBase64NVARCHARFields<FollowUpPM>
+   public partial class FollowUpDataMapping: BaseMappingProfile<FollowUpPM, POCO.FollowUp>, IMapping<FollowUpPM, POCO.FollowUp  ,FollowUpList >,IMappingEncodeBase64NVARCHARFields<FollowUpPM>
    {
           public enum POCOPropertyNames
           { 

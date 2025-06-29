@@ -5,182 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DocumentFilingBackupBatchDataMapping: IMapping<DocumentFilingBackupBatchPM, POCO.DocumentFilingBackupBatch  ,DocumentFilingBackupBatchList >,IMappingEncodeBase64NVARCHARFields<DocumentFilingBackupBatchPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDateTime, 
-	         DoneDate, 
-	         Status, 
-	         BatchNumber, 
-	         TotalFailed, 
-	         TotalDocuments, 
-	         TotalSucceeded, 
-	         IncludeBackedUp, 
-	         FromDateTime, 
-	         ToDateTime,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDateTime, 
-	         DoneDate, 
-	         Status, 
-	         BatchNumber, 
-	         TotalFailed, 
-	         TotalDocuments, 
-	         TotalSucceeded, 
-	         IncludeBackedUp, 
-	         FromDateTime, 
-	         ToDateTime,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DocumentFilingBackupBatchPM entityPM, POCO.DocumentFilingBackupBatch entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDateTime)) { entityPOCO.CreateDateTime = entityPM.CreateDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDate)) { entityPOCO.DoneDate = entityPM.DoneDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status)) { entityPOCO.Status = entityPM.Status;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BatchNumber)) { entityPOCO.BatchNumber = entityPM.BatchNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalFailed)) { entityPOCO.TotalFailed = entityPM.TotalFailed;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalDocuments)) { entityPOCO.TotalDocuments = entityPM.TotalDocuments;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalSucceeded)) { entityPOCO.TotalSucceeded = entityPM.TotalSucceeded;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IncludeBackedUp)) { entityPOCO.IncludeBackedUp = entityPM.IncludeBackedUp;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FromDateTime)) { entityPOCO.FromDateTime = entityPM.FromDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ToDateTime)) { entityPOCO.ToDateTime = entityPM.ToDateTime;}
-					}
-		public void POCOToPM(DocumentFilingBackupBatchPM entityPM, POCO.DocumentFilingBackupBatch entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDateTime))
-            {
-					entityPM.CreateDateTime = entityPOCO.CreateDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DoneDate))
-            {
-					entityPM.DoneDate = entityPOCO.DoneDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Status))
-            {
-					entityPM.Status = entityPOCO.Status;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BatchNumber))
-            {
-					entityPM.BatchNumber = entityPOCO.BatchNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalFailed))
-            {
-					entityPM.TotalFailed = entityPOCO.TotalFailed;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalDocuments))
-            {
-					entityPM.TotalDocuments = entityPOCO.TotalDocuments;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalSucceeded))
-            {
-					entityPM.TotalSucceeded = entityPOCO.TotalSucceeded;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IncludeBackedUp))
-            {
-					entityPM.IncludeBackedUp = entityPOCO.IncludeBackedUp;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FromDateTime))
-            {
-					entityPM.FromDateTime = entityPOCO.FromDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ToDateTime))
-            {
-					entityPM.ToDateTime = entityPOCO.ToDateTime;
-            }
-		}
-		public void PMToOldPM(DocumentFilingBackupBatchPM entityPM, DocumentFilingBackupBatchPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDateTime))
-            {
-                oldEntityPM.CreateDateTime = entityPM.CreateDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDate))
-            {
-                oldEntityPM.DoneDate = entityPM.DoneDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status))
-            {
-                oldEntityPM.Status = entityPM.Status;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BatchNumber))
-            {
-                oldEntityPM.BatchNumber = entityPM.BatchNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalFailed))
-            {
-                oldEntityPM.TotalFailed = entityPM.TotalFailed;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalDocuments))
-            {
-                oldEntityPM.TotalDocuments = entityPM.TotalDocuments;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalSucceeded))
-            {
-                oldEntityPM.TotalSucceeded = entityPM.TotalSucceeded;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IncludeBackedUp))
-            {
-                oldEntityPM.IncludeBackedUp = entityPM.IncludeBackedUp;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FromDateTime))
-            {
-                oldEntityPM.FromDateTime = entityPM.FromDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ToDateTime))
-            {
-                oldEntityPM.ToDateTime = entityPM.ToDateTime;
-            }
-					}
-		public void POCOToList(POCO.DocumentFilingBackupBatch entityPOCO, DocumentFilingBackupBatchList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DocumentFilingBackupBatchList> GetIqueryableList(IQueryable<POCO.DocumentFilingBackupBatch> iQueryable)
-		{
-			IQueryable<DocumentFilingBackupBatchList> query = (from a in iQueryable
-                                            select new DocumentFilingBackupBatchList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class DocumentFilingBackupBatchDataMapping: BaseMappingProfile<DocumentFilingBackupBatchPM, POCO.DocumentFilingBackupBatch>, IMapping<DocumentFilingBackupBatchPM, POCO.DocumentFilingBackupBatch, DocumentFilingBackupBatchList >,IMappingEncodeBase64NVARCHARFields<DocumentFilingBackupBatchPM>
+    {
 	    public void EncodeBase64NVARCHARFields(DocumentFilingBackupBatchPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -189,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

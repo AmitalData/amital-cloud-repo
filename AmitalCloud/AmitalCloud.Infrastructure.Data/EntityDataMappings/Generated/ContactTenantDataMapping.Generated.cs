@@ -5,83 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ContactTenantDataMapping: IMapping<ContactTenantPM, POCO.ContactTenant  ,ContactTenantList >,IMappingEncodeBase64NVARCHARFields<ContactTenantPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TenantId, 
-	         ContactId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TenantId, 
-	         ContactId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContactTenantPM entityPM, POCO.ContactTenant entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantId)) { entityPOCO.TenantId = entityPM.TenantId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ContactId)) { entityPOCO.ContactId = entityPM.ContactId;}
-					}
-		public void POCOToPM(ContactTenantPM entityPM, POCO.ContactTenant entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TenantId))
-            {
-					entityPM.TenantId = entityPOCO.TenantId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ContactId))
-            {
-					entityPM.ContactId = entityPOCO.ContactId;
-            }
-		}
-		public void PMToOldPM(ContactTenantPM entityPM, ContactTenantPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantId))
-            {
-                oldEntityPM.TenantId = entityPM.TenantId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ContactId))
-            {
-                oldEntityPM.ContactId = entityPM.ContactId;
-            }
-					}
-		public void POCOToList(POCO.ContactTenant entityPOCO, ContactTenantList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContactTenantList> GetIqueryableList(IQueryable<POCO.ContactTenant> iQueryable)
-		{
-			IQueryable<ContactTenantList> query = (from a in iQueryable
-                                            select new ContactTenantList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class ContactTenantDataMapping: BaseMappingProfile<ContactTenantPM, POCO.ContactTenant>, IMapping<ContactTenantPM, POCO.ContactTenant, ContactTenantList >,IMappingEncodeBase64NVARCHARFields<ContactTenantPM>
+    {
 	    public void EncodeBase64NVARCHARFields(ContactTenantPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -90,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

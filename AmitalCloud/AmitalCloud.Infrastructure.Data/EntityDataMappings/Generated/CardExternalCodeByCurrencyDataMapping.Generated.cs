@@ -5,121 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CardExternalCodeByCurrencyDataMapping: IMapping<CardExternalCodeByCurrencyPM, POCO.CardExternalCodeByCurrency  ,CardExternalCodeByCurrencyList >,IMappingEncodeBase64NVARCHARFields<CardExternalCodeByCurrencyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CardId, 
-	         CurrencyId, 
-	         ExternalRecievableTableId, 
-	         ExternalPayableTableId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CardId, 
-	         CurrencyId, 
-	         ExternalRecievableTableId, 
-	         ExternalPayableTableId, 
-	         CurrencyCode, 
-	         ExternalTableName, 
-	         ExternalTableCode, 
-	         CardName, 
-	         CurrencyName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CardExternalCodeByCurrencyPM entityPM, POCO.CardExternalCodeByCurrency entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardId)) { entityPOCO.CardId = entityPM.CardId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId)) { entityPOCO.CurrencyId = entityPM.CurrencyId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExternalRecievableTableId)) { entityPOCO.ExternalRecievableTableId = entityPM.ExternalRecievableTableId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExternalPayableTableId)) { entityPOCO.ExternalPayableTableId = entityPM.ExternalPayableTableId;}
-					}
-		public void POCOToPM(CardExternalCodeByCurrencyPM entityPM, POCO.CardExternalCodeByCurrency entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CardId))
-            {
-					entityPM.CardId = entityPOCO.CardId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CurrencyId))
-            {
-					entityPM.CurrencyId = entityPOCO.CurrencyId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExternalRecievableTableId))
-            {
-					entityPM.ExternalRecievableTableId = entityPOCO.ExternalRecievableTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExternalPayableTableId))
-            {
-					entityPM.ExternalPayableTableId = entityPOCO.ExternalPayableTableId;
-            }
-		}
-		public void PMToOldPM(CardExternalCodeByCurrencyPM entityPM, CardExternalCodeByCurrencyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardId))
-            {
-                oldEntityPM.CardId = entityPM.CardId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId))
-            {
-                oldEntityPM.CurrencyId = entityPM.CurrencyId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExternalRecievableTableId))
-            {
-                oldEntityPM.ExternalRecievableTableId = entityPM.ExternalRecievableTableId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExternalPayableTableId))
-            {
-                oldEntityPM.ExternalPayableTableId = entityPM.ExternalPayableTableId;
-            }
-					}
-		public void POCOToList(POCO.CardExternalCodeByCurrency entityPOCO, CardExternalCodeByCurrencyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CardExternalCodeByCurrencyList> GetIqueryableList(IQueryable<POCO.CardExternalCodeByCurrency> iQueryable)
-		{
-			IQueryable<CardExternalCodeByCurrencyList> query = (from a in iQueryable
-                                            select new CardExternalCodeByCurrencyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CardExternalCodeByCurrencyDataMapping: BaseMappingProfile<CardExternalCodeByCurrencyPM, POCO.CardExternalCodeByCurrency>, IMapping<CardExternalCodeByCurrencyPM, POCO.CardExternalCodeByCurrency, CardExternalCodeByCurrencyList >,IMappingEncodeBase64NVARCHARFields<CardExternalCodeByCurrencyPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CardExternalCodeByCurrencyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -128,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

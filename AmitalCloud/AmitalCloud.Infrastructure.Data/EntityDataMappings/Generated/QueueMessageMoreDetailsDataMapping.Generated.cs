@@ -5,79 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class QueueMessageMoreDetailsDataMapping: IMapping<QueueMessageMoreDetailsPM, POCO.QueueMessageMoreDetails  ,QueueMessageMoreDetailsList >,IMappingEncodeBase64NVARCHARFields<QueueMessageMoreDetailsPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         QueueDefinitionCode, 
-	         Status, 
-	         MessageBody, 
-	         NextRunDateTime, 
-	         ProcessingDateTime, 
-	         CompleteDateTime, 
-	         RetryNumber, 
-	         Field1, 
-	         Field2, 
-	         Field3, 
-	         Id, 
-	         CreateDateTime, 
-	         Tenant, 
-	         TenantPriority,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         TenantPriority,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(QueueMessageMoreDetailsPM entityPM, POCO.QueueMessageMoreDetails entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantPriority)) { entityPOCO.TenantPriority = entityPM.TenantPriority;}
-					}
-		public void POCOToPM(QueueMessageMoreDetailsPM entityPM, POCO.QueueMessageMoreDetails entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TenantPriority))
-            {
-					entityPM.TenantPriority = entityPOCO.TenantPriority;
-            }
-		}
-		public void PMToOldPM(QueueMessageMoreDetailsPM entityPM, QueueMessageMoreDetailsPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantPriority))
-            {
-                oldEntityPM.TenantPriority = entityPM.TenantPriority;
-            }
-					}
-		public void POCOToList(POCO.QueueMessageMoreDetails entityPOCO, QueueMessageMoreDetailsList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<QueueMessageMoreDetailsList> GetIqueryableList(IQueryable<POCO.QueueMessageMoreDetails> iQueryable)
-		{
-			IQueryable<QueueMessageMoreDetailsList> query = (from a in iQueryable
-                                            select new QueueMessageMoreDetailsList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class QueueMessageMoreDetailsDataMapping: BaseMappingProfile<QueueMessageMoreDetailsPM, POCO.QueueMessageMoreDetails>, IMapping<QueueMessageMoreDetailsPM, POCO.QueueMessageMoreDetails, QueueMessageMoreDetailsList >,IMappingEncodeBase64NVARCHARFields<QueueMessageMoreDetailsPM>
+    {
 	    public void EncodeBase64NVARCHARFields(QueueMessageMoreDetailsPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -86,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,194 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ApiCredintialsDataMapping: IMapping<ApiCredintialsPM, POCO.ApiCredintials  ,ApiCredintialsList >,IMappingEncodeBase64NVARCHARFields<ApiCredintialsPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         HashedPrimaryAccessKey, 
-	         HashedSeconderyAccessKey, 
-	         UsedFor, 
-	         CreateDate, 
-	         UpdateDate, 
-	         AllowedIPs, 
-	         CreatedBy, 
-	         UpdatedBy, 
-	         maskedPrimaryAccessKey, 
-	         maskedSeconderyAccessKey, 
-	         TokenExpirationTime,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         HashedPrimaryAccessKey, 
-	         HashedSeconderyAccessKey, 
-	         UsedFor, 
-	         CreateDate, 
-	         UpdateDate, 
-	         AllowedIPs, 
-	         CreatedBy, 
-	         UpdatedBy, 
-	         maskedPrimaryAccessKey, 
-	         maskedSeconderyAccessKey, 
-	         SearchFields, 
-	         TokenExpirationTime,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ApiCredintialsPM entityPM, POCO.ApiCredintials entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HashedPrimaryAccessKey)) { entityPOCO.HashedPrimaryAccessKey = entityPM.HashedPrimaryAccessKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HashedSeconderyAccessKey)) { entityPOCO.HashedSeconderyAccessKey = entityPM.HashedSeconderyAccessKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UsedFor)) { entityPOCO.UsedFor = entityPM.UsedFor;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowedIPs)) { entityPOCO.AllowedIPs = entityPM.AllowedIPs;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedBy)) { entityPOCO.CreatedBy = entityPM.CreatedBy;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedBy)) { entityPOCO.UpdatedBy = entityPM.UpdatedBy;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.maskedPrimaryAccessKey)) { entityPOCO.maskedPrimaryAccessKey = entityPM.maskedPrimaryAccessKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.maskedSeconderyAccessKey)) { entityPOCO.maskedSeconderyAccessKey = entityPM.maskedSeconderyAccessKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TokenExpirationTime)) { entityPOCO.TokenExpirationTime = entityPM.TokenExpirationTime;}
-					}
-		public void POCOToPM(ApiCredintialsPM entityPM, POCO.ApiCredintials entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HashedPrimaryAccessKey))
-            {
-					entityPM.HashedPrimaryAccessKey = entityPOCO.HashedPrimaryAccessKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HashedSeconderyAccessKey))
-            {
-					entityPM.HashedSeconderyAccessKey = entityPOCO.HashedSeconderyAccessKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UsedFor))
-            {
-					entityPM.UsedFor = entityPOCO.UsedFor;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AllowedIPs))
-            {
-					entityPM.AllowedIPs = entityPOCO.AllowedIPs;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedBy))
-            {
-					entityPM.CreatedBy = entityPOCO.CreatedBy;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedBy))
-            {
-					entityPM.UpdatedBy = entityPOCO.UpdatedBy;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.maskedPrimaryAccessKey))
-            {
-					entityPM.maskedPrimaryAccessKey = entityPOCO.maskedPrimaryAccessKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.maskedSeconderyAccessKey))
-            {
-					entityPM.maskedSeconderyAccessKey = entityPOCO.maskedSeconderyAccessKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TokenExpirationTime))
-            {
-					entityPM.TokenExpirationTime = entityPOCO.TokenExpirationTime;
-            }
-		}
-		public void PMToOldPM(ApiCredintialsPM entityPM, ApiCredintialsPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HashedPrimaryAccessKey))
-            {
-                oldEntityPM.HashedPrimaryAccessKey = entityPM.HashedPrimaryAccessKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HashedSeconderyAccessKey))
-            {
-                oldEntityPM.HashedSeconderyAccessKey = entityPM.HashedSeconderyAccessKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UsedFor))
-            {
-                oldEntityPM.UsedFor = entityPM.UsedFor;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowedIPs))
-            {
-                oldEntityPM.AllowedIPs = entityPM.AllowedIPs;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedBy))
-            {
-                oldEntityPM.CreatedBy = entityPM.CreatedBy;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedBy))
-            {
-                oldEntityPM.UpdatedBy = entityPM.UpdatedBy;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.maskedPrimaryAccessKey))
-            {
-                oldEntityPM.maskedPrimaryAccessKey = entityPM.maskedPrimaryAccessKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.maskedSeconderyAccessKey))
-            {
-                oldEntityPM.maskedSeconderyAccessKey = entityPM.maskedSeconderyAccessKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TokenExpirationTime))
-            {
-                oldEntityPM.TokenExpirationTime = entityPM.TokenExpirationTime;
-            }
-					}
-		public void POCOToList(POCO.ApiCredintials entityPOCO, ApiCredintialsList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ApiCredintialsList> GetIqueryableList(IQueryable<POCO.ApiCredintials> iQueryable)
-		{
-			IQueryable<ApiCredintialsList> query = (from a in iQueryable
-                                            select new ApiCredintialsList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class ApiCredintialsDataMapping: BaseMappingProfile<ApiCredintialsPM, POCO.ApiCredintials>, IMapping<ApiCredintialsPM, POCO.ApiCredintials, ApiCredintialsList >,IMappingEncodeBase64NVARCHARFields<ApiCredintialsPM>
+    {
 	    public void EncodeBase64NVARCHARFields(ApiCredintialsPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -225,14 +48,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

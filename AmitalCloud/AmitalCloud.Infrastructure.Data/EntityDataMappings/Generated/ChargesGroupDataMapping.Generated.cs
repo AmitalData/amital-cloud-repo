@@ -5,139 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ChargesGroupDataMapping: IMapping<ChargesGroupPM, POCO.ChargesGroup  ,ChargesGroupList >,IMappingEncodeBase64NVARCHARFields<ChargesGroupPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         SearchFields, 
-	         Code, 
-	         Name, 
-	         Id, 
-	         Tenant, 
-	         LocalName, 
-	         ViewOrder, 
-	         QuoteGroupSectionID,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         SearchFields, 
-	         Code, 
-	         Name, 
-	         Id, 
-	         Tenant, 
-	         LocalName, 
-	         ViewOrder, 
-	         QuoteGroupSectionID,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ChargesGroupPM entityPM, POCO.ChargesGroup entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ViewOrder)) { entityPOCO.ViewOrder = entityPM.ViewOrder;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.QuoteGroupSectionID)) { entityPOCO.QuoteGroupSectionID = entityPM.QuoteGroupSectionID;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ChargesGroupPM entityPM, POCO.ChargesGroup entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ViewOrder))
-            {
-					entityPM.ViewOrder = entityPOCO.ViewOrder;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.QuoteGroupSectionID))
-            {
-					entityPM.QuoteGroupSectionID = entityPOCO.QuoteGroupSectionID;
-            }
-		}
-		public void PMToOldPM(ChargesGroupPM entityPM, ChargesGroupPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ViewOrder))
-            {
-                oldEntityPM.ViewOrder = entityPM.ViewOrder;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.QuoteGroupSectionID))
-            {
-                oldEntityPM.QuoteGroupSectionID = entityPM.QuoteGroupSectionID;
-            }
-					}
-		public void POCOToList(POCO.ChargesGroup entityPOCO, ChargesGroupList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ChargesGroupList> GetIqueryableList(IQueryable<POCO.ChargesGroup> iQueryable)
-		{
-			IQueryable<ChargesGroupList> query = (from a in iQueryable
-                                            select new ChargesGroupList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class ChargesGroupDataMapping: BaseMappingProfile<ChargesGroupPM, POCO.ChargesGroup>, IMapping<ChargesGroupPM, POCO.ChargesGroup, ChargesGroupList >,IMappingEncodeBase64NVARCHARFields<ChargesGroupPM>
+    {
 	    public void EncodeBase64NVARCHARFields(ChargesGroupPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -154,20 +32,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ChargesGroupPM entityPM, POCO.ChargesGroup entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

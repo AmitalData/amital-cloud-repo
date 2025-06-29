@@ -5,138 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TenantLoginPolicyDataMapping: IMapping<TenantLoginPolicyPM, POCO.TenantLoginPolicy  ,TenantLoginPolicyList >,IMappingEncodeBase64NVARCHARFields<TenantLoginPolicyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         LoginPolicyCode, 
-	         IsEnabledForSpecificUsers, 
-	         TwoFactorInternalIPs, 
-	         KeepUserLoggedIn, 
-	         ExcludeInternalIPs, 
-	         AllowedIPs, 
-	         SessionTimeout,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         LoginPolicyCode, 
-	         IsEnabledForSpecificUsers, 
-	         TwoFactorInternalIPs, 
-	         KeepUserLoggedIn, 
-	         ExcludeInternalIPs, 
-	         AllowedIPs, 
-	         SessionTimeout,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TenantLoginPolicyPM entityPM, POCO.TenantLoginPolicy entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginPolicyCode)) { entityPOCO.LoginPolicyCode = entityPM.LoginPolicyCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsEnabledForSpecificUsers)) { entityPOCO.IsEnabledForSpecificUsers = entityPM.IsEnabledForSpecificUsers;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TwoFactorInternalIPs)) { entityPOCO.TwoFactorInternalIPs = entityPM.TwoFactorInternalIPs;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.KeepUserLoggedIn)) { entityPOCO.KeepUserLoggedIn = entityPM.KeepUserLoggedIn;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExcludeInternalIPs)) { entityPOCO.ExcludeInternalIPs = entityPM.ExcludeInternalIPs;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowedIPs)) { entityPOCO.AllowedIPs = entityPM.AllowedIPs;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SessionTimeout)) { entityPOCO.SessionTimeout = entityPM.SessionTimeout;}
-					}
-		public void POCOToPM(TenantLoginPolicyPM entityPM, POCO.TenantLoginPolicy entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LoginPolicyCode))
-            {
-					entityPM.LoginPolicyCode = entityPOCO.LoginPolicyCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsEnabledForSpecificUsers))
-            {
-					entityPM.IsEnabledForSpecificUsers = entityPOCO.IsEnabledForSpecificUsers;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TwoFactorInternalIPs))
-            {
-					entityPM.TwoFactorInternalIPs = entityPOCO.TwoFactorInternalIPs;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.KeepUserLoggedIn))
-            {
-					entityPM.KeepUserLoggedIn = entityPOCO.KeepUserLoggedIn;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExcludeInternalIPs))
-            {
-					entityPM.ExcludeInternalIPs = entityPOCO.ExcludeInternalIPs;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AllowedIPs))
-            {
-					entityPM.AllowedIPs = entityPOCO.AllowedIPs;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SessionTimeout))
-            {
-					entityPM.SessionTimeout = entityPOCO.SessionTimeout;
-            }
-		}
-		public void PMToOldPM(TenantLoginPolicyPM entityPM, TenantLoginPolicyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginPolicyCode))
-            {
-                oldEntityPM.LoginPolicyCode = entityPM.LoginPolicyCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsEnabledForSpecificUsers))
-            {
-                oldEntityPM.IsEnabledForSpecificUsers = entityPM.IsEnabledForSpecificUsers;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TwoFactorInternalIPs))
-            {
-                oldEntityPM.TwoFactorInternalIPs = entityPM.TwoFactorInternalIPs;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.KeepUserLoggedIn))
-            {
-                oldEntityPM.KeepUserLoggedIn = entityPM.KeepUserLoggedIn;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExcludeInternalIPs))
-            {
-                oldEntityPM.ExcludeInternalIPs = entityPM.ExcludeInternalIPs;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowedIPs))
-            {
-                oldEntityPM.AllowedIPs = entityPM.AllowedIPs;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SessionTimeout))
-            {
-                oldEntityPM.SessionTimeout = entityPM.SessionTimeout;
-            }
-					}
-		public void POCOToList(POCO.TenantLoginPolicy entityPOCO, TenantLoginPolicyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TenantLoginPolicyList> GetIqueryableList(IQueryable<POCO.TenantLoginPolicy> iQueryable)
-		{
-			IQueryable<TenantLoginPolicyList> query = (from a in iQueryable
-                                            select new TenantLoginPolicyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class TenantLoginPolicyDataMapping: BaseMappingProfile<TenantLoginPolicyPM, POCO.TenantLoginPolicy>, IMapping<TenantLoginPolicyPM, POCO.TenantLoginPolicy, TenantLoginPolicyList >,IMappingEncodeBase64NVARCHARFields<TenantLoginPolicyPM>
+    {
 	    public void EncodeBase64NVARCHARFields(TenantLoginPolicyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -145,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

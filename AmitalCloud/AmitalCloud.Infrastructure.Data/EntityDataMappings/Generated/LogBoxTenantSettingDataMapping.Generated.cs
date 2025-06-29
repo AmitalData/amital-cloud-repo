@@ -5,149 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class LogBoxTenantSettingDataMapping: IMapping<LogBoxTenantSettingPM, POCO.LogBoxTenantSetting  ,LogBoxTenantSettingList >,IMappingEncodeBase64NVARCHARFields<LogBoxTenantSettingPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         IsDocumentsArchive, 
-	         CustomerTenantShareImportFile, 
-	         LogBoxAdminUserId, 
-	         DocumentShareAsDefault, 
-	         StockTypeCode, 
-	         AutoArchiveOnInvoice, 
-	         ShowTaxAmountWarning, 
-	         AutoArchiveOnPODExport,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         IsDocumentsArchive, 
-	         CustomerTenantShareImportFile, 
-	         LogBoxAdminUserId, 
-	         DocumentShareAsDefault, 
-	         StockTypeCode, 
-	         AutoArchiveOnInvoice, 
-	         ShowTaxAmountWarning, 
-	         AutoArchiveOnPODExport,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(LogBoxTenantSettingPM entityPM, POCO.LogBoxTenantSetting entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsDocumentsArchive)) { entityPOCO.IsDocumentsArchive = entityPM.IsDocumentsArchive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomerTenantShareImportFile)) { entityPOCO.CustomerTenantShareImportFile = entityPM.CustomerTenantShareImportFile;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogBoxAdminUserId)) { entityPOCO.LogBoxAdminUserId = entityPM.LogBoxAdminUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentShareAsDefault)) { entityPOCO.DocumentShareAsDefault = entityPM.DocumentShareAsDefault;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StockTypeCode)) { entityPOCO.StockTypeCode = entityPM.StockTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutoArchiveOnInvoice)) { entityPOCO.AutoArchiveOnInvoice = entityPM.AutoArchiveOnInvoice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShowTaxAmountWarning)) { entityPOCO.ShowTaxAmountWarning = entityPM.ShowTaxAmountWarning;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutoArchiveOnPODExport)) { entityPOCO.AutoArchiveOnPODExport = entityPM.AutoArchiveOnPODExport;}
-					}
-		public void POCOToPM(LogBoxTenantSettingPM entityPM, POCO.LogBoxTenantSetting entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsDocumentsArchive))
-            {
-					entityPM.IsDocumentsArchive = entityPOCO.IsDocumentsArchive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerTenantShareImportFile))
-            {
-					entityPM.CustomerTenantShareImportFile = entityPOCO.CustomerTenantShareImportFile;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogBoxAdminUserId))
-            {
-					entityPM.LogBoxAdminUserId = entityPOCO.LogBoxAdminUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentShareAsDefault))
-            {
-					entityPM.DocumentShareAsDefault = entityPOCO.DocumentShareAsDefault;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StockTypeCode))
-            {
-					entityPM.StockTypeCode = entityPOCO.StockTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AutoArchiveOnInvoice))
-            {
-					entityPM.AutoArchiveOnInvoice = entityPOCO.AutoArchiveOnInvoice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShowTaxAmountWarning))
-            {
-					entityPM.ShowTaxAmountWarning = entityPOCO.ShowTaxAmountWarning;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AutoArchiveOnPODExport))
-            {
-					entityPM.AutoArchiveOnPODExport = entityPOCO.AutoArchiveOnPODExport;
-            }
-		}
-		public void PMToOldPM(LogBoxTenantSettingPM entityPM, LogBoxTenantSettingPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsDocumentsArchive))
-            {
-                oldEntityPM.IsDocumentsArchive = entityPM.IsDocumentsArchive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomerTenantShareImportFile))
-            {
-                oldEntityPM.CustomerTenantShareImportFile = entityPM.CustomerTenantShareImportFile;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogBoxAdminUserId))
-            {
-                oldEntityPM.LogBoxAdminUserId = entityPM.LogBoxAdminUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentShareAsDefault))
-            {
-                oldEntityPM.DocumentShareAsDefault = entityPM.DocumentShareAsDefault;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StockTypeCode))
-            {
-                oldEntityPM.StockTypeCode = entityPM.StockTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutoArchiveOnInvoice))
-            {
-                oldEntityPM.AutoArchiveOnInvoice = entityPM.AutoArchiveOnInvoice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShowTaxAmountWarning))
-            {
-                oldEntityPM.ShowTaxAmountWarning = entityPM.ShowTaxAmountWarning;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutoArchiveOnPODExport))
-            {
-                oldEntityPM.AutoArchiveOnPODExport = entityPM.AutoArchiveOnPODExport;
-            }
-					}
-		public void POCOToList(POCO.LogBoxTenantSetting entityPOCO, LogBoxTenantSettingList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<LogBoxTenantSettingList> GetIqueryableList(IQueryable<POCO.LogBoxTenantSetting> iQueryable)
-		{
-			IQueryable<LogBoxTenantSettingList> query = (from a in iQueryable
-                                            select new LogBoxTenantSettingList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class LogBoxTenantSettingDataMapping: BaseMappingProfile<LogBoxTenantSettingPM, POCO.LogBoxTenantSetting>, IMapping<LogBoxTenantSettingPM, POCO.LogBoxTenantSetting, LogBoxTenantSettingList >,IMappingEncodeBase64NVARCHARFields<LogBoxTenantSettingPM>
+    {
 	    public void EncodeBase64NVARCHARFields(LogBoxTenantSettingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -156,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

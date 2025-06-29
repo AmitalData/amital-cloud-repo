@@ -5,172 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CustomerTenantAccessCardsBatchDataMapping: IMapping<CustomerTenantAccessCardsBatchPM, POCO.CustomerTenantAccessCardsBatch  ,CustomerTenantAccessCardsBatchList >,IMappingEncodeBase64NVARCHARFields<CustomerTenantAccessCardsBatchPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         CustomerId, 
-	         CustomerTenantAccessId, 
-	         CreateDateTime, 
-	         DoneDate, 
-	         Status, 
-	         BatchNumber, 
-	         TotalFailed, 
-	         TotalShipment, 
-	         Totalsucceeded, 
-	         FromDateTime, 
-	         ToDateTime,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         CustomerId, 
-	         CustomerTenantAccessId, 
-	         CreateDateTime, 
-	         DoneDate, 
-	         Status, 
-	         BatchNumber, 
-	         TotalFailed, 
-	         TotalShipment, 
-	         Totalsucceeded, 
-	         FromDateTime, 
-	         ToDateTime,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomerTenantAccessCardsBatchPM entityPM, POCO.CustomerTenantAccessCardsBatch entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDateTime)) { entityPOCO.CreateDateTime = entityPM.CreateDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDate)) { entityPOCO.DoneDate = entityPM.DoneDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status)) { entityPOCO.Status = entityPM.Status;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalFailed)) { entityPOCO.TotalFailed = entityPM.TotalFailed;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalShipment)) { entityPOCO.TotalShipment = entityPM.TotalShipment;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Totalsucceeded)) { entityPOCO.Totalsucceeded = entityPM.Totalsucceeded;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FromDateTime)) { entityPOCO.FromDateTime = entityPM.FromDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ToDateTime)) { entityPOCO.ToDateTime = entityPM.ToDateTime;}
-					}
-		public void POCOToPM(CustomerTenantAccessCardsBatchPM entityPM, POCO.CustomerTenantAccessCardsBatch entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerId))
-            {
-					entityPM.CustomerId = entityPOCO.CustomerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerTenantAccessId))
-            {
-					entityPM.CustomerTenantAccessId = entityPOCO.CustomerTenantAccessId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDateTime))
-            {
-					entityPM.CreateDateTime = entityPOCO.CreateDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DoneDate))
-            {
-					entityPM.DoneDate = entityPOCO.DoneDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Status))
-            {
-					entityPM.Status = entityPOCO.Status;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BatchNumber))
-            {
-					entityPM.BatchNumber = entityPOCO.BatchNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalFailed))
-            {
-					entityPM.TotalFailed = entityPOCO.TotalFailed;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalShipment))
-            {
-					entityPM.TotalShipment = entityPOCO.TotalShipment;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Totalsucceeded))
-            {
-					entityPM.Totalsucceeded = entityPOCO.Totalsucceeded;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FromDateTime))
-            {
-					entityPM.FromDateTime = entityPOCO.FromDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ToDateTime))
-            {
-					entityPM.ToDateTime = entityPOCO.ToDateTime;
-            }
-		}
-		public void PMToOldPM(CustomerTenantAccessCardsBatchPM entityPM, CustomerTenantAccessCardsBatchPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDateTime))
-            {
-                oldEntityPM.CreateDateTime = entityPM.CreateDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDate))
-            {
-                oldEntityPM.DoneDate = entityPM.DoneDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status))
-            {
-                oldEntityPM.Status = entityPM.Status;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalFailed))
-            {
-                oldEntityPM.TotalFailed = entityPM.TotalFailed;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalShipment))
-            {
-                oldEntityPM.TotalShipment = entityPM.TotalShipment;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Totalsucceeded))
-            {
-                oldEntityPM.Totalsucceeded = entityPM.Totalsucceeded;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FromDateTime))
-            {
-                oldEntityPM.FromDateTime = entityPM.FromDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ToDateTime))
-            {
-                oldEntityPM.ToDateTime = entityPM.ToDateTime;
-            }
-					}
-		public void POCOToList(POCO.CustomerTenantAccessCardsBatch entityPOCO, CustomerTenantAccessCardsBatchList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomerTenantAccessCardsBatchList> GetIqueryableList(IQueryable<POCO.CustomerTenantAccessCardsBatch> iQueryable)
-		{
-			IQueryable<CustomerTenantAccessCardsBatchList> query = (from a in iQueryable
-                                            select new CustomerTenantAccessCardsBatchList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CustomerTenantAccessCardsBatchDataMapping: BaseMappingProfile<CustomerTenantAccessCardsBatchPM, POCO.CustomerTenantAccessCardsBatch>, IMapping<CustomerTenantAccessCardsBatchPM, POCO.CustomerTenantAccessCardsBatch, CustomerTenantAccessCardsBatchList >,IMappingEncodeBase64NVARCHARFields<CustomerTenantAccessCardsBatchPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CustomerTenantAccessCardsBatchPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -179,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

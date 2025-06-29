@@ -5,58 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class FeatureAccessLevelDataMapping: IMapping<FeatureAccessLevelPM, POCO.FeatureAccessLevel  ,FeatureAccessLevelList >,IMappingEncodeBase64NVARCHARFields<FeatureAccessLevelPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(FeatureAccessLevelPM entityPM, POCO.FeatureAccessLevel entityPOCO)
-        {
-			 }
-		public void POCOToPM(FeatureAccessLevelPM entityPM, POCO.FeatureAccessLevel entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(FeatureAccessLevelPM entityPM, FeatureAccessLevelPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.FeatureAccessLevel entityPOCO, FeatureAccessLevelList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<FeatureAccessLevelList> GetIqueryableList(IQueryable<POCO.FeatureAccessLevel> iQueryable)
-		{
-			IQueryable<FeatureAccessLevelList> query = (from a in iQueryable
-                                            select new FeatureAccessLevelList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class FeatureAccessLevelDataMapping: BaseMappingProfile<FeatureAccessLevelPM, POCO.FeatureAccessLevel>, IMapping<FeatureAccessLevelPM, POCO.FeatureAccessLevel, FeatureAccessLevelList >,IMappingEncodeBase64NVARCHARFields<FeatureAccessLevelPM>
+    {
 	    public void EncodeBase64NVARCHARFields(FeatureAccessLevelPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -65,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

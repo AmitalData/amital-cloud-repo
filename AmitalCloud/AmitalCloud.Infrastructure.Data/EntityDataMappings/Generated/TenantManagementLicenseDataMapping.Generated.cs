@@ -5,127 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TenantManagementLicenseDataMapping: IMapping<TenantManagementLicensePM, POCO.TenantManagementLicense  ,TenantManagementLicenseList >,IMappingEncodeBase64NVARCHARFields<TenantManagementLicensePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageCode, 
-	         NumberOfUsers, 
-	         FreeUsers, 
-	         Price, 
-	         TotalPrice,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageCode, 
-	         NumberOfUsers, 
-	         FreeUsers, 
-	         Price, 
-	         TotalPrice,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TenantManagementLicensePM entityPM, POCO.TenantManagementLicense entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode)) { entityPOCO.PackageCode = entityPM.PackageCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NumberOfUsers)) { entityPOCO.NumberOfUsers = entityPM.NumberOfUsers;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FreeUsers)) { entityPOCO.FreeUsers = entityPM.FreeUsers;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Price)) { entityPOCO.Price = entityPM.Price;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalPrice)) { entityPOCO.TotalPrice = entityPM.TotalPrice;}
-					}
-		public void POCOToPM(TenantManagementLicensePM entityPM, POCO.TenantManagementLicense entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PackageCode))
-            {
-					entityPM.PackageCode = entityPOCO.PackageCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.NumberOfUsers))
-            {
-					entityPM.NumberOfUsers = entityPOCO.NumberOfUsers;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FreeUsers))
-            {
-					entityPM.FreeUsers = entityPOCO.FreeUsers;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Price))
-            {
-					entityPM.Price = entityPOCO.Price;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TotalPrice))
-            {
-					entityPM.TotalPrice = entityPOCO.TotalPrice;
-            }
-		}
-		public void PMToOldPM(TenantManagementLicensePM entityPM, TenantManagementLicensePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode))
-            {
-                oldEntityPM.PackageCode = entityPM.PackageCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NumberOfUsers))
-            {
-                oldEntityPM.NumberOfUsers = entityPM.NumberOfUsers;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FreeUsers))
-            {
-                oldEntityPM.FreeUsers = entityPM.FreeUsers;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Price))
-            {
-                oldEntityPM.Price = entityPM.Price;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TotalPrice))
-            {
-                oldEntityPM.TotalPrice = entityPM.TotalPrice;
-            }
-					}
-		public void POCOToList(POCO.TenantManagementLicense entityPOCO, TenantManagementLicenseList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TenantManagementLicenseList> GetIqueryableList(IQueryable<POCO.TenantManagementLicense> iQueryable)
-		{
-			IQueryable<TenantManagementLicenseList> query = (from a in iQueryable
-                                            select new TenantManagementLicenseList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class TenantManagementLicenseDataMapping: BaseMappingProfile<TenantManagementLicensePM, POCO.TenantManagementLicense>, IMapping<TenantManagementLicensePM, POCO.TenantManagementLicense, TenantManagementLicenseList >,IMappingEncodeBase64NVARCHARFields<TenantManagementLicensePM>
+    {
 	    public void EncodeBase64NVARCHARFields(TenantManagementLicensePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -134,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

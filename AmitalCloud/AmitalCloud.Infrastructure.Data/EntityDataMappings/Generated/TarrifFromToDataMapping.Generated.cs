@@ -5,119 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TarrifFromToDataMapping: IMapping<TarrifFromToPM, POCO.TarrifFromTo  ,TarrifFromToList >,IMappingEncodeBase64NVARCHARFields<TarrifFromToPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TarrifHeaderId, 
-	         TarrifFromToTypeCode, 
-	         PortId, 
-	         CountryId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TarrifHeaderId, 
-	         TarrifFromToTypeCode, 
-	         PortId, 
-	         CountryId, 
-	         PortCode, 
-	         CountryCode, 
-	         changeOp,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TarrifFromToPM entityPM, POCO.TarrifFromTo entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifHeaderId)) { entityPOCO.TarrifHeaderId = entityPM.TarrifHeaderId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifFromToTypeCode)) { entityPOCO.TarrifFromToTypeCode = entityPM.TarrifFromToTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PortId)) { entityPOCO.PortId = entityPM.PortId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CountryId)) { entityPOCO.CountryId = entityPM.CountryId;}
-					}
-		public void POCOToPM(TarrifFromToPM entityPM, POCO.TarrifFromTo entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TarrifHeaderId))
-            {
-					entityPM.TarrifHeaderId = entityPOCO.TarrifHeaderId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TarrifFromToTypeCode))
-            {
-					entityPM.TarrifFromToTypeCode = entityPOCO.TarrifFromToTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PortId))
-            {
-					entityPM.PortId = entityPOCO.PortId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CountryId))
-            {
-					entityPM.CountryId = entityPOCO.CountryId;
-            }
-		}
-		public void PMToOldPM(TarrifFromToPM entityPM, TarrifFromToPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifHeaderId))
-            {
-                oldEntityPM.TarrifHeaderId = entityPM.TarrifHeaderId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifFromToTypeCode))
-            {
-                oldEntityPM.TarrifFromToTypeCode = entityPM.TarrifFromToTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PortId))
-            {
-                oldEntityPM.PortId = entityPM.PortId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CountryId))
-            {
-                oldEntityPM.CountryId = entityPM.CountryId;
-            }
-					}
-		public void POCOToList(POCO.TarrifFromTo entityPOCO, TarrifFromToList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TarrifFromToList> GetIqueryableList(IQueryable<POCO.TarrifFromTo> iQueryable)
-		{
-			IQueryable<TarrifFromToList> query = (from a in iQueryable
-                                            select new TarrifFromToList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class TarrifFromToDataMapping: BaseMappingProfile<TarrifFromToPM, POCO.TarrifFromTo>, IMapping<TarrifFromToPM, POCO.TarrifFromTo, TarrifFromToList >,IMappingEncodeBase64NVARCHARFields<TarrifFromToPM>
+    {
 	    public void EncodeBase64NVARCHARFields(TarrifFromToPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -126,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

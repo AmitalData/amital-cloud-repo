@@ -5,172 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class WebhookKeysDataMapping: IMapping<WebhookKeysPM, POCO.WebhookKeys  ,WebhookKeysList >,IMappingEncodeBase64NVARCHARFields<WebhookKeysPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         AccessKey, 
-	         PartnerName, 
-	         CreateDate, 
-	         UpdateDate, 
-	         InActive, 
-	         CreatedByUserName, 
-	         UpdatedByUserName, 
-	         Description, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         AccessKey, 
-	         PartnerName, 
-	         CreateDate, 
-	         UpdateDate, 
-	         InActive, 
-	         CreatedByUserName, 
-	         UpdatedByUserName, 
-	         Description, 
-	         SearchFields,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(WebhookKeysPM entityPM, POCO.WebhookKeys entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccessKey)) { entityPOCO.AccessKey = entityPM.AccessKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerName)) { entityPOCO.PartnerName = entityPM.PartnerName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserName)) { entityPOCO.CreatedByUserName = entityPM.CreatedByUserName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserName)) { entityPOCO.UpdatedByUserName = entityPM.UpdatedByUserName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description)) { entityPOCO.Description = entityPM.Description;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(WebhookKeysPM entityPM, POCO.WebhookKeys entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AccessKey))
-            {
-					entityPM.AccessKey = entityPOCO.AccessKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PartnerName))
-            {
-					entityPM.PartnerName = entityPOCO.PartnerName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserName))
-            {
-					entityPM.CreatedByUserName = entityPOCO.CreatedByUserName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserName))
-            {
-					entityPM.UpdatedByUserName = entityPOCO.UpdatedByUserName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Description))
-            {
-					entityPM.Description = entityPOCO.Description;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-		}
-		public void PMToOldPM(WebhookKeysPM entityPM, WebhookKeysPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccessKey))
-            {
-                oldEntityPM.AccessKey = entityPM.AccessKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerName))
-            {
-                oldEntityPM.PartnerName = entityPM.PartnerName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserName))
-            {
-                oldEntityPM.CreatedByUserName = entityPM.CreatedByUserName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserName))
-            {
-                oldEntityPM.UpdatedByUserName = entityPM.UpdatedByUserName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description))
-            {
-                oldEntityPM.Description = entityPM.Description;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-					}
-		public void POCOToList(POCO.WebhookKeys entityPOCO, WebhookKeysList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<WebhookKeysList> GetIqueryableList(IQueryable<POCO.WebhookKeys> iQueryable)
-		{
-			IQueryable<WebhookKeysList> query = (from a in iQueryable
-                                            select new WebhookKeysList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class WebhookKeysDataMapping: BaseMappingProfile<WebhookKeysPM, POCO.WebhookKeys>, IMapping<WebhookKeysPM, POCO.WebhookKeys, WebhookKeysList >,IMappingEncodeBase64NVARCHARFields<WebhookKeysPM>
+    {
 	    public void EncodeBase64NVARCHARFields(WebhookKeysPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -183,20 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(WebhookKeysPM entityPM, POCO.WebhookKeys entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 using System.Xml;
 using System.Xml.Serialization;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
 {
@@ -169,10 +170,10 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                             AddStepTrace("CheckConcurrency");
                             OldEntityPM = new TEntityPM();
                             ChangeTrackingEntityPM = new TEntityPM();
-                            Mapping.POCOToPM(OldEntityPM, EntityPOCO);
-
-                            Mapping.POCOToPM(ChangeTrackingEntityPM, EntityPOCO);
-                            Mapping.PMToOldPM(entityPM, ChangeTrackingEntityPM);
+                            var mapper = Mapping.CreateMapper();
+                            mapper.Map(EntityPOCO, OldEntityPM);
+                            mapper.Map(EntityPOCO, ChangeTrackingEntityPM);
+                            mapper.Map(entityPM, ChangeTrackingEntityPM);
                             break;
                         }
                     case ChangeSetOperation.Delete:
@@ -212,8 +213,29 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                         return;
                     }
                 }
-                Mapping.CustomPMToPOCO(EntityPM, EntityPOCO);
-                Mapping.PMToPOCO(EntityPM, EntityPOCO);
+
+                try
+                {
+                    // detach the tracked entity
+                    var newTrackedEntity = MainContext.GetActiveDbContext().ChangeTracker.Entries<TEntity>().FirstOrDefault(e => entityKeys.Predicate.Compile().Invoke(e.Entity));
+                    if (newTrackedEntity != null)
+                    {
+                        MainContext.GetActiveDbContext().Entry(newTrackedEntity.Entity).State = EntityState.Detached;
+                    }
+                    else
+                    {
+                        NetCommonHelper.Logger.DevLog.Instance.WriteWarning($"Not found tracked entity");
+                    }
+
+                    var mapper = Mapping.CreateMapper();
+                    mapper.Map(EntityPM, EntityPOCO);
+                }
+                catch (AutoMapperMappingException ex)
+                {
+                    NetCommonHelper.Logger.DevLog.Instance.WriteError($"Failed to map the entity pm to poco: {ex.Message}");
+                    throw;
+                }
+
                 AddStepTrace("Mapping");
                 switch (entityPM.ChangeSetOp)
                 {

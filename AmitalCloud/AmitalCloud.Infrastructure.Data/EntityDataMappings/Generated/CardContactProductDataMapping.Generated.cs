@@ -5,95 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CardContactProductDataMapping: IMapping<CardContactProductPM, POCO.CardContactProduct  ,CardContactProductList >,IMappingEncodeBase64NVARCHARFields<CardContactProductPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CardContactId, 
-	         ProductTypeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CardContactId, 
-	         ProductTypeCode, 
-	         ProductTypeName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CardContactProductPM entityPM, POCO.CardContactProduct entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardContactId)) { entityPOCO.CardContactId = entityPM.CardContactId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode)) { entityPOCO.ProductTypeCode = entityPM.ProductTypeCode;}
-					}
-		public void POCOToPM(CardContactProductPM entityPM, POCO.CardContactProduct entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CardContactId))
-            {
-					entityPM.CardContactId = entityPOCO.CardContactId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProductTypeCode))
-            {
-					entityPM.ProductTypeCode = entityPOCO.ProductTypeCode;
-            }
-		}
-		public void PMToOldPM(CardContactProductPM entityPM, CardContactProductPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardContactId))
-            {
-                oldEntityPM.CardContactId = entityPM.CardContactId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode))
-            {
-                oldEntityPM.ProductTypeCode = entityPM.ProductTypeCode;
-            }
-					}
-		public void POCOToList(POCO.CardContactProduct entityPOCO, CardContactProductList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CardContactProductList> GetIqueryableList(IQueryable<POCO.CardContactProduct> iQueryable)
-		{
-			IQueryable<CardContactProductList> query = (from a in iQueryable
-                                            select new CardContactProductList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CardContactProductDataMapping: BaseMappingProfile<CardContactProductPM, POCO.CardContactProduct>, IMapping<CardContactProductPM, POCO.CardContactProduct, CardContactProductList >,IMappingEncodeBase64NVARCHARFields<CardContactProductPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CardContactProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -102,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

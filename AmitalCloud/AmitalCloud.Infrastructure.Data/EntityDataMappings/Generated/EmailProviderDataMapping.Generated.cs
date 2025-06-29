@@ -5,149 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class EmailProviderDataMapping: IMapping<EmailProviderPM, POCO.EmailProvider  ,EmailProviderList >,IMappingEncodeBase64NVARCHARFields<EmailProviderPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         ProviderNumber, 
-	         Domain, 
-	         UserName, 
-	         Password, 
-	         Port, 
-	         Status, 
-	         LastTestSendDate, 
-	         LastTestReceivedDate, 
-	         SupportsEmailDelivery,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         ProviderNumber, 
-	         Domain, 
-	         UserName, 
-	         Password, 
-	         Port, 
-	         Status, 
-	         LastTestSendDate, 
-	         LastTestReceivedDate, 
-	         SupportsEmailDelivery,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(EmailProviderPM entityPM, POCO.EmailProvider entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Domain)) { entityPOCO.Domain = entityPM.Domain;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserName)) { entityPOCO.UserName = entityPM.UserName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Password)) { entityPOCO.Password = entityPM.Password;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Port)) { entityPOCO.Port = entityPM.Port;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status)) { entityPOCO.Status = entityPM.Status;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastTestSendDate)) { entityPOCO.LastTestSendDate = entityPM.LastTestSendDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastTestReceivedDate)) { entityPOCO.LastTestReceivedDate = entityPM.LastTestReceivedDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SupportsEmailDelivery)) { entityPOCO.SupportsEmailDelivery = entityPM.SupportsEmailDelivery;}
-					}
-		public void POCOToPM(EmailProviderPM entityPM, POCO.EmailProvider entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProviderNumber))
-            {
-					entityPM.ProviderNumber = entityPOCO.ProviderNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Domain))
-            {
-					entityPM.Domain = entityPOCO.Domain;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UserName))
-            {
-					entityPM.UserName = entityPOCO.UserName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Password))
-            {
-					entityPM.Password = entityPOCO.Password;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Port))
-            {
-					entityPM.Port = entityPOCO.Port;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Status))
-            {
-					entityPM.Status = entityPOCO.Status;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastTestSendDate))
-            {
-					entityPM.LastTestSendDate = entityPOCO.LastTestSendDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastTestReceivedDate))
-            {
-					entityPM.LastTestReceivedDate = entityPOCO.LastTestReceivedDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SupportsEmailDelivery))
-            {
-					entityPM.SupportsEmailDelivery = entityPOCO.SupportsEmailDelivery;
-            }
-		}
-		public void PMToOldPM(EmailProviderPM entityPM, EmailProviderPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Domain))
-            {
-                oldEntityPM.Domain = entityPM.Domain;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserName))
-            {
-                oldEntityPM.UserName = entityPM.UserName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Password))
-            {
-                oldEntityPM.Password = entityPM.Password;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Port))
-            {
-                oldEntityPM.Port = entityPM.Port;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Status))
-            {
-                oldEntityPM.Status = entityPM.Status;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastTestSendDate))
-            {
-                oldEntityPM.LastTestSendDate = entityPM.LastTestSendDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastTestReceivedDate))
-            {
-                oldEntityPM.LastTestReceivedDate = entityPM.LastTestReceivedDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SupportsEmailDelivery))
-            {
-                oldEntityPM.SupportsEmailDelivery = entityPM.SupportsEmailDelivery;
-            }
-					}
-		public void POCOToList(POCO.EmailProvider entityPOCO, EmailProviderList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<EmailProviderList> GetIqueryableList(IQueryable<POCO.EmailProvider> iQueryable)
-		{
-			IQueryable<EmailProviderList> query = (from a in iQueryable
-                                            select new EmailProviderList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class EmailProviderDataMapping: BaseMappingProfile<EmailProviderPM, POCO.EmailProvider>, IMapping<EmailProviderPM, POCO.EmailProvider, EmailProviderList >,IMappingEncodeBase64NVARCHARFields<EmailProviderPM>
+    {
 	    public void EncodeBase64NVARCHARFields(EmailProviderPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -160,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

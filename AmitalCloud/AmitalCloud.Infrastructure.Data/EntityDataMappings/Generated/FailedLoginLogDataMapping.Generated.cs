@@ -16,10 +16,11 @@ using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class FailedLoginLogDataMapping: IMapping<FailedLoginLogPM, POCO.FailedLoginLog  ,FailedLoginLogList >,IMappingEncodeBase64NVARCHARFields<FailedLoginLogPM>
+   public partial class FailedLoginLogDataMapping: BaseMappingProfile<FailedLoginLogPM, POCO.FailedLoginLog>, IMapping<FailedLoginLogPM, POCO.FailedLoginLog  ,FailedLoginLogList >,IMappingEncodeBase64NVARCHARFields<FailedLoginLogPM>
    {
           public enum POCOPropertyNames
           { 

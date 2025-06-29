@@ -5,59 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class VatUniqueTypeDataMapping: IMapping<VatUniqueTypePM, POCO.VatUniqueType  ,VatUniqueTypeList >,IMappingEncodeBase64NVARCHARFields<VatUniqueTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         ViewOrder, 
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(VatUniqueTypePM entityPM, POCO.VatUniqueType entityPOCO)
-        {
-			 }
-		public void POCOToPM(VatUniqueTypePM entityPM, POCO.VatUniqueType entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(VatUniqueTypePM entityPM, VatUniqueTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.VatUniqueType entityPOCO, VatUniqueTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<VatUniqueTypeList> GetIqueryableList(IQueryable<POCO.VatUniqueType> iQueryable)
-		{
-			IQueryable<VatUniqueTypeList> query = (from a in iQueryable
-                                            select new VatUniqueTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class VatUniqueTypeDataMapping: BaseMappingProfile<VatUniqueTypePM, POCO.VatUniqueType>, IMapping<VatUniqueTypePM, POCO.VatUniqueType, VatUniqueTypeList >,IMappingEncodeBase64NVARCHARFields<VatUniqueTypePM>
+    {
 	    public void EncodeBase64NVARCHARFields(VatUniqueTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -66,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

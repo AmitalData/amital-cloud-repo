@@ -5,94 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DWObjectFieldCategoriesDataMapping: IMapping<DWObjectFieldCategoriesPM, POCO.DWObjectFieldCategories  ,DWObjectFieldCategoriesList >,IMappingEncodeBase64NVARCHARFields<DWObjectFieldCategoriesPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         DWObjectFieldCode, 
-	         DWCategoryCode, 
-	         DWObjectTableCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         DWObjectFieldCode, 
-	         DWCategoryCode, 
-	         DWObjectTableCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DWObjectFieldCategoriesPM entityPM, POCO.DWObjectFieldCategories entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWObjectFieldCode)) { entityPOCO.DWObjectFieldCode = entityPM.DWObjectFieldCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWCategoryCode)) { entityPOCO.DWCategoryCode = entityPM.DWCategoryCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWObjectTableCode)) { entityPOCO.DWObjectTableCode = entityPM.DWObjectTableCode;}
-					}
-		public void POCOToPM(DWObjectFieldCategoriesPM entityPM, POCO.DWObjectFieldCategories entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DWObjectFieldCode))
-            {
-					entityPM.DWObjectFieldCode = entityPOCO.DWObjectFieldCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DWCategoryCode))
-            {
-					entityPM.DWCategoryCode = entityPOCO.DWCategoryCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DWObjectTableCode))
-            {
-					entityPM.DWObjectTableCode = entityPOCO.DWObjectTableCode;
-            }
-		}
-		public void PMToOldPM(DWObjectFieldCategoriesPM entityPM, DWObjectFieldCategoriesPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWObjectFieldCode))
-            {
-                oldEntityPM.DWObjectFieldCode = entityPM.DWObjectFieldCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWCategoryCode))
-            {
-                oldEntityPM.DWCategoryCode = entityPM.DWCategoryCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWObjectTableCode))
-            {
-                oldEntityPM.DWObjectTableCode = entityPM.DWObjectTableCode;
-            }
-					}
-		public void POCOToList(POCO.DWObjectFieldCategories entityPOCO, DWObjectFieldCategoriesList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DWObjectFieldCategoriesList> GetIqueryableList(IQueryable<POCO.DWObjectFieldCategories> iQueryable)
-		{
-			IQueryable<DWObjectFieldCategoriesList> query = (from a in iQueryable
-                                            select new DWObjectFieldCategoriesList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class DWObjectFieldCategoriesDataMapping: BaseMappingProfile<DWObjectFieldCategoriesPM, POCO.DWObjectFieldCategories>, IMapping<DWObjectFieldCategoriesPM, POCO.DWObjectFieldCategories, DWObjectFieldCategoriesList >,IMappingEncodeBase64NVARCHARFields<DWObjectFieldCategoriesPM>
+    {
 	    public void EncodeBase64NVARCHARFields(DWObjectFieldCategoriesPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -101,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

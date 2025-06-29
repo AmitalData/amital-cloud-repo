@@ -5,90 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CustomerAccountManagerByProductDataMapping: IMapping<CustomerAccountManagerByProductPM, POCO.CustomerAccountManagerByProduct  ,CustomerAccountManagerByProductList >,IMappingEncodeBase64NVARCHARFields<CustomerAccountManagerByProductPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ProductTypeCode, 
-	         AccountManagerId, 
-	         CustomerId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ProductTypeCode, 
-	         AccountManagerId, 
-	         CustomerId, 
-	         AccountManagerName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomerAccountManagerByProductPM entityPM, POCO.CustomerAccountManagerByProduct entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccountManagerId)) { entityPOCO.AccountManagerId = entityPM.AccountManagerId;}
-					}
-		public void POCOToPM(CustomerAccountManagerByProductPM entityPM, POCO.CustomerAccountManagerByProduct entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProductTypeCode))
-            {
-					entityPM.ProductTypeCode = entityPOCO.ProductTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AccountManagerId))
-            {
-					entityPM.AccountManagerId = entityPOCO.AccountManagerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerId))
-            {
-					entityPM.CustomerId = entityPOCO.CustomerId;
-            }
-		}
-		public void PMToOldPM(CustomerAccountManagerByProductPM entityPM, CustomerAccountManagerByProductPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccountManagerId))
-            {
-                oldEntityPM.AccountManagerId = entityPM.AccountManagerId;
-            }
-					}
-		public void POCOToList(POCO.CustomerAccountManagerByProduct entityPOCO, CustomerAccountManagerByProductList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomerAccountManagerByProductList> GetIqueryableList(IQueryable<POCO.CustomerAccountManagerByProduct> iQueryable)
-		{
-			IQueryable<CustomerAccountManagerByProductList> query = (from a in iQueryable
-                                            select new CustomerAccountManagerByProductList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CustomerAccountManagerByProductDataMapping: BaseMappingProfile<CustomerAccountManagerByProductPM, POCO.CustomerAccountManagerByProduct>, IMapping<CustomerAccountManagerByProductPM, POCO.CustomerAccountManagerByProduct, CustomerAccountManagerByProductList >,IMappingEncodeBase64NVARCHARFields<CustomerAccountManagerByProductPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CustomerAccountManagerByProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -97,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

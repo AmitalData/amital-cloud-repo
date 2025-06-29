@@ -5,127 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class UserLastLoginDataMapping: IMapping<UserLastLoginPM, POCO.UserLastLogin  ,UserLastLoginList >,IMappingEncodeBase64NVARCHARFields<UserLastLoginPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         ComputerId, 
-	         LoginDateTime, 
-	         Tenant, 
-	         WorkEnvironment, 
-	         IP, 
-	         Computerusername,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         ComputerId, 
-	         LoginDateTime, 
-	         Tenant, 
-	         WorkEnvironment, 
-	         IP, 
-	         Computerusername,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(UserLastLoginPM entityPM, POCO.UserLastLogin entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ComputerId)) { entityPOCO.ComputerId = entityPM.ComputerId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime)) { entityPOCO.LoginDateTime = entityPM.LoginDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WorkEnvironment)) { entityPOCO.WorkEnvironment = entityPM.WorkEnvironment;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP)) { entityPOCO.IP = entityPM.IP;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Computerusername)) { entityPOCO.Computerusername = entityPM.Computerusername;}
-					}
-		public void POCOToPM(UserLastLoginPM entityPM, POCO.UserLastLogin entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ComputerId))
-            {
-					entityPM.ComputerId = entityPOCO.ComputerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LoginDateTime))
-            {
-					entityPM.LoginDateTime = entityPOCO.LoginDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.WorkEnvironment))
-            {
-					entityPM.WorkEnvironment = entityPOCO.WorkEnvironment;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IP))
-            {
-					entityPM.IP = entityPOCO.IP;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Computerusername))
-            {
-					entityPM.Computerusername = entityPOCO.Computerusername;
-            }
-		}
-		public void PMToOldPM(UserLastLoginPM entityPM, UserLastLoginPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ComputerId))
-            {
-                oldEntityPM.ComputerId = entityPM.ComputerId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime))
-            {
-                oldEntityPM.LoginDateTime = entityPM.LoginDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WorkEnvironment))
-            {
-                oldEntityPM.WorkEnvironment = entityPM.WorkEnvironment;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP))
-            {
-                oldEntityPM.IP = entityPM.IP;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Computerusername))
-            {
-                oldEntityPM.Computerusername = entityPM.Computerusername;
-            }
-					}
-		public void POCOToList(POCO.UserLastLogin entityPOCO, UserLastLoginList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<UserLastLoginList> GetIqueryableList(IQueryable<POCO.UserLastLogin> iQueryable)
-		{
-			IQueryable<UserLastLoginList> query = (from a in iQueryable
-                                            select new UserLastLoginList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class UserLastLoginDataMapping: BaseMappingProfile<UserLastLoginPM, POCO.UserLastLogin>, IMapping<UserLastLoginPM, POCO.UserLastLogin, UserLastLoginList >,IMappingEncodeBase64NVARCHARFields<UserLastLoginPM>
+    {
 	    public void EncodeBase64NVARCHARFields(UserLastLoginPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -138,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

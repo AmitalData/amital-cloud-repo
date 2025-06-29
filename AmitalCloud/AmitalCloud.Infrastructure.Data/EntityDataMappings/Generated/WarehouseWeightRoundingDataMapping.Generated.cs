@@ -5,59 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class WarehouseWeightRoundingDataMapping: IMapping<WarehouseWeightRoundingPM, POCO.WarehouseWeightRounding  ,WarehouseWeightRoundingList >,IMappingEncodeBase64NVARCHARFields<WarehouseWeightRoundingPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         Display,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(WarehouseWeightRoundingPM entityPM, POCO.WarehouseWeightRounding entityPOCO)
-        {
-			 }
-		public void POCOToPM(WarehouseWeightRoundingPM entityPM, POCO.WarehouseWeightRounding entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(WarehouseWeightRoundingPM entityPM, WarehouseWeightRoundingPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.WarehouseWeightRounding entityPOCO, WarehouseWeightRoundingList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<WarehouseWeightRoundingList> GetIqueryableList(IQueryable<POCO.WarehouseWeightRounding> iQueryable)
-		{
-			IQueryable<WarehouseWeightRoundingList> query = (from a in iQueryable
-                                            select new WarehouseWeightRoundingList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class WarehouseWeightRoundingDataMapping: BaseMappingProfile<WarehouseWeightRoundingPM, POCO.WarehouseWeightRounding>, IMapping<WarehouseWeightRoundingPM, POCO.WarehouseWeightRounding, WarehouseWeightRoundingList >,IMappingEncodeBase64NVARCHARFields<WarehouseWeightRoundingPM>
+    {
 	    public void EncodeBase64NVARCHARFields(WarehouseWeightRoundingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -66,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

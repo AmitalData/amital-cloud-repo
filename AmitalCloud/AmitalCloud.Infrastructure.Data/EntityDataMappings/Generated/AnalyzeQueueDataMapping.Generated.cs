@@ -5,91 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class AnalyzeQueueDataMapping: IMapping<AnalyzeQueuePM, POCO.AnalyzeQueue  ,AnalyzeQueueList >,IMappingEncodeBase64NVARCHARFields<AnalyzeQueuePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         MessageBody, 
-	         StackTrace, 
-	         Id, 
-	         CommunicationLogId, 
-	         EntityReference, 
-	         ObjectTableName, 
-	         From, 
-	         CreateDate, 
-	         FileSize, 
-	         Status, 
-	         ErrorMessage, 
-	         Tenant, 
-	         Subject, 
-	         Retries, 
-	         ConnectedToTenant, 
-	         ConnectedToEntity, 
-	         SearchFields, 
-	         AWBNumber, 
-	         AckReason, 
-	         DoneDate, 
-	         FileName, 
-	         Log,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         IsSecured, 
-	         MessageBodyString, 
-	         AnalyzeQueueStatus, 
-	         TenantManagement, 
-	         Log,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AnalyzeQueuePM entityPM, POCO.AnalyzeQueue entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Log)) { entityPOCO.Log = entityPM.Log;}
-					}
-		public void POCOToPM(AnalyzeQueuePM entityPM, POCO.AnalyzeQueue entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Log))
-            {
-					entityPM.Log = entityPOCO.Log;
-            }
-		}
-		public void PMToOldPM(AnalyzeQueuePM entityPM, AnalyzeQueuePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Log))
-            {
-                oldEntityPM.Log = entityPM.Log;
-            }
-					}
-		public void POCOToList(POCO.AnalyzeQueue entityPOCO, AnalyzeQueueList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AnalyzeQueueList> GetIqueryableList(IQueryable<POCO.AnalyzeQueue> iQueryable)
-		{
-			IQueryable<AnalyzeQueueList> query = (from a in iQueryable
-                                            select new AnalyzeQueueList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class AnalyzeQueueDataMapping: BaseMappingProfile<AnalyzeQueuePM, POCO.AnalyzeQueue>, IMapping<AnalyzeQueuePM, POCO.AnalyzeQueue, AnalyzeQueueList >,IMappingEncodeBase64NVARCHARFields<AnalyzeQueuePM>
+    {
 	    public void EncodeBase64NVARCHARFields(AnalyzeQueuePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -98,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,213 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CustomerProductDataMapping: IMapping<CustomerProductPM, POCO.CustomerProduct  ,CustomerProductList >,IMappingEncodeBase64NVARCHARFields<CustomerProductPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         NotesRightToLeft, 
-	         CustomerId, 
-	         ProductTypeCode, 
-	         Notes, 
-	         PotentialChargeableWeight, 
-	         CommitmentChargeableWeight, 
-	         PotentialTEU, 
-	         CommitmentTEU, 
-	         PotentialNumberOfShipments, 
-	         CommitmentNumberOfShipments, 
-	         PotentialRevenue, 
-	         CommitmentRevenue, 
-	         LastShipmentDate, 
-	         PrepaidCollectId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         NotesRightToLeft, 
-	         CustomerId, 
-	         ProductTypeCode, 
-	         Notes, 
-	         PotentialChargeableWeight, 
-	         CommitmentChargeableWeight, 
-	         PotentialTEU, 
-	         CommitmentTEU, 
-	         PotentialNumberOfShipments, 
-	         CommitmentNumberOfShipments, 
-	         PotentialRevenue, 
-	         CommitmentRevenue, 
-	         LastShipmentDate, 
-	         PrepaidCollectId, 
-	         CustomerName, 
-	         ProductTypeName, 
-	         PrepaidCollectName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomerProductPM entityPM, POCO.CustomerProduct entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NotesRightToLeft)) { entityPOCO.NotesRightToLeft = entityPM.NotesRightToLeft;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialChargeableWeight)) { entityPOCO.PotentialChargeableWeight = entityPM.PotentialChargeableWeight;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentChargeableWeight)) { entityPOCO.CommitmentChargeableWeight = entityPM.CommitmentChargeableWeight;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialTEU)) { entityPOCO.PotentialTEU = entityPM.PotentialTEU;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentTEU)) { entityPOCO.CommitmentTEU = entityPM.CommitmentTEU;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialNumberOfShipments)) { entityPOCO.PotentialNumberOfShipments = entityPM.PotentialNumberOfShipments;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentNumberOfShipments)) { entityPOCO.CommitmentNumberOfShipments = entityPM.CommitmentNumberOfShipments;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialRevenue)) { entityPOCO.PotentialRevenue = entityPM.PotentialRevenue;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentRevenue)) { entityPOCO.CommitmentRevenue = entityPM.CommitmentRevenue;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastShipmentDate)) { entityPOCO.LastShipmentDate = entityPM.LastShipmentDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrepaidCollectId)) { entityPOCO.PrepaidCollectId = entityPM.PrepaidCollectId;}
-					}
-		public void POCOToPM(CustomerProductPM entityPM, POCO.CustomerProduct entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.NotesRightToLeft))
-            {
-					entityPM.NotesRightToLeft = entityPOCO.NotesRightToLeft;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomerId))
-            {
-					entityPM.CustomerId = entityPOCO.CustomerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProductTypeCode))
-            {
-					entityPM.ProductTypeCode = entityPOCO.ProductTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PotentialChargeableWeight))
-            {
-					entityPM.PotentialChargeableWeight = entityPOCO.PotentialChargeableWeight;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CommitmentChargeableWeight))
-            {
-					entityPM.CommitmentChargeableWeight = entityPOCO.CommitmentChargeableWeight;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PotentialTEU))
-            {
-					entityPM.PotentialTEU = entityPOCO.PotentialTEU;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CommitmentTEU))
-            {
-					entityPM.CommitmentTEU = entityPOCO.CommitmentTEU;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PotentialNumberOfShipments))
-            {
-					entityPM.PotentialNumberOfShipments = entityPOCO.PotentialNumberOfShipments;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CommitmentNumberOfShipments))
-            {
-					entityPM.CommitmentNumberOfShipments = entityPOCO.CommitmentNumberOfShipments;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PotentialRevenue))
-            {
-					entityPM.PotentialRevenue = entityPOCO.PotentialRevenue;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CommitmentRevenue))
-            {
-					entityPM.CommitmentRevenue = entityPOCO.CommitmentRevenue;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastShipmentDate))
-            {
-					entityPM.LastShipmentDate = entityPOCO.LastShipmentDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PrepaidCollectId))
-            {
-					entityPM.PrepaidCollectId = entityPOCO.PrepaidCollectId;
-            }
-		}
-		public void PMToOldPM(CustomerProductPM entityPM, CustomerProductPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NotesRightToLeft))
-            {
-                oldEntityPM.NotesRightToLeft = entityPM.NotesRightToLeft;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialChargeableWeight))
-            {
-                oldEntityPM.PotentialChargeableWeight = entityPM.PotentialChargeableWeight;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentChargeableWeight))
-            {
-                oldEntityPM.CommitmentChargeableWeight = entityPM.CommitmentChargeableWeight;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialTEU))
-            {
-                oldEntityPM.PotentialTEU = entityPM.PotentialTEU;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentTEU))
-            {
-                oldEntityPM.CommitmentTEU = entityPM.CommitmentTEU;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialNumberOfShipments))
-            {
-                oldEntityPM.PotentialNumberOfShipments = entityPM.PotentialNumberOfShipments;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentNumberOfShipments))
-            {
-                oldEntityPM.CommitmentNumberOfShipments = entityPM.CommitmentNumberOfShipments;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PotentialRevenue))
-            {
-                oldEntityPM.PotentialRevenue = entityPM.PotentialRevenue;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommitmentRevenue))
-            {
-                oldEntityPM.CommitmentRevenue = entityPM.CommitmentRevenue;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastShipmentDate))
-            {
-                oldEntityPM.LastShipmentDate = entityPM.LastShipmentDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrepaidCollectId))
-            {
-                oldEntityPM.PrepaidCollectId = entityPM.PrepaidCollectId;
-            }
-					}
-		public void POCOToList(POCO.CustomerProduct entityPOCO, CustomerProductList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomerProductList> GetIqueryableList(IQueryable<POCO.CustomerProduct> iQueryable)
-		{
-			IQueryable<CustomerProductList> query = (from a in iQueryable
-                                            select new CustomerProductList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CustomerProductDataMapping: BaseMappingProfile<CustomerProductPM, POCO.CustomerProduct>, IMapping<CustomerProductPM, POCO.CustomerProduct, CustomerProductList >,IMappingEncodeBase64NVARCHARFields<CustomerProductPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CustomerProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -224,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

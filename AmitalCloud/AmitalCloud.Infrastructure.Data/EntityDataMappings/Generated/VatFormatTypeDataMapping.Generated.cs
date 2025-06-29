@@ -5,59 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class VatFormatTypeDataMapping: IMapping<VatFormatTypePM, POCO.VatFormatType  ,VatFormatTypeList >,IMappingEncodeBase64NVARCHARFields<VatFormatTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         ViewOrder, 
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(VatFormatTypePM entityPM, POCO.VatFormatType entityPOCO)
-        {
-			 }
-		public void POCOToPM(VatFormatTypePM entityPM, POCO.VatFormatType entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(VatFormatTypePM entityPM, VatFormatTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.VatFormatType entityPOCO, VatFormatTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<VatFormatTypeList> GetIqueryableList(IQueryable<POCO.VatFormatType> iQueryable)
-		{
-			IQueryable<VatFormatTypeList> query = (from a in iQueryable
-                                            select new VatFormatTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class VatFormatTypeDataMapping: BaseMappingProfile<VatFormatTypePM, POCO.VatFormatType>, IMapping<VatFormatTypePM, POCO.VatFormatType, VatFormatTypeList >,IMappingEncodeBase64NVARCHARFields<VatFormatTypePM>
+    {
 	    public void EncodeBase64NVARCHARFields(VatFormatTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -66,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,183 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TaskSchedulerHistoryDataMapping: IMapping<TaskSchedulerHistoryPM, POCO.TaskSchedulerHistory  ,TaskSchedulerHistoryList >,IMappingEncodeBase64NVARCHARFields<TaskSchedulerHistoryPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         StartDateTime, 
-	         EndDateTime, 
-	         RunResult, 
-	         TaskId, 
-	         IsError, 
-	         StartDateTimeUTC, 
-	         EndDateTimeUTC, 
-	         LogFirstLine, 
-	         LogType, 
-	         LogDocumentId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         StartDateTime, 
-	         EndDateTime, 
-	         RunResult, 
-	         TaskId, 
-	         IsError, 
-	         StartDateTimeUTC, 
-	         EndDateTimeUTC, 
-	         LogFirstLine, 
-	         LogType, 
-	         Duration, 
-	         LogDocumentId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TaskSchedulerHistoryPM entityPM, POCO.TaskSchedulerHistory entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTime)) { entityPOCO.StartDateTime = entityPM.StartDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDateTime)) { entityPOCO.EndDateTime = entityPM.EndDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RunResult)) { entityPOCO.RunResult = entityPM.RunResult;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TaskId)) { entityPOCO.TaskId = entityPM.TaskId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsError)) { entityPOCO.IsError = entityPM.IsError;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTimeUTC)) { entityPOCO.StartDateTimeUTC = entityPM.StartDateTimeUTC;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDateTimeUTC)) { entityPOCO.EndDateTimeUTC = entityPM.EndDateTimeUTC;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogFirstLine)) { entityPOCO.LogFirstLine = entityPM.LogFirstLine;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogType)) { entityPOCO.LogType = entityPM.LogType;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogDocumentId)) { entityPOCO.LogDocumentId = entityPM.LogDocumentId;}
-					}
-		public void POCOToPM(TaskSchedulerHistoryPM entityPM, POCO.TaskSchedulerHistory entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StartDateTime))
-            {
-					entityPM.StartDateTime = entityPOCO.StartDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EndDateTime))
-            {
-					entityPM.EndDateTime = entityPOCO.EndDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.RunResult))
-            {
-					entityPM.RunResult = entityPOCO.RunResult;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TaskId))
-            {
-					entityPM.TaskId = entityPOCO.TaskId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsError))
-            {
-					entityPM.IsError = entityPOCO.IsError;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StartDateTimeUTC))
-            {
-					entityPM.StartDateTimeUTC = entityPOCO.StartDateTimeUTC;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EndDateTimeUTC))
-            {
-					entityPM.EndDateTimeUTC = entityPOCO.EndDateTimeUTC;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogFirstLine))
-            {
-					entityPM.LogFirstLine = entityPOCO.LogFirstLine;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogType))
-            {
-					entityPM.LogType = entityPOCO.LogType;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogDocumentId))
-            {
-					entityPM.LogDocumentId = entityPOCO.LogDocumentId;
-            }
-		}
-		public void PMToOldPM(TaskSchedulerHistoryPM entityPM, TaskSchedulerHistoryPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTime))
-            {
-                oldEntityPM.StartDateTime = entityPM.StartDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDateTime))
-            {
-                oldEntityPM.EndDateTime = entityPM.EndDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RunResult))
-            {
-                oldEntityPM.RunResult = entityPM.RunResult;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TaskId))
-            {
-                oldEntityPM.TaskId = entityPM.TaskId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsError))
-            {
-                oldEntityPM.IsError = entityPM.IsError;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTimeUTC))
-            {
-                oldEntityPM.StartDateTimeUTC = entityPM.StartDateTimeUTC;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDateTimeUTC))
-            {
-                oldEntityPM.EndDateTimeUTC = entityPM.EndDateTimeUTC;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogFirstLine))
-            {
-                oldEntityPM.LogFirstLine = entityPM.LogFirstLine;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogType))
-            {
-                oldEntityPM.LogType = entityPM.LogType;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogDocumentId))
-            {
-                oldEntityPM.LogDocumentId = entityPM.LogDocumentId;
-            }
-					}
-		public void POCOToList(POCO.TaskSchedulerHistory entityPOCO, TaskSchedulerHistoryList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TaskSchedulerHistoryList> GetIqueryableList(IQueryable<POCO.TaskSchedulerHistory> iQueryable)
-		{
-			IQueryable<TaskSchedulerHistoryList> query = (from a in iQueryable
-                                            select new TaskSchedulerHistoryList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class TaskSchedulerHistoryDataMapping: BaseMappingProfile<TaskSchedulerHistoryPM, POCO.TaskSchedulerHistory>, IMapping<TaskSchedulerHistoryPM, POCO.TaskSchedulerHistory, TaskSchedulerHistoryList >,IMappingEncodeBase64NVARCHARFields<TaskSchedulerHistoryPM>
+    {
 	    public void EncodeBase64NVARCHARFields(TaskSchedulerHistoryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -190,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

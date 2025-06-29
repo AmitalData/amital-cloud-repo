@@ -5,83 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class BlobFileDataMapping: IMapping<BlobFilePM, POCO.BlobFile  ,BlobFileList >,IMappingEncodeBase64NVARCHARFields<BlobFilePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Blob, 
-	         IsCompressed,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Blob, 
-	         IsCompressed,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(BlobFilePM entityPM, POCO.BlobFile entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Blob)) { entityPOCO.Blob = entityPM.Blob;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCompressed)) { entityPOCO.IsCompressed = entityPM.IsCompressed;}
-					}
-		public void POCOToPM(BlobFilePM entityPM, POCO.BlobFile entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Blob))
-            {
-					entityPM.Blob = entityPOCO.Blob;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsCompressed))
-            {
-					entityPM.IsCompressed = entityPOCO.IsCompressed;
-            }
-		}
-		public void PMToOldPM(BlobFilePM entityPM, BlobFilePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Blob))
-            {
-                oldEntityPM.Blob = entityPM.Blob;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCompressed))
-            {
-                oldEntityPM.IsCompressed = entityPM.IsCompressed;
-            }
-					}
-		public void POCOToList(POCO.BlobFile entityPOCO, BlobFileList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<BlobFileList> GetIqueryableList(IQueryable<POCO.BlobFile> iQueryable)
-		{
-			IQueryable<BlobFileList> query = (from a in iQueryable
-                                            select new BlobFileList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class BlobFileDataMapping: BaseMappingProfile<BlobFilePM, POCO.BlobFile>, IMapping<BlobFilePM, POCO.BlobFile, BlobFileList >,IMappingEncodeBase64NVARCHARFields<BlobFilePM>
+    {
 	    public void EncodeBase64NVARCHARFields(BlobFilePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -90,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,127 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class HybridTenantStateDataMapping: IMapping<HybridTenantStatePM, POCO.HybridTenantState  ,HybridTenantStateList >,IMappingEncodeBase64NVARCHARFields<HybridTenantStatePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         FailedQueue, 
-	         WaitingQueue, 
-	         LastUpdateDateTime, 
-	         LastQueueDateTime, 
-	         VersionNumber, 
-	         VersionDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         FailedQueue, 
-	         WaitingQueue, 
-	         LastUpdateDateTime, 
-	         LastQueueDateTime, 
-	         VersionNumber, 
-	         VersionDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(HybridTenantStatePM entityPM, POCO.HybridTenantState entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FailedQueue)) { entityPOCO.FailedQueue = entityPM.FailedQueue;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingQueue)) { entityPOCO.WaitingQueue = entityPM.WaitingQueue;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDateTime)) { entityPOCO.LastUpdateDateTime = entityPM.LastUpdateDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastQueueDateTime)) { entityPOCO.LastQueueDateTime = entityPM.LastQueueDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VersionNumber)) { entityPOCO.VersionNumber = entityPM.VersionNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VersionDate)) { entityPOCO.VersionDate = entityPM.VersionDate;}
-					}
-		public void POCOToPM(HybridTenantStatePM entityPM, POCO.HybridTenantState entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FailedQueue))
-            {
-					entityPM.FailedQueue = entityPOCO.FailedQueue;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.WaitingQueue))
-            {
-					entityPM.WaitingQueue = entityPOCO.WaitingQueue;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastUpdateDateTime))
-            {
-					entityPM.LastUpdateDateTime = entityPOCO.LastUpdateDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastQueueDateTime))
-            {
-					entityPM.LastQueueDateTime = entityPOCO.LastQueueDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.VersionNumber))
-            {
-					entityPM.VersionNumber = entityPOCO.VersionNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.VersionDate))
-            {
-					entityPM.VersionDate = entityPOCO.VersionDate;
-            }
-		}
-		public void PMToOldPM(HybridTenantStatePM entityPM, HybridTenantStatePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FailedQueue))
-            {
-                oldEntityPM.FailedQueue = entityPM.FailedQueue;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingQueue))
-            {
-                oldEntityPM.WaitingQueue = entityPM.WaitingQueue;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDateTime))
-            {
-                oldEntityPM.LastUpdateDateTime = entityPM.LastUpdateDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastQueueDateTime))
-            {
-                oldEntityPM.LastQueueDateTime = entityPM.LastQueueDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VersionNumber))
-            {
-                oldEntityPM.VersionNumber = entityPM.VersionNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VersionDate))
-            {
-                oldEntityPM.VersionDate = entityPM.VersionDate;
-            }
-					}
-		public void POCOToList(POCO.HybridTenantState entityPOCO, HybridTenantStateList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<HybridTenantStateList> GetIqueryableList(IQueryable<POCO.HybridTenantState> iQueryable)
-		{
-			IQueryable<HybridTenantStateList> query = (from a in iQueryable
-                                            select new HybridTenantStateList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class HybridTenantStateDataMapping: BaseMappingProfile<HybridTenantStatePM, POCO.HybridTenantState>, IMapping<HybridTenantStatePM, POCO.HybridTenantState, HybridTenantStateList >,IMappingEncodeBase64NVARCHARFields<HybridTenantStatePM>
+    {
 	    public void EncodeBase64NVARCHARFields(HybridTenantStatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -134,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

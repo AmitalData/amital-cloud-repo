@@ -5,100 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class AutomationHistoryDataMapping: IMapping<AutomationHistoryPM, POCO.AutomationHistory  ,AutomationHistoryList >,IMappingEncodeBase64NVARCHARFields<AutomationHistoryPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Version, 
-	         AutomationsId, 
-	         Tenant, 
-	         AutomationXML, 
-	         CreateDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Version, 
-	         AutomationsId, 
-	         Tenant, 
-	         AutomationXML, 
-	         CreateDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AutomationHistoryPM entityPM, POCO.AutomationHistory entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutomationXML)) { entityPOCO.AutomationXML = entityPM.AutomationXML;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-					}
-		public void POCOToPM(AutomationHistoryPM entityPM, POCO.AutomationHistory entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Version))
-            {
-					entityPM.Version = entityPOCO.Version;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AutomationsId))
-            {
-					entityPM.AutomationsId = entityPOCO.AutomationsId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AutomationXML))
-            {
-					entityPM.AutomationXML = entityPOCO.AutomationXML;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-		}
-		public void PMToOldPM(AutomationHistoryPM entityPM, AutomationHistoryPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AutomationXML))
-            {
-                oldEntityPM.AutomationXML = entityPM.AutomationXML;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-					}
-		public void POCOToList(POCO.AutomationHistory entityPOCO, AutomationHistoryList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AutomationHistoryList> GetIqueryableList(IQueryable<POCO.AutomationHistory> iQueryable)
-		{
-			IQueryable<AutomationHistoryList> query = (from a in iQueryable
-                                            select new AutomationHistoryList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class AutomationHistoryDataMapping: BaseMappingProfile<AutomationHistoryPM, POCO.AutomationHistory>, IMapping<AutomationHistoryPM, POCO.AutomationHistory, AutomationHistoryList >,IMappingEncodeBase64NVARCHARFields<AutomationHistoryPM>
+    {
 	    public void EncodeBase64NVARCHARFields(AutomationHistoryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -111,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

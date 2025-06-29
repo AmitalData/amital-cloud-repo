@@ -5,127 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class GlobalDBDataMapping: IMapping<GlobalDBPM, POCO.GlobalDB  ,GlobalDBList >,IMappingEncodeBase64NVARCHARFields<GlobalDBPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         DBConnection, 
-	         IsUpgrading, 
-	         IsActive, 
-	         SharedDWConnection, 
-	         SecondaryAzureDBConnection, 
-	         IsBlocking,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         DBConnection, 
-	         IsUpgrading, 
-	         IsActive, 
-	         SharedDWConnection, 
-	         SecondaryAzureDBConnection, 
-	         IsBlocking,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(GlobalDBPM entityPM, POCO.GlobalDB entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DBConnection)) { entityPOCO.DBConnection = entityPM.DBConnection;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUpgrading)) { entityPOCO.IsUpgrading = entityPM.IsUpgrading;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive)) { entityPOCO.IsActive = entityPM.IsActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SharedDWConnection)) { entityPOCO.SharedDWConnection = entityPM.SharedDWConnection;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SecondaryAzureDBConnection)) { entityPOCO.SecondaryAzureDBConnection = entityPM.SecondaryAzureDBConnection;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsBlocking)) { entityPOCO.IsBlocking = entityPM.IsBlocking;}
-					}
-		public void POCOToPM(GlobalDBPM entityPM, POCO.GlobalDB entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DBConnection))
-            {
-					entityPM.DBConnection = entityPOCO.DBConnection;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsUpgrading))
-            {
-					entityPM.IsUpgrading = entityPOCO.IsUpgrading;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsActive))
-            {
-					entityPM.IsActive = entityPOCO.IsActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SharedDWConnection))
-            {
-					entityPM.SharedDWConnection = entityPOCO.SharedDWConnection;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SecondaryAzureDBConnection))
-            {
-					entityPM.SecondaryAzureDBConnection = entityPOCO.SecondaryAzureDBConnection;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsBlocking))
-            {
-					entityPM.IsBlocking = entityPOCO.IsBlocking;
-            }
-		}
-		public void PMToOldPM(GlobalDBPM entityPM, GlobalDBPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DBConnection))
-            {
-                oldEntityPM.DBConnection = entityPM.DBConnection;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUpgrading))
-            {
-                oldEntityPM.IsUpgrading = entityPM.IsUpgrading;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive))
-            {
-                oldEntityPM.IsActive = entityPM.IsActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SharedDWConnection))
-            {
-                oldEntityPM.SharedDWConnection = entityPM.SharedDWConnection;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SecondaryAzureDBConnection))
-            {
-                oldEntityPM.SecondaryAzureDBConnection = entityPM.SecondaryAzureDBConnection;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsBlocking))
-            {
-                oldEntityPM.IsBlocking = entityPM.IsBlocking;
-            }
-					}
-		public void POCOToList(POCO.GlobalDB entityPOCO, GlobalDBList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<GlobalDBList> GetIqueryableList(IQueryable<POCO.GlobalDB> iQueryable)
-		{
-			IQueryable<GlobalDBList> query = (from a in iQueryable
-                                            select new GlobalDBList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class GlobalDBDataMapping: BaseMappingProfile<GlobalDBPM, POCO.GlobalDB>, IMapping<GlobalDBPM, POCO.GlobalDB, GlobalDBList >,IMappingEncodeBase64NVARCHARFields<GlobalDBPM>
+    {
 	    public void EncodeBase64NVARCHARFields(GlobalDBPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -146,14 +36,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,218 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class BatchTaskExecutionDataMapping: IMapping<BatchTaskExecutionPM, POCO.BatchTaskExecution  ,BatchTaskExecutionList >,IMappingEncodeBase64NVARCHARFields<BatchTaskExecutionPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         SearchFields, 
-	         ClassName, 
-	         PrametersXml, 
-	         StatusCode, 
-	         ErrorLog, 
-	         StartDateTime, 
-	         DoneDateTime, 
-	         ProgressMessage, 
-	         ProgressPercentage, 
-	         Subject, 
-	         CallStack,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         SearchFields, 
-	         ClassName, 
-	         PrametersXml, 
-	         StatusCode, 
-	         ErrorLog, 
-	         StartDateTime, 
-	         DoneDateTime, 
-	         ProgressMessage, 
-	         ProgressPercentage, 
-	         StatusName, 
-	         CreatedByUserName, 
-	         Subject, 
-	         CallStack,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(BatchTaskExecutionPM entityPM, POCO.BatchTaskExecution entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId)) { entityPOCO.CreatedByUserId = entityPM.CreatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName)) { entityPOCO.ClassName = entityPM.ClassName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrametersXml)) { entityPOCO.PrametersXml = entityPM.PrametersXml;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode)) { entityPOCO.StatusCode = entityPM.StatusCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ErrorLog)) { entityPOCO.ErrorLog = entityPM.ErrorLog;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTime)) { entityPOCO.StartDateTime = entityPM.StartDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDateTime)) { entityPOCO.DoneDateTime = entityPM.DoneDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProgressMessage)) { entityPOCO.ProgressMessage = entityPM.ProgressMessage;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProgressPercentage)) { entityPOCO.ProgressPercentage = entityPM.ProgressPercentage;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Subject)) { entityPOCO.Subject = entityPM.Subject;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CallStack)) { entityPOCO.CallStack = entityPM.CallStack;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(BatchTaskExecutionPM entityPM, POCO.BatchTaskExecution entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserId))
-            {
-					entityPM.CreatedByUserId = entityPOCO.CreatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ClassName))
-            {
-					entityPM.ClassName = entityPOCO.ClassName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PrametersXml))
-            {
-					entityPM.PrametersXml = entityPOCO.PrametersXml;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StatusCode))
-            {
-					entityPM.StatusCode = entityPOCO.StatusCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ErrorLog))
-            {
-					entityPM.ErrorLog = entityPOCO.ErrorLog;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StartDateTime))
-            {
-					entityPM.StartDateTime = entityPOCO.StartDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DoneDateTime))
-            {
-					entityPM.DoneDateTime = entityPOCO.DoneDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProgressMessage))
-            {
-					entityPM.ProgressMessage = entityPOCO.ProgressMessage;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProgressPercentage))
-            {
-					entityPM.ProgressPercentage = entityPOCO.ProgressPercentage;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Subject))
-            {
-					entityPM.Subject = entityPOCO.Subject;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CallStack))
-            {
-					entityPM.CallStack = entityPOCO.CallStack;
-            }
-		}
-		public void PMToOldPM(BatchTaskExecutionPM entityPM, BatchTaskExecutionPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId))
-            {
-                oldEntityPM.CreatedByUserId = entityPM.CreatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName))
-            {
-                oldEntityPM.ClassName = entityPM.ClassName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrametersXml))
-            {
-                oldEntityPM.PrametersXml = entityPM.PrametersXml;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode))
-            {
-                oldEntityPM.StatusCode = entityPM.StatusCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ErrorLog))
-            {
-                oldEntityPM.ErrorLog = entityPM.ErrorLog;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDateTime))
-            {
-                oldEntityPM.StartDateTime = entityPM.StartDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DoneDateTime))
-            {
-                oldEntityPM.DoneDateTime = entityPM.DoneDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProgressMessage))
-            {
-                oldEntityPM.ProgressMessage = entityPM.ProgressMessage;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProgressPercentage))
-            {
-                oldEntityPM.ProgressPercentage = entityPM.ProgressPercentage;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Subject))
-            {
-                oldEntityPM.Subject = entityPM.Subject;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CallStack))
-            {
-                oldEntityPM.CallStack = entityPM.CallStack;
-            }
-					}
-		public void POCOToList(POCO.BatchTaskExecution entityPOCO, BatchTaskExecutionList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<BatchTaskExecutionList> GetIqueryableList(IQueryable<POCO.BatchTaskExecution> iQueryable)
-		{
-			IQueryable<BatchTaskExecutionList> query = (from a in iQueryable
-                                            select new BatchTaskExecutionList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class BatchTaskExecutionDataMapping: BaseMappingProfile<BatchTaskExecutionPM, POCO.BatchTaskExecution>, IMapping<BatchTaskExecutionPM, POCO.BatchTaskExecution, BatchTaskExecutionList >,IMappingEncodeBase64NVARCHARFields<BatchTaskExecutionPM>
+    {
 	    public void EncodeBase64NVARCHARFields(BatchTaskExecutionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -249,20 +48,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(BatchTaskExecutionPM entityPM, POCO.BatchTaskExecution entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

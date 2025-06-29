@@ -5,105 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ValidationTypeDataMapping: IMapping<ValidationTypePM, POCO.ValidationType  ,ValidationTypeList >,IMappingEncodeBase64NVARCHARFields<ValidationTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Name, 
-	         ClassName, 
-	         Field,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Name, 
-	         ClassName, 
-	         Field,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ValidationTypePM entityPM, POCO.ValidationType entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName)) { entityPOCO.ClassName = entityPM.ClassName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Field)) { entityPOCO.Field = entityPM.Field;}
-					}
-		public void POCOToPM(ValidationTypePM entityPM, POCO.ValidationType entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ClassName))
-            {
-					entityPM.ClassName = entityPOCO.ClassName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Field))
-            {
-					entityPM.Field = entityPOCO.Field;
-            }
-		}
-		public void PMToOldPM(ValidationTypePM entityPM, ValidationTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName))
-            {
-                oldEntityPM.ClassName = entityPM.ClassName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Field))
-            {
-                oldEntityPM.Field = entityPM.Field;
-            }
-					}
-		public void POCOToList(POCO.ValidationType entityPOCO, ValidationTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ValidationTypeList> GetIqueryableList(IQueryable<POCO.ValidationType> iQueryable)
-		{
-			IQueryable<ValidationTypeList> query = (from a in iQueryable
-                                            select new ValidationTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class ValidationTypeDataMapping: BaseMappingProfile<ValidationTypePM, POCO.ValidationType>, IMapping<ValidationTypePM, POCO.ValidationType, ValidationTypeList >,IMappingEncodeBase64NVARCHARFields<ValidationTypePM>
+    {
 	    public void EncodeBase64NVARCHARFields(ValidationTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -120,14 +32,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

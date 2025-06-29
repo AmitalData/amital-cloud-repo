@@ -5,184 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TextCodeDataMapping: IMapping<TextCodePM, POCO.TextCode  ,TextCodeList >,IMappingEncodeBase64NVARCHARFields<TextCodePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         ObjectTableId, 
-	         TextCodeTypeCode, 
-	         Id, 
-	         Tenant, 
-	         IsSpellChecked, 
-	         SpellCheckDate, 
-	         SpellCheckedByUserId, 
-	         InActive, 
-	         DefaultText, 
-	         DefaultTextPlural, 
-	         LocalDefaultText,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         ObjectTableId, 
-	         TextCodeTypeCode, 
-	         Id, 
-	         Tenant, 
-	         IsSpellChecked, 
-	         SpellCheckDate, 
-	         SpellCheckedByUserId, 
-	         InActive, 
-	         DefaultText, 
-	         DefaultTextPlural, 
-	         LocalDefaultText, 
-	         ObjectTableName, 
-	         SpellCheckedByUserName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TextCodePM entityPM, POCO.TextCode entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId)) { entityPOCO.ObjectTableId = entityPM.ObjectTableId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TextCodeTypeCode)) { entityPOCO.TextCodeTypeCode = entityPM.TextCodeTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSpellChecked)) { entityPOCO.IsSpellChecked = entityPM.IsSpellChecked;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SpellCheckDate)) { entityPOCO.SpellCheckDate = entityPM.SpellCheckDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SpellCheckedByUserId)) { entityPOCO.SpellCheckedByUserId = entityPM.SpellCheckedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DefaultText)) { entityPOCO.DefaultText = entityPM.DefaultText;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DefaultTextPlural)) { entityPOCO.DefaultTextPlural = entityPM.DefaultTextPlural;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalDefaultText)) { entityPOCO.LocalDefaultText = entityPM.LocalDefaultText;}
-					}
-		public void POCOToPM(TextCodePM entityPM, POCO.TextCode entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TextCodeTypeCode))
-            {
-					entityPM.TextCodeTypeCode = entityPOCO.TextCodeTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsSpellChecked))
-            {
-					entityPM.IsSpellChecked = entityPOCO.IsSpellChecked;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SpellCheckDate))
-            {
-					entityPM.SpellCheckDate = entityPOCO.SpellCheckDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SpellCheckedByUserId))
-            {
-					entityPM.SpellCheckedByUserId = entityPOCO.SpellCheckedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DefaultText))
-            {
-					entityPM.DefaultText = entityPOCO.DefaultText;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DefaultTextPlural))
-            {
-					entityPM.DefaultTextPlural = entityPOCO.DefaultTextPlural;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalDefaultText))
-            {
-					entityPM.LocalDefaultText = entityPOCO.LocalDefaultText;
-            }
-		}
-		public void PMToOldPM(TextCodePM entityPM, TextCodePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId))
-            {
-                oldEntityPM.ObjectTableId = entityPM.ObjectTableId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TextCodeTypeCode))
-            {
-                oldEntityPM.TextCodeTypeCode = entityPM.TextCodeTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSpellChecked))
-            {
-                oldEntityPM.IsSpellChecked = entityPM.IsSpellChecked;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SpellCheckDate))
-            {
-                oldEntityPM.SpellCheckDate = entityPM.SpellCheckDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SpellCheckedByUserId))
-            {
-                oldEntityPM.SpellCheckedByUserId = entityPM.SpellCheckedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DefaultText))
-            {
-                oldEntityPM.DefaultText = entityPM.DefaultText;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DefaultTextPlural))
-            {
-                oldEntityPM.DefaultTextPlural = entityPM.DefaultTextPlural;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalDefaultText))
-            {
-                oldEntityPM.LocalDefaultText = entityPM.LocalDefaultText;
-            }
-					}
-		public void POCOToList(POCO.TextCode entityPOCO, TextCodeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TextCodeList> GetIqueryableList(IQueryable<POCO.TextCode> iQueryable)
-		{
-			IQueryable<TextCodeList> query = (from a in iQueryable
-                                            select new TextCodeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class TextCodeDataMapping: BaseMappingProfile<TextCodePM, POCO.TextCode>, IMapping<TextCodePM, POCO.TextCode, TextCodeList >,IMappingEncodeBase64NVARCHARFields<TextCodePM>
+    {
 	    public void EncodeBase64NVARCHARFields(TextCodePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -199,14 +32,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

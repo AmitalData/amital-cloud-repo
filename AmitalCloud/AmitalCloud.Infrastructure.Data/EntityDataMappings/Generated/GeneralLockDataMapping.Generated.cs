@@ -5,166 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class GeneralLockDataMapping: IMapping<GeneralLockPM, POCO.GeneralLock  ,GeneralLockList >,IMappingEncodeBase64NVARCHARFields<GeneralLockPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         DropCdropGeneralkey, 
-	         Tenant, 
-	         CreatedAt, 
-	         GeneralKey, 
-	         Searchfields, 
-	         Entityid1, 
-	         Objecttableid1, 
-	         Entityid2, 
-	         Objecttableid2, 
-	         Userid, 
-	         Sessionid,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         DropCdropGeneralkey, 
-	         Tenant, 
-	         CreatedAt, 
-	         GeneralKey, 
-	         Searchfields, 
-	         Entityid1, 
-	         Objecttableid1, 
-	         Entityid2, 
-	         Objecttableid2, 
-	         Userid, 
-	         Sessionid,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(GeneralLockPM entityPM, POCO.GeneralLock entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropGeneralkey)) { entityPOCO.DropCdropGeneralkey = entityPM.DropCdropGeneralkey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedAt)) { entityPOCO.CreatedAt = entityPM.CreatedAt;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Searchfields)) { entityPOCO.Searchfields = entityPM.Searchfields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Entityid1)) { entityPOCO.Entityid1 = entityPM.Entityid1;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Objecttableid1)) { entityPOCO.Objecttableid1 = entityPM.Objecttableid1;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Entityid2)) { entityPOCO.Entityid2 = entityPM.Entityid2;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Objecttableid2)) { entityPOCO.Objecttableid2 = entityPM.Objecttableid2;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Userid)) { entityPOCO.Userid = entityPM.Userid;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Sessionid)) { entityPOCO.Sessionid = entityPM.Sessionid;}
-					}
-		public void POCOToPM(GeneralLockPM entityPM, POCO.GeneralLock entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropCdropGeneralkey))
-            {
-					entityPM.DropCdropGeneralkey = entityPOCO.DropCdropGeneralkey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedAt))
-            {
-					entityPM.CreatedAt = entityPOCO.CreatedAt;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GeneralKey))
-            {
-					entityPM.GeneralKey = entityPOCO.GeneralKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Searchfields))
-            {
-					entityPM.Searchfields = entityPOCO.Searchfields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Entityid1))
-            {
-					entityPM.Entityid1 = entityPOCO.Entityid1;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Objecttableid1))
-            {
-					entityPM.Objecttableid1 = entityPOCO.Objecttableid1;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Entityid2))
-            {
-					entityPM.Entityid2 = entityPOCO.Entityid2;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Objecttableid2))
-            {
-					entityPM.Objecttableid2 = entityPOCO.Objecttableid2;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Userid))
-            {
-					entityPM.Userid = entityPOCO.Userid;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Sessionid))
-            {
-					entityPM.Sessionid = entityPOCO.Sessionid;
-            }
-		}
-		public void PMToOldPM(GeneralLockPM entityPM, GeneralLockPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropGeneralkey))
-            {
-                oldEntityPM.DropCdropGeneralkey = entityPM.DropCdropGeneralkey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedAt))
-            {
-                oldEntityPM.CreatedAt = entityPM.CreatedAt;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Searchfields))
-            {
-                oldEntityPM.Searchfields = entityPM.Searchfields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Entityid1))
-            {
-                oldEntityPM.Entityid1 = entityPM.Entityid1;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Objecttableid1))
-            {
-                oldEntityPM.Objecttableid1 = entityPM.Objecttableid1;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Entityid2))
-            {
-                oldEntityPM.Entityid2 = entityPM.Entityid2;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Objecttableid2))
-            {
-                oldEntityPM.Objecttableid2 = entityPM.Objecttableid2;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Userid))
-            {
-                oldEntityPM.Userid = entityPM.Userid;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Sessionid))
-            {
-                oldEntityPM.Sessionid = entityPM.Sessionid;
-            }
-					}
-		public void POCOToList(POCO.GeneralLock entityPOCO, GeneralLockList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<GeneralLockList> GetIqueryableList(IQueryable<POCO.GeneralLock> iQueryable)
-		{
-			IQueryable<GeneralLockList> query = (from a in iQueryable
-                                            select new GeneralLockList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class GeneralLockDataMapping: BaseMappingProfile<GeneralLockPM, POCO.GeneralLock>, IMapping<GeneralLockPM, POCO.GeneralLock, GeneralLockList >,IMappingEncodeBase64NVARCHARFields<GeneralLockPM>
+    {
 	    public void EncodeBase64NVARCHARFields(GeneralLockPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -185,14 +36,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

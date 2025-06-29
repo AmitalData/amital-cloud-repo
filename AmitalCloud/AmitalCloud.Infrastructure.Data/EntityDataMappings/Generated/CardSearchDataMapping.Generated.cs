@@ -5,149 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CardSearchDataMapping: IMapping<CardSearchPM, POCO.CardSearch  ,CardSearchList >,IMappingEncodeBase64NVARCHARFields<CardSearchPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         RecordDate, 
-	         Keyword, 
-	         Weight, 
-	         CardId, 
-	         PartnerTypeId, 
-	         InActive, 
-	         IsCustomer,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         RecordDate, 
-	         Keyword, 
-	         Weight, 
-	         CardId, 
-	         PartnerTypeId, 
-	         InActive, 
-	         IsCustomer,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CardSearchPM entityPM, POCO.CardSearch entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RecordDate)) { entityPOCO.RecordDate = entityPM.RecordDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Keyword)) { entityPOCO.Keyword = entityPM.Keyword;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Weight)) { entityPOCO.Weight = entityPM.Weight;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardId)) { entityPOCO.CardId = entityPM.CardId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerTypeId)) { entityPOCO.PartnerTypeId = entityPM.PartnerTypeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustomer)) { entityPOCO.IsCustomer = entityPM.IsCustomer;}
-					}
-		public void POCOToPM(CardSearchPM entityPM, POCO.CardSearch entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.RecordDate))
-            {
-					entityPM.RecordDate = entityPOCO.RecordDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Keyword))
-            {
-					entityPM.Keyword = entityPOCO.Keyword;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Weight))
-            {
-					entityPM.Weight = entityPOCO.Weight;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CardId))
-            {
-					entityPM.CardId = entityPOCO.CardId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PartnerTypeId))
-            {
-					entityPM.PartnerTypeId = entityPOCO.PartnerTypeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsCustomer))
-            {
-					entityPM.IsCustomer = entityPOCO.IsCustomer;
-            }
-		}
-		public void PMToOldPM(CardSearchPM entityPM, CardSearchPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RecordDate))
-            {
-                oldEntityPM.RecordDate = entityPM.RecordDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Keyword))
-            {
-                oldEntityPM.Keyword = entityPM.Keyword;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Weight))
-            {
-                oldEntityPM.Weight = entityPM.Weight;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CardId))
-            {
-                oldEntityPM.CardId = entityPM.CardId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerTypeId))
-            {
-                oldEntityPM.PartnerTypeId = entityPM.PartnerTypeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustomer))
-            {
-                oldEntityPM.IsCustomer = entityPM.IsCustomer;
-            }
-					}
-		public void POCOToList(POCO.CardSearch entityPOCO, CardSearchList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CardSearchList> GetIqueryableList(IQueryable<POCO.CardSearch> iQueryable)
-		{
-			IQueryable<CardSearchList> query = (from a in iQueryable
-                                            select new CardSearchList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class CardSearchDataMapping: BaseMappingProfile<CardSearchPM, POCO.CardSearch>, IMapping<CardSearchPM, POCO.CardSearch, CardSearchList >,IMappingEncodeBase64NVARCHARFields<CardSearchPM>
+    {
 	    public void EncodeBase64NVARCHARFields(CardSearchPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -160,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

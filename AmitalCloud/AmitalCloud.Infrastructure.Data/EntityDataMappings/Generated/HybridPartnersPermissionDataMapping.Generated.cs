@@ -5,78 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class HybridPartnersPermissionDataMapping: IMapping<HybridPartnersPermissionPM, POCO.HybridPartnersPermission  ,HybridPartnersPermissionList >,IMappingEncodeBase64NVARCHARFields<HybridPartnersPermissionPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         HybridPartnerId, 
-	         AllowedByHybridPartnerId, 
-	         InActive,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         HybridPartnerId, 
-	         AllowedByHybridPartnerId, 
-	         InActive,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(HybridPartnersPermissionPM entityPM, POCO.HybridPartnersPermission entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-					}
-		public void POCOToPM(HybridPartnersPermissionPM entityPM, POCO.HybridPartnersPermission entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HybridPartnerId))
-            {
-					entityPM.HybridPartnerId = entityPOCO.HybridPartnerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AllowedByHybridPartnerId))
-            {
-					entityPM.AllowedByHybridPartnerId = entityPOCO.AllowedByHybridPartnerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-		}
-		public void PMToOldPM(HybridPartnersPermissionPM entityPM, HybridPartnersPermissionPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-					}
-		public void POCOToList(POCO.HybridPartnersPermission entityPOCO, HybridPartnersPermissionList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<HybridPartnersPermissionList> GetIqueryableList(IQueryable<POCO.HybridPartnersPermission> iQueryable)
-		{
-			IQueryable<HybridPartnersPermissionList> query = (from a in iQueryable
-                                            select new HybridPartnersPermissionList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class HybridPartnersPermissionDataMapping: BaseMappingProfile<HybridPartnersPermissionPM, POCO.HybridPartnersPermission>, IMapping<HybridPartnersPermissionPM, POCO.HybridPartnersPermission, HybridPartnersPermissionList >,IMappingEncodeBase64NVARCHARFields<HybridPartnersPermissionPM>
+    {
 	    public void EncodeBase64NVARCHARFields(HybridPartnersPermissionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -85,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

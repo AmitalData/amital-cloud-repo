@@ -5,101 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class SharedLogisticsContactLastLoginDataMapping: IMapping<SharedLogisticsContactLastLoginPM, POCO.SharedLogisticsContactLastLogin  ,SharedLogisticsContactLastLoginList >,IMappingEncodeBase64NVARCHARFields<SharedLogisticsContactLastLoginPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ContactId, 
-	         CardId, 
-	         PartnerTypeId, 
-	         Via, 
-	         LoginDateTime,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         ContactId, 
-	         CardId, 
-	         PartnerTypeId, 
-	         Via, 
-	         LoginDateTime,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(SharedLogisticsContactLastLoginPM entityPM, POCO.SharedLogisticsContactLastLogin entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime)) { entityPOCO.LoginDateTime = entityPM.LoginDateTime;}
-					}
-		public void POCOToPM(SharedLogisticsContactLastLoginPM entityPM, POCO.SharedLogisticsContactLastLogin entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ContactId))
-            {
-					entityPM.ContactId = entityPOCO.ContactId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CardId))
-            {
-					entityPM.CardId = entityPOCO.CardId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PartnerTypeId))
-            {
-					entityPM.PartnerTypeId = entityPOCO.PartnerTypeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Via))
-            {
-					entityPM.Via = entityPOCO.Via;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LoginDateTime))
-            {
-					entityPM.LoginDateTime = entityPOCO.LoginDateTime;
-            }
-		}
-		public void PMToOldPM(SharedLogisticsContactLastLoginPM entityPM, SharedLogisticsContactLastLoginPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime))
-            {
-                oldEntityPM.LoginDateTime = entityPM.LoginDateTime;
-            }
-					}
-		public void POCOToList(POCO.SharedLogisticsContactLastLogin entityPOCO, SharedLogisticsContactLastLoginList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<SharedLogisticsContactLastLoginList> GetIqueryableList(IQueryable<POCO.SharedLogisticsContactLastLogin> iQueryable)
-		{
-			IQueryable<SharedLogisticsContactLastLoginList> query = (from a in iQueryable
-                                            select new SharedLogisticsContactLastLoginList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class SharedLogisticsContactLastLoginDataMapping: BaseMappingProfile<SharedLogisticsContactLastLoginPM, POCO.SharedLogisticsContactLastLogin>, IMapping<SharedLogisticsContactLastLoginPM, POCO.SharedLogisticsContactLastLogin, SharedLogisticsContactLastLoginList >,IMappingEncodeBase64NVARCHARFields<SharedLogisticsContactLastLoginPM>
+    {
 	    public void EncodeBase64NVARCHARFields(SharedLogisticsContactLastLoginPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -108,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

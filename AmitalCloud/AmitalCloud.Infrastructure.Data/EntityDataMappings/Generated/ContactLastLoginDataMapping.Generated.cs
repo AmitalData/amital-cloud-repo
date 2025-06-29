@@ -5,94 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ContactLastLoginDataMapping: IMapping<ContactLastLoginPM, POCO.ContactLastLogin  ,ContactLastLoginList >,IMappingEncodeBase64NVARCHARFields<ContactLastLoginPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         ComputerId, 
-	         LoginDateTime, 
-	         Tenant,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         ComputerId, 
-	         LoginDateTime, 
-	         Tenant,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContactLastLoginPM entityPM, POCO.ContactLastLogin entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ComputerId)) { entityPOCO.ComputerId = entityPM.ComputerId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime)) { entityPOCO.LoginDateTime = entityPM.LoginDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-					}
-		public void POCOToPM(ContactLastLoginPM entityPM, POCO.ContactLastLogin entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ComputerId))
-            {
-					entityPM.ComputerId = entityPOCO.ComputerId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LoginDateTime))
-            {
-					entityPM.LoginDateTime = entityPOCO.LoginDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-		}
-		public void PMToOldPM(ContactLastLoginPM entityPM, ContactLastLoginPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ComputerId))
-            {
-                oldEntityPM.ComputerId = entityPM.ComputerId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LoginDateTime))
-            {
-                oldEntityPM.LoginDateTime = entityPM.LoginDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-					}
-		public void POCOToList(POCO.ContactLastLogin entityPOCO, ContactLastLoginList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContactLastLoginList> GetIqueryableList(IQueryable<POCO.ContactLastLogin> iQueryable)
-		{
-			IQueryable<ContactLastLoginList> query = (from a in iQueryable
-                                            select new ContactLastLoginList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class ContactLastLoginDataMapping: BaseMappingProfile<ContactLastLoginPM, POCO.ContactLastLogin>, IMapping<ContactLastLoginPM, POCO.ContactLastLogin, ContactLastLoginList >,IMappingEncodeBase64NVARCHARFields<ContactLastLoginPM>
+    {
 	    public void EncodeBase64NVARCHARFields(ContactLastLoginPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -101,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

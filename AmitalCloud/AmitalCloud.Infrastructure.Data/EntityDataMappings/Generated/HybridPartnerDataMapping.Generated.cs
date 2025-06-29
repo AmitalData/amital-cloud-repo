@@ -5,186 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class HybridPartnerDataMapping: IMapping<HybridPartnerPM, POCO.HybridPartner  ,HybridPartnerList >,IMappingEncodeBase64NVARCHARFields<HybridPartnerPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         LogoId, 
-	         SmallLogoId, 
-	         SearchFields, 
-	         InActive, 
-	         Name, 
-	         LocalName, 
-	         PartnerTenant, 
-	         IsExternalPartner, 
-	         ReceiveAllStatuses, 
-	         AllowSendingDocsToAgent, 
-	         IsMislakaActivated,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         LogoId, 
-	         SmallLogoId, 
-	         SearchFields, 
-	         InActive, 
-	         Tenant, 
-	         Name, 
-	         LocalName, 
-	         PartnerTenant, 
-	         IsHasRequest, 
-	         StatusName, 
-	         IsExternalPartner, 
-	         ReceiveAllStatuses, 
-	         AllowSendingDocsToAgent, 
-	         IsMislakaActivated,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(HybridPartnerPM entityPM, POCO.HybridPartner entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogoId)) { entityPOCO.LogoId = entityPM.LogoId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SmallLogoId)) { entityPOCO.SmallLogoId = entityPM.SmallLogoId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerTenant)) { entityPOCO.PartnerTenant = entityPM.PartnerTenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsExternalPartner)) { entityPOCO.IsExternalPartner = entityPM.IsExternalPartner;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceiveAllStatuses)) { entityPOCO.ReceiveAllStatuses = entityPM.ReceiveAllStatuses;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowSendingDocsToAgent)) { entityPOCO.AllowSendingDocsToAgent = entityPM.AllowSendingDocsToAgent;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsMislakaActivated)) { entityPOCO.IsMislakaActivated = entityPM.IsMislakaActivated;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(HybridPartnerPM entityPM, POCO.HybridPartner entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogoId))
-            {
-					entityPM.LogoId = entityPOCO.LogoId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SmallLogoId))
-            {
-					entityPM.SmallLogoId = entityPOCO.SmallLogoId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PartnerTenant))
-            {
-					entityPM.PartnerTenant = entityPOCO.PartnerTenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsExternalPartner))
-            {
-					entityPM.IsExternalPartner = entityPOCO.IsExternalPartner;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ReceiveAllStatuses))
-            {
-					entityPM.ReceiveAllStatuses = entityPOCO.ReceiveAllStatuses;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AllowSendingDocsToAgent))
-            {
-					entityPM.AllowSendingDocsToAgent = entityPOCO.AllowSendingDocsToAgent;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsMislakaActivated))
-            {
-					entityPM.IsMislakaActivated = entityPOCO.IsMislakaActivated;
-            }
-		}
-		public void PMToOldPM(HybridPartnerPM entityPM, HybridPartnerPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogoId))
-            {
-                oldEntityPM.LogoId = entityPM.LogoId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SmallLogoId))
-            {
-                oldEntityPM.SmallLogoId = entityPM.SmallLogoId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PartnerTenant))
-            {
-                oldEntityPM.PartnerTenant = entityPM.PartnerTenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsExternalPartner))
-            {
-                oldEntityPM.IsExternalPartner = entityPM.IsExternalPartner;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceiveAllStatuses))
-            {
-                oldEntityPM.ReceiveAllStatuses = entityPM.ReceiveAllStatuses;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AllowSendingDocsToAgent))
-            {
-                oldEntityPM.AllowSendingDocsToAgent = entityPM.AllowSendingDocsToAgent;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsMislakaActivated))
-            {
-                oldEntityPM.IsMislakaActivated = entityPM.IsMislakaActivated;
-            }
-					}
-		public void POCOToList(POCO.HybridPartner entityPOCO, HybridPartnerList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<HybridPartnerList> GetIqueryableList(IQueryable<POCO.HybridPartner> iQueryable)
-		{
-			IQueryable<HybridPartnerList> query = (from a in iQueryable
-                                            select new HybridPartnerList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class HybridPartnerDataMapping: BaseMappingProfile<HybridPartnerPM, POCO.HybridPartner>, IMapping<HybridPartnerPM, POCO.HybridPartner, HybridPartnerList >,IMappingEncodeBase64NVARCHARFields<HybridPartnerPM>
+    {
 	    public void EncodeBase64NVARCHARFields(HybridPartnerPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -201,20 +32,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(HybridPartnerPM entityPM, POCO.HybridPartner entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

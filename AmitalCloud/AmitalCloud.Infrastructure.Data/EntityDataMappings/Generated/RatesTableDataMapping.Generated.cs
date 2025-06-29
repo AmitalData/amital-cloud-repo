@@ -5,163 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class RatesTableDataMapping: IMapping<RatesTablePM, POCO.RatesTable  ,RatesTableList >,IMappingEncodeBase64NVARCHARFields<RatesTablePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LogDateTime, 
-	         ForeignCurrencyId, 
-	         BaseCurrencyId, 
-	         Rate, 
-	         ValueDate, 
-	         UpdatedByUserId, 
-	         UpdatedDate, 
-	         Unit,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LogDateTime, 
-	         ForeignCurrencyId, 
-	         ForeignCurrencyCode, 
-	         BaseCurrencyId, 
-	         Rate, 
-	         ValueDate, 
-	         ForeignCurrencyName, 
-	         UpdatedByUserId, 
-	         UpdatedByUserName, 
-	         UpdatedDate, 
-	         Unit,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(RatesTablePM entityPM, POCO.RatesTable entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogDateTime)) { entityPOCO.LogDateTime = entityPM.LogDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ForeignCurrencyId)) { entityPOCO.ForeignCurrencyId = entityPM.ForeignCurrencyId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BaseCurrencyId)) { entityPOCO.BaseCurrencyId = entityPM.BaseCurrencyId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rate)) { entityPOCO.Rate = entityPM.Rate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValueDate)) { entityPOCO.ValueDate = entityPM.ValueDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedDate)) { entityPOCO.UpdatedDate = entityPM.UpdatedDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Unit)) { entityPOCO.Unit = entityPM.Unit;}
-					}
-		public void POCOToPM(RatesTablePM entityPM, POCO.RatesTable entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogDateTime))
-            {
-					entityPM.LogDateTime = entityPOCO.LogDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ForeignCurrencyId))
-            {
-					entityPM.ForeignCurrencyId = entityPOCO.ForeignCurrencyId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BaseCurrencyId))
-            {
-					entityPM.BaseCurrencyId = entityPOCO.BaseCurrencyId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Rate))
-            {
-					entityPM.Rate = entityPOCO.Rate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ValueDate))
-            {
-					entityPM.ValueDate = entityPOCO.ValueDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedDate))
-            {
-					entityPM.UpdatedDate = entityPOCO.UpdatedDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Unit))
-            {
-					entityPM.Unit = entityPOCO.Unit;
-            }
-		}
-		public void PMToOldPM(RatesTablePM entityPM, RatesTablePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogDateTime))
-            {
-                oldEntityPM.LogDateTime = entityPM.LogDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ForeignCurrencyId))
-            {
-                oldEntityPM.ForeignCurrencyId = entityPM.ForeignCurrencyId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BaseCurrencyId))
-            {
-                oldEntityPM.BaseCurrencyId = entityPM.BaseCurrencyId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rate))
-            {
-                oldEntityPM.Rate = entityPM.Rate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValueDate))
-            {
-                oldEntityPM.ValueDate = entityPM.ValueDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedDate))
-            {
-                oldEntityPM.UpdatedDate = entityPM.UpdatedDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Unit))
-            {
-                oldEntityPM.Unit = entityPM.Unit;
-            }
-					}
-		public void POCOToList(POCO.RatesTable entityPOCO, RatesTableList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<RatesTableList> GetIqueryableList(IQueryable<POCO.RatesTable> iQueryable)
-		{
-			IQueryable<RatesTableList> query = (from a in iQueryable
-                                            select new RatesTableList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class RatesTableDataMapping: BaseMappingProfile<RatesTablePM, POCO.RatesTable>, IMapping<RatesTablePM, POCO.RatesTable, RatesTableList >,IMappingEncodeBase64NVARCHARFields<RatesTablePM>
+    {
 	    public void EncodeBase64NVARCHARFields(RatesTablePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -170,14 +24,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,94 +5,17 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class BatchServicesDefinitionModsDataMapping: IMapping<BatchServicesDefinitionModsPM, POCO.BatchServicesDefinitionMods  ,BatchServicesDefinitionModsList >,IMappingEncodeBase64NVARCHARFields<BatchServicesDefinitionModsPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         CdropCode, 
-	         InActive, 
-	         NumberOfThreads, 
-	         Code,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         CdropCode, 
-	         InActive, 
-	         NumberOfThreads, 
-	         Code,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(BatchServicesDefinitionModsPM entityPM, POCO.BatchServicesDefinitionMods entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropCode)) { entityPOCO.CdropCode = entityPM.CdropCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NumberOfThreads)) { entityPOCO.NumberOfThreads = entityPM.NumberOfThreads;}
-					}
-		public void POCOToPM(BatchServicesDefinitionModsPM entityPM, POCO.BatchServicesDefinitionMods entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropCode))
-            {
-					entityPM.CdropCode = entityPOCO.CdropCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.NumberOfThreads))
-            {
-					entityPM.NumberOfThreads = entityPOCO.NumberOfThreads;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-		}
-		public void PMToOldPM(BatchServicesDefinitionModsPM entityPM, BatchServicesDefinitionModsPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropCode))
-            {
-                oldEntityPM.CdropCode = entityPM.CdropCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NumberOfThreads))
-            {
-                oldEntityPM.NumberOfThreads = entityPM.NumberOfThreads;
-            }
-					}
-		public void POCOToList(POCO.BatchServicesDefinitionMods entityPOCO, BatchServicesDefinitionModsList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<BatchServicesDefinitionModsList> GetIqueryableList(IQueryable<POCO.BatchServicesDefinitionMods> iQueryable)
-		{
-			IQueryable<BatchServicesDefinitionModsList> query = (from a in iQueryable
-                                            select new BatchServicesDefinitionModsList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
+    public partial class BatchServicesDefinitionModsDataMapping: BaseMappingProfile<BatchServicesDefinitionModsPM, POCO.BatchServicesDefinitionMods>, IMapping<BatchServicesDefinitionModsPM, POCO.BatchServicesDefinitionMods, BatchServicesDefinitionModsList >,IMappingEncodeBase64NVARCHARFields<BatchServicesDefinitionModsPM>
+    {
 	    public void EncodeBase64NVARCHARFields(BatchServicesDefinitionModsPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
@@ -105,14 +28,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 
