@@ -30,7 +30,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    {
 		_dataBaseNumber = entity.DataBaseNumber;
 		_lastBackupDate = entity.LastBackupDate;
-		_rowid = entity.Rowid;
    }
    #endregion Constructors
    #region Properties
@@ -64,22 +63,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LastBackupDate",OldValue=_lastBackupDate,NewValue=value,PropertyType="DateTime?"};
 		    NotifyPropertyChanged(values);
 		   _lastBackupDate=value;
-		   }
-		 }
-	   }
-	  private string _rowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string Rowid  
-	   {
-	     get { return _rowid; }
-		 set
-		 {
-		   if(_rowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _rowid=value;
 		   }
 		 }
 	   }

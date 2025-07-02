@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct AWBMessagesCCSTypeValues
-    {   
-       public const string Champ = "CHAMP";  
-       public const string GLSHK = "GLSHK";  
+    {
+        public const string Champ = "CHAMP";
+        public const string GLSHK = "GLSHK";
     }
-}
-
+ }
+ 

@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DimensionsUnitValues
-    {   
-       public const string Cm = "Cm";  
-       public const string Ft = "Ft";  
-       public const string Inch = "Inc";  
+    {
+        public const string Cm = "Cm";
+        public const string Ft = "Ft";
+        public const string Inch = "Inc";
     }
-}
-
+ }
+ 

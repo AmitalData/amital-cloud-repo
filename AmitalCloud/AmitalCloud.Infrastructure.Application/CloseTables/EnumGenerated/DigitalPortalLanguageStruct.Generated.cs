@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DigitalPortalLanguageValues
-    {   
-       public const string English = "EN";  
-       public const string Spanish = "ES";  
+    {
+        public const string English = "EN";
+        public const string Spanish = "ES";
     }
-}
-
+ }
+ 

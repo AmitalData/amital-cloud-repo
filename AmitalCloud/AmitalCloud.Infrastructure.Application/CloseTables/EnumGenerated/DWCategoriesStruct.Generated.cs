@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DWCategoriesValues
-    {   
+    {
     }
-}
-
+ }
+ 

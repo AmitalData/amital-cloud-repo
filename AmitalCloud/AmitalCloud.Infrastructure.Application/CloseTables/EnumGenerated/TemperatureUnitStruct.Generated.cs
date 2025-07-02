@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TemperatureUnitValues
-    {   
-       public const string Celsius = "CEL";  
-       public const string Fahrenheit = "FAH";  
+    {
+        public const string Celsius = "CEL";
+        public const string Fahrenheit = "FAH";
     }
-}
-
+ }
+ 

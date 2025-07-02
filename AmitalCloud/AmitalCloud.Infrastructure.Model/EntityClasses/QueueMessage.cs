@@ -64,8 +64,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public string EntityCode { get; set; }
         [Column("EntityId")]
 	    public string EntityId { get; set; }
-        [Column("DropRowid")]
-	    public string DropRowid { get; set; }
     }
 }
 	 

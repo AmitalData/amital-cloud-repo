@@ -25,20 +25,17 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
           { 
 		     None,  
 	         DataBaseNumber, 
-	         LastBackupDate, 
-	         Rowid,	      }
+	         LastBackupDate,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
 	         DataBaseNumber, 
-	         LastBackupDate, 
-	         Rowid,	      }
+	         LastBackupDate,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(DataBasePropertyPM entityPM, POCO.DataBaseProperty entityPOCO)
         {
 			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastBackupDate)) { entityPOCO.LastBackupDate = entityPM.LastBackupDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rowid)) { entityPOCO.Rowid = entityPM.Rowid;}
 					}
 		public void POCOToPM(DataBasePropertyPM entityPM, POCO.DataBaseProperty entityPOCO)
         {
@@ -50,10 +47,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.LastBackupDate = entityPOCO.LastBackupDate;
             }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Rowid))
-            {
-					entityPM.Rowid = entityPOCO.Rowid;
-            }
 		}
 		public void PMToOldPM(DataBasePropertyPM entityPM, DataBasePropertyPM oldEntityPM)
         {
@@ -61,10 +54,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastBackupDate))
             {
                 oldEntityPM.LastBackupDate = entityPM.LastBackupDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rowid))
-            {
-                oldEntityPM.Rowid = entityPM.Rowid;
             }
 					}
 		public void POCOToList(POCO.DataBaseProperty entityPOCO, DataBasePropertyList entityList)

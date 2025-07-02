@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct EventTypeCategoryValues
-    {   
-       public const string Documents = "DOC";  
-       public const string Logs = "LOG";  
-       public const string Operations = "OPE";  
-       public const string Routings = "LEG";  
+    {
+        public const string Documents = "DOC";
+        public const string Logs = "LOG";
+        public const string Operations = "OPE";
+        public const string Routings = "LEG";
     }
-}
-
+ }
+ 

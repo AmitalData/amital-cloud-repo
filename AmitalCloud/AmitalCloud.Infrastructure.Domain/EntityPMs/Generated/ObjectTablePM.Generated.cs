@@ -37,6 +37,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_dependencyFilter1 = entity.DependencyFilter1;
 		_dependencyFilter2 = entity.DependencyFilter2;
 		_dependencyFilter3 = entity.DependencyFilter3;
+		_hasCustomFilter = entity.HasCustomFilter;
 		_hasCustomValidator = entity.HasCustomValidator;
 		_keyPropertyPath = entity.KeyPropertyPath;
 		_autoCompleteSearchWindow = entity.AutoCompleteSearchWindow;
@@ -56,6 +57,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_dBTableName = entity.DBTableName;
 		_customFieldsCount = entity.CustomFieldsCount;
 		_hasCustomFields = entity.HasCustomFields;
+		_inActive = entity.InActive;
 		_descriptionTextCodeId = entity.DescriptionTextCodeId;
 		_descriptiontextcode = entity.DescriptionTextCode !=null ? new TextCodePM(entity.DescriptionTextCode) : null;
 			_isSaveButtonVisible = entity.IsSaveButtonVisible;
@@ -69,6 +71,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_allowCustomFields = entity.AllowCustomFields;
 		_hasDynamicHeader = entity.HasDynamicHeader;
 		_isLookUp = entity.IsLookUp;
+		_isEditable = entity.IsEditable;
 		_codeField = entity.CodeField;
 		_entityResourceLastUpdate = entity.EntityResourceLastUpdate;
 		_disableSearchBox = entity.DisableSearchBox;
@@ -93,6 +96,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_lovDisplayMemberPath = entity.LovDisplayMemberPath;
 		_lovDisplayMemberPathLocal = entity.LovDisplayMemberPathLocal;
 		_isTabsHidden = entity.IsTabsHidden;
+		_hashString = entity.HashString;
 		_parentObjectTableName = entity.ParentObjectTableName;
 		_availableInCustomization = entity.AvailableInCustomization;
 		_parentObjectTableId = entity.ParentObjectTableId;
@@ -103,6 +107,11 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_fullNameTextCodeCode = entity.FullNameTextCodeCode;
 		_availableInDocumentTypes = entity.AvailableInDocumentTypes;
 		_dBTableShortName = entity.DBTableShortName;
+		_isLock = entity.IsLock;
+		_showFastSearch = entity.ShowFastSearch;
+		_relatedKey = entity.RelatedKey;
+		_thisKey = entity.ThisKey;
+		_relatedEntity = entity.RelatedEntity;
    }
    #endregion Constructors
    #region Properties
@@ -248,6 +257,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DependencyFilter3",OldValue=_dependencyFilter3,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _dependencyFilter3=value;
+		   }
+		 }
+	   }
+	  private bool _hasCustomFilter ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool HasCustomFilter  
+	   {
+	     get { return _hasCustomFilter; }
+		 set
+		 {
+		   if(_hasCustomFilter != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="HasCustomFilter",OldValue=_hasCustomFilter,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _hasCustomFilter=value;
 		   }
 		 }
 	   }
@@ -547,6 +572,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+	  private bool _inActive ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool InActive  
+	   {
+	     get { return _inActive; }
+		 set
+		 {
+		   if(_inActive != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="InActive",OldValue=_inActive,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _inActive=value;
+		   }
+		 }
+	   }
 	  private string _descriptionTextCodeId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -728,6 +769,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="IsLookUp",OldValue=_isLookUp,NewValue=value,PropertyType="bool"};
 		    NotifyPropertyChanged(values);
 		   _isLookUp=value;
+		   }
+		 }
+	   }
+	  private bool _isEditable ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool IsEditable  
+	   {
+	     get { return _isEditable; }
+		 set
+		 {
+		   if(_isEditable != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="IsEditable",OldValue=_isEditable,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _isEditable=value;
 		   }
 		 }
 	   }
@@ -1115,6 +1172,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+	  private string _hashString ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string HashString  
+	   {
+	     get { return _hashString; }
+		 set
+		 {
+		   if(_hashString != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="HashString",OldValue=_hashString,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _hashString=value;
+		   }
+		 }
+	   }
 	  private string _parentObjectTableName ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -1288,6 +1361,390 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DBTableShortName",OldValue=_dBTableShortName,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _dBTableShortName=value;
+		   }
+		 }
+	   }
+	  private string _objectTableName ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string ObjectTableName  
+	   {
+	     get { return _objectTableName; }
+		 set
+		 {
+		   if(_objectTableName != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="ObjectTableName",OldValue=_objectTableName,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _objectTableName=value;
+		   }
+		 }
+	   }
+	  private string _defaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DefaultText  
+	   {
+	     get { return _defaultText; }
+		 set
+		 {
+		   if(_defaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DefaultText",OldValue=_defaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _defaultText=value;
+		   }
+		 }
+	   }
+	  private string _localDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string LocalDefaultText  
+	   {
+	     get { return _localDefaultText; }
+		 set
+		 {
+		   if(_localDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LocalDefaultText",OldValue=_localDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _localDefaultText=value;
+		   }
+		 }
+	   }
+	  private string _objectTablePlural ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string ObjectTablePlural  
+	   {
+	     get { return _objectTablePlural; }
+		 set
+		 {
+		   if(_objectTablePlural != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="ObjectTablePlural",OldValue=_objectTablePlural,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _objectTablePlural=value;
+		   }
+		 }
+	   }
+	  private string _descriptionDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DescriptionDefaultText  
+	   {
+	     get { return _descriptionDefaultText; }
+		 set
+		 {
+		   if(_descriptionDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DescriptionDefaultText",OldValue=_descriptionDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _descriptionDefaultText=value;
+		   }
+		 }
+	   }
+	  private string _descriptionLocalDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DescriptionLocalDefaultText  
+	   {
+	     get { return _descriptionLocalDefaultText; }
+		 set
+		 {
+		   if(_descriptionLocalDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DescriptionLocalDefaultText",OldValue=_descriptionLocalDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _descriptionLocalDefaultText=value;
+		   }
+		 }
+	   }
+	  private string _newButtonDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string NewButtonDefaultText  
+	   {
+	     get { return _newButtonDefaultText; }
+		 set
+		 {
+		   if(_newButtonDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NewButtonDefaultText",OldValue=_newButtonDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _newButtonDefaultText=value;
+		   }
+		 }
+	   }
+	  private string _newButtonLocalDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string NewButtonLocalDefaultText  
+	   {
+	     get { return _newButtonLocalDefaultText; }
+		 set
+		 {
+		   if(_newButtonLocalDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NewButtonLocalDefaultText",OldValue=_newButtonLocalDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _newButtonLocalDefaultText=value;
+		   }
+		 }
+	   }
+	  private string _objectTableSingular ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string ObjectTableSingular  
+	   {
+	     get { return _objectTableSingular; }
+		 set
+		 {
+		   if(_objectTableSingular != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="ObjectTableSingular",OldValue=_objectTableSingular,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _objectTableSingular=value;
+		   }
+		 }
+	   }
+	  private string _code ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string Code  
+	   {
+	     get { return _code; }
+		 set
+		 {
+		   if(_code != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Code",OldValue=_code,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _code=value;
+		   }
+		 }
+	   }
+	  private bool _generateDomainService ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool GenerateDomainService  
+	   {
+	     get { return _generateDomainService; }
+		 set
+		 {
+		   if(_generateDomainService != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="GenerateDomainService",OldValue=_generateDomainService,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _generateDomainService=value;
+		   }
+		 }
+	   }
+	  private bool _isNew ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool IsNew  
+	   {
+	     get { return _isNew; }
+		 set
+		 {
+		   if(_isNew != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="IsNew",OldValue=_isNew,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _isNew=value;
+		   }
+		 }
+	   }
+	  private bool _noTS ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool NoTS  
+	   {
+	     get { return _noTS; }
+		 set
+		 {
+		   if(_noTS != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NoTS",OldValue=_noTS,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _noTS=value;
+		   }
+		 }
+	   }
+	  private string _oldDBTableName ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string OldDBTableName  
+	   {
+	     get { return _oldDBTableName; }
+		 set
+		 {
+		   if(_oldDBTableName != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="OldDBTableName",OldValue=_oldDBTableName,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _oldDBTableName=value;
+		   }
+		 }
+	   }
+	  private string _closeTableCode ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string CloseTableCode  
+	   {
+	     get { return _closeTableCode; }
+		 set
+		 {
+		   if(_closeTableCode != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="CloseTableCode",OldValue=_closeTableCode,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _closeTableCode=value;
+		   }
+		 }
+	   }
+	  private string _closeTableName ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string CloseTableName  
+	   {
+	     get { return _closeTableName; }
+		 set
+		 {
+		   if(_closeTableName != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="CloseTableName",OldValue=_closeTableName,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _closeTableName=value;
+		   }
+		 }
+	   }
+	  private bool _isLock ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool IsLock  
+	   {
+	     get { return _isLock; }
+		 set
+		 {
+		   if(_isLock != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="IsLock",OldValue=_isLock,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _isLock=value;
+		   }
+		 }
+	   }
+	  private bool _noViewsController ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool NoViewsController  
+	   {
+	     get { return _noViewsController; }
+		 set
+		 {
+		   if(_noViewsController != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NoViewsController",OldValue=_noViewsController,NewValue=value,PropertyType="bool"};
+		    NotifyPropertyChanged(values);
+		   _noViewsController=value;
+		   }
+		 }
+	   }
+	  private bool? _showFastSearch ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public bool? ShowFastSearch  
+	   {
+	     get { return _showFastSearch; }
+		 set
+		 {
+		   if(_showFastSearch != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="ShowFastSearch",OldValue=_showFastSearch,NewValue=value,PropertyType="bool?"};
+		    NotifyPropertyChanged(values);
+		   _showFastSearch=value;
+		   }
+		 }
+	   }
+	  private string _newButtonLocalDefaultTextBack_up ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string NewButtonLocalDefaultTextBack_up  
+	   {
+	     get { return _newButtonLocalDefaultTextBack_up; }
+		 set
+		 {
+		   if(_newButtonLocalDefaultTextBack_up != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NewButtonLocalDefaultTextBack_up",OldValue=_newButtonLocalDefaultTextBack_up,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _newButtonLocalDefaultTextBack_up=value;
+		   }
+		 }
+	   }
+	  private string _localDefaultTextBack_up ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string LocalDefaultTextBack_up  
+	   {
+	     get { return _localDefaultTextBack_up; }
+		 set
+		 {
+		   if(_localDefaultTextBack_up != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LocalDefaultTextBack_up",OldValue=_localDefaultTextBack_up,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _localDefaultTextBack_up=value;
+		   }
+		 }
+	   }
+	  private string _relatedKey ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string RelatedKey  
+	   {
+	     get { return _relatedKey; }
+		 set
+		 {
+		   if(_relatedKey != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="RelatedKey",OldValue=_relatedKey,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _relatedKey=value;
+		   }
+		 }
+	   }
+	  private string _thisKey ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string ThisKey  
+	   {
+	     get { return _thisKey; }
+		 set
+		 {
+		   if(_thisKey != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="ThisKey",OldValue=_thisKey,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _thisKey=value;
+		   }
+		 }
+	   }
+	  private string _relatedEntity ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string RelatedEntity  
+	   {
+	     get { return _relatedEntity; }
+		 set
+		 {
+		   if(_relatedEntity != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="RelatedEntity",OldValue=_relatedEntity,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _relatedEntity=value;
 		   }
 		 }
 	   }

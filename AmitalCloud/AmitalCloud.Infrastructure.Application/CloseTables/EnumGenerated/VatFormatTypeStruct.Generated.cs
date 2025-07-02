@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct VatFormatTypeValues
-    {   
-       public const string ApplyforaSpecificCountry = "FSC";  
-       public const string ApplyforAllCountries = "FAC";  
-       public const string NoFormat = "NOF";  
+    {
+        public const string ApplyForASpecificCountry = "FSC";
+        public const string ApplyForAllCountries = "FAC";
+        public const string NoFormat = "NOF";
     }
-}
-
+ }
+ 

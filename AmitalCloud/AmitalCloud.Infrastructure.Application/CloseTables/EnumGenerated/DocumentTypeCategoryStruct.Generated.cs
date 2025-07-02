@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DocumentTypeCategoryValues
-    {   
-       public const string AccountingDocuments = "A";  
-       public const string Others = "O";  
-       public const string OperationalDocuments = "P";  
-       public const string ExportCustoms = "E";  
+    {
+        public const string AccountingDocuments = "A";
+        public const string Others = "O";
+        public const string OperationalDocuments = "P";
+        public const string ExportCustoms = "E";
     }
-}
-
+ }
+ 

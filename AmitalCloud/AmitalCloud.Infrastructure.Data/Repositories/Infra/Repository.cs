@@ -155,16 +155,20 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         public List<TEntity> GetAll(int tenant) => GetQuery(tenant).ToList();
         public IQueryable<TEntity> GetQueryable() => _dbSet; // todo: change it to GetQuery()
 
-		protected IQueryable<TEntity> GetQuery(int tenant)
+        protected IQueryable<TEntity> GetQuery(int tenant)
         {
-            var type = typeof(TEntity);
-            var query = _dbSet.AsQueryable();
-            if (type.GetProperty("Tenant") != null)
-            {
-                Expression<Func<TEntity, bool>> predicate = x => (int)type.GetProperty("Tenant").GetValue(x) == tenant;
-                query = query.Where(predicate);
-            }
-            return query;
+            var property = typeof(TEntity).GetProperty("Tenant");
+            if (property == null)
+                return _dbSet.AsQueryable();
+
+            var parameter = Expression.Parameter(typeof(TEntity), "x");
+            var body = Expression.Equal(
+                Expression.Property(parameter, property),
+                Expression.Constant(tenant)
+            );
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(body, parameter);
+
+            return _dbSet.Where(lambda);
         }
         public List<TEntity> GetAll(int tenant, bool fromCache = false)
         {
@@ -469,7 +473,14 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             return entity;
         }
         private TResult NewObject<TResult>(TEntity entity)
-            => (TResult)typeof(TResult).GetConstructor(new Type[] { typeof(TEntity) }).Invoke(new object[] { entity });
+        {
+            var type = typeof(TResult);
+            return type.GetConstructor(new[] { typeof(TEntity) }) is { } ctor
+                ? (TResult)ctor.Invoke(new object[] { entity })
+                : type == typeof(TEntity)
+                    ? (TResult)(object)entity
+                    : throw new Exception($"Type {type.FullName} must have a constructor with {typeof(TEntity).FullName} or be assignable from it.");
+        }
         private IQueryable<TEntity> ApplyInclude(Expression<Func<TEntity, bool>> predicate, string include)
         => include.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(_dbSet.Where(predicate), (current, next) => { return current.Include(next); });
         private IContext GetContext(int tenant)=> DbContextBaseUtil.GetContext<TEntity>(tenant);

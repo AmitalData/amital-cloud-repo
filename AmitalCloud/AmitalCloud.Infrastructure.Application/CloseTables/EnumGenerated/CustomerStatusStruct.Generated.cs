@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct CustomerStatusValues
-    {   
-       public const string Active = "ACT";  
-       public const string Inactive = "INA";  
-       public const string Potential = "POT";  
-       public const string WaitingforActivation = "WAC";  
+    {
+        public const string Active = "ACT";
+        public const string Inactive = "INA";
+        public const string Potential = "POT";
+        public const string WaitingForActivation = "WAC";
     }
-}
-
+ }
+ 

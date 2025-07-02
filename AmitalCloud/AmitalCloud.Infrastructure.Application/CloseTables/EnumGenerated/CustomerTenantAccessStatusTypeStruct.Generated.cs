@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct CustomerTenantAccessStatusTypeValues
-    {   
-       public const string Accepted = "A";  
-       public const string InActive = "IA";  
-       public const string InProgress = "IP";  
-       public const string New = "N";  
-       public const string WaitingForApproval = "W";  
+    {
+        public const string Accepted = "A";
+        public const string InActive = "IA";
+        public const string InProgress = "IP";
+        public const string New = "N";
+        public const string WaitingForApproval = "W";
     }
-}
-
+ }
+ 

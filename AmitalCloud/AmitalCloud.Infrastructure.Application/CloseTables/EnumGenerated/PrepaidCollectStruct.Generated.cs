@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PrepaidCollectValues
-    {   
-       public const string Both = "B";  
-       public const string Collect = "C";  
-       public const string Prepaid = "P";  
+    {
+        public const string Both = "B";
+        public const string Collect = "C";
+        public const string Prepaid = "P";
     }
-}
-
+ }
+ 

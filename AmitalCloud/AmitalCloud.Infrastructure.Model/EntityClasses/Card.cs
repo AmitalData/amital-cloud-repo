@@ -80,14 +80,14 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         public virtual User UpdatedByUser { get; set; }
         [ForeignKey("SharedLogisticsInvitationStatus")]
      
-	    public int? SharedLogisticsInvitationStatusCode { get; set; }
+	    public string SharedLogisticsInvitationStatusCode { get; set; }
 	      
         public virtual SharedLogisticsInvitationStatus SharedLogisticsInvitationStatus { get; set; }
         [Column("InvitationDate")]
 	    public DateTime? InvitationDate { get; set; }
         [ForeignKey("CargoTrackingInvitationStatus")]
      
-	    public int? CargoTrackingInvitationStatusCode { get; set; }
+	    public string CargoTrackingInvitationStatusCode { get; set; }
 	      
         public virtual SharedLogisticsInvitationStatus CargoTrackingInvitationStatus { get; set; }
         [Column("CargoTrackingInvitationDate")]

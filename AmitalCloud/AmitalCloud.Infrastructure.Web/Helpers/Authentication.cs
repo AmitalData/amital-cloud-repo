@@ -761,8 +761,8 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                             if (cardContact != null)
                             {
                                 card = cardQueryService.GetSingle(cardId, false, false);
-                                card.SharedLogisticsInvitationStatusCode = !IsFromCargoTracking ? 3 : card.SharedLogisticsInvitationStatusCode;
-                                card.CargoTrackingInvitationStatusCode = IsFromCargoTracking ? 3 : card.CargoTrackingInvitationStatusCode;
+                                card.SharedLogisticsInvitationStatusCode = !IsFromCargoTracking ? "3" : card.SharedLogisticsInvitationStatusCode;
+                                card.CargoTrackingInvitationStatusCode = IsFromCargoTracking ? "3" : card.CargoTrackingInvitationStatusCode;
                                 card.LastLoginDate = TenantServerConfigration.GetCurrentDateTime(tenant);
                                 cardContact.LastLoginDate = TenantServerConfigration.GetCurrentDateTime(tenant);
                                 user.CardId = card.Id;

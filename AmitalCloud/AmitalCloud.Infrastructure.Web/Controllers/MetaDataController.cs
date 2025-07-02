@@ -68,15 +68,15 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             {
                 return null;
             }
-            var objectFields = new ObjectFieldQueryService(loggedTenant).GetMultiFromCache($"objectFields{loggedTenant}", a => a.Tenant == loggedTenant, "ObjectTable_LookUpTable,FullNameTextCode,ShortNameTextCode,ListTextCode,HelpTextCode,ObjectTable,ObjectTable_MultiTable", a => new ObjectFieldPM(a)
+            var objectFields = new ObjectFieldQueryService(loggedTenant).GetMultiFromCache($"objectFields{loggedTenant}", a => a.Tenant == loggedTenant, "ObjectTable_LookUpTable,FullNameTextCode,ShortNameTextCode,ListTextCode,HelpTextCodeFK,ObjectTable,ObjectTable_MultiTable", a => new ObjectFieldPM(a)
             {
                 ObjectTable_LookUpTableName = a.ObjectTable_LookUpTable != null ? a.ObjectTable_LookUpTable.Name : null,
                 FullNameTextCodeDefaultText = a.FullNameTextCode != null ? a.FullNameTextCode.DefaultText : null,
                 FullNameTextCodeLocalDefaultText = a.FullNameTextCode != null ? a.FullNameTextCode.LocalDefaultText : null,
                 ShortNameTextCodeDefaultText = a.ShortNameTextCode != null ? a.ShortNameTextCode.DefaultText : null,
-                ObjectTable_MultiTableName = a.ObjectTable_MultiTable != null ? a.ObjectTable_MultiTable.Name : null,
+                MultiTableName = a.ObjectTable_MultiTable != null ? a.ObjectTable_MultiTable.Name : null,
                 ListTextCodeDefaultText = a.ListTextCode != null ? a.ListTextCode.DefaultText : null,
-                HelpTextCodeDefaultText = a.HelpTextCode != null ? a.HelpTextCode.DefaultText : null,
+                HelpTextDefaultText = a.HelpTextCodeFK != null ? a.HelpTextCodeFK.DefaultText : null,
             });
             return objectFields;
         }

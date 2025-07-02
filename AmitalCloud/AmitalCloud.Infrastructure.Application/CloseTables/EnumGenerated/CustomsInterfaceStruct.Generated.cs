@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct CustomsInterfaceValues
-    {   
-       public const string ABMCustomsWare = "ABM";  
-       public const string Artemus = "ART";  
-       public const string CBPdirect = "CBP";  
-       public const string None = "NO";  
-       public const string AMANAC_Mexico = "AMC";  
+    {
+        public const string ABMCustomsWare = "ABM";
+        public const string Artemus = "ART";
+        public const string CBPDirect = "CBP";
+        public const string None = "NO";
+        public const string AMANAC_Mexico = "AMC";
     }
-}
-
+ }
+ 

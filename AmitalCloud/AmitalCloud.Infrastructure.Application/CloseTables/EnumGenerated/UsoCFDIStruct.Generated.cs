@@ -15,30 +15,30 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct UsoCFDIValues
-    {   
-       public const string Adquisicióndemercancias = "G01";  
-       public const string Devolucionesdescuentosobonificaciones = "G02";  
-       public const string Gastosengeneral = "G03";  
-       public const string Pordefinir = "P01";  
-       public const string Mobilarioyequipodeoficinaporinversiones = "I02";  
-       public const string Equipodetransporte = "I03";  
-       public const string Equipodecomputoyaccesorios = "I04";  
-       public const string Comunicacionestelefónicas = "I06";  
-       public const string Construcciones = "I01";  
-       public const string Dados_troqueles_moldes_matricesyherramental = "I05";  
-       public const string Comunicacionessatelitales = "I07";  
-       public const string Otramaquinariayequipo = "I08";  
-       public const string HonorariosmédicosDentalesygastoshospitalarios = "D01";  
-       public const string Gastosmédicosporincapacidadodiscapacidad = "D02";  
-       public const string Gastosfunerales = "D03";  
-       public const string Donativos = "D04";  
-       public const string Interesesrealesefectivamentepagadosporcréditoshipotecarios_casahabitación = "D05";  
-       public const string AportacionesvoluntariasalSAR = "D06";  
-       public const string Primasporsegurosdegastosmédicos = "D07";  
-       public const string Gastosdetransportaciónescolarobligatoria = "D08";  
-       public const string Depósitosencuentasparaelahorroprimasquetengancomobaseplanesdepensiones = "D09";  
-       public const string Pagosporservicioseducativos_colegiaturas = "D10";  
-       public const string Sinefectosfiscales = "S01";  
+    {
+        public const string AdquisiciónDeMercancias = "G01";
+        public const string DevolucionesDescuentosOBonificaciones = "G02";
+        public const string GastosEnGeneral = "G03";
+        public const string PorDefinir = "P01";
+        public const string MobilarioYEquipoDeOficinaPorInversiones = "I02";
+        public const string EquipoDeTransporte = "I03";
+        public const string EquipoDeComputoYAccesorios = "I04";
+        public const string ComunicacionesTelefónicas = "I06";
+        public const string Construcciones = "I01";
+        public const string Dados_troqueles_moldes_matricesYHerramental = "I05";
+        public const string ComunicacionesSatelitales = "I07";
+        public const string OtraMaquinariaYEquipo = "I08";
+        public const string HonorariosMédicosDentalesYGastosHospitalarios = "D01";
+        public const string GastosMédicosPorIncapacidadODiscapacidad = "D02";
+        public const string GastosFunerales = "D03";
+        public const string Donativos = "D04";
+        public const string InteresesRealesEfectivamentePagadosPorCréditosHipotecarios_casaHabitación = "D05";
+        public const string AportacionesVoluntariasAlSAR = "D06";
+        public const string PrimasPorSegurosDeGastosMédicos = "D07";
+        public const string GastosDeTransportaciónEscolarObligatoria = "D08";
+        public const string DepósitosEnCuentasParaElAhorroPrimasQueTenganComoBasePlanesDePensiones = "D09";
+        public const string PagosPorServiciosEducativos_colegiaturas = "D10";
+        public const string SinEfectosFiscales = "S01";
     }
-}
-
+ }
+ 

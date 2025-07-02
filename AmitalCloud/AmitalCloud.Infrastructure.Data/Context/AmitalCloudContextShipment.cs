@@ -26,8 +26,10 @@ public DbSet<AccountingInformationIdentifier> AccountingInformationIdentifiers  
 	public DbSet<AWBInformation> AWBInformations  {  get; set; }
 	public DbSet<AWBOCI> AWBOCIs  {  get; set; }
 	public DbSet<AWBSpecialHandlingCode> AWBSpecialHandlingCodes  {  get; set; }
+	//public DbSet<CommodityPackage> CommodityPackages  {  get; set; }
 	public DbSet<Container> Containers  {  get; set; }
 	public DbSet<ContainerDiscrepancy> ContainerDiscrepancies  {  get; set; }
+	//public DbSet<ContainerFollowUp> ContainerFollowUps  {  get; set; }
 	public DbSet<ContainersExternalData> ContainersExternalDatas  {  get; set; }
 	public DbSet<ContainerStatus> ContainerStatuses  {  get; set; }
 	public DbSet<ContainerStatusSource> ContainerStatusSources  {  get; set; }

@@ -30,7 +30,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    {
 		_indexNumber = entity.IndexNumber;
 		_color = entity.Color;
-		_rowid = entity.Rowid;
    }
    #endregion Constructors
    #region Properties
@@ -64,22 +63,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Color",OldValue=_color,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _color=value;
-		   }
-		 }
-	   }
-	  private string _rowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string Rowid  
-	   {
-	     get { return _rowid; }
-		 set
-		 {
-		   if(_rowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _rowid=value;
 		   }
 		 }
 	   }

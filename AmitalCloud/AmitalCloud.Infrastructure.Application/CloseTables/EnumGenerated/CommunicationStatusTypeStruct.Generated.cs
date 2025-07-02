@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct CommunicationStatusTypeValues
-    {   
-       public const string Done = "D";  
-       public const string Fail = "F";  
-       public const string InProgress = "P";  
-       public const string Waiting = "W";  
-       public const string Timeout = "T";  
-       public const string Processing = "C";  
-       public const string Demo = "E";  
+    {
+        public const string Done = "D";
+        public const string Fail = "F";
+        public const string InProgress = "P";
+        public const string Waiting = "W";
+        public const string TimeOut = "T";
+        public const string Processing = "C";
+        public const string Demo = "E";
     }
-}
-
+ }
+ 

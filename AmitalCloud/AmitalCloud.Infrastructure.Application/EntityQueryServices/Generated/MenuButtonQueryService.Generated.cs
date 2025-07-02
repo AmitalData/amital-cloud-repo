@@ -29,7 +29,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
    {
         public MenuButtonQueryService(int tenant) : base(new Repository<POCO.MenuButton>(tenant),new MenuButtonDataMapping()) {}
         public MenuButtonQueryService(IAmitalCloudContext context) : base(new Repository<POCO.MenuButton>(context),new MenuButtonDataMapping()) {}
-		public  MenuButtonPM GetSingle(string code,bool getComposition, bool getFromCache) => base.GetSingle(new MenuButtonKeys<string>(){ Code = code }, getComposition, getFromCache);
-	    protected override IEntityKeyFields<POCO.MenuButton,string> GetKeys(POCO.MenuButton entityPOCO) => new MenuButtonKeys<string>() { Code = entityPOCO.Code,  };
+		public  MenuButtonPM GetSingle(string id,bool getComposition, bool getFromCache) => base.GetSingle(new MenuButtonKeys<string>(){ Id = id }, getComposition, getFromCache);
+	    protected override IEntityKeyFields<POCO.MenuButton,string> GetKeys(POCO.MenuButton entityPOCO) => new MenuButtonKeys<string>() { Id = entityPOCO.Id,  };
    }
 }

@@ -36,14 +36,14 @@ public void GenerateAllCloseTableDetailsEnumsClasss(string sourceFolder,string d
  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
  string sourceFilePath = Path.Combine(templateDirectory, sourceFolder);
 
-//foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
-//{
-//
-//    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-//	string filename = fileNameWithoutExtension+"Details.Generated.cs";
-//	GenerateDetailsClass(file,destinationFolder+"/DetailsClassesGenerated/"+filename);
-//	 
-//}
+foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
+{
+
+    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+	string filename = fileNameWithoutExtension+"Details.Generated.cs";
+	GenerateDetailsClass(file,destinationFolder+"/DetailsClassesGenerated/"+filename);
+	 
+}
 
 foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
 {
@@ -359,41 +359,79 @@ using System.Threading.Tasks;
 namespace <#= detailsnamespacestring.Replace(".CLoseTable","") #>
 {
     public struct <#=tableName #>Values
-    {   <#+
-	    
-        foreach(var Records in entity.Elements("Records")) 
-		{ 
-           foreach(var Record in Records.Elements("Record")) 
-		   { 
-			   string CTName = "";
-		       string CTCode = "";
-			   foreach (var Att in Record.Attributes())
-		       {   
-                   if (Att.Name == CloseTableName)
-                   {
-		              CTName = Att.Value;
-                   }
-				   else if (Att.Name == CloseTableCode)
-                   {
-		              CTCode = Att.Value;
-                   } 
-               }
-			   if (!string.IsNullOrEmpty(CTName) && !string.IsNullOrEmpty(CTCode))
-                   { 
-			   #>
-
-       public const string <#= CTName.Replace(" ","").Trim('"').Replace(",","").Replace(":","").Replace(".","") #> = <#= CTCode #>;  <#+
-					   
-                   }
-			    CTName = "";
-				   CTCode = "";
-           }
-        }
-				#>
-
-    }
-}
-
+    {
 <#+
+        foreach(var Records in entity.Elements("Records")) 
+        { 
+            foreach(var Record in Records.Elements("Record")) 
+            { 
+                string CTName = "";
+                string CTCode = "";
+                foreach (var Att in Record.Attributes())
+                {   
+                    if (Att.Name == CloseTableName)
+                    {
+                        CTName = Att.Value;
+                    }
+                    else if (Att.Name == CloseTableCode)
+                    {
+                        CTCode = Att.Value;
+                    } 
+                }
+                if (!string.IsNullOrEmpty(CTName) && !string.IsNullOrEmpty(CTCode))
+                    { 
+                    string cleanedName = "";
+                    var tempChars = new List<char>();
+                    foreach (char c in CTName)
+                    {
+                        if (char.IsLetterOrDigit(c) || c == ' ' || c == '_')
+                        {
+                            tempChars.Add(c);
+                        }
+                    }
+                    string tempStr = new string(tempChars.ToArray());
+ 
+                    var parts = tempStr.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+ 
+                    if (parts.Length > 0)
+                    {
+                        string firstWord = parts[0];
+ 
+                        while (firstWord.Length > 0 && char.IsDigit(firstWord[0]))
+                        {
+                            firstWord = firstWord.Substring(1);
+                        }
+ 
+                        if (string.IsNullOrEmpty(firstWord))
+                        {
+                            firstWord = "";
+                        }
+                        cleanedName = firstWord;
+ 
+                        for (int i = 1; i < parts.Length; i++)
+                        {
+                            var word = parts[i];
+                            if (word.Length > 0)
+                            {
+                                cleanedName += char.ToUpper(word[0]) + word.Substring(1);
+                            }
+                        }
+                    }
+                    cleanedName = cleanedName.Replace(" ", "");
+ 
+                    #>
+        public const string <#= cleanedName #> = <#= CTCode #>;
+<#+
+                    }
+            CTName = "";
+            CTCode = "";
+            }
+        }
+        #>
+    }
+ }
+ 
+<#+
+
 }
 #>

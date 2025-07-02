@@ -15,40 +15,40 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct SchedulerProcedureValues
-    {   
-       public const string DeleteDoneQueueMessagesTask = "DeleteDoneQueueMessagesTask";  
-       public const string DeleteOldAPILogsTask = "DeleteOldAPILogsTask";  
-       public const string DeleteOldCommunicationLogsTask = "DeleteOldCommunicationLogsTask";  
-       public const string DeleteOldAuthenticationTokensTask = "DeleteOldAuthenticationTokensTask";  
-       public const string DeleteOldErrorLogsQueueMessagesTask = "DeleteOldErrorLogsQueueMessagesTask";  
-       public const string DeleteOldQueueMessageMoreDetailsTask = "DeleteOldQueueMessageMoreDetailsTask";  
-       public const string DeleteQueueMessagesDetailsTask = "DeleteQueueMessagesDetailsTask";  
-       public const string DeleteTaskSchedulerHistoriesTask = "DeleteTaskSchedulerHistoriesTask";  
-       public const string FTPSchedulerTask = "FTPSchedulerTask";  
-       public const string FutureOpenChequesTask = "FutureOpenChequesTask";  
-       public const string PayableARPaymentChequeTask = "PayableARPaymentChequeTask";  
-       public const string RetriesAndReschedulingTask = "RetriesAndReschedulingTask";  
-       public const string SFTPSchedulerTask = "SFTPSchedulerTask";  
-       public const string TestLoggingInfoWithExceptionIfCurrentMinuteisEvenTask = "TestLoggingInfoWithExceptionIfCurrentMinuteisEvenTask";  
-       public const string TestLoggingWarningTask = "TestLoggingWarningTask";  
-       public const string TestUnexpectedShutDownHandling = "TestUnexpectedShutDownHandling";  
-       public const string UpdateTimeManagementDurations = "UpdateTimeManagementDurations";  
-       public const string TestLogToFileTask = "TestLogToFileTask";  
-       public const string GLAccountsCSVTask = "GLAccountsCSVTask";  
-       public const string QuoteAutomaticallyClosingTask = "QuoteAutomaticallyClosingTask";  
-       public const string DeleteOldCargoTrackingData = "DeleteOldCargoTrackingData";  
-       public const string ExchangeRateUpdateTask = "ExchangeRateUpdateTask";  
-       public const string ContainerAutomaticallyClosingTask = "ContainerAutomaticallyClosingTask";  
-       public const string RecalculateCashbooksTotalsTask = "RecalculateCashbooksTotalsTask";  
-       public const string ResetFullTextSearchIndexChangeTrackingTask = "ResetFullTextSearchIndexChangeTrackingTask";  
-       public const string UpdateCanceledSATEntitiesStatusesTask = "UpdateCanceledSATEntitiesStatusesTask";  
-       public const string DeleteOldContactActivityLogsTask = "DeleteOldContactActivityLogsTask";  
-       public const string DeleteOldAnalyzeQueuesTask = "DeleteOldAnalyzeQueuesTask";  
-       public const string DeleteOldMobileNotificationLogsTask = "DeleteOldMobileNotificationLogsTask";  
-       public const string DeleteOldPerformanceLogsTask = "DeleteOldPerformanceLogsTask";  
-       public const string DeleteOldBIReportsExecutionLogsTask = "DeleteOldBIReportsExecutionLogsTask";  
-       public const string DeleteOldReportExecutionLogsTask = "DeleteOldReportExecutionLogsTask";  
-       public const string DeleteOldDocumentsExecutionLogsTask = "DeleteOldDocumentsExecutionLogsTask";  
+    {
+        public const string DeleteDoneQueueMessagesTask = "DeleteDoneQueueMessagesTask";
+        public const string DeleteOldAPILogsTask = "DeleteOldAPILogsTask";
+        public const string DeleteOldCommunicationLogsTask = "DeleteOldCommunicationLogsTask";
+        public const string DeleteOldAuthenticationTokensTask = "DeleteOldAuthenticationTokensTask";
+        public const string DeleteOldErrorLogsQueueMessagesTask = "DeleteOldErrorLogsQueueMessagesTask";
+        public const string DeleteOldQueueMessageMoreDetailsTask = "DeleteOldQueueMessageMoreDetailsTask";
+        public const string DeleteQueueMessagesDetailsTask = "DeleteQueueMessagesDetailsTask";
+        public const string DeleteTaskSchedulerHistoriesTask = "DeleteTaskSchedulerHistoriesTask";
+        public const string FTPSchedulerTask = "FTPSchedulerTask";
+        public const string FutureOpenChequesTask = "FutureOpenChequesTask";
+        public const string PayableARPaymentChequeTask = "PayableARPaymentChequeTask";
+        public const string RetriesAndReschedulingTask = "RetriesAndReschedulingTask";
+        public const string SFTPSchedulerTask = "SFTPSchedulerTask";
+        public const string TestLoggingInfoWithExceptionIfCurrentMinuteisEvenTask = "TestLoggingInfoWithExceptionIfCurrentMinuteisEvenTask";
+        public const string TestLoggingWarningTask = "TestLoggingWarningTask";
+        public const string TestUnexpectedShutDownHandling = "TestUnexpectedShutDownHandling";
+        public const string UpdateTimeManagementDurations = "UpdateTimeManagementDurations";
+        public const string TestLogToFileTask = "TestLogToFileTask";
+        public const string GLAccountsCSVTask = "GLAccountsCSVTask";
+        public const string QuoteAutomaticallyClosingTask = "QuoteAutomaticallyClosingTask";
+        public const string DeleteOldCargoTrackingData = "DeleteOldCargoTrackingData";
+        public const string ExchangeRateUpdateTask = "ExchangeRateUpdateTask";
+        public const string ContainerAutomaticallyClosingTask = "ContainerAutomaticallyClosingTask";
+        public const string RecalculateCashbooksTotalsTask = "RecalculateCashbooksTotalsTask";
+        public const string ResetFullTextSearchIndexChangeTrackingTask = "ResetFullTextSearchIndexChangeTrackingTask";
+        public const string UpdateCanceledSATEntitiesStatusesTask = "UpdateCanceledSATEntitiesStatusesTask";
+        public const string DeleteOldContactActivityLogsTask = "DeleteOldContactActivityLogsTask";
+        public const string DeleteOldAnalyzeQueuesTask = "DeleteOldAnalyzeQueuesTask";
+        public const string DeleteOldMobileNotificationLogsTask = "DeleteOldMobileNotificationLogsTask";
+        public const string DeleteOldPerformanceLogsTask = "DeleteOldPerformanceLogsTask";
+        public const string DeleteOldBIReportsExecutionLogsTask = "DeleteOldBIReportsExecutionLogsTask";
+        public const string DeleteOldReportExecutionLogsTask = "DeleteOldReportExecutionLogsTask";
+        public const string DeleteOldDocumentsExecutionLogsTask = "DeleteOldDocumentsExecutionLogsTask";
     }
-}
-
+ }
+ 

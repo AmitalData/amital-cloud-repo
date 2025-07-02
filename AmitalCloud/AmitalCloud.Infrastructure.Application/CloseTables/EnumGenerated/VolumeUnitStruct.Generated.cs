@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct VolumeUnitValues
-    {   
-       public const string CBF = "CBF";  
-       public const string CBI = "CBI";  
-       public const string CBM = "CBM";  
-       public const string TES = "TES";  
+    {
+        public const string CBF = "CBF";
+        public const string CBI = "CBI";
+        public const string CBM = "CBM";
+        public const string TES = "TES";
     }
-}
-
+ }
+ 

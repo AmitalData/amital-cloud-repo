@@ -19,9 +19,9 @@ namespace AmitalCloud.Infrastructure.Domain.EntityKeys
         public SharedLogisticsInvitationStatusKeys(IEnumerable<KeyValuePair<string, string>> paramList) : base(paramList) {}
         public override void Initialize(IEnumerable<KeyValuePair<string, string>> paramList)
         {
-			Code = (int)Convert.ChangeType((paramList.Single(t => t.Key == "Code").Value), typeof(int));
+			Code = (string)Convert.ChangeType((paramList.Single(t => t.Key == "Code").Value), typeof(string));
         }
-   	  public int Code  { get; set; }
+   	  public string Code  { get; set; }
 	    			   
 	  public override T GetFullKey() =>   (T)Convert.ChangeType(Code.ToString(),typeof(T)) ;           
       public override string GetEntityPMName() => "SharedLogisticsInvitationStatusPM";

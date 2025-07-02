@@ -21,40 +21,30 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [Key]
         [Column("Id")]
 	    public string Id { get; set; }
-   
         [Column("Tenant")]
 	    public int Tenant { get; set; }
-   
         [Column("Sender")]
 	    public string Sender { get; set; }
-   
         [Column("Subject")]
 	    public string Subject { get; set; }
-   
         [Column("IsDeleted")]
 	    public bool IsDeleted { get; set; }
-   
         [Column("CreateDate")]
 	    public DateTime? CreateDate { get; set; }
-   
         [Column("UpdateDate")]
 	    public DateTime? UpdateDate { get; set; }
-   
         [ForeignKey("UpdatedByUser")]
         [Column("UpdatedByUserId")]
 	    public string UpdatedByUserId { get; set; }
 	      
         public virtual User UpdatedByUser { get; set; }
-   
         [ForeignKey("BodyDocument")]
         [Column("BodyDocumentId")]
 	    public string BodyDocumentId { get; set; }
 	      
         public virtual Document BodyDocument { get; set; }
-   
         [Column("SearchFields")]
 	    public string SearchFields { get; set; }
-		public virtual ICollection<FilingInboxAttachment> FilingInboxAttachments { get; set; }
     }
 }
 	 

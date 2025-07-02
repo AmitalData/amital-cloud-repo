@@ -55,7 +55,8 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         NameTextCodeCode, 
 	         PackageCode, 
 	         RoleId, 
-	         Exists,	      }
+	         Exists, 
+	         NameTextCodeDefaultText,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(FeaturePM entityPM, POCO.Feature entityPOCO)

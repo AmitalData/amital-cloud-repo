@@ -2,3 +2,6 @@
 [assembly: InternalsVisibleTo("AmitalCloud.Infrastructure.Application")]
 [assembly: InternalsVisibleTo("AmitalCloud.Shipment.Application")]
 [assembly: InternalsVisibleTo("AmitalCloud.Invoice.Application")]
+[assembly: InternalsVisibleTo("AmitalCloud.Infrastructure.MUpdater.Data")]
+[assembly: InternalsVisibleTo("AmitalCloud.MUpdater")]
+

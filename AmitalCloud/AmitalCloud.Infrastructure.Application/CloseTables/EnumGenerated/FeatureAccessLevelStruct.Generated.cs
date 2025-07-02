@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct FeatureAccessLevelValues
-    {   
-       public const string User = "US";  
-       public const string Parent = "PR";  
-       public const string Organization = "OR";  
-       public const string None = "NO";  
-       public const string BusinessUnit = "BU";  
+    {
+        public const string User = "US";
+        public const string Parent = "PR";
+        public const string Organization = "OR";
+        public const string None = "NO";
+        public const string BusinessUnit = "BU";
     }
-}
-
+ }
+ 

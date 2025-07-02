@@ -218,7 +218,7 @@ class Manager
             {
                 foreach (ProjectItem item in solutionItem.ProjectItems)
                 {
-                    if (item.SubProject != null)
+                    if (item != null && item.SubProject != null)                    
                     {
                         AddAllProjects(item.SubProject, projects);
                     }
@@ -228,7 +228,10 @@ class Manager
             {
                 try
                 {
-                    projects.Add(solutionItem.Name, solutionItem);
+                    if (!projects.ContainsKey(solutionItem.Name))
+                    {
+                        projects.Add(solutionItem.Name, solutionItem);
+                    }                
                 }
                 catch (NotImplementedException)
                 {

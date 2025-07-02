@@ -24,8 +24,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public int IndexNumber { get; set; }
         [Column("Color")]
 	    public string Color { get; set; }
-        [Column("Rowid")]
-	    public string Rowid { get; set; }
     }
 }
 	 

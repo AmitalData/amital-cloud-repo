@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct BatchTaskExecutionStatusValues
-    {   
-       public const string Created = "C";  
-       public const string InProgress = "I";  
-       public const string Done = "D";  
-       public const string Failed = "F";  
+    {
+        public const string Created = "C";
+        public const string InProgress = "I";
+        public const string Done = "D";
+        public const string Failed = "F";
     }
-}
-
+ }
+ 

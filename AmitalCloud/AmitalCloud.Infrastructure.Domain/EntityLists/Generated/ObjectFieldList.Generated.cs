@@ -31,7 +31,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
           Code  = entity.Code;
           DataTypeCode  = entity.DataTypeCode;
           MaxLength  = entity.MaxLength;
-          IsRequiered  = entity.IsRequiered;
+          IsRequired  = entity.IsRequired;
           IsCustom  = entity.IsCustom;
           HelpTextCodeId  = entity.HelpTextCodeId;
           MinLength  = entity.MinLength;
@@ -120,7 +120,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        [DataMember]
        public int MaxLength  { get; set; }
        [DataMember]
-       public bool IsRequiered  { get; set; }
+       public bool IsRequired  { get; set; }
        [DataMember]
        public bool IsCustom  { get; set; }
        [DataMember]

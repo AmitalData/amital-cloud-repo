@@ -7,25 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AutoGenerators\ShipmentClassesGenerator.tt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="AutoGenerators\ShipmentClassesGenerator.tt">
-      <LastGenOutput>ShipmentClassesGenerator.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="AutoGenerators\ShipmentClassesGenerator.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ShipmentClassesGenerator.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 

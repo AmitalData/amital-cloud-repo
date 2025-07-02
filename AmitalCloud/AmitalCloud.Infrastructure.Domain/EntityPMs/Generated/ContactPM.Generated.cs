@@ -35,7 +35,8 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_signature = entity.Signature;
 		_displayGettingStarted = entity.DisplayGettingStarted;
 		_imageDetailId = entity.ImageDetailId;
-		_dontShowLocalLabels = entity.DontShowLocalLabels;
+		_imagedetail = entity.ImageDetail !=null ? new ImageDetailPM(entity.ImageDetail) : null;
+			_dontShowLocalLabels = entity.DontShowLocalLabels;
 		_indexColor = entity.IndexColor;
 		_colorindex = entity.ColorIndex !=null ? new ColorIndexPM(entity.ColorIndex) : null;
 			_notes = entity.Notes;
@@ -179,6 +180,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private ImageDetailPM _imagedetail;
+		
+        [DataMember]
+        public virtual ImageDetailPM ImageDetail 
+		{ 
+		get { return _imagedetail; } 
+		set { _imagedetail = value; }
+		}
 	  private bool _dontShowLocalLabels ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

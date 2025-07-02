@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct FeaturePackageTypeValues
-    {   
-       public const string Add_on = "AD";  
-       public const string Base = "BS";  
-       public const string Package = "PK";  
+    {
+        public const string Add_on = "AD";
+        public const string Base = "BS";
+        public const string Package = "PK";
     }
-}
-
+ }
+ 

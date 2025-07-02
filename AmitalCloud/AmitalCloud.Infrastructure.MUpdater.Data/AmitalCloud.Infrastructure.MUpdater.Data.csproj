@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <BaseOutputPath>..\Library\Bin</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Application\AmitalCloud.Infrastructure.Application.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Data\AmitalCloud.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Model\AmitalCloud.Infrastructure.Model.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Shipment.Application\AmitalCloud.Shipment.Application.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Shipment.Data\AmitalCloud.Shipment.Data.csproj" />
+  </ItemGroup>
+
+</Project>

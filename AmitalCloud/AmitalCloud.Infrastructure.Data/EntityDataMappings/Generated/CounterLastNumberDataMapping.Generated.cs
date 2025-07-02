@@ -27,16 +27,14 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         Id, 
 	         TableName, 
 	         Tenant, 
-	         LastNumber, 
-	         DropRowid,	      }
+	         LastNumber,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
 	         Id, 
 	         TableName, 
 	         Tenant, 
-	         LastNumber, 
-	         DropRowid,	      }
+	         LastNumber,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(CounterLastNumberPM entityPM, POCO.CounterLastNumber entityPOCO)
@@ -44,7 +42,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TableName)) { entityPOCO.TableName = entityPM.TableName;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastNumber)) { entityPOCO.LastNumber = entityPM.LastNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropRowid)) { entityPOCO.DropRowid = entityPM.DropRowid;}
 					}
 		public void POCOToPM(CounterLastNumberPM entityPM, POCO.CounterLastNumber entityPOCO)
         {
@@ -64,10 +61,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.LastNumber = entityPOCO.LastNumber;
             }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropRowid))
-            {
-					entityPM.DropRowid = entityPOCO.DropRowid;
-            }
 		}
 		public void PMToOldPM(CounterLastNumberPM entityPM, CounterLastNumberPM oldEntityPM)
         {
@@ -83,10 +76,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastNumber))
             {
                 oldEntityPM.LastNumber = entityPM.LastNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropRowid))
-            {
-                oldEntityPM.DropRowid = entityPM.DropRowid;
             }
 					}
 		public void POCOToList(POCO.CounterLastNumber entityPOCO, CounterLastNumberList entityList)

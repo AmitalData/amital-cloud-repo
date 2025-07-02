@@ -488,17 +488,17 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-	  private int? _sharedLogisticsInvitationStatusCode ;
+	  private string _sharedLogisticsInvitationStatusCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
-       public int? SharedLogisticsInvitationStatusCode  
+       public string SharedLogisticsInvitationStatusCode  
 	   {
 	     get { return _sharedLogisticsInvitationStatusCode; }
 		 set
 		 {
 		   if(_sharedLogisticsInvitationStatusCode != value)
 		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="SharedLogisticsInvitationStatusCode",OldValue=_sharedLogisticsInvitationStatusCode,NewValue=value,PropertyType="int?"};
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="SharedLogisticsInvitationStatusCode",OldValue=_sharedLogisticsInvitationStatusCode,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _sharedLogisticsInvitationStatusCode=value;
 		   }
@@ -544,17 +544,17 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-	  private int? _cargoTrackingInvitationStatusCode ;
+	  private string _cargoTrackingInvitationStatusCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
-       public int? CargoTrackingInvitationStatusCode  
+       public string CargoTrackingInvitationStatusCode  
 	   {
 	     get { return _cargoTrackingInvitationStatusCode; }
 		 set
 		 {
 		   if(_cargoTrackingInvitationStatusCode != value)
 		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="CargoTrackingInvitationStatusCode",OldValue=_cargoTrackingInvitationStatusCode,NewValue=value,PropertyType="int?"};
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="CargoTrackingInvitationStatusCode",OldValue=_cargoTrackingInvitationStatusCode,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _cargoTrackingInvitationStatusCode=value;
 		   }

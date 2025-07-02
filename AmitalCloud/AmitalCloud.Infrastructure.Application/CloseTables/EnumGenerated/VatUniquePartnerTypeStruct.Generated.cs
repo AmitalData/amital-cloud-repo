@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct VatUniquePartnerTypeValues
-    {   
-       public const string AllCustomers = "ALL";  
-       public const string ActiveCustomersOnly = "CUS";  
-       public const string PotentialCustomersOnly = "POT";  
+    {
+        public const string AllCustomers = "ALL";
+        public const string ActiveCustomersOnly = "CUS";
+        public const string PotentialCustomersOnly = "POT";
     }
-}
-
+ }
+ 

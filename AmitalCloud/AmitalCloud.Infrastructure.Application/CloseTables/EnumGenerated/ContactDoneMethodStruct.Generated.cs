@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct ContactDoneMethodValues
-    {   
-       public const string Email = "EM";  
-       public const string Gift = "GT";  
-       public const string None = "NO";  
-       public const string PhoneCall = "PC";  
-       public const string Sms = "SM";  
+    {
+        public const string Email = "EM";
+        public const string Gift = "GT";
+        public const string None = "NO";
+        public const string PhoneCall = "PC";
+        public const string Sms = "SM";
     }
-}
-
+ }
+ 

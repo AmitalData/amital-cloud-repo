@@ -34,10 +34,8 @@ namespace AmitalCloud.Shipment.Domain.EntityLists
        [Key]
        [DataMember]
        public string Code  { get; set; }
-   
        [DataMember]
        public string Name  { get; set; }
-   
        [DataMember]
        public string SearchFields  { get; set; }
          #endregion Properties

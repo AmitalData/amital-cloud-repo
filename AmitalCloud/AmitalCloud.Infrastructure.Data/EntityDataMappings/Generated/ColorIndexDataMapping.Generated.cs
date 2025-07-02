@@ -25,20 +25,17 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
           { 
 		     None,  
 	         IndexNumber, 
-	         Color, 
-	         Rowid,	      }
+	         Color,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
 	         IndexNumber, 
-	         Color, 
-	         Rowid,	      }
+	         Color,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(ColorIndexPM entityPM, POCO.ColorIndex entityPOCO)
         {
 			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Color)) { entityPOCO.Color = entityPM.Color;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rowid)) { entityPOCO.Rowid = entityPM.Rowid;}
 					}
 		public void POCOToPM(ColorIndexPM entityPM, POCO.ColorIndex entityPOCO)
         {
@@ -50,10 +47,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.Color = entityPOCO.Color;
             }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Rowid))
-            {
-					entityPM.Rowid = entityPOCO.Rowid;
-            }
 		}
 		public void PMToOldPM(ColorIndexPM entityPM, ColorIndexPM oldEntityPM)
         {
@@ -61,10 +54,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Color))
             {
                 oldEntityPM.Color = entityPM.Color;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rowid))
-            {
-                oldEntityPM.Rowid = entityPM.Rowid;
             }
 					}
 		public void POCOToList(POCO.ColorIndex entityPOCO, ColorIndexList entityList)

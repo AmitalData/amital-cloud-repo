@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TransportModeValues
-    {   
-       public const string Air = "A";  
-       public const string Inland = "I";  
-       public const string Ocean = "O";  
+    {
+        public const string Air = "A";
+        public const string Inland = "I";
+        public const string Ocean = "O";
     }
-}
-
+ }
+ 

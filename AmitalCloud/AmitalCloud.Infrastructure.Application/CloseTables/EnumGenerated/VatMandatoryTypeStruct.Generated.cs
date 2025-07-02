@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct VatMandatoryTypeValues
-    {   
-       public const string Mandatoryforaspecificcountry = "MSC";  
-       public const string Mandatoryforallcountries = "MFA";  
-       public const string NotMandatory = "MNT";  
+    {
+        public const string MandatoryForASpecificCountry = "MSC";
+        public const string MandatoryForAllCountries = "MFA";
+        public const string NotMandatory = "MNT";
     }
-}
-
+ }
+ 

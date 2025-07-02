@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct WeightUnitValues
-    {   
-       public const string Kilogram = "KG";  
-       public const string MetricTon = "MT";  
-       public const string Pound = "LB";  
+    {
+        public const string Kilogram = "KG";
+        public const string MetricTon = "MT";
+        public const string Pound = "LB";
     }
-}
-
+ }
+ 

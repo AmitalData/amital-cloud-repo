@@ -44,8 +44,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         RabbitMQRetryNumber, 
 	         RabbitMQErrMess, 
 	         EntityCode, 
-	         EntityId, 
-	         DropRowid,	      }
+	         EntityId,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
@@ -69,8 +68,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         RabbitMQRetryNumber, 
 	         RabbitMQErrMess, 
 	         EntityCode, 
-	         EntityId, 
-	         DropRowid,	      }
+	         EntityId,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(QueueMessagePM entityPM, POCO.QueueMessage entityPOCO)
@@ -95,7 +93,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RabbitMQErrMess)) { entityPOCO.RabbitMQErrMess = entityPM.RabbitMQErrMess;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EntityCode)) { entityPOCO.EntityCode = entityPM.EntityCode;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EntityId)) { entityPOCO.EntityId = entityPM.EntityId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropRowid)) { entityPOCO.DropRowid = entityPM.DropRowid;}
 					}
 		public void POCOToPM(QueueMessagePM entityPM, POCO.QueueMessage entityPOCO)
         {
@@ -183,10 +180,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.EntityId = entityPOCO.EntityId;
             }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropRowid))
-            {
-					entityPM.DropRowid = entityPOCO.DropRowid;
-            }
 		}
 		public void PMToOldPM(QueueMessagePM entityPM, QueueMessagePM oldEntityPM)
         {
@@ -270,10 +263,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EntityId))
             {
                 oldEntityPM.EntityId = entityPM.EntityId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropRowid))
-            {
-                oldEntityPM.DropRowid = entityPM.DropRowid;
             }
 					}
 		public void POCOToList(POCO.QueueMessage entityPOCO, QueueMessageList entityList)

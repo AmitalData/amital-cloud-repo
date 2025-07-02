@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct ProductPeriodValues
-    {   
-       public const string Monthly = "MO";  
-       public const string Quarterly = "QU";  
-       public const string Yearly = "YE";  
+    {
+        public const string Monthly = "MO";
+        public const string Quarterly = "QU";
+        public const string Yearly = "YE";
     }
-}
-
+ }
+ 

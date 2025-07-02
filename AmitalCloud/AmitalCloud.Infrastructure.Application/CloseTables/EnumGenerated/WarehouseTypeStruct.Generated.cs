@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct WarehouseTypeValues
-    {   
-       public const string Bonded = "BO";  
-       public const string Terminal = "TM";  
-       public const string CFS = "CFS";  
+    {
+        public const string Bonded = "BO";
+        public const string Terminal = "TM";
+        public const string CFS = "CFS";
     }
-}
-
+ }
+ 

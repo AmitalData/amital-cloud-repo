@@ -1,12 +1,12 @@
 using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Data.Counters;
 using AmitalCloud.Infrastructure.Data.Repositories;
-using AmitalCloud.Infrastructure.Model.EntityClasses ;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using System;
-using System.Linq;
-using System.Web;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using System.Transactions;
+using AmitalCloud.Infrastructure.Data.Queries;
+using AmitalCloud.Infrastructure.Domain.EntityPMs;
 
 namespace AmitalCloud.Infrastructure.Data.Helpers
 {
@@ -186,84 +186,85 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
         //        }
         //    }
         //}
-        //public static void UpdateSystemMetaDataHistory(bool updateFields = true, bool updateTranslations = true)
-        //{
-        //    using (TransactionScope scope = TransactionFactory.GetNewTransaction())
-        //    {
-        //        SystemMetadataLastUpdateRepository systemMetdaDataRep = new SystemMetadataLastUpdateRepository();
-        //        SystemMetadataLastUpdate lastUpdates = systemMetdaDataRep.GetSingleSystemMetadataLastUpdate("1");
-        //        if (lastUpdates != null)
-        //        {
-        //            if (updateFields)
-        //                lastUpdates.ObjectFieldsUpdateDateGMT = DateTime.UtcNow;
-        //            if (updateTranslations)
-        //                lastUpdates.TranslationsUpdateDateGMT = DateTime.UtcNow;
+        public static void UpdateSystemMetaDataHistory(bool updateFields = true, bool updateTranslations = true)
+        {
+            using (TransactionScope scope = TransactionFactory.GetNewTransaction())
+            {
+                Repository<SystemMetadataLastUpdate> systemMetdaDataRep = new Repository<SystemMetadataLastUpdate>(0);
+                SystemMetadataLastUpdate lastUpdates = systemMetdaDataRep.GetSingle(x => x.Id == "1");
+                if (lastUpdates != null)
+                {
+                    if (updateFields)
+                        lastUpdates.ObjectFieldsUpdateDateGMT = DateTime.UtcNow;
+                    if (updateTranslations)
+                        lastUpdates.TranslationsUpdateDateGMT = DateTime.UtcNow;
 
-        //            systemMetdaDataRep.Update(lastUpdates);
-        //        }
-        //        else
-        //        {
-        //            lastUpdates = new SystemMetadataLastUpdate()
-        //            {
-        //                Id = "1",
-        //                ObjectFieldsUpdateDateGMT = DateTime.UtcNow,
-        //                TranslationsUpdateDateGMT = DateTime.UtcNow,
-        //            };
+                    systemMetdaDataRep.Update(lastUpdates);
+                }
+                else
+                {
+                    lastUpdates = new SystemMetadataLastUpdate()
+                    {
+                        Id = "1",
+                        ObjectFieldsUpdateDateGMT = DateTime.UtcNow,
+                        TranslationsUpdateDateGMT = DateTime.UtcNow,
+                    };
 
-        //            systemMetdaDataRep.Add(lastUpdates);
-        //        }
+                    systemMetdaDataRep.Insert(lastUpdates);
+                }
 
-        //        systemMetdaDataRep.SubmitChanges();
+                systemMetdaDataRep.SubmitChanges();
 
-        //        scope.Complete();
-        //    }
-        //}
-
-
-        //public static void UpdateAllClosedTablesHistory()
-        //{
-        //    IAmitalCloudContext context = AmitalCloudContext.GetContext(0);
-        //    ObjectTableLastUpdateRepository tableLastUpdateRepository = new ObjectTableLastUpdateRepository(context);
-        //    ObjectTableRepository objectTabelRepository = new ObjectTableRepository(context);
-        //    ContactRepository contactRepository = new ContactRepository(0);
-
-        //    List<ObjectTable> objectTablesList = objectTabelRepository.GetObjectsByTenant(0).Where(t=>t.IsClosed).ToList();
-        //    Contact loggedContact = contactRepository.GetSingleContactByEmail("system@tenant0.com", 0);
-
-        //    foreach (ObjectTable table in objectTablesList)
-        //    {
-
-        //        ObjectTableLastUpdate tableLastUpdate = tableLastUpdateRepository.GetSingleObjectTableLastUpdate(table.Id, 0);
-        //        if (tableLastUpdate != null)
-        //        {
-        //            tableLastUpdate.LastUpdateDate = DateTime.UtcNow;
-        //            tableLastUpdate.UpdatedByUserId = loggedContact.Id;
-
-        //            tableLastUpdateRepository.Update(tableLastUpdate);
-        //        }
-        //        else
-        //        {
-
-        //            tableLastUpdate = new ObjectTableLastUpdate()
-        //            {
-        //                Id = IdCounter.GetNumber("ObjectTableLastUpdate", 0),
-        //                Tenant = 0,
-        //                LastUpdateDate = DateTime.UtcNow,
-        //                ObjectTableId = table.Id,
-        //                UpdatedByUserId = loggedContact.Id,
-
-        //            };
-
-        //            tableLastUpdateRepository.Add(tableLastUpdate);
-        //        }
+                scope.Complete();
+            }
+        }
 
 
+        public static void UpdateAllClosedTablesHistory(int tenant)
+        {
+            IAmitalCloudContext context = AmitalCloudContext.GetContext(tenant);
+            Repository<ObjectTableLastUpdate> tableLastUpdateRepository = new Repository<ObjectTableLastUpdate>(context);
+            Repository<ObjectTable> objectTabelRepository = new Repository<ObjectTable>(context);
+            Repository<Contact> contactRepository = new Repository<Contact>(tenant);
+            ContactQuery contactQuery = new ContactQuery(tenant);
 
-        //    }
+            List<ObjectTable> objectTablesList = objectTabelRepository.GetMulti(x => x.Tenant == 0).Where(t => t.IsClosed).ToList();
+            ContactPM loggedContact = contactQuery.GetContactByEmailOnly("system@tenant0.com", 0);
 
-        //    tableLastUpdateRepository.SubmitChanges();
+            foreach (ObjectTable table in objectTablesList)
+            {
+
+                ObjectTableLastUpdate tableLastUpdate = tableLastUpdateRepository.GetSingle(x => x.ObjectTableId == table.Id && x.Tenant == 0);
+                if (tableLastUpdate != null)
+                {
+                    tableLastUpdate.LastUpdateDate = DateTime.UtcNow;
+                    tableLastUpdate.UpdatedByUserId = loggedContact.Id;
+
+                    tableLastUpdateRepository.Update(tableLastUpdate);
+                }
+                else
+                {
+
+                    tableLastUpdate = new ObjectTableLastUpdate()
+                    {
+                        Id = IdCounter.GetNumber("ObjectTableLastUpdate", tenant),
+                        Tenant = 0,
+                        LastUpdateDate = DateTime.UtcNow,
+                        ObjectTableId = table.Id,
+                        UpdatedByUserId = loggedContact.Id,
+
+                    };
+
+                    tableLastUpdateRepository.Insert(tableLastUpdate);
+                }
 
 
-        //}
+
+            }
+
+            tableLastUpdateRepository.SubmitChanges();
+
+
+        }
     }
 }

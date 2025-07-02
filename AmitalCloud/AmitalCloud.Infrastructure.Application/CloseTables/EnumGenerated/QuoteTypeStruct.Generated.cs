@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct QuoteTypeValues
-    {   
-       public const string RoutingRates = "P";  
-       public const string SpotRate = "A";  
+    {
+        public const string RoutingRates = "P";
+        public const string SpotRate = "A";
     }
-}
-
+ }
+ 

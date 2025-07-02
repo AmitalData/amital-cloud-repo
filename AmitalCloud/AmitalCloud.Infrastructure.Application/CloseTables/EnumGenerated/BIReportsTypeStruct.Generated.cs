@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct BIReportsTypeValues
-    {   
-       public const string Excel = "EXL";  
-       public const string PDF = "PDF";  
+    {
+        public const string Excel = "EXL";
+        public const string PDF = "PDF";
     }
-}
-
+ }
+ 

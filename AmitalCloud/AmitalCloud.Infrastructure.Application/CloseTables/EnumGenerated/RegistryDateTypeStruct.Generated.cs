@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct RegistryDateTypeValues
-    {   
-       public const string FirstARInoiceApprovalDate = "FARP";  
-       public const string None = "None";  
+    {
+        public const string FirstARInoiceApprovalDate = "FARP";
+        public const string None = "None";
     }
-}
-
+ }
+ 

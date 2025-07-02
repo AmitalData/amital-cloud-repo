@@ -106,7 +106,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             }
         }
 
-        private static void FillAppSettings()
+        public static void FillAppSettings()
         {
             AmitalCloud.Infrastructure.Domain.EntityPMs.SettingPM setting = new AmitalCloud.Infrastructure.Application.EntityQueryServices.SettingQueryService(0)
                 .GetSingle(AmitalCloud.Infrastructure.Data.Queries.SettingQuery.GetDefaultSettingId(), false, true);
@@ -176,7 +176,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             AmitalCloudSettings.TempStorageConnection = setting.TempStorageConnection;
         }
 
-        private static void InitInjectionUtil()
+        public static void InitInjectionUtil()
         {
             Func<IAmitalRestrictOwnerService>? createAmitalRestrictOwnerModelService = null;
 

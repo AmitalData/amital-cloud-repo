@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct MetodoPagoValues
-    {   
-       public const string Pagoenparcialidadesodiferido = "PPD";  
-       public const string Pagoenunasolaexhibición = "PUE";  
+    {
+        public const string PagoEnParcialidadesODiferido = "PPD";
+        public const string PagoEnUnaSolaExhibición = "PUE";
     }
-}
-
+ }
+ 

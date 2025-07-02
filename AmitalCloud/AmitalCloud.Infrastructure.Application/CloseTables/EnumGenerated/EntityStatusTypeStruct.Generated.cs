@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct EntityStatusTypeValues
-    {   
-       public const string Operational = "O";  
-       public const string Physical = "P";  
-       public const string Billing = "B";  
+    {
+        public const string Operational = "O";
+        public const string Physical = "P";
+        public const string Billing = "B";
     }
-}
-
+ }
+ 

@@ -52,8 +52,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 			_measurementId = entity.MeasurementId;
 		_measurement = entity.Measurement !=null ? new MeasurementPM(entity.Measurement) : null;
 			_vatTypeId = entity.VatTypeId;
-		_vattype = entity.VatType !=null ? new VatTypePM(entity.VatType) : null;
-			_chargesGroupCode = entity.ChargesGroupCode;
+		_chargesGroupCode = entity.ChargesGroupCode;
 		_dueTypeCode = entity.DueTypeCode;
 		_duetype = entity.DueType !=null ? new DueTypePM(entity.DueType) : null;
 			_description = entity.Description;
@@ -527,14 +526,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private VatTypePM _vattype;
-		
-        [DataMember]
-        public virtual VatTypePM VatType 
-		{ 
-		get { return _vattype; } 
-		set { _vattype = value; }
-		}
 	  private string _chargesGroupCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

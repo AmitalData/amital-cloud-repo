@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DirectionValues
-    {   
-       public const string CustomsImport = "C";  
-       public const string Domestic = "D";  
-       public const string Drop = "R";  
-       public const string Export = "E";  
-       public const string Import = "I";  
+    {
+        public const string CustomsImport = "C";
+        public const string Domestic = "D";
+        public const string Drop = "R";
+        public const string Export = "E";
+        public const string Import = "I";
     }
-}
-
+ }
+ 
