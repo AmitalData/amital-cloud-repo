@@ -65,10 +65,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 		AWBInformationUpdateClass  AWBInformationUpdateClass = new AWBInformationUpdateClass();
 		AWBOCIUpdateClass  AWBOCIUpdateClass = new AWBOCIUpdateClass();
 		AWBSpecialHandlingCodeUpdateClass  AWBSpecialHandlingCodeUpdateClass = new AWBSpecialHandlingCodeUpdateClass();
-		CommodityPackageUpdateClass  CommodityPackageUpdateClass = new CommodityPackageUpdateClass();
 		ContainerUpdateClass  ContainerUpdateClass = new ContainerUpdateClass();
 		ContainerDiscrepancyUpdateClass  ContainerDiscrepancyUpdateClass = new ContainerDiscrepancyUpdateClass();
-		ContainerFollowUpUpdateClass  ContainerFollowUpUpdateClass = new ContainerFollowUpUpdateClass();
 		ContainersExternalDataUpdateClass  ContainersExternalDataUpdateClass = new ContainersExternalDataUpdateClass();
 		ContainerStatusUpdateClass  ContainerStatusUpdateClass = new ContainerStatusUpdateClass();
 		ContainerStatusSourceUpdateClass  ContainerStatusSourceUpdateClass = new ContainerStatusSourceUpdateClass();
@@ -253,10 +251,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 			TablesHashStrings.Add("AWBInformation",  AWBInformationUpdateClass.HashString);
 			TablesHashStrings.Add("AWBOCI",  AWBOCIUpdateClass.HashString);
 			TablesHashStrings.Add("AWBSpecialHandlingCode",  AWBSpecialHandlingCodeUpdateClass.HashString);
-			TablesHashStrings.Add("CommodityPackage",  CommodityPackageUpdateClass.HashString);
 			TablesHashStrings.Add("Container",  ContainerUpdateClass.HashString);
 			TablesHashStrings.Add("ContainerDiscrepancy",  ContainerDiscrepancyUpdateClass.HashString);
-			TablesHashStrings.Add("ContainerFollowUp",  ContainerFollowUpUpdateClass.HashString);
 			TablesHashStrings.Add("ContainersExternalData",  ContainersExternalDataUpdateClass.HashString);
 			TablesHashStrings.Add("ContainerStatus",  ContainerStatusUpdateClass.HashString);
 			TablesHashStrings.Add("ContainerStatusSource",  ContainerStatusSourceUpdateClass.HashString);
@@ -506,31 +502,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 				}
 			}
 
-			if(MetadataUpdateUtility.IsChangedMetadataTable("CommodityPackage", ObjectTables, CommodityPackageUpdateClass.HashString))
-			{
-				using (TransactionScope scope = TransactionFactory.GetNewTransaction())
-				{				
-					MetadataUpdateUtility.DeleteAllTableMetadata("CommodityPackage",contextTenant);
-					CommodityPackageUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-					this.ObjectContext.SaveChanges();
-					List<ObjectField> addedFields = new List<ObjectField>();
-					List<TextCode> addedTextCodes = new List<TextCode>();
-					CommodityPackageUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository, TextCodeRepository, addedFields, addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("TextCodes", addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("ObjectFields", addedFields,contextTenant);					
-					
-					CommodityPackageUpdateClass.AddTableQueries(Queries, QueryColumns, ObjectTables, TextCodes, queryGroupRepository, queriesRepository, queryColumnsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, advancedQueryFiltersRepository, tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-					CommodityPackageUpdateClass.AddTableScreens(tenantScreens, tenantScreenFields, screensRepository, screenFieldsRepository, ObjectContext,contextTenant);
-					CommodityPackageUpdateClass.AddTableTabs(TenantObjectTableTabs, TextCodes, objectTableTabsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, ObjectContext,contextTenant);
-					CommodityPackageUpdateClass.AddTableEventTypes(tenantEventTypes, EventTypeRepository, ObjectContext, AllEntityStatuses,contextTenant);
-					CommodityPackageUpdateClass.AddTableFeatures(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					CommodityPackageUpdateClass.AddTableTextCodes(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					CommodityPackageUpdateClass.AddTableMenuButtons(tenantMenuButtons, tenantMenuButtonGroups, TextCodes, TextCodeRepository, FeaturesRepository, menuButtonRepository, TenantFeatures, menuButtonGroupRepository, ObjectContext,contextTenant);
-					this.ObjectContext.SaveChanges();
-					scope.Complete();
-				}
-			}
-
 			if(MetadataUpdateUtility.IsChangedMetadataTable("Container", ObjectTables, ContainerUpdateClass.HashString))
 			{
 				using (TransactionScope scope = TransactionFactory.GetNewTransaction())
@@ -576,31 +547,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 					ContainerDiscrepancyUpdateClass.AddTableFeatures(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
 					ContainerDiscrepancyUpdateClass.AddTableTextCodes(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
 					ContainerDiscrepancyUpdateClass.AddTableMenuButtons(tenantMenuButtons, tenantMenuButtonGroups, TextCodes, TextCodeRepository, FeaturesRepository, menuButtonRepository, TenantFeatures, menuButtonGroupRepository, ObjectContext,contextTenant);
-					this.ObjectContext.SaveChanges();
-					scope.Complete();
-				}
-			}
-
-			if(MetadataUpdateUtility.IsChangedMetadataTable("ContainerFollowUp", ObjectTables, ContainerFollowUpUpdateClass.HashString))
-			{
-				using (TransactionScope scope = TransactionFactory.GetNewTransaction())
-				{				
-					MetadataUpdateUtility.DeleteAllTableMetadata("ContainerFollowUp",contextTenant);
-					ContainerFollowUpUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-					this.ObjectContext.SaveChanges();
-					List<ObjectField> addedFields = new List<ObjectField>();
-					List<TextCode> addedTextCodes = new List<TextCode>();
-					ContainerFollowUpUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository, TextCodeRepository, addedFields, addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("TextCodes", addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("ObjectFields", addedFields,contextTenant);					
-					
-					ContainerFollowUpUpdateClass.AddTableQueries(Queries, QueryColumns, ObjectTables, TextCodes, queryGroupRepository, queriesRepository, queryColumnsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, advancedQueryFiltersRepository, tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableScreens(tenantScreens, tenantScreenFields, screensRepository, screenFieldsRepository, ObjectContext,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableTabs(TenantObjectTableTabs, TextCodes, objectTableTabsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, ObjectContext,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableEventTypes(tenantEventTypes, EventTypeRepository, ObjectContext, AllEntityStatuses,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableFeatures(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableTextCodes(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					ContainerFollowUpUpdateClass.AddTableMenuButtons(tenantMenuButtons, tenantMenuButtonGroups, TextCodes, TextCodeRepository, FeaturesRepository, menuButtonRepository, TenantFeatures, menuButtonGroupRepository, ObjectContext,contextTenant);
 					this.ObjectContext.SaveChanges();
 					scope.Complete();
 				}
@@ -2023,13 +1969,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-	
 	   	   ContainerUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
@@ -2157,13 +2099,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   //AWBSpecialHandlingCodeUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
-	   	   //CommodityPackageUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
-	
 	   	   //ContainerUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
 	   	   //ContainerDiscrepancyUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
-	
-	   	   //ContainerFollowUpUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
 	   	   //ContainersExternalDataUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
@@ -2290,13 +2228,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
@@ -2423,13 +2357,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
@@ -2556,13 +2486,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
@@ -2689,13 +2615,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
@@ -2822,13 +2744,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
@@ -2954,13 +2872,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
@@ -3086,13 +3000,9 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBSpecialHandlingCodeUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
-	   	   CommodityPackageUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
-	
 	   	   ContainerUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
 	   	   ContainerDiscrepancyUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
-	
-	   	   ContainerFollowUpUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
 	   	   ContainersExternalDataUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
@@ -3214,8 +3124,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   AWBInformationUpdateClass.FillAWBInformation(contextTenant);
 	
-	   
-	   
 	   
 	   
 	   

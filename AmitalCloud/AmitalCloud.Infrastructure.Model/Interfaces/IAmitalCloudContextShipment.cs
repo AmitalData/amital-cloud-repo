@@ -19,10 +19,8 @@ namespace AmitalCloud.Infrastructure.Model.Interfaces
 		 DbSet<AWBInformation> AWBInformations { get; }
 		 DbSet<AWBOCI> AWBOCIs { get; }
 		 DbSet<AWBSpecialHandlingCode> AWBSpecialHandlingCodes { get; }
-		 //DbSet<CommodityPackage> CommodityPackages { get; }
 		 DbSet<Container> Containers { get; }
 		 DbSet<ContainerDiscrepancy> ContainerDiscrepancies { get; }
-		 //DbSet<ContainerFollowUp> ContainerFollowUps { get; }
 		 DbSet<ContainersExternalData> ContainersExternalDatas { get; }
 		 DbSet<ContainerStatus> ContainerStatuses { get; }
 		 DbSet<ContainerStatusSource> ContainerStatusSources { get; }

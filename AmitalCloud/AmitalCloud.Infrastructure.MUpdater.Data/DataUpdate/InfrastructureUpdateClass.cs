@@ -295,7 +295,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 		TenantAdditionalDataUpdateClass  TenantAdditionalDataUpdateClass = new TenantAdditionalDataUpdateClass();
 		TenantLoginPolicyUpdateClass  TenantLoginPolicyUpdateClass = new TenantLoginPolicyUpdateClass();
 		TermsofUseSignatureUpdateClass  TermsofUseSignatureUpdateClass = new TermsofUseSignatureUpdateClass();
-		testUpdateClass  testUpdateClass = new testUpdateClass();
 		TextCodeUpdateClass  TextCodeUpdateClass = new TextCodeUpdateClass();
 		ToggleUpdateClass  ToggleUpdateClass = new ToggleUpdateClass();
 		TraceEventUpdateClass  TraceEventUpdateClass = new TraceEventUpdateClass();
@@ -683,7 +682,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 			TablesHashStrings.Add("TenantAdditionalData",  TenantAdditionalDataUpdateClass.HashString);
 			TablesHashStrings.Add("TenantLoginPolicy",  TenantLoginPolicyUpdateClass.HashString);
 			TablesHashStrings.Add("TermsofUseSignature",  TermsofUseSignatureUpdateClass.HashString);
-			TablesHashStrings.Add("test",  testUpdateClass.HashString);
 			TablesHashStrings.Add("TextCode",  TextCodeUpdateClass.HashString);
 			TablesHashStrings.Add("Toggle",  ToggleUpdateClass.HashString);
 			TablesHashStrings.Add("TraceEvent",  TraceEventUpdateClass.HashString);
@@ -6772,31 +6770,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 				}
 			}
 
-			if(MetadataUpdateUtility.IsChangedMetadataTable("test", ObjectTables, testUpdateClass.HashString))
-			{
-				using (TransactionScope scope = TransactionFactory.GetNewTransaction())
-				{				
-					MetadataUpdateUtility.DeleteAllTableMetadata("test",contextTenant);
-					testUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-					this.ObjectContext.SaveChanges();
-					List<ObjectField> addedFields = new List<ObjectField>();
-					List<TextCode> addedTextCodes = new List<TextCode>();
-					testUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository, TextCodeRepository, addedFields, addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("TextCodes", addedTextCodes,contextTenant);
-					SqlBulkInsert.BulkInsert("ObjectFields", addedFields,contextTenant);					
-					
-					testUpdateClass.AddTableQueries(Queries, QueryColumns, ObjectTables, TextCodes, queryGroupRepository, queriesRepository, queryColumnsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, advancedQueryFiltersRepository, tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-					testUpdateClass.AddTableScreens(tenantScreens, tenantScreenFields, screensRepository, screenFieldsRepository, ObjectContext,contextTenant);
-					testUpdateClass.AddTableTabs(TenantObjectTableTabs, TextCodes, objectTableTabsRepository, TextCodeRepository, FeaturesRepository, TenantFeatures, ObjectContext,contextTenant);
-					testUpdateClass.AddTableEventTypes(tenantEventTypes, EventTypeRepository, ObjectContext, AllEntityStatuses,contextTenant);
-					testUpdateClass.AddTableFeatures(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					testUpdateClass.AddTableTextCodes(TextCodeRepository, FeaturesRepository, TenantFeatures, TextCodes, ObjectContext,contextTenant);
-					testUpdateClass.AddTableMenuButtons(tenantMenuButtons, tenantMenuButtonGroups, TextCodes, TextCodeRepository, FeaturesRepository, menuButtonRepository, TenantFeatures, menuButtonGroupRepository, ObjectContext,contextTenant);
-					this.ObjectContext.SaveChanges();
-					scope.Complete();
-				}
-			}
-
 			if(MetadataUpdateUtility.IsChangedMetadataTable("TextCode", ObjectTables, TextCodeUpdateClass.HashString))
 			{
 				using (TransactionScope scope = TransactionFactory.GetNewTransaction())
@@ -8021,8 +7994,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TermsofUseSignatureUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
-	   	   testUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
-	
 	   	   TextCodeUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
 	
 	   	   ToggleUpdateClass.AddObjectTable(ObjectTables, TextCodes, ObjectTableRepository,TextCodeRepository,contextTenant);
@@ -8555,8 +8526,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   //TermsofUseSignatureUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
-	   	   //testUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
-	
 	   	   //TextCodeUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
 	
 	   	   //ToggleUpdateClass.AddObjectFields(ObjectFields, ObjectTables, TextCodes, ObjectFieldsRepository,TextCodeRepository,contextTenant);
@@ -9087,8 +9056,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	   	   TenantLoginPolicyUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
-	
-	   	   testUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
 	   	   TextCodeUpdateClass.AddTableQueries(Queries,QueryColumns, ObjectTables, TextCodes,queryGroupRepository,queriesRepository,queryColumnsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,advancedQueryFiltersRepository,tenantAdvancedFilters,tenantQueryGroups,contextTenant);
 	
@@ -9621,8 +9588,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
-	   	   testUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
-	
 	   	   TextCodeUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
 	
 	   	   ToggleUpdateClass.AddTableScreens(tenantScreens,tenantScreenFields,screensRepository,screenFieldsRepository,ObjectContext,contextTenant);
@@ -10153,8 +10118,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	   	   TenantLoginPolicyUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
-	
-	   	   testUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
 	   	   TextCodeUpdateClass.AddTableTabs(TenantObjectTableTabs,TextCodes,objectTableTabsRepository,TextCodeRepository,FeaturesRepository,TenantFeatures,ObjectContext,contextTenant);
 	
@@ -10687,8 +10650,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
-	   	   testUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
-	
 	   	   TextCodeUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
 	
 	   	   ToggleUpdateClass.AddTableEventTypes(tenantEventTypes,EventTypeRepository,ObjectContext,AllEntityStatuses,contextTenant);
@@ -11220,8 +11181,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
-	   	   testUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
 	   	   TextCodeUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   ToggleUpdateClass.AddTableFeatures(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
@@ -11751,8 +11710,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	   	   TenantLoginPolicyUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
-	
-	   	   testUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
 	   	   TextCodeUpdateClass.AddTableTextCodes(TextCodeRepository,FeaturesRepository,TenantFeatures,TextCodes,ObjectContext,contextTenant);
 	
@@ -12284,8 +12241,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TermsofUseSignatureUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
-	   	   testUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
-	
 	   	   TextCodeUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
 	
 	   	   ToggleUpdateClass.AddTableMenuButtons(tenantMenuButtons,tenantMenuButtonGroups,TextCodes,TextCodeRepository,FeaturesRepository,menuButtonRepository,TenantFeatures,menuButtonGroupRepository ,ObjectContext,contextTenant);
@@ -12623,7 +12578,6 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate
 	
 	   	   TemplateFormatUpdateClass.FillTemplateFormat(contextTenant);
 	
-	   
 	   
 	   
 	   
