@@ -60,17 +60,22 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             ConfigurationHelper.Initialize(builder.Configuration);
             builder.Services.AddScoped<ILoggedContactUtil, AmitalCloud.Infrastructure.Data.Security.LoggedContactUtil>();
             builder.Services.AddScoped<ITreeFilterQueryService, TreeFilterQuery.TreeFilterQueryService>();
-            builder.Services.AddScoped<LoggedContactResolver>();
+			builder.Services.AddScoped<LoggedContactResolver>();
 
-            var app = builder.Build();
 
-            InitializeApp(app, builder.Configuration);
+			builder.Services.AddTransient<ILogging, Logging>();
+			// Apply decorator using Scrutor
+			builder.Services.Decorate<ILogging, LoggingInterceptor>();
 
-            // map the default route
-            app.MapGet("/", () => MapGetContent(builder.Configuration));
+			var app = builder.Build();
 
-            app.Run();
-        }
+			InitializeApp(app, builder.Configuration);
+
+			// map the default route
+			app.MapGet("/", () => MapGetContent(builder.Configuration));
+
+			app.Run();
+		}
 
 
 
