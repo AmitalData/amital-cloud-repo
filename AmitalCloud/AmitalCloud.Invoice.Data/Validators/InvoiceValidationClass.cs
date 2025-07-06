@@ -92,22 +92,22 @@ namespace AmitalCloud.Invoice.Domain.Validators
                 {
                     object propertyValue = propertyInf.GetValue(value, null);
 
-                    if (objectfeildprop.IsRequiered)
-                    {
+                    //if (objectfeildprop.IsRequiered)
+                    //{
 
-                        if (propertyValue == null)
-                        {
-                            return false;
-                        }
-                        else if (propertyValue is string)
-                        {
+                    //    if (propertyValue == null)
+                    //    {
+                    //        return false;
+                    //    }
+                    //    else if (propertyValue is string)
+                    //    {
 
-                            if (string.IsNullOrEmpty(propertyValue.ToString()))
-                            {
-                                return false;
-                            }
-                        }
-                    }
+                    //        if (string.IsNullOrEmpty(propertyValue.ToString()))
+                    //        {
+                    //            return false;
+                    //        }
+                    //    }
+                    //}
 
                     if (objectfeildprop.DataTypeCode == "Text" || objectfeildprop.DataTypeCode == "nText" || objectfeildprop.DataTypeCode == "LookUp")
                     {
@@ -136,17 +136,17 @@ namespace AmitalCloud.Invoice.Domain.Validators
                         PropertyInfo field = customType.GetProperty(objectfeildprop.FieldName);
                         if (field != null)
                         {
-                            if (objectfeildprop.IsRequiered)
-                            {
-                                if (cutomfield != null)
-                                {
-                                    object fieldValue = field.GetValue(cutomfield, null);
-                                    if (fieldValue == null)
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
+                            //if (objectfeildprop.IsRequiered)
+                            //{
+                            //    if (cutomfield != null)
+                            //    {
+                            //        object fieldValue = field.GetValue(cutomfield, null);
+                            //        if (fieldValue == null)
+                            //        {
+                            //            return false;
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                 }
@@ -196,22 +196,22 @@ namespace AmitalCloud.Invoice.Domain.Validators
                         propertyValue = fieldClass.Value;
                     }
 
-                    if (objectfeildprop.IsRequiered)
-                    {
-                        if (propertyValue == null)
-                        {
-                            requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
-                        }
+                    //if (objectfeildprop.IsRequiered)
+                    //{
+                    //    if (propertyValue == null)
+                    //    {
+                    //        requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
+                    //    }
 
-                        else if (propertyValue is string)
-                        {
+                    //    else if (propertyValue is string)
+                    //    {
 
-                            if (string.IsNullOrEmpty(propertyValue.ToString()))
-                            {
-                                requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
-                            }
-                        }
-                    }
+                    //        if (string.IsNullOrEmpty(propertyValue.ToString()))
+                    //        {
+                    //            requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
+                    //        }
+                    //    }
+                    //}
 
                     if (objectfeildprop.DataTypeCode == "Text" || objectfeildprop.DataTypeCode == "nText" || objectfeildprop.DataTypeCode == "LookUp")
                     {
@@ -232,14 +232,14 @@ namespace AmitalCloud.Invoice.Domain.Validators
                         {
                             if (cutomfield != null)
                             {
-                                if (objectfeildprop.IsRequiered)
-                                {
-                                    object fieldValue = field.GetValue(cutomfield, null);
-                                    if (fieldValue == null)
-                                    {
-                                        requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
-                                    }
-                                }
+                                //if (objectfeildprop.IsRequiered)
+                                //{
+                                //    object fieldValue = field.GetValue(cutomfield, null);
+                                //    if (fieldValue == null)
+                                //    {
+                                //        requiredError = requiredError + "," + TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", objectfeildprop.FullNameTextCode.Code, null, null, objectfeildprop.Tenant);
+                                //    }
+                                //}
                             }
                         }
                     }

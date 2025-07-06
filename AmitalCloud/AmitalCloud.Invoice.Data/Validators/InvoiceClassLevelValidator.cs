@@ -57,30 +57,30 @@ namespace AmitalCloud.Invoice.Domain.Validators
 
             if (field != null)
             {
-                if (field.IsRequiered)
-                {
-                    if (field.IsCustom && value != null)
-                    {
-                        CustomFieldClass fieldClass = value as CustomFieldClass;
-                        value = fieldClass.Value;
-                    }
+                //if (field.IsRequiered)
+                //{
+                //    if (field.IsCustom && value != null)
+                //    {
+                //        CustomFieldClass fieldClass = value as CustomFieldClass;
+                //        value = fieldClass.Value;
+                //    }
 
-                    if (value == null)
-                    {
-                        valid = false;
-                    }
-                    else if (value is string)
-                    {
-                        if (String.IsNullOrEmpty(value.ToString()))
-                        {
-                            valid = false;
-                        }
-                    }
-                    else
-                    {
-                        valid = true;
-                    }
-                }
+                //    if (value == null)
+                //    {
+                //        valid = false;
+                //    }
+                //    else if (value is string)
+                //    {
+                //        if (String.IsNullOrEmpty(value.ToString()))
+                //        {
+                //            valid = false;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        valid = true;
+                //    }
+                //}
 
                 if (field.DataTypeCode == "Text") // server side
                 {
@@ -140,24 +140,24 @@ namespace AmitalCloud.Invoice.Domain.Validators
                                  where a.ObjectTable.Name == objectType && a.FieldName == propertyName
                                  select a).FirstOrDefault();
 
-            if (field.IsRequiered)
-            {
-                if (value == null)
-                {
-                    error = TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", field.FullNameTextCode.Code, null, null, field.Tenant);
-                }
-                if (string.IsNullOrEmpty(error) && value != null)
-                {
-                    if (value is string)
-                    {
-                        string valueString = value as string;
-                        if (String.IsNullOrEmpty(value.ToString()))
-                        {
-                            error = TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", field.FullNameTextCode.Code, null, null, field.Tenant);
-                        }
-                    }
-                }
-            }
+            //if (field.IsRequiered)
+            //{
+            //    if (value == null)
+            //    {
+            //        error = TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", field.FullNameTextCode.Code, null, null, field.Tenant);
+            //    }
+            //    if (string.IsNullOrEmpty(error) && value != null)
+            //    {
+            //        if (value is string)
+            //        {
+            //            string valueString = value as string;
+            //            if (String.IsNullOrEmpty(value.ToString()))
+            //            {
+            //                error = TranslateTextsClass.GetTranslation("General.M.FieldIsRequired", field.FullNameTextCode.Code, null, null, field.Tenant);
+            //            }
+            //        }
+            //    }
+            //}
 
             if (field.DataTypeCode == "Text")
             {
