@@ -57,7 +57,7 @@ namespace AmitalCloud.Shipment.Domain.Validators
 
             if (field != null)
             {
-                if (field.IsRequiered)
+                if (field.IsRequired)
                 {
                     if (field.IsCustom && value != null)
                     {
@@ -140,7 +140,7 @@ namespace AmitalCloud.Shipment.Domain.Validators
                                  where a.ObjectTable.Name == objectType && a.FieldName == propertyName
                                  select a).FirstOrDefault();
 
-            if (field.IsRequiered)
+            if (field.IsRequired)
             {
                 if (value == null)
                 {

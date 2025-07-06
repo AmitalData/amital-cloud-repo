@@ -27,8 +27,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public int Tenant { get; set; }
         [Column("LastNumber")]
 	    public int LastNumber { get; set; }
-        [Column("DropRowid")]
-	    public string DropRowid { get; set; }
     }
 }
 	 

@@ -19,13 +19,13 @@ namespace AmitalCloud.Infrastructure.Domain.EntityKeys
         public MenuButtonKeys(IEnumerable<KeyValuePair<string, string>> paramList) : base(paramList) {}
         public override void Initialize(IEnumerable<KeyValuePair<string, string>> paramList)
         {
-			Code = (string)Convert.ChangeType((paramList.Single(t => t.Key == "Code").Value), typeof(string));
+			Id = (string)Convert.ChangeType((paramList.Single(t => t.Key == "Id").Value), typeof(string));
         }
-   	  public string Code  { get; set; }
+   	  public string Id  { get; set; }
 	    			   
-	  public override T GetFullKey() =>   (T)Convert.ChangeType(Code.ToString(),typeof(T)) ;           
+	  public override T GetFullKey() =>   (T)Convert.ChangeType(Id.ToString(),typeof(T)) ;           
       public override string GetEntityPMName() => "MenuButtonsPM";
-	  public override Expression<Func<ENTITIES.MenuButton, bool>> Predicate => a => a.Code == Code;
+	  public override Expression<Func<ENTITIES.MenuButton, bool>> Predicate => a => a.Id == Id;
    }
 }
 	 

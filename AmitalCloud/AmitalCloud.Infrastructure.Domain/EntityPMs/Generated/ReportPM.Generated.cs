@@ -32,8 +32,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_reportGroupId = entity.ReportGroupId;
 		_reportgroup = entity.ReportGroup !=null ? new ReportGroupPM(entity.ReportGroup) : null;
 			_featureId = entity.FeatureId;
-		_feature = entity.Feature !=null ? new FeaturePM(entity.Feature) : null;
-			_reportDocumentId = entity.ReportDocumentId;
+		_reportDocumentId = entity.ReportDocumentId;
 		_reportdocument = entity.ReportDocument !=null ? new DocumentPM(entity.ReportDocument) : null;
 			_id = entity.Id;
 		_tenant = entity.Tenant;
@@ -98,14 +97,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private FeaturePM _feature;
-		
-        [DataMember]
-        public virtual FeaturePM Feature 
-		{ 
-		get { return _feature; } 
-		set { _feature = value; }
-		}
 	  private string _reportDocumentId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

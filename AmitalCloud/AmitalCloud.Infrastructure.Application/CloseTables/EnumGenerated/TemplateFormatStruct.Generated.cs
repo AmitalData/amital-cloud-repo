@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TemplateFormatValues
-    {   
-       public const string Message = "M";  
-       public const string Print = "P";  
+    {
+        public const string Message = "M";
+        public const string Print = "P";
     }
-}
-
+ }
+ 

@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct WarehouseWeightMeasurementValues
-    {   
-       public const string GrossWeight = "GRWT";  
-       public const string ChargeableWeight = "CHWT";  
+    {
+        public const string GrossWeight = "GRWT";
+        public const string ChargeableWeight = "CHWT";
     }
-}
-
+ }
+ 

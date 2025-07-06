@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct WarehouseWeightRoundingValues
-    {   
-       public const string None = "NON";  
-       public const string Half = "HAF";  
-       public const string One = "ONE";  
+    {
+        public const string None = "NON";
+        public const string Half = "HAF";
+        public const string One = "ONE";
     }
-}
-
+ }
+ 

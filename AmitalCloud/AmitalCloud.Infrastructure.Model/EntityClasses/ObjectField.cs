@@ -39,15 +39,15 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         public virtual FieldDataType DataType { get; set; }
         [Column("MaxLength")]
 	    public int MaxLength { get; set; }
-        [Column("IsRequiered")]
-	    public bool IsRequiered { get; set; }
+        [Column("IsRequired")]
+	    public bool IsRequired { get; set; }
         [Column("IsCustom")]
 	    public bool IsCustom { get; set; }
-        [ForeignKey("HelpTextCode")]
+        [ForeignKey("HelpTextCodeFK")]
         [Column("HelpTextCodeId")]
 	    public string HelpTextCodeId { get; set; }
 	      
-        public virtual TextCode HelpTextCode { get; set; }
+        public virtual TextCode HelpTextCodeFK { get; set; }
         [Column("MinLength")]
 	    public int MinLength { get; set; }
         [ForeignKey("ObjectTable_LookUpTable")]
@@ -251,6 +251,8 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public bool? DisplayInRequiredFields { get; set; }
         [Column("ShortName")]
 	    public string ShortName { get; set; }
+        [Column("ObjectFieldDataMapping")]
+	    public string ObjectFieldDataMapping { get; set; }
     }
 }
 	 

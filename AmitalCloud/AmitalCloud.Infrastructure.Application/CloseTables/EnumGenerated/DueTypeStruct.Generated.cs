@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct DueTypeValues
-    {   
-       public const string Agent = "AG";  
-       public const string Carrier = "CA";  
-       public const string none = "NO";  
-       public const string Tax = "TX";  
-       public const string Valuation = "VL";  
+    {
+        public const string Agent = "AG";
+        public const string Carrier = "CA";
+        public const string none = "NO";
+        public const string Tax = "TX";
+        public const string Valuation = "VL";
     }
-}
-
+ }
+ 

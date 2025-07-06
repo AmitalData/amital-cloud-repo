@@ -4,5 +4,6 @@
     {
         AMITAL_GLOBAL, AMITAL_MAIN,
         AMITAL_LOGS
+
     }
 }

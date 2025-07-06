@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PasswordPolicyValues
-    {   
-       public const string Meduim = "MEDU";  
-       public const string Strong = "STRO";  
-       public const string VeryStrong = "VSTR";  
+    {
+        public const string Meduim = "MEDU";
+        public const string Strong = "STRO";
+        public const string VeryStrong = "VSTR";
     }
-}
-
+ }
+ 

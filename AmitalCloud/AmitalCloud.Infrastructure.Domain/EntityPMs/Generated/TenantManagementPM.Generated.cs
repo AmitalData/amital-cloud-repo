@@ -106,7 +106,8 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_supportEmail = entity.SupportEmail;
 		_isMultiPackage = entity.IsMultiPackage;
 		_id = entity.Id;
-		_name = entity.Name;
+		_globaltenant = entity.GlobalTenant !=null ? new GlobalTenantPM(entity.GlobalTenant) : null;
+			_name = entity.Name;
 		_packageCode = entity.PackageCode;
 		_temporalPackageCode = entity.TemporalPackageCode;
 		_recurringPeriodCode = entity.RecurringPeriodCode;
@@ -1516,6 +1517,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private GlobalTenantPM _globaltenant;
+		
+        [DataMember]
+        public virtual GlobalTenantPM GlobalTenant 
+		{ 
+		get { return _globaltenant; } 
+		set { _globaltenant = value; }
+		}
 	  private string _name ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

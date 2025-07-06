@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct VatUniqueTypeValues
-    {   
-       public const string NotUnique = "UNT";  
-       public const string Uniqueforaspecificcountry = "USC";  
-       public const string Uniqueforallcountries = "UFA";  
+    {
+        public const string NotUnique = "UNT";
+        public const string UniqueForASpecificCountry = "USC";
+        public const string UniqueForAllCountries = "UFA";
     }
-}
-
+ }
+ 

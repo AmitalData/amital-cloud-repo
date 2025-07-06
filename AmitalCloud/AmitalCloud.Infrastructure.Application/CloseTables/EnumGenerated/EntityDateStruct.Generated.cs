@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct EntityDateValues
-    {   
-       public const string MainCarriageArrivel = "McAr";  
-       public const string OpenDate = "Open";  
-       public const string PickUpArrivalDate = "PICA";  
-       public const string PickUpDepartureDate = "PICD";  
+    {
+        public const string MainCarriageArrivel = "McAr";
+        public const string OpenDate = "Open";
+        public const string PickUpArrivalDate = "PICA";
+        public const string PickUpDepartureDate = "PICD";
     }
-}
-
+ }
+ 

@@ -16,10 +16,10 @@ namespace AmitalCloud.Infrastructure.Application.EntityListQueryServices
     public partial class MenuButtonListQueryService  : BaseEntityListQueryService<MenuButtonList,POCO.MenuButton,  MenuButtonKeys<string>,string>
     {
 		public MenuButtonListQueryService(int tenant) : base(tenant) { }
-        public MenuButtonList GetSingle(string code)
+        public MenuButtonList GetSingle(string id)
 		{
 			IEnumerable<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>() ;
-				paramList.Append(new KeyValuePair<string, string>("code", code.ToString()));
+				paramList.Append(new KeyValuePair<string, string>("id", id.ToString()));
 		 			return GetSingle(paramList) ; 
 		}
     }

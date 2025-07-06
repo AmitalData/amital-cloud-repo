@@ -15,13 +15,13 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct LoginPolicyValues
-    {   
-       public const string CompanyIPsonly = "COMPIP";  
-       public const string Disabled = "DISABLED";  
-       public const string Enabled = "ENABLED";  
-       public const string EnabledforExternalIPsonly = "ENFEXIPO";  
-       public const string NoRestriction = "NOREST";  
-       public const string TwoFactorAuthentication = "TFAUTH";  
+    {
+        public const string CompanyIPsOnly = "COMPIP";
+        public const string Disabled = "DISABLED";
+        public const string Enabled = "ENABLED";
+        public const string EnabledForExternalIPsOnly = "ENFEXIPO";
+        public const string NoRestriction = "NOREST";
+        public const string TwoFactorAuthentication = "TFAUTH";
     }
-}
-
+ }
+ 

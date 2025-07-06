@@ -279,39 +279,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
 		   }
 		 }
 	   }
-	   private List<CommodityPackagePM> commodityPackages;
-	    
-       
- 
-		     
-	   
-	   [Association("CommodityPackagePMShipmentCommodity", "Id","CommodityId")]
-	   [DataMember]
-	   public virtual List<CommodityPackagePM> CommodityPackages  
-	   {
-	        get
-             {
-                 if (commodityPackages == null)
-                 {
-                     commodityPackages = new List<CommodityPackagePM>();
-                 }
-                 return commodityPackages;
-              }
-             set { commodityPackages = value; }
-	    }
-	   private List<CommodityPackagePM>  deletedCommodityPackages;
-	   public virtual List<CommodityPackagePM> DeletedCommodityPackages  
-	   {
-	        get
-             {
-                 if ( deletedCommodityPackages == null)
-                 {
-                      deletedCommodityPackages = new List<CommodityPackagePM>();
-                 }
-                 return  deletedCommodityPackages;
-              }
-             set {  deletedCommodityPackages = value; }
-	    }
 	 }
 #endregion Properties
 }

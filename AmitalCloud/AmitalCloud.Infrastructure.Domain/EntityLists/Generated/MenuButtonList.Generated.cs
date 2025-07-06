@@ -24,15 +24,10 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        public MenuButtonList() : base() {}
        public MenuButtonList(POCO.MenuButton entity) : base()
        {
-          Code  = entity.Code;
        }
        #endregion Constructors
        #region Properties
-   
-       [Key]
-       [DataMember]
-       public string Code  { get; set; }
-         #endregion Properties
+            #endregion Properties
    }
 
 }

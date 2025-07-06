@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PaymentMethodValues
-    {   
-       public const string BankTransfer = "BT";  
-       public const string Cheque = "CH";  
-       public const string CreditCard = "CC";  
-       public const string PayPal = "PP";  
-       public const string Reseller = "RS";  
+    {
+        public const string BankTransfer = "BT";
+        public const string Cheque = "CH";
+        public const string CreditCard = "CC";
+        public const string PayPal = "PP";
+        public const string Reseller = "RS";
     }
-}
-
+ }
+ 

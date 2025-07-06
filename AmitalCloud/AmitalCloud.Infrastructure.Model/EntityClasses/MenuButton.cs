@@ -17,16 +17,48 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	[Table("MenuButtons")]
     public class MenuButton : BaseEntity
 	{
-	        new const bool hasTenant = false;  
 		
-        [Key]
-        [Column("Code")]
-	    public string Code { get; set; }
-        [ForeignKey("MenuButtonGroup")]
+           [ForeignKey("MenuButtonGroup")]
         [Column("MenuButtonGroupId")]
 	    public string MenuButtonGroupId { get; set; }
 	      
         public virtual MenuButtonGroup MenuButtonGroup { get; set; }
+     [Key]
+        [Column("Id")]
+	    public string Id { get; set; }
+        [Column("Tenant")]
+	    public int Tenant { get; set; }
+        [Column("LabelTextCodeId")]
+	    public string LabelTextCodeId { get; set; }
+        [Column("ParentMenuButtonId")]
+	    public string ParentMenuButtonId { get; set; }
+        [Column("EventCode")]
+	    public string EventCode { get; set; }
+        [Column("Index")]
+	    public int Index { get; set; }
+        [Column("IsActive")]
+	    public bool IsActive { get; set; }
+        [ForeignKey("Feature")]
+        [Column("FeatureId")]
+	    public string FeatureId { get; set; }
+	      
+        public virtual Feature Feature { get; set; }
+        [Column("MenuButtonType")]
+	    public string MenuButtonType { get; set; }
+        [Column("DropDownControl")]
+	    public string DropDownControl { get; set; }
+        [Column("Style")]
+	    public string Style { get; set; }
+        [Column("Width")]
+	    public int Width { get; set; }
+        [Column("ControlPath")]
+	    public string ControlPath { get; set; }
+        [Column("HtmlComponentPath")]
+	    public string HtmlComponentPath { get; set; }
+        [Column("LabelTextCodeCode")]
+	    public string LabelTextCodeCode { get; set; }
+        [Column("FeatureUniqeCode")]
+	    public string FeatureUniqeCode { get; set; }
     }
 }
 	 

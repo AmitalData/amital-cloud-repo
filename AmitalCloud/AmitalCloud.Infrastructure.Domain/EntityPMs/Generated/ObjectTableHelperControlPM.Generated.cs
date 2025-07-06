@@ -34,8 +34,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_code = entity.Code;
 		_objectTableId = entity.ObjectTableId;
 		_featureId = entity.FeatureId;
-		_feature = entity.Feature !=null ? new FeaturePM(entity.Feature) : null;
-			_featureUniqeCode = entity.FeatureUniqeCode;
+		_featureUniqeCode = entity.FeatureUniqeCode;
    }
    #endregion Constructors
    #region Properties
@@ -136,14 +135,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private FeaturePM _feature;
-		
-        [DataMember]
-        public virtual FeaturePM Feature 
-		{ 
-		get { return _feature; } 
-		set { _feature = value; }
-		}
 	  private string _featureUniqeCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

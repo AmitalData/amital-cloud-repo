@@ -34,8 +34,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
           UpdatedByUserId  = entity.UpdatedByUserId;
           BodyDocumentId  = entity.BodyDocumentId;
           SearchFields  = entity.SearchFields;
-            EmailBody  = default;
-            SenderName  = default;
        }
        #endregion Constructors
        #region Properties
@@ -43,40 +41,24 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        [Key]
        [DataMember]
        public string Id  { get; set; }
-   
        [DataMember]
        public int Tenant  { get; set; }
-   
        [DataMember]
        public string Sender  { get; set; }
-   
        [DataMember]
        public string Subject  { get; set; }
-   
        [DataMember]
        public bool IsDeleted  { get; set; }
-   
        [DataMember]
        public DateTime? CreateDate  { get; set; }
-   
        [DataMember]
        public DateTime? UpdateDate  { get; set; }
-   
        [DataMember]
        public string UpdatedByUserId  { get; set; }
-   
        [DataMember]
        public string BodyDocumentId  { get; set; }
-   
        [DataMember]
        public string SearchFields  { get; set; }
-   
-       [DataMember]
-       public string EmailBody  { get; set; }
-   
-       [DataMember]
-       public string SenderName  { get; set; }
-   
          #endregion Properties
    }
 

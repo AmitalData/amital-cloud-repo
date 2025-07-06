@@ -60,7 +60,7 @@ namespace AmitalCloud.Infrastructure.Data.Validators
                 {
                     object propertyValue = propertyInf.GetValue(value, null);
 
-                    if (objectfeildprop.IsRequiered)
+                    if (objectfeildprop.IsRequired)
                     {
 
                         if (propertyValue == null)
@@ -99,7 +99,7 @@ namespace AmitalCloud.Infrastructure.Data.Validators
                         PropertyInfo field = customType.GetProperty(objectfeildprop.FieldName);
                         if (field != null)
                         {
-                            if (objectfeildprop.IsRequiered)
+                            if (objectfeildprop.IsRequired)
                             {
                                 if (cutomfield != null)
                                 {
@@ -161,7 +161,7 @@ namespace AmitalCloud.Infrastructure.Data.Validators
                         propertyValue = fieldClass.Value;
                     }
 
-                    if (objectfeildprop.IsRequiered)
+                    if (objectfeildprop.IsRequired)
                     {
                         if (propertyValue == null)
                         {
@@ -205,7 +205,7 @@ namespace AmitalCloud.Infrastructure.Data.Validators
                         {
                             if (cutomfield != null)
                             {
-                                if (objectfeildprop.IsRequiered)
+                                if (objectfeildprop.IsRequired)
                                 {
                                     object fieldValue = field.GetValue(cutomfield, null);
                                     if (fieldValue == null)

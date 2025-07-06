@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TarrifTypeValues
-    {   
-       public const string Surcharges = "S";  
-       public const string Freight = "F";  
+    {
+        public const string Surcharges = "S";
+        public const string Freight = "F";
     }
-}
-
+ }
+ 

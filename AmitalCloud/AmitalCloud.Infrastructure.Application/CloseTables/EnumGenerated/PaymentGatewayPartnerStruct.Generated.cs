@@ -15,8 +15,8 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PaymentGatewayPartnerValues
-    {   
-       public const string Tranzila = "Tranzila";  
+    {
+        public const string Tranzila = "Tranzila";
     }
-}
-
+ }
+ 

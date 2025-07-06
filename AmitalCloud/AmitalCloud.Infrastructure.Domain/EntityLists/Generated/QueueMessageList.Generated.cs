@@ -45,7 +45,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
           RabbitMQErrMess  = entity.RabbitMQErrMess;
           EntityCode  = entity.EntityCode;
           EntityId  = entity.EntityId;
-          DropRowid  = entity.DropRowid;
        }
        #endregion Constructors
        #region Properties
@@ -93,8 +92,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        public string EntityCode  { get; set; }
        [DataMember]
        public string EntityId  { get; set; }
-       [DataMember]
-       public string DropRowid  { get; set; }
          #endregion Properties
    }
 

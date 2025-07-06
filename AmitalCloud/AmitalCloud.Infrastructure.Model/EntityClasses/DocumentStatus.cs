@@ -22,10 +22,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [Key]
         [Column("Code")]
 	    public string Code { get; set; }
-        [Column("DropCdropName")]
-	    public string DropCdropName { get; set; }
-        [Column("DropCdropSearchfields")]
-	    public string DropCdropSearchfields { get; set; }
         [Column("Name")]
 	    public string Name { get; set; }
         [Column("SearchFields")]

@@ -13,10 +13,10 @@ using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Domain.EntityKeys ;
 namespace AmitalCloud.Infrastructure.Application.EntityListQueryServices
 { 
-    public partial class SharedLogisticsInvitationStatusListQueryService  : BaseEntityListQueryService<SharedLogisticsInvitationStatusList,POCO.SharedLogisticsInvitationStatus,  SharedLogisticsInvitationStatusKeys<int>,int>
+    public partial class SharedLogisticsInvitationStatusListQueryService  : BaseEntityListQueryService<SharedLogisticsInvitationStatusList,POCO.SharedLogisticsInvitationStatus,  SharedLogisticsInvitationStatusKeys<string>,string>
     {
 		public SharedLogisticsInvitationStatusListQueryService(int tenant) : base(tenant) { }
-        public SharedLogisticsInvitationStatusList GetSingle(int code)
+        public SharedLogisticsInvitationStatusList GetSingle(string code)
 		{
 			IEnumerable<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>() ;
 				paramList.Append(new KeyValuePair<string, string>("code", code.ToString()));

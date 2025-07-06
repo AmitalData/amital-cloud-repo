@@ -13,9 +13,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace AmitalCloud.Infrastructure.Model.EntityClasses
 {
-    [NotMapped]
-    //[DataBase(AmitalCloudDBSchema.AMITAL_MAIN)]
-	//[Table("ObjectTables")]
+	[DataBase(AmitalCloudDBSchema.AMITAL_MAIN)]
+	[Table("ObjectTables")]
     public class ObjectTable : BaseEntity
 	{
 		
@@ -84,7 +83,7 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [ForeignKey("DescriptionTextCode")]
         [Column("DescriptionTextCodeId")]
 	    public string DescriptionTextCodeId { get; set; }
-
+	      
         [NotMapped]
         public virtual TextCode DescriptionTextCode { get; set; }
         [Column("IsSaveButtonVisible")]
@@ -110,7 +109,7 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [Column("HasDynamicHeader")]
 	    public bool HasDynamicHeader { get; set; }
         [Column("EntityResource")]
-        public byte[] EntityResource { get; set; }
+	    public byte[] EntityResource { get; set; }
         [Column("IsLookUp")]
 	    public bool IsLookUp { get; set; }
         [ForeignKey("NewButtonTextCode")]
@@ -195,6 +194,16 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public bool AvailableInDocumentTypes { get; set; }
         [Column("DBTableShortName")]
 	    public string DBTableShortName { get; set; }
+        [Column("IsLock")]
+	    public bool IsLock { get; set; }
+        [Column("ShowFastSearch")]
+	    public bool? ShowFastSearch { get; set; }
+        [Column("RelatedKey")]
+	    public string RelatedKey { get; set; }
+        [Column("ThisKey")]
+	    public string ThisKey { get; set; }
+        [Column("RelatedEntity")]
+	    public string RelatedEntity { get; set; }
     }
 }
 	 

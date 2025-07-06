@@ -7,17 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AutoGenerators\AmitalClassesGenerator.tt" />
     <None Remove="ElasticDemoModel\ElasticDemoGen.tt" />
     <None Remove="ElasticDemoModel\ElasticDemoModel.xml" />
     <None Remove="ElasticDemoModel\ReadMe-ElasticObject.cs.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="AutoGenerators\AmitalClassesGenerator.tt">
-      <LastGenOutput>AmitalClassesGenerator.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </Content>
     <Content Include="ElasticDemoModel\ElasticDemoGen.tt">
       <LastGenOutput>ElasticDemoGen.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -27,16 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AutoGenerators\AmitalClassesGenerator.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AmitalClassesGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Update="AutoGenerators\ContextGenerator.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ContextGenerator.tt</DependentUpon>
-    </Compile>
     <Compile Update="ElasticDemoModel\ElasticDemoGen.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -45,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AutoGenerators\ContextGenerator.tt">
-      <LastGenOutput>ContextGenerator.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
     <None Update="EntityFiles\AccountingPartner.lxml">
       <SubType>Designer</SubType>
     </None>

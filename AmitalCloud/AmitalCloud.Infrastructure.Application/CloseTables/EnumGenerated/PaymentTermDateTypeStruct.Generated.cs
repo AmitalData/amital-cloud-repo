@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PaymentTermDateTypeValues
-    {   
-       public const string InvoiceDate = "INV";  
-       public const string ShipmentDate = "SHI";  
-       public const string OperationalDate = "OPR";  
+    {
+        public const string InvoiceDate = "INV";
+        public const string ShipmentDate = "SHI";
+        public const string OperationalDate = "OPR";
     }
-}
-
+ }
+ 

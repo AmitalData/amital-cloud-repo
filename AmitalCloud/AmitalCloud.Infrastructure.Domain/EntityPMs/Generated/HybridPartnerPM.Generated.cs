@@ -30,8 +30,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    {
 		_id = entity.Id;
 		_logoId = entity.LogoId;
-		_imagedetail = entity.ImageDetail !=null ? new ImageDetailPM(entity.ImageDetail) : null;
-			_smallLogoId = entity.SmallLogoId;
+		_smallLogoId = entity.SmallLogoId;
 		_imagedetail1 = entity.ImageDetail1 !=null ? new ImageDetailPM(entity.ImageDetail1) : null;
 			_searchFields = entity.SearchFields;
 		_inActive = entity.InActive;
@@ -78,14 +77,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private ImageDetailPM _imagedetail;
-		
-        [DataMember]
-        public virtual ImageDetailPM ImageDetail 
-		{ 
-		get { return _imagedetail; } 
-		set { _imagedetail = value; }
-		}
 	  private string _smallLogoId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

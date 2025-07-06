@@ -50,7 +50,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_rabbitMQErrMess = entity.RabbitMQErrMess;
 		_entityCode = entity.EntityCode;
 		_entityId = entity.EntityId;
-		_dropRowid = entity.DropRowid;
    }
    #endregion Constructors
    #region Properties
@@ -396,22 +395,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="EntityId",OldValue=_entityId,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _entityId=value;
-		   }
-		 }
-	   }
-	  private string _dropRowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string DropRowid  
-	   {
-	     get { return _dropRowid; }
-		 set
-		 {
-		   if(_dropRowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropRowid",OldValue=_dropRowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _dropRowid=value;
 		   }
 		 }
 	   }

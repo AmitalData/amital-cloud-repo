@@ -25,25 +25,19 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
           { 
 		     None,  
 	         Code, 
-	         DropCdropName, 
-	         DropCdropSearchfields, 
 	         Name, 
 	         SearchFields,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
 	         Code, 
-	         DropCdropName, 
-	         DropCdropSearchfields, 
 	         Name, 
 	         SearchFields,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(DocumentStatusPM entityPM, POCO.DocumentStatus entityPOCO)
         {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropName)) { entityPOCO.DropCdropName = entityPM.DropCdropName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropSearchfields)) { entityPOCO.DropCdropSearchfields = entityPM.DropCdropSearchfields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
+			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
 									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
 		  }
@@ -52,14 +46,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
             {
 					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropCdropName))
-            {
-					entityPM.DropCdropName = entityPOCO.DropCdropName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropCdropSearchfields))
-            {
-					entityPM.DropCdropSearchfields = entityPOCO.DropCdropSearchfields;
             }
 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
             {
@@ -73,15 +59,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 		public void PMToOldPM(DocumentStatusPM entityPM, DocumentStatusPM oldEntityPM)
         {
 		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropName))
-            {
-                oldEntityPM.DropCdropName = entityPM.DropCdropName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropCdropSearchfields))
-            {
-                oldEntityPM.DropCdropSearchfields = entityPM.DropCdropSearchfields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
+			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
             {
                 oldEntityPM.Name = entityPM.Name;
             }
@@ -110,18 +88,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
                 return;
-            }
-            if (!String.IsNullOrWhiteSpace(entityPM.DropCdropName)) //T4 find type == nText 
-            {
-                entityPM.DropCdropName = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.DropCdropName));
-            }
-            if (!String.IsNullOrWhiteSpace(entityPM.DropCdropSearchfields)) //T4 find type == nText 
-            {
-                entityPM.DropCdropSearchfields = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.DropCdropSearchfields));
-            }
-            if (!String.IsNullOrWhiteSpace(entityPM.Name)) //T4 find type == nText 
-            {
-                entityPM.Name = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.Name));
             }
             if (!String.IsNullOrWhiteSpace(entityPM.SearchFields)) //T4 find type == nText 
             {

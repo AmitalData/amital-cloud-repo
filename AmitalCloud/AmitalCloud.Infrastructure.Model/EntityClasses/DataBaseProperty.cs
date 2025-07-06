@@ -24,8 +24,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	    public int DataBaseNumber { get; set; }
         [Column("LastBackupDate")]
 	    public DateTime? LastBackupDate { get; set; }
-        [Column("Rowid")]
-	    public string Rowid { get; set; }
     }
 }
 	 

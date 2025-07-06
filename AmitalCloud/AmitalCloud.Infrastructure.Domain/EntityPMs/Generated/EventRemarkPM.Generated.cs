@@ -36,8 +36,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_eventTypeId = entity.EventTypeId;
 		_eventtype = entity.EventType !=null ? new EventTypePM(entity.EventType) : null;
 			_partnerTypeId = entity.PartnerTypeId;
-		_partnertype = entity.PartnerType !=null ? new PartnerTypePM(entity.PartnerType) : null;
-			_isChoose = entity.IsChoose;
+		_isChoose = entity.IsChoose;
    }
    #endregion Constructors
    #region Properties
@@ -162,14 +161,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private PartnerTypePM _partnertype;
-		
-        [DataMember]
-        public virtual PartnerTypePM PartnerType 
-		{ 
-		get { return _partnertype; } 
-		set { _partnertype = value; }
-		}
 	  private bool _isChoose ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

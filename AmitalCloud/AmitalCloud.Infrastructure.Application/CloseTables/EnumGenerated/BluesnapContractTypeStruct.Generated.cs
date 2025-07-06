@@ -15,13 +15,13 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct BluesnapContractTypeValues
-    {   
-       public const string Basic = "BA";  
-       public const string CRM = "CRM";  
-       public const string e_AWB = "EAWB";  
-       public const string OneTime = "OT";  
-       public const string e_AWBstock = "EABS";  
-       public const string INTTRAstock = "INTS";  
+    {
+        public const string Basic = "BA";
+        public const string CRM = "CRM";
+        public const string e_AWB = "EAWB";
+        public const string OneTime = "OT";
+        public const string e_AWBStock = "EABS";
+        public const string INTTRAStock = "INTS";
     }
-}
-
+ }
+ 

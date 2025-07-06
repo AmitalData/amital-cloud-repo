@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct PaymentChannelValues
-    {   
-       public const string Bluesnap = "PL";  
-       public const string Direct = "DI";  
-       public const string Chargify = "CY";  
-       public const string Reseller = "RE";  
+    {
+        public const string Bluesnap = "PL";
+        public const string Direct = "DI";
+        public const string Chargify = "CY";
+        public const string Reseller = "RE";
     }
-}
-
+ }
+ 

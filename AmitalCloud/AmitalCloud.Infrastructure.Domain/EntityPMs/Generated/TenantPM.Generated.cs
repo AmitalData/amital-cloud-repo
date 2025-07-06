@@ -38,8 +38,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_addressId = entity.AddressId;
 		_company = entity.Company;
 		_paymentTermId = entity.PaymentTermId;
-		_paymentterm = entity.PaymentTerm !=null ? new PaymentTermPM(entity.PaymentTerm) : null;
-			_agentId = entity.AgentId;
+		_agentId = entity.AgentId;
 		_agentcard = entity.AgentCard !=null ? new CardPM(entity.AgentCard) : null;
 			_currencyId = entity.CurrencyId;
 		_profitCurrencyId = entity.ProfitCurrencyId;
@@ -343,14 +342,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private PaymentTermPM _paymentterm;
-		
-        [DataMember]
-        public virtual PaymentTermPM PaymentTerm 
-		{ 
-		get { return _paymentterm; } 
-		set { _paymentterm = value; }
-		}
 	  private string _agentId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

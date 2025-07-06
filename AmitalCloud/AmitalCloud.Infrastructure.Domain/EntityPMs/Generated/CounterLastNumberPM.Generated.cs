@@ -32,7 +32,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_tableName = entity.TableName;
 		_tenant = entity.Tenant;
 		_lastNumber = entity.LastNumber;
-		_dropRowid = entity.DropRowid;
    }
    #endregion Constructors
    #region Properties
@@ -98,22 +97,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LastNumber",OldValue=_lastNumber,NewValue=value,PropertyType="int"};
 		    NotifyPropertyChanged(values);
 		   _lastNumber=value;
-		   }
-		 }
-	   }
-	  private string _dropRowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string DropRowid  
-	   {
-	     get { return _dropRowid; }
-		 set
-		 {
-		   if(_dropRowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropRowid",OldValue=_dropRowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _dropRowid=value;
 		   }
 		 }
 	   }

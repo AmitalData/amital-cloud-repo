@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct CheckDigitControlAlgorithmValues
-    {   
-       public const string None = "NONE";  
-       public const string LuhnAlgorithm = "LUHN";  
+    {
+        public const string None = "NONE";
+        public const string LuhnAlgorithm = "LUHN";
     }
-}
-
+ }
+ 

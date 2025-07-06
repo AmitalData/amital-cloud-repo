@@ -35,7 +35,8 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_name = entity.Name;
 		_description = entity.Description;
 		_partnerTypeId = entity.PartnerTypeId;
-		_inactive = entity.Inactive;
+		_partnertype = entity.PartnerType !=null ? new PartnerTypePM(entity.PartnerType) : null;
+			_inactive = entity.Inactive;
    }
    #endregion Constructors
    #region Properties
@@ -152,6 +153,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private PartnerTypePM _partnertype;
+		
+        [DataMember]
+        public virtual PartnerTypePM PartnerType 
+		{ 
+		get { return _partnertype; } 
+		set { _partnertype = value; }
+		}
 	  private bool _inactive ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

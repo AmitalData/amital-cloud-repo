@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct HorseGenderValues
-    {   
-       public const string Male = "M";  
-       public const string Female = "F";  
-       public const string Castrated = "C";  
+    {
+        public const string Male = "M";
+        public const string Female = "F";
+        public const string Castrated = "C";
     }
-}
-
+ }
+ 

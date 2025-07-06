@@ -83,6 +83,12 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
             FullNameTextCodeDefaultText  = default;
           AvailableInDocumentTypes  = entity.AvailableInDocumentTypes;
           DBTableShortName  = entity.DBTableShortName;
+            ObjectTableName  = default;
+            ObjectTablePlural  = default;
+          IsLock  = entity.IsLock;
+          RelatedKey  = entity.RelatedKey;
+          ThisKey  = entity.ThisKey;
+          RelatedEntity  = entity.RelatedEntity;
        }
        #endregion Constructors
        #region Properties
@@ -206,6 +212,18 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        public bool AvailableInDocumentTypes  { get; set; }
        [DataMember]
        public string DBTableShortName  { get; set; }
+       [DataMember]
+       public string ObjectTableName  { get; set; }
+       [DataMember]
+       public string ObjectTablePlural  { get; set; }
+       [DataMember]
+       public bool IsLock  { get; set; }
+       [DataMember]
+       public string RelatedKey  { get; set; }
+       [DataMember]
+       public string ThisKey  { get; set; }
+       [DataMember]
+       public string RelatedEntity  { get; set; }
          #endregion Properties
    }
 

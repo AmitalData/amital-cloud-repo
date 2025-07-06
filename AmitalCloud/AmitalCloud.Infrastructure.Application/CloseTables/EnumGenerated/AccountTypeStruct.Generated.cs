@@ -15,15 +15,15 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct AccountTypeValues
-    {   
-       public const string AccountPayables = "AP";  
-       public const string AccountReceivables = "AR";  
-       public const string Bank = "BN";  
-       public const string CreditCard = "CC";  
-       public const string Costofgoodssold = "CO";  
-       public const string Expense = "EX";  
-       public const string Income = "IN";  
-       public const string undepositedfunds = "UF";  
+    {
+        public const string AccountPayables = "AP";
+        public const string AccountReceivables = "AR";
+        public const string Bank = "BN";
+        public const string CreditCard = "CC";
+        public const string CostOfGoodsSold = "CO";
+        public const string Expense = "EX";
+        public const string Income = "IN";
+        public const string undepositedFunds = "UF";
     }
-}
-
+ }
+ 

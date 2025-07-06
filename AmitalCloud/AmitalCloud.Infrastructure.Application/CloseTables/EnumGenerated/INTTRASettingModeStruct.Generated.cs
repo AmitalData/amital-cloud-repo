@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct INTTRASettingModeValues
-    {   
-       public const string Production = "PROD";  
-       public const string Test = "TEST";  
+    {
+        public const string Production = "PROD";
+        public const string Test = "TEST";
     }
-}
-
+ }
+ 

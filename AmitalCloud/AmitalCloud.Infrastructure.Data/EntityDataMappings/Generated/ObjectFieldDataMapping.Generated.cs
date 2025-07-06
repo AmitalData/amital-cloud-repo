@@ -31,7 +31,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         Code, 
 	         DataTypeCode, 
 	         MaxLength, 
-	         IsRequiered, 
+	         IsRequired, 
 	         IsCustom, 
 	         HelpTextCodeId, 
 	         MinLength, 
@@ -124,7 +124,8 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         ForMetaDataOnly, 
 	         IsListFilter, 
 	         DisplayInRequiredFields, 
-	         ShortName,	      }
+	         ShortName, 
+	         ObjectFieldDataMapping,	      }
 	      public enum PMPropertyNames
           { 
 		     None,  
@@ -135,7 +136,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         Code, 
 	         DataTypeCode, 
 	         MaxLength, 
-	         IsRequiered, 
+	         IsRequired, 
 	         IsCustom, 
 	         HelpTextCodeId, 
 	         MinLength, 
@@ -182,6 +183,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         DisplayInEntityVariables, 
 	         TextCase, 
 	         DigitsAfterPoint, 
+	         InActive, 
 	         SearchFields, 
 	         DisplayInLookupColumnSize, 
 	         DisplayLongName, 
@@ -210,13 +212,13 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         ObjectTableName, 
 	         FullNameTextCodeLocalDefaultText, 
 	         ObjectTable_LookUpTableName, 
-	         ObjectTable_MultiTableName, 
+	         MultiTableName, 
 	         HelpTextCodeCode, 
 	         FullNameTextCodeCode, 
 	         ListTextCodeCode, 
 	         ShortNameTextCodeCode, 
 	         ListTextCodeDefaultText, 
-	         HelpTextCodeDefaultText, 
+	         HelpTextDefaultText, 
 	         UserTenant, 
 	         TenantZeroIsRequired, 
 	         TenantZeroMaxLength, 
@@ -253,7 +255,32 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 	         RelatedEntities, 
 	         IsRelatedEntity, 
 	         DisplayInRequiredFields, 
-	         ShortName,	      }
+	         ShortName, 
+	         LookUpTableName, 
+	         DefaultText, 
+	         FullFieldLable, 
+	         HelpTextCode, 
+	         HelpLocalDefaultText, 
+	         ShortFieldLable, 
+	         ShortFieldLableDefaultText, 
+	         ShortLocalDefaultText, 
+	         ListFieldLable, 
+	         OldFieldName, 
+	         ListLocalDefaultText, 
+	         ListLableDefaultText, 
+	         ThisKey, 
+	         OtherKey, 
+	         FieldsDataType, 
+	         FullLocalDefaultText, 
+	         NoMetaDataField, 
+	         IncludeInSearchField, 
+	         EnableAutoFill, 
+	         IsFixedLength, 
+	         FullLocalDefaultTextBack_up, 
+	         ListLocalDefaultTextBack_up, 
+	         ShortLocalDefaultTextBack_up, 
+	         ObjectFieldDataMapping, 
+	         ListLableDefaultTextBack_up,	      }
 		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
         List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
 	    public void PMToPOCO(ObjectFieldPM entityPM, POCO.ObjectField entityPOCO)
@@ -264,7 +291,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DataTypeCode)) { entityPOCO.DataTypeCode = entityPM.DataTypeCode;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MaxLength)) { entityPOCO.MaxLength = entityPM.MaxLength;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequiered)) { entityPOCO.IsRequiered = entityPM.IsRequiered;}
+							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequired)) { entityPOCO.IsRequired = entityPM.IsRequired;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustom)) { entityPOCO.IsCustom = entityPM.IsCustom;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HelpTextCodeId)) { entityPOCO.HelpTextCodeId = entityPM.HelpTextCodeId;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MinLength)) { entityPOCO.MinLength = entityPM.MinLength;}
@@ -311,6 +338,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DisplayInEntityVariables)) { entityPOCO.DisplayInEntityVariables = entityPM.DisplayInEntityVariables;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TextCase)) { entityPOCO.TextCase = entityPM.TextCase;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DigitsAfterPoint)) { entityPOCO.DigitsAfterPoint = entityPM.DigitsAfterPoint;}
+							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DisplayInLookupColumnSize)) { entityPOCO.DisplayInLookupColumnSize = entityPM.DisplayInLookupColumnSize;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DisplayLongName)) { entityPOCO.DisplayLongName = entityPM.DisplayLongName;}
@@ -356,6 +384,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsListFilter)) { entityPOCO.IsListFilter = entityPM.IsListFilter;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DisplayInRequiredFields)) { entityPOCO.DisplayInRequiredFields = entityPM.DisplayInRequiredFields;}
 							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortName)) { entityPOCO.ShortName = entityPM.ShortName;}
+							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldDataMapping)) { entityPOCO.ObjectFieldDataMapping = entityPM.ObjectFieldDataMapping;}
 									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
 		  }
 		public void POCOToPM(ObjectFieldPM entityPM, POCO.ObjectField entityPOCO)
@@ -388,9 +417,9 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.MaxLength = entityPOCO.MaxLength;
             }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsRequiered))
+			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsRequired))
             {
-					entityPM.IsRequiered = entityPOCO.IsRequiered;
+					entityPM.IsRequired = entityPOCO.IsRequired;
             }
 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsCustom))
             {
@@ -576,6 +605,10 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.DigitsAfterPoint = entityPOCO.DigitsAfterPoint;
             }
+			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
+            {
+					entityPM.InActive = entityPOCO.InActive;
+            }
 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
             {
 					entityPM.SearchFields = entityPOCO.SearchFields;
@@ -756,6 +789,10 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
 					entityPM.ShortName = entityPOCO.ShortName;
             }
+			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldDataMapping))
+            {
+					entityPM.ObjectFieldDataMapping = entityPOCO.ObjectFieldDataMapping;
+            }
 		}
 		public void PMToOldPM(ObjectFieldPM entityPM, ObjectFieldPM oldEntityPM)
         {
@@ -784,9 +821,9 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
                 oldEntityPM.MaxLength = entityPM.MaxLength;
             }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequiered))
+						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequired))
             {
-                oldEntityPM.IsRequiered = entityPM.IsRequiered;
+                oldEntityPM.IsRequired = entityPM.IsRequired;
             }
 						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustom))
             {
@@ -972,6 +1009,10 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
                 oldEntityPM.DigitsAfterPoint = entityPM.DigitsAfterPoint;
             }
+						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
+            {
+                oldEntityPM.InActive = entityPM.InActive;
+            }
 						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
             {
                 oldEntityPM.SearchFields = entityPM.SearchFields;
@@ -1151,6 +1192,10 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortName))
             {
                 oldEntityPM.ShortName = entityPM.ShortName;
+            }
+						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldDataMapping))
+            {
+                oldEntityPM.ObjectFieldDataMapping = entityPM.ObjectFieldDataMapping;
             }
 					}
 		public void POCOToList(POCO.ObjectField entityPOCO, ObjectFieldList entityList)

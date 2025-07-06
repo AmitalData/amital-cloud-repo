@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TarrifFromToTypeValues
-    {   
-       public const string To = "T";  
-       public const string From = "F";  
+    {
+        public const string To = "T";
+        public const string From = "F";
     }
-}
-
+ }
+ 

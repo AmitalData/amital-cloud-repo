@@ -33,7 +33,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
    
        [Key]
        [DataMember]
-       public int Code  { get; set; }
+       public string Code  { get; set; }
        [DataMember]
        public string Name  { get; set; }
        [DataMember]

@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct AccountingSystemValues
-    {   
-       public const string Hashavshevet = "HV";  
-       public const string LogitudeAdvancedGenericInterface = "AI";  
-       public const string LogitudeGenericInterface = "GI";  
-       public const string None = "NO";  
-       public const string Rivheet = "RH";  
-       public const string QuickBooksOnline_US = "QBO";  
-       public const string QuickBooksOnline_Global = "QBOG";  
+    {
+        public const string Hashavshevet = "HV";
+        public const string LogitudeAdvancedGenericInterface = "AI";
+        public const string LogitudeGenericInterface = "GI";
+        public const string None = "NO";
+        public const string Rivheet = "RH";
+        public const string QuickBooksOnline_US = "QBO";
+        public const string QuickBooksOnline_Global = "QBOG";
     }
-}
-
+ }
+ 

@@ -26,7 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        {
           IndexNumber  = entity.IndexNumber;
           Color  = entity.Color;
-          Rowid  = entity.Rowid;
        }
        #endregion Constructors
        #region Properties
@@ -36,8 +35,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        public int IndexNumber  { get; set; }
        [DataMember]
        public string Color  { get; set; }
-       [DataMember]
-       public string Rowid  { get; set; }
          #endregion Properties
    }
 

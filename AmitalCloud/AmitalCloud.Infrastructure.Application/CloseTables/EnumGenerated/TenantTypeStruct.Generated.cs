@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct TenantTypeValues
-    {   
-       public const string Airlines = "AIR";  
-       public const string CRM = "CRM";  
-       public const string Customs = "CUT";  
-       public const string Forwarder = "FOR";  
-       public const string Shipper_Consignee = "SHC";  
+    {
+        public const string Airlines = "AIR";
+        public const string CRM = "CRM";
+        public const string Customs = "CUT";
+        public const string Forwarder = "FOR";
+        public const string Shipper_Consignee = "SHC";
     }
-}
-
+ }
+ 

@@ -87,8 +87,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		_accountManagerUserId = entity.AccountManagerUserId;
 		_accountmanageruser = entity.AccountManagerUser !=null ? new UserPM(entity.AccountManagerUser) : null;
 			_salesmanUserId = entity.SalesmanUserId;
-		_salesmanuser = entity.SalesmanUser !=null ? new UserPM(entity.SalesmanUser) : null;
-			addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
+		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
 		_activatedByUserId = entity.ActivatedByUserId;
 		_activatedbyuser = entity.ActivatedByUser !=null ? new UserPM(entity.ActivatedByUser) : null;
 			_setAsInactiveByUserId = entity.SetAsInactiveByUserId;
@@ -1782,14 +1781,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private UserPM _salesmanuser;
-		
-        [DataMember]
-        public virtual UserPM SalesmanUser 
-		{ 
-		get { return _salesmanuser; } 
-		set { _salesmanuser = value; }
-		}
 	  private string _website ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

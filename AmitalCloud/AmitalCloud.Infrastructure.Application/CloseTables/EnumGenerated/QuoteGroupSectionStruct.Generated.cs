@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct QuoteGroupSectionValues
-    {   
-       public const string OriginCharges = "O";  
-       public const string FreightCharges = "F";  
-       public const string DestinationCharges = "D";  
+    {
+        public const string OriginCharges = "O";
+        public const string FreightCharges = "F";
+        public const string DestinationCharges = "D";
     }
-}
-
+ }
+ 

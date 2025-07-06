@@ -174,13 +174,13 @@ namespace AmitalCloud.Infrastructure.Domain.EntityLists
        [DataMember]
        public string PartnerTypeName  { get; set; }
        [DataMember]
-       public int? SharedLogisticsInvitationStatusCode  { get; set; }
+       public string SharedLogisticsInvitationStatusCode  { get; set; }
        [DataMember]
        public string SharedLogisticsInvitationStatusName  { get; set; }
        [DataMember]
        public DateTime? InvitationDate  { get; set; }
        [DataMember]
-       public int? CargoTrackingInvitationStatusCode  { get; set; }
+       public string CargoTrackingInvitationStatusCode  { get; set; }
        [DataMember]
        public string CargoTrackingInvitationStatusName  { get; set; }
        [DataMember]

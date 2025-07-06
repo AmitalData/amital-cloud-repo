@@ -15,26 +15,26 @@ using System.Threading.Tasks;
 namespace AmitalCloud.Infrastructure.Application.CloseTables
 {
     public struct RegimenFiscalValues
-    {   
-       public const string GeneraldeLeyPersonasMorales = "601";  
-       public const string PersonasMoralesconFinesnoLucrativos = "603";  
-       public const string SueldosySalarioseIngresosAsimiladosaSalarios = "605";  
-       public const string Arrendamiento = "606";  
-       public const string RegimendeEnajenaciónoAdquisicióndeBienes = "607";  
-       public const string Demásingresos = "608";  
-       public const string ResidentesenelExtranjerosinEstablecimientoPermanenteenMéxico = "610";  
-       public const string IngresosporDividendos_sociosyaccionistas = "611";  
-       public const string PersonasFísicasconActividadesEmpresarialesyProfesionales = "612";  
-       public const string Ingresosporintereses = "614";  
-       public const string Régimendelosingresosporobtencióndepremios = "615";  
-       public const string Sinobligacionesfiscales = "616";  
-       public const string SociedadesCooperativasdeProducciónqueoptanpordiferirsusingresos = "620";  
-       public const string IncorporaciónFiscal = "621";  
-       public const string ActividadesAgrícolasGanaderasSilvícolasyPesqueras = "622";  
-       public const string OpcionalparaGruposdeSociedades = "623";  
-       public const string Coordinados = "624";  
-       public const string RegimendelasActividadesEmpresarialesconingresosatravésdePlataformasTecnológicas = "625";  
-       public const string RegimenSimplificadodeConfianza = "626";  
+    {
+        public const string GeneralDeLeyPersonasMorales = "601";
+        public const string PersonasMoralesConFinesNoLucrativos = "603";
+        public const string SueldosYSalariosEIngresosAsimiladosASalarios = "605";
+        public const string Arrendamiento = "606";
+        public const string RegimenDeEnajenaciónOAdquisiciónDeBienes = "607";
+        public const string DemásIngresos = "608";
+        public const string ResidentesEnElExtranjeroSinEstablecimientoPermanenteEnMéxico = "610";
+        public const string IngresosPorDividendos_sociosYAccionistas = "611";
+        public const string PersonasFísicasConActividadesEmpresarialesYProfesionales = "612";
+        public const string IngresosPorIntereses = "614";
+        public const string RégimenDeLosIngresosPorObtenciónDePremios = "615";
+        public const string SinObligacionesFiscales = "616";
+        public const string SociedadesCooperativasDeProducciónQueOptanPorDiferirSusIngresos = "620";
+        public const string IncorporaciónFiscal = "621";
+        public const string ActividadesAgrícolasGanaderasSilvícolasYPesqueras = "622";
+        public const string OpcionalParaGruposDeSociedades = "623";
+        public const string Coordinados = "624";
+        public const string RegimenDeLasActividadesEmpresarialesConIngresosATravésDePlataformasTecnológicas = "625";
+        public const string RegimenSimplificadoDeConfianza = "626";
     }
-}
-
+ }
+ 

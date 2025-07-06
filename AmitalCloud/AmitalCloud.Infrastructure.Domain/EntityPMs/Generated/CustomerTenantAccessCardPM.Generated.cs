@@ -30,8 +30,7 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    {
 		_tenant = entity.Tenant;
 		_customerId = entity.CustomerId;
-		_customer = entity.Customer !=null ? new CustomerPM(entity.Customer) : null;
-			_customerTenantAccessId = entity.CustomerTenantAccessId;
+		_customerTenantAccessId = entity.CustomerTenantAccessId;
 		_customertenantaccess = entity.CustomerTenantAccess !=null ? new CustomerTenantAccessPM(entity.CustomerTenantAccess) : null;
 			_createByUserId = entity.CreateByUserId;
 		_createbyuser = entity.CreateByUser !=null ? new UserPM(entity.CreateByUser) : null;
@@ -79,14 +78,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private CustomerPM _customer;
-		
-        [DataMember]
-        public virtual CustomerPM Customer 
-		{ 
-		get { return _customer; } 
-		set { _customer = value; }
-		}
 	  private string _customerTenantAccessId ;
 	         [Key]
 	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]

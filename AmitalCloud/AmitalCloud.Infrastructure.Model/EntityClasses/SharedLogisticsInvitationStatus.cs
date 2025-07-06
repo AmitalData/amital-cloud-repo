@@ -21,7 +21,7 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 		
         [Key]
         [Column("Code")]
-	    public int Code { get; set; }
+	    public string Code { get; set; }
         [Column("Name")]
 	    public string Name { get; set; }
         [Column("SearchFields")]
