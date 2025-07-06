@@ -83,7 +83,6 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
                 }
                 else
                 {
-                    AmitalCloudDebuggerUtil.Break(AmitalDebuggerLevel.Critical);
                 }
                 if (suppressThrow)
                 {
@@ -145,7 +144,7 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
                 builder.Append("Error parsing DbUpdateException: " + e.ToString());
             }
             string message = builder.ToString();
-            dbu.ChangeExceptionMess(message);
+            //dbu.ChangeExceptionMess(message);
         }
         public IDbContextLogger CreateLogger() => new DbContextLogger(this.Database) as IDbContextLogger;
         public override string ToString()
@@ -172,7 +171,6 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
                 DbContextBaseUtil.ToLog = false;
                 NetCommonHelper.Logger.DevLog.Instance.WriteDebug(@"DbContextBase:ToLog:(Default:False due Memory Leak if not Disposed)Any time any place u can set: 
                         DBHelpers.DbContextBaseUtil.ToLog =true;");
-                AmitalCloudDebuggerUtil.Break();
             }
 
             if (DbContextBaseUtil.ToLog.GetValueOrDefault())

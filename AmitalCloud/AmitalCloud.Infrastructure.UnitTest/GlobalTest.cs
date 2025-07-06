@@ -204,7 +204,7 @@ namespace AmitalCloud.Infrastructure.UnitTest
 			var userQueryMock = new Mock<IBaseQueryService<UserPM, User, string>>();
 			userQueryMock.Setup(r => r.GetSingle(It.IsAny<string>(), true, true)).Returns(userPM);
 
-			return new TenantManagementQueryService(tenantManagementQueryMock.Object, userQueryMock.Object);
+			return null; //new TenantManagementQueryService(tenantManagementQueryMock.Object, userQueryMock.Object);
 		}
 
 

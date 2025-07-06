@@ -91,12 +91,7 @@ namespace AmitalCloud.Infrastructure.Domain.DataContracts
             get { return AmitalCloudSettings._DatabaseManagementSystem; }
             set
             {
-                //if (!string.IsNullOrWhiteSpace(AmitalCloudSettings._DatabaseManagementSystem) && AmitalCloudSettings._DatabaseManagementSystem != value)
-                //{
-                //    //if (Debugger.IsAttached) Debugger.Break();
-                //    AmitalCloudDebuggerUtil.Break(AmitalDebuggerLevel.Critical);
 
-                //}
                 AmitalCloudSettings._DatabaseManagementSystem = value;
             }
         }

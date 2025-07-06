@@ -46,57 +46,57 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         {
             TenantManagmentPrivateLabelsPM privatelabel = null;
           
-            if (!url.Contains("system.logbox.co.il") && !url.Contains("cloud.amital.co.il"))
-            {
-                TenantManagmentPrivateLabelsQuery query = new TenantManagmentPrivateLabelsQuery(tenant);
-                privatelabel = query.GetSingleActivePMByUrl_Cache(url);
-            }
-            if (privatelabel != null)
-            {
-                Repository<TextCode> textCodeRepo = new Repository<TextCode>(context);
-                TextCode textCode = textCodeRepo.GetSingle(a => a.Code == "General.MH.Importers" && a.Tenant == tenant);
-                Translation tra = AllTranslations.FirstOrDefault(t => t.TextCodeCode == textCode.Code);
-                if (tra != null)
-                {
-                    tra.TranslatedText = privatelabel.PrivateLabelName;
-                }
-                else
-                {
-                    tra = new Translation()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TextCodeId = textCode.Id,
-                        TextCode = textCode,
-                        Tenant = tenant,
-                        TranslatedText = privatelabel.PrivateLabelName,
-                        TranslationHeaderCode = language,
-                        TextCodeCode = textCode.Code,
-                    };
+            //if (!url.Contains("system.logbox.co.il") && !url.Contains("cloud.amital.co.il"))
+            //{
+            //    TenantManagmentPrivateLabelsQuery query = new TenantManagmentPrivateLabelsQuery(tenant);
+            //    privatelabel = query.GetSingleActivePMByUrl_Cache(url);
+            //}
+            //if (privatelabel != null)
+            //{
+            //    Repository<TextCode> textCodeRepo = new Repository<TextCode>(context);
+            //    TextCode textCode = textCodeRepo.GetSingle(a => a.Code == "General.MH.Importers" && a.Tenant == tenant);
+            //    Translation tra = AllTranslations.FirstOrDefault(t => t.TextCodeCode == textCode.Code);
+            //    if (tra != null)
+            //    {
+            //        tra.TranslatedText = privatelabel.PrivateLabelName;
+            //    }
+            //    else
+            //    {
+            //        tra = new Translation()
+            //        {
+            //            Id = Guid.NewGuid().ToString(),
+            //            TextCodeId = textCode.Id,
+            //            TextCode = textCode,
+            //            Tenant = tenant,
+            //            TranslatedText = privatelabel.PrivateLabelName,
+            //            TranslationHeaderCode = language,
+            //            TextCodeCode = textCode.Code,
+            //        };
 
-                    AllTranslations.Add(tra);
-                }
-                textCode = textCodeRepo.GetSingle(a => a.Code == "General.MH.ActivationWizard" && a.Tenant == tenant);
-                tra = AllTranslations.FirstOrDefault(t => t.TextCodeCode == textCode.Code);
-                if (tra != null)
-                {
-                    tra.TranslatedText = privatelabel.PrivateLabelShortName + " Services";
-                }
-                else
-                {
-                    tra = new Translation()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TextCodeId = textCode.Id,
-                        TextCode = textCode,
-                        Tenant = tenant,
-                        TranslatedText = privatelabel.PrivateLabelShortName + " Services",
-                        TranslationHeaderCode = language,
-                        TextCodeCode = textCode.Code,
-                    };
+            //        AllTranslations.Add(tra);
+            //    }
+            //    textCode = textCodeRepo.GetSingle(a => a.Code == "General.MH.ActivationWizard" && a.Tenant == tenant);
+            //    tra = AllTranslations.FirstOrDefault(t => t.TextCodeCode == textCode.Code);
+            //    if (tra != null)
+            //    {
+            //        tra.TranslatedText = privatelabel.PrivateLabelShortName + " Services";
+            //    }
+            //    else
+            //    {
+            //        tra = new Translation()
+            //        {
+            //            Id = Guid.NewGuid().ToString(),
+            //            TextCodeId = textCode.Id,
+            //            TextCode = textCode,
+            //            Tenant = tenant,
+            //            TranslatedText = privatelabel.PrivateLabelShortName + " Services",
+            //            TranslationHeaderCode = language,
+            //            TextCodeCode = textCode.Code,
+            //        };
 
-                    AllTranslations.Add(tra);
-                }
-            }
+            //        AllTranslations.Add(tra);
+            //    }
+            //}
         }
     }
 }
