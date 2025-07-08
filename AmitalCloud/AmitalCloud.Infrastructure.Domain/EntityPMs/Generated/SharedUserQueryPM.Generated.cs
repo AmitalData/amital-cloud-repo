@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SharedUserQueryPM : BaseEntityPM   {
    #region Constructors
    public SharedUserQueryPM() : base() {} 
-   public SharedUserQueryPM(POCO.SharedUserQuery entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_queryId = entity.QueryId;
-		_queryCode = entity.QueryCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

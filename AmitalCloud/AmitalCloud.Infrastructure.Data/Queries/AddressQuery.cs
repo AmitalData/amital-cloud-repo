@@ -4,6 +4,8 @@ using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -24,16 +26,9 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         #endregion Get List<AddressList>
         private AddressPM GetNewAddressPM(Address entity)
         {
-            return new AddressPM(entity)
-            {
-                //CountryCode = entity.Country != null ? entity.Country.Code : null,
-                //CountryEnglishName = entity.Country != null ? entity.Country.EnglishName : null,
-                //CountryName = entity.Country != null ? (entity.IsLocalLanguage ? entity.Country.LocalName : entity.Country.EnglishName) : null,
-                //StateCode = entity.State != null ? entity.State.Code : null,
-                //StateEnglishName = entity.State != null ? entity.State.EnglishName : null,
-                //HasStates = entity.Country == null ? false : entity.Country.HasStates,
-                //IsStateRequired = entity.Country == null ? false : entity.Country.IsStateRequired,
-            };
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AddressDataMapping()));
+            var mapper = config.CreateMapper();
+            return mapper.Map<AddressPM>(entity);
         }
 
     }

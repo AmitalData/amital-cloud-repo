@@ -26,24 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentCommodityPM : BaseEntityPM   {
    #region Constructors
    public ShipmentCommodityPM() : base() {} 
-   public ShipmentCommodityPM(POCO.ShipmentCommodity entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isFirstLine = entity.IsFirstLine;
-		_shipmentId = entity.ShipmentId;
-		_descriptionOfGoods = entity.DescriptionOfGoods;
-		_rateClassCode = entity.RateClassCode;
-		_rateclass = entity.RateClass !=null ? new RateClassPM(entity.RateClass) : null;
-			_chargeableWeight = entity.ChargeableWeight;
-		_chargeRate = entity.ChargeRate;
-		_chargeAmount = entity.ChargeAmount;
-		_commodityNumber = entity.CommodityNumber;
-		_numberOfPackages = entity.NumberOfPackages;
-		_grossWeight = entity.GrossWeight;
-		_volume = entity.Volume;
-		_volumetricWeight = entity.VolumetricWeight;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CarrierAreaPM : BaseEntityPM   {
    #region Constructors
    public CarrierAreaPM() : base() {} 
-   public CarrierAreaPM(POCO.CarrierArea entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_description = entity.Description;
-		_name = entity.Name;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_carrierId = entity.CarrierId;
-		_carrier = entity.Carrier !=null ? new CardPM(entity.Carrier) : null;
-			_transportModeCode = entity.TransportModeCode;
-		_transportmode = entity.TransportMode !=null ? new TransportModePM(entity.TransportMode) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

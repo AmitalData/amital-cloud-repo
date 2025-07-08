@@ -1673,6 +1673,8 @@
     IsPrimaryKey="false"
     HasDataBaseField="false"
     HasPMField="true"
+    TableRelatedPM="RuleType"
+    FieldRelatedPM="Name"
     IsComposition="false"
     IsMaxLength="false"
     NoMetaDataField="false"

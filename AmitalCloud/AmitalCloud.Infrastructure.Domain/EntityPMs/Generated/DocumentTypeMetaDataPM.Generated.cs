@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentTypeMetaDataPM : BaseEntityPM   {
    #region Constructors
    public DocumentTypeMetaDataPM() : base() {} 
-   public DocumentTypeMetaDataPM(POCO.DocumentTypeMetaData entity) : base()
-   {
-		_id = entity.Id;
-		_documentTypeId = entity.DocumentTypeId;
-		_documenttype = entity.DocumentType !=null ? new DocumentTypePM(entity.DocumentType) : null;
-			_documentsMetaDataTypeId = entity.DocumentsMetaDataTypeId;
-		_mandatory = entity.Mandatory;
-		_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

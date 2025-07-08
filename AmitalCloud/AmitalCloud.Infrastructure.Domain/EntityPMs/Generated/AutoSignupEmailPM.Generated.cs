@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AutoSignupEmailPM : BaseEntityPM   {
    #region Constructors
    public AutoSignupEmailPM() : base() {} 
-   public AutoSignupEmailPM(POCO.AutoSignupEmail entity) : base()
-   {
-		_id = entity.Id;
-		_emailBody = entity.EmailBody;
-		_emailSubject = entity.EmailSubject;
-		_status = entity.Status;
-		_retries = entity.Retries;
-		_createDate = entity.CreateDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

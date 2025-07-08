@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerProductLocationPM : BaseEntityPM   {
    #region Constructors
    public CustomerProductLocationPM() : base() {} 
-   public CustomerProductLocationPM(POCO.CustomerProductLocation entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_productTypeCode = entity.ProductTypeCode;
-		_countryId = entity.CountryId;
-		_country = entity.Country !=null ? new CountryPM(entity.Country) : null;
-			_potentialChargeableWeight = entity.PotentialChargeableWeight;
-		_commitmentChargeableWeight = entity.CommitmentChargeableWeight;
-		_potentialTEU = entity.PotentialTEU;
-		_commitmentTEU = entity.CommitmentTEU;
-		_potentialNumberOfShipments = entity.PotentialNumberOfShipments;
-		_commitmentNumberOfShipments = entity.CommitmentNumberOfShipments;
-		_potentialRevenue = entity.PotentialRevenue;
-		_commitmentRevenue = entity.CommitmentRevenue;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

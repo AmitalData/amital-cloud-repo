@@ -27,25 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ParticipantPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ParticipantPM() : base() {} 
-   public ParticipantPM(POCO.Participant entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_registrationUpdatedBy = entity.RegistrationUpdatedBy;
-		_registrationDate = entity.RegistrationDate;
-		_tTY = entity.TTY;
-		_registered = entity.Registered;
-		_registrationRequested = entity.RegistrationRequested;
-		_forwarderTenant = entity.ForwarderTenant;
-		_isDirect = entity.IsDirect;
-		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
-		_fWBNotifyContacts = entity.FWBNotifyContacts;
-		_fHLNotifyContacts = entity.FHLNotifyContacts;
-		_fFRNotifyContacts = entity.FFRNotifyContacts;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

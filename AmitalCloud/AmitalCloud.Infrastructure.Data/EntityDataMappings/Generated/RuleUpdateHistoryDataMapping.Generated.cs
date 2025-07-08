@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class RuleUpdateHistoryDataMapping: BaseMappingProfile<RuleUpdateHistoryPM, POCO.RuleUpdateHistory>, IMapping<RuleUpdateHistoryPM, POCO.RuleUpdateHistory, RuleUpdateHistoryList >,IMappingEncodeBase64NVARCHARFields<RuleUpdateHistoryPM>
     {
-	    public void EncodeBase64NVARCHARFields(RuleUpdateHistoryPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(RuleUpdateHistoryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

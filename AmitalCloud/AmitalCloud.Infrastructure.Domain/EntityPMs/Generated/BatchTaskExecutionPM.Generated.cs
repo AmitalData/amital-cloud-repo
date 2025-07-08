@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BatchTaskExecutionPM : BaseEntityPM   {
    #region Constructors
    public BatchTaskExecutionPM() : base() {} 
-   public BatchTaskExecutionPM(POCO.BatchTaskExecution entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_createdbyuser = entity.CreatedByUser !=null ? new UserPM(entity.CreatedByUser) : null;
-			_searchFields = entity.SearchFields;
-		_className = entity.ClassName;
-		_prametersXml = entity.PrametersXml;
-		_statusCode = entity.StatusCode;
-		_batchtaskexecutionstatus = entity.BatchTaskExecutionStatus !=null ? new BatchTaskExecutionStatusPM(entity.BatchTaskExecutionStatus) : null;
-			_errorLog = entity.ErrorLog;
-		_startDateTime = entity.StartDateTime;
-		_doneDateTime = entity.DoneDateTime;
-		_progressMessage = entity.ProgressMessage;
-		_progressPercentage = entity.ProgressPercentage;
-		_subject = entity.Subject;
-		_callStack = entity.CallStack;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

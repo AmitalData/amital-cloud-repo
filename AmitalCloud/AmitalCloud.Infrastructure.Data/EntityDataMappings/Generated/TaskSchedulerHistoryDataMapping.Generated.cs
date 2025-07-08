@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class TaskSchedulerHistoryDataMapping: BaseMappingProfile<TaskSchedulerHistoryPM, POCO.TaskSchedulerHistory>, IMapping<TaskSchedulerHistoryPM, POCO.TaskSchedulerHistory, TaskSchedulerHistoryList >,IMappingEncodeBase64NVARCHARFields<TaskSchedulerHistoryPM>
     {
-	    public void EncodeBase64NVARCHARFields(TaskSchedulerHistoryPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(TaskSchedulerHistoryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactLoginLogPM : BaseEntityPM   {
    #region Constructors
    public ContactLoginLogPM() : base() {} 
-   public ContactLoginLogPM(POCO.ContactLoginLog entity) : base()
-   {
-		_cdropId = entity.CdropId;
-		_tenant = entity.Tenant;
-		_contactId = entity.ContactId;
-		_contact = entity.Contact !=null ? new ContactPM(entity.Contact) : null;
-			_gMTDateTime = entity.GMTDateTime;
-		_localDateTime = entity.LocalDateTime;
-		_id = entity.Id;
-		_iP = entity.IP;
-		_browser = entity.Browser;
-		_computerId = entity.ComputerId;
-		_contactAgent = entity.ContactAgent;
-		_via = entity.Via;
-   }
    #endregion Constructors
    #region Properties
    	  private string _cdropId ;

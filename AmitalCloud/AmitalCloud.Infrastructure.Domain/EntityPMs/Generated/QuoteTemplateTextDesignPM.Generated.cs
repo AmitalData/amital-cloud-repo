@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTemplateTextDesignPM : BaseEntityPM   {
    #region Constructors
    public QuoteTemplateTextDesignPM() : base() {} 
-   public QuoteTemplateTextDesignPM(POCO.QuoteTemplateTextDesign entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_fontSize = entity.FontSize;
-		_textColor = entity.TextColor;
-		_fontFamily = entity.FontFamily;
-		_backgroundColor = entity.BackgroundColor;
-		_fontWeight = entity.FontWeight;
-		_italic = entity.Italic;
-		_unDerLine = entity.UnDerLine;
-		_alignment = entity.Alignment;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

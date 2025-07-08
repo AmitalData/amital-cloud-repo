@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MentionPM : BaseEntityPM   {
    #region Constructors
    public MentionPM() : base() {} 
-   public MentionPM(POCO.Mention entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_description = entity.Description;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

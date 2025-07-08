@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactTenantPM : BaseEntityPM   {
    #region Constructors
    public ContactTenantPM() : base() {} 
-   public ContactTenantPM(POCO.ContactTenant entity) : base()
-   {
-		_id = entity.Id;
-		_tenantId = entity.TenantId;
-		_tenant = entity.Tenant !=null ? new TenantPM(entity.Tenant) : null;
-			_contactId = entity.ContactId;
-		restrictions = entity.Restrictions != null ? entity.Restrictions.Select(a=>new RestrictionPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

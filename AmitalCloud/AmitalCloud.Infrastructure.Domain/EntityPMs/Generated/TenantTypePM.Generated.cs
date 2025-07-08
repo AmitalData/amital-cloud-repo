@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantTypePM : BaseEntityPM   {
    #region Constructors
    public TenantTypePM() : base() {} 
-   public TenantTypePM(POCO.TenantType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

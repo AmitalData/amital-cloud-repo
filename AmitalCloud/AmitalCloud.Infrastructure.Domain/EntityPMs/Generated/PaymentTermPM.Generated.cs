@@ -26,27 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PaymentTermPM : BaseEntityPM   {
    #region Constructors
    public PaymentTermPM() : base() {} 
-   public PaymentTermPM(POCO.PaymentTerm entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_externalId = entity.ExternalId;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_description = entity.Description;
-		_localDescription = entity.LocalDescription;
-		_days = entity.Days;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_displayInLOV = entity.DisplayInLOV;
-		_isManuallySet = entity.IsManuallySet;
-		_searchFields = entity.SearchFields;
-		_endOfMonth = entity.EndOfMonth;
-		_fromDateTypeCode = entity.FromDateTypeCode;
-		_fromdatetype = entity.FromDateType !=null ? new PaymentTermDateTypePM(entity.FromDateType) : null;
-			_code = entity.Code;
-		_numberOfMonths = entity.NumberOfMonths;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

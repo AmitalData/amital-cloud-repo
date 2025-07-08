@@ -26,25 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FeaturePM : BaseEntityPM   {
    #region Constructors
    public FeaturePM() : base() {} 
-   public FeaturePM(POCO.Feature entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_objectTableId = entity.ObjectTableId;
-		_objecttable = entity.ObjectTable !=null ? new ObjectTablePM(entity.ObjectTable) : null;
-			_nameTextCodeId = entity.NameTextCodeId;
-		_featureTypeCode = entity.FeatureTypeCode;
-		_featuretype = entity.FeatureType !=null ? new FeatureTypePM(entity.FeatureType) : null;
-			_packagable = entity.Packagable;
-		_isBusinessUnitEnabled = entity.IsBusinessUnitEnabled;
-		_isOld = entity.IsOld;
-		_isCoreFeature = entity.IsCoreFeature;
-		_toggleCode = entity.ToggleCode;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-		_nameTextCodeCode = entity.NameTextCodeCode;
-		objectTableHelperControls = entity.ObjectTableHelperControls != null ? entity.ObjectTableHelperControls.Select(a=>new ObjectTableHelperControlPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

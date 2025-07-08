@@ -26,48 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EntityChangePM : BaseEntityPM   {
    #region Constructors
    public EntityChangePM() : base() {} 
-   public EntityChangePM(POCO.EntityChange entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_entityId = entity.EntityId;
-		_createDate = entity.CreateDate;
-		_createByUserId = entity.CreateByUserId;
-		_checkStartDate = entity.CheckStartDate;
-		_doneDate = entity.DoneDate;
-		_hasExecutedRecord = entity.HasExecutedRecord;
-		_automationConditionFieldsXml = entity.AutomationConditionFieldsXml;
-		_changesFieldsXml = entity.ChangesFieldsXml;
-		_changesAutomationFieldsXml = entity.ChangesAutomationFieldsXml;
-		_setAutomationSsucceedXml = entity.SetAutomationSsucceedXml;
-		_emailAutomationSsucceedXml = entity.EmailAutomationSsucceedXml;
-		_setAutomationFailedXml = entity.SetAutomationFailedXml;
-		_emailAutomationFailedXml = entity.EmailAutomationFailedXml;
-		_executionTime = entity.ExecutionTime;
-		_followUpAutomationFailedXml = entity.FollowUpAutomationFailedXml;
-		_setSLAAutomationFailedXml = entity.SetSLAAutomationFailedXml;
-		_followUpAutomationSsucceedXml = entity.FollowUpAutomationSsucceedXml;
-		_setSLAAutomationSsucceedXml = entity.SetSLAAutomationSsucceedXml;
-		_queuedTaskAutomationFailedXml = entity.QueuedTaskAutomationFailedXml;
-		_queuedTaskAutomationSsucceedXml = entity.QueuedTaskAutomationSsucceedXml;
-		_dropSendinterfacefailedxml = entity.DropSendinterfacefailedxml;
-		_dropSendinterfacessucceedxml = entity.DropSendinterfacessucceedxml;
-		_dropSenddocumentfailedxml = entity.DropSenddocumentfailedxml;
-		_dropSenddocumentssucceedxml = entity.DropSenddocumentssucceedxml;
-		_dropCreatetaskfailedxml = entity.DropCreatetaskfailedxml;
-		_dropCreatetaskssucceedxml = entity.DropCreatetaskssucceedxml;
-		_sendInterfaceAutomationFailedXml = entity.SendInterfaceAutomationFailedXml;
-		_sendInterfaceAutomationSsucceedXml = entity.SendInterfaceAutomationSsucceedXml;
-		_sendDocumentAutomationFailedXml = entity.SendDocumentAutomationFailedXml;
-		_sendDocumentAutomationSsucceedXml = entity.SendDocumentAutomationSsucceedXml;
-		_onUpdateDocumentAutomationFailedXml = entity.OnUpdateDocumentAutomationFailedXml;
-		_onUpdateDocumentAutomationSsucceedXml = entity.OnUpdateDocumentAutomationSsucceedXml;
-		_createTaskAutomationFailedXml = entity.CreateTaskAutomationFailedXml;
-		_createTaskAutomationSsucceedXml = entity.CreateTaskAutomationSsucceedXml;
-		_eventAutomationFailedXml = entity.EventAutomationFailedXml;
-		_eventAutomationSsucceedXml = entity.EventAutomationSsucceedXml;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -1,8 +1,10 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
@@ -34,12 +36,14 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         private List<ObjectTableTabPM> GetTenantZeroTabs()
         {
-            return repository.GetMultiFromCache("GetTenantZeroTabs", a => a.Tenant == 0, "TabNameTextCode,ObjectTable", a => new ObjectTableTabPM(a)
-            {
-                Type = "Predefined",
-                TabNameTextCodeDefaultText = a.TabNameTextCode.DefaultText,
-                ObjectTableName = a.ObjectTable.Name,
-            });
+            var tabsPoco = repository.GetMultiFromCache("GetTenantZeroTabs", a => a.Tenant == 0, "TabNameTextCode,ObjectTable", a => a);
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableTabDataMapping()));
+            var mapper = config.CreateMapper();
+            var tabs = mapper.Map<List<ObjectTableTabPM>>(tabsPoco);
+
+            tabs.ForEach(a => a.Type = "Undefined");
+            return tabs;
         }
 
         private void GetEntityChangesFromModification(int tenant, List<ObjectTableTabPM> tabs)
@@ -74,13 +78,29 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                                            join screen in screenRepo.GetQueryable() on tab.ScreenCode equals screen.Code into screenJoin
                                            from screen in screenJoin.DefaultIfEmpty()
                                            where tab.Tenant == tenant
-                                           select new { tab, screen }).AsEnumerable().Select(a => new ObjectTableTabPM(a.tab)
-                                           {
-                                               TabNameTextCodeDefaultText = a.tab.TabNameTextCode.DefaultText,
-                                               Name = a.tab.TabNameTextCode.DefaultText,
-                                               ObjectTableName = a.tab.ObjectTable.Name,
-                                               ScreenName = a.screen == null ? null : a.screen.Name,
-                                           }).ToList();           
+                                            select new ObjectTableTabPM()
+                                            {
+                                                ControlPath = tab.ControlPath,
+                                                Id = tab.Id,
+                                                IndexOrder = tab.IndexOrder,
+                                                ObjectTableId = tab.ObjectTableId,
+                                                TabNameTextCodeDefaultText = tab.TabNameTextCode.DefaultText,
+                                                TabNameTextCodeId = tab.TabNameTextCodeId,
+                                                Tenant = tab.Tenant,
+                                                ObjectTableName = tab.ObjectTable.Name,
+                                                TabNameTextCodeCode = tab.TabNameTextCodeCode,
+                                                Code = tab.Code,
+                                                FeatureId = tab.FeatureId,
+                                                FeatureUniqeCode = tab.FeatureUniqeCode,
+                                                Name = tab.TabNameTextCode.DefaultText,
+                                                Type = tab.Type,
+                                                OriginalTabCode = tab.OriginalTabCode,
+                                                ScreenCode = tab.ScreenCode,
+                                                HtmlComponentName = tab.HtmlComponentName,
+                                                HtmlComponentUrl = tab.HtmlComponentUrl,
+                                                ScreenName = screen == null ? null : screen.Name,
+                                                HideTabNameInScreen = tab.HideTabNameInScreen
+                                            }).ToList();
             return tabs;
         }
     }

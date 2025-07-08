@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ColorIndexDataMapping: BaseMappingProfile<ColorIndexPM, POCO.ColorIndex>, IMapping<ColorIndexPM, POCO.ColorIndex, ColorIndexList >,IMappingEncodeBase64NVARCHARFields<ColorIndexPM>
     {
-	    public void EncodeBase64NVARCHARFields(ColorIndexPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(ColorIndexPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

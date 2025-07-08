@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MoveTypePM : BaseEntityPM   {
    #region Constructors
    public MoveTypePM() : base() {} 
-   public MoveTypePM(POCO.MoveType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_moveTypeEnglishName = entity.MoveTypeEnglishName;
-		_moveTypeLocalName = entity.MoveTypeLocalName;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_transportModeId = entity.TransportModeId;
-		_code = entity.Code;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

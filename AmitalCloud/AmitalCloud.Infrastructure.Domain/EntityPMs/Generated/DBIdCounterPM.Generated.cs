@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DBIdCounterPM : BaseEntityPM   {
    #region Constructors
    public DBIdCounterPM() : base() {} 
-   public DBIdCounterPM(POCO.DBIdCounter entity) : base()
-   {
-		_id = entity.Id;
-		_tableName = entity.TableName;
-		_lastIdNumber = entity.LastIdNumber;
-		_rowid = entity.Rowid;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class LogitudeMessagesTransmissionLogDataMapping: BaseMappingProfile<LogitudeMessagesTransmissionLogPM, POCO.LogitudeMessagesTransmissionLog>, IMapping<LogitudeMessagesTransmissionLogPM, POCO.LogitudeMessagesTransmissionLog, LogitudeMessagesTransmissionLogList >,IMappingEncodeBase64NVARCHARFields<LogitudeMessagesTransmissionLogPM>
     {
-	    public void EncodeBase64NVARCHARFields(LogitudeMessagesTransmissionLogPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(LogitudeMessagesTransmissionLogPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

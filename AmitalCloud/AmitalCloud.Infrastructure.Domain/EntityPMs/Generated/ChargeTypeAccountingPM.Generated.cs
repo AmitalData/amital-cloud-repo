@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ChargeTypeAccountingPM : BaseEntityPM   {
    #region Constructors
    public ChargeTypeAccountingPM() : base() {} 
-   public ChargeTypeAccountingPM(POCO.ChargeTypeAccounting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_vatTypeId = entity.VatTypeId;
-		_chargeTypeId = entity.ChargeTypeId;
-		_chargetype = entity.ChargeType !=null ? new ChargesTypePM(entity.ChargeType) : null;
-			_payableDebitAccount = entity.PayableDebitAccount;
-		_receivableCreditAccount = entity.ReceivableCreditAccount;
-		_payableDebitGLAcountId = entity.PayableDebitGLAcountId;
-		_receivableCreditGLAccountId = entity.ReceivableCreditGLAccountId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

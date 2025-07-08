@@ -3,6 +3,8 @@ using AmitalCloud.Infrastructure.Web.Helpers;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Application.EntityQueryServices;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
@@ -14,12 +16,14 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         public IActionResult GetLastUpdatedTables(DateTime sinceDate, string clientEmail)
         {
             try
-            {
+            { 
                 int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
-                List<ObjectTableLastUpdatePM> list = new ObjectTableLastUpdateQueryService(tenant).GetMulti(a => a.LastUpdateDate > sinceDate && (a.Tenant == tenant || a.Tenant == 0) && a.ObjectTable.CacheOnClient && !a.ObjectTable.IsClosed, a => new ObjectTableLastUpdatePM(a)
-                {
-                    ObjectTableName = a.ObjectTable.Name,
-                }, "ObjectTable").OrderByDescending(d => d.LastUpdateDate).ToList();
+                var poco = new ObjectTableLastUpdateQueryService(tenant).GetMulti(a => a.LastUpdateDate > sinceDate && (a.Tenant == tenant || a.Tenant == 0) && a.ObjectTable.CacheOnClient && !a.ObjectTable.IsClosed, a => a, "ObjectTable").OrderByDescending(d => d.LastUpdateDate).ToList();
+                
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableLastUpdateDataMapping()));
+                var mapper = config.CreateMapper();
+                List<ObjectTableLastUpdatePM> list = mapper.Map<List<ObjectTableLastUpdatePM>>(poco);
+
                 return Ok(list);
             }
             catch (Exception ex)

@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LeadSourcePM : BaseEntityPM   {
    #region Constructors
    public LeadSourcePM() : base() {} 
-   public LeadSourcePM(POCO.LeadSource entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CommunicationLogStepPM : BaseEntityPM   {
    #region Constructors
    public CommunicationLogStepPM() : base() {} 
-   public CommunicationLogStepPM(POCO.CommunicationLogStep entity) : base()
-   {
-		_stepNumber = entity.StepNumber;
-		_communicationLogId = entity.CommunicationLogId;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_retries = entity.Retries;
-		_status = entity.Status;
-		_communicationstatustype = entity.CommunicationStatusType !=null ? new CommunicationStatusTypePM(entity.CommunicationStatusType) : null;
-			_log = entity.Log;
-		_startDate = entity.StartDate;
-		_endDate = entity.EndDate;
-		_documentId = entity.DocumentId;
-		_isLogCompress = entity.IsLogCompress;
-   }
    #endregion Constructors
    #region Properties
    	  private int _stepNumber ;

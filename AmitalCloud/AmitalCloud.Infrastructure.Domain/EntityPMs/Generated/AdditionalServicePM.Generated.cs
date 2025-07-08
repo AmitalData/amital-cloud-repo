@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AdditionalServicePM : BaseEntityPM   {
    #region Constructors
    public AdditionalServicePM() : base() {} 
-   public AdditionalServicePM(POCO.AdditionalService entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

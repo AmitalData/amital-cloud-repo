@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RegionPM : BaseEntityPM   {
    #region Constructors
    public RegionPM() : base() {} 
-   public RegionPM(POCO.Region entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

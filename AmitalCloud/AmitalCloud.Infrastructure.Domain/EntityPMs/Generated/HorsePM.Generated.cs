@@ -26,32 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HorsePM : BaseEntityPM   {
    #region Constructors
    public HorsePM() : base() {} 
-   public HorsePM(POCO.Horse entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_yearOfBirth = entity.YearOfBirth;
-		_color = entity.Color;
-		_breed = entity.Breed;
-		_discipline = entity.Discipline;
-		_travelBehavior = entity.TravelBehavior;
-		_micochipNumber = entity.MicochipNumber;
-		_passportNumber = entity.PassportNumber;
-		_countryOfBirthId = entity.CountryOfBirthId;
-		_countryofbirth = entity.CountryOfBirth !=null ? new CountryPM(entity.CountryOfBirth) : null;
-			_currentStable = entity.CurrentStable;
-		_owner = entity.Owner;
-		_remarks = entity.Remarks;
-		_inactive = entity.Inactive;
-		_genderCode = entity.GenderCode;
-		_horsegender = entity.HorseGender !=null ? new HorseGenderPM(entity.HorseGender) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

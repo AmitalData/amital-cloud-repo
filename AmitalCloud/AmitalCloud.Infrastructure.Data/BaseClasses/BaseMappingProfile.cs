@@ -9,6 +9,7 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
         public BaseMappingProfile()
         {
             var mapPOCOtoPM = CreateMap<TEntityPOCO, TEntityPM>();
+            ApplyGeneratedMapping(mapPOCOtoPM);
             ApplyCustomMapping(mapPOCOtoPM);
 
             var mapPMtoPOCO = CreateMap<TEntityPM, TEntityPOCO>();
@@ -17,11 +18,7 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
             CreateMap<TEntityPM, TEntityPM>();
         }
 
-        public IMapper CreateMapper()
-        {
-            return new MapperConfiguration(cfg => cfg.AddProfile(this)).CreateMapper();
-        }
-
+        protected virtual void ApplyGeneratedMapping(IMappingExpression<TEntityPOCO, TEntityPM> map) { }
         protected virtual void ApplyCustomMapping(IMappingExpression<TEntityPOCO, TEntityPM> map) { }
         protected virtual void ApplyCustomMapping(IMappingExpression<TEntityPM, TEntityPOCO> map)
         {
@@ -35,20 +32,20 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
             }
         }
 
-        private readonly List<string> ProtectedFields = new List<string> { "Tenant", "SearchFields", "CreatedByUserId", "CreatedDate" };
+        private readonly HashSet<string> ProtectedFields = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "Tenant", "SearchFields", "CreatedByUserId", "CreatedDate"
+        };
         protected List<string> GetProtectedPropertyNames()
         {
-            // get the entity keys
-            var keys = typeof(TEntityPOCO)
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)))
-                .Select(p => p.Name)
-                .ToList();
+            var props = typeof(TEntityPOCO).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .ToDictionary(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
-            // add the protected fields to the keys list
-            foreach ( var field in ProtectedFields)
+            var keys = props.Where(p => Attribute.IsDefined(p.Value, typeof(KeyAttribute))).Select(p => p.Key).ToList();
+
+            foreach (var field in ProtectedFields)
             {
-                if (typeof(TEntityPOCO).GetProperty(field) != null && !keys.Contains(field))
+                if (props.ContainsKey(field) && !keys.Contains(field))
                     keys.Add(field);
             }
 

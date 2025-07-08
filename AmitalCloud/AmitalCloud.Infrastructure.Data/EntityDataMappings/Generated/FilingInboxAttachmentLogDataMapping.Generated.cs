@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class FilingInboxAttachmentLogDataMapping: BaseMappingProfile<FilingInboxAttachmentLogPM, POCO.FilingInboxAttachmentLog>, IMapping<FilingInboxAttachmentLogPM, POCO.FilingInboxAttachmentLog, FilingInboxAttachmentLogList >,IMappingEncodeBase64NVARCHARFields<FilingInboxAttachmentLogPM>
     {
-	    public void EncodeBase64NVARCHARFields(FilingInboxAttachmentLogPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(FilingInboxAttachmentLogPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

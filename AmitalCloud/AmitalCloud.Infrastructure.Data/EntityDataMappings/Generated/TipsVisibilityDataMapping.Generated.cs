@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class TipsVisibilityDataMapping: BaseMappingProfile<TipsVisibilityPM, POCO.TipsVisibility>, IMapping<TipsVisibilityPM, POCO.TipsVisibility, TipsVisibilityList >,IMappingEncodeBase64NVARCHARFields<TipsVisibilityPM>
     {
-	    public void EncodeBase64NVARCHARFields(TipsVisibilityPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(TipsVisibilityPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

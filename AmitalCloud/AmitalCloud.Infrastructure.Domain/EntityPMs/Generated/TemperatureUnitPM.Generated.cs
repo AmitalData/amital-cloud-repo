@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TemperatureUnitPM : BaseEntityPM   {
    #region Constructors
    public TemperatureUnitPM() : base() {} 
-   public TemperatureUnitPM(POCO.TemperatureUnit entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

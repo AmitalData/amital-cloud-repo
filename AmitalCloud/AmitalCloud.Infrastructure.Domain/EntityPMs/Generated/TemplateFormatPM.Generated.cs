@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TemplateFormatPM : BaseEntityPM   {
    #region Constructors
    public TemplateFormatPM() : base() {} 
-   public TemplateFormatPM(POCO.TemplateFormat entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

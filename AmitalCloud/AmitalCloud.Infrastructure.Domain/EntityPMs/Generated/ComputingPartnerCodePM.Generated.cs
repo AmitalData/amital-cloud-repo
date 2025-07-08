@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ComputingPartnerCodePM : BaseEntityPM   {
    #region Constructors
    public ComputingPartnerCodePM() : base() {} 
-   public ComputingPartnerCodePM(POCO.ComputingPartnerCode entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_partnerCode = entity.PartnerCode;
-		_partnerName = entity.PartnerName;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_objectTableId = entity.ObjectTableId;
-		_computingPartnerId = entity.ComputingPartnerId;
-		_computingpartner = entity.ComputingPartner !=null ? new ComputingPartnerPM(entity.ComputingPartner) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

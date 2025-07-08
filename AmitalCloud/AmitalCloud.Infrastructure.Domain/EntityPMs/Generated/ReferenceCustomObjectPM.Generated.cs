@@ -27,67 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ReferenceCustomObjectPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ReferenceCustomObjectPM() : base() {} 
-   public ReferenceCustomObjectPM(POCO.ReferenceCustomObject entity) : base()
-   {
-		_id = entity.Id;
-		_objectTableId = entity.ObjectTableId;
-		_createdBy = entity.CreatedBy;
-		_updatedBy = entity.UpdatedBy;
-		_field1 = entity.Field1;
-		_field2 = entity.Field2;
-		_field3 = entity.Field3;
-		_field4 = entity.Field4;
-		_field5 = entity.Field5;
-		_field6 = entity.Field6;
-		_field7 = entity.Field7;
-		_field8 = entity.Field8;
-		_field9 = entity.Field9;
-		_field10 = entity.Field10;
-		_field11 = entity.Field11;
-		_field12 = entity.Field12;
-		_field13 = entity.Field13;
-		_field14 = entity.Field14;
-		_field15 = entity.Field15;
-		_field16 = entity.Field16;
-		_field17 = entity.Field17;
-		_field18 = entity.Field18;
-		_field19 = entity.Field19;
-		_field20 = entity.Field20;
-		_field21 = entity.Field21;
-		_field22 = entity.Field22;
-		_field23 = entity.Field23;
-		_field24 = entity.Field24;
-		_field25 = entity.Field25;
-		_field26 = entity.Field26;
-		_field27 = entity.Field27;
-		_field28 = entity.Field28;
-		_field29 = entity.Field29;
-		_field30 = entity.Field30;
-		_field31 = entity.Field31;
-		_field32 = entity.Field32;
-		_field33 = entity.Field33;
-		_field34 = entity.Field34;
-		_field35 = entity.Field35;
-		_field36 = entity.Field36;
-		_field37 = entity.Field37;
-		_field38 = entity.Field38;
-		_field39 = entity.Field39;
-		_field40 = entity.Field40;
-		_field41 = entity.Field41;
-		_field42 = entity.Field42;
-		_field43 = entity.Field43;
-		_field44 = entity.Field44;
-		_field45 = entity.Field45;
-		_field46 = entity.Field46;
-		_field47 = entity.Field47;
-		_field48 = entity.Field48;
-		_field49 = entity.Field49;
-		_field50 = entity.Field50;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

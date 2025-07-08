@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CargoTenantMilestoneDefinitionPM : BaseEntityPM   {
    #region Constructors
    public CargoTenantMilestoneDefinitionPM() : base() {} 
-   public CargoTenantMilestoneDefinitionPM(POCO.CargoTenantMilestoneDefinition entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_isCustomerView = entity.IsCustomerView;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

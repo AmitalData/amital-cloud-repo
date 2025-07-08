@@ -26,22 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class APInvoiceTotalVATPM : BaseEntityPM   {
    #region Constructors
    public APInvoiceTotalVATPM() : base() {} 
-   public APInvoiceTotalVATPM(POCO.APInvoiceTotalVAT entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_profitCurrencyVATAmount = entity.ProfitCurrencyVATAmount;
-		_profitVatableAmount = entity.ProfitVatableAmount;
-		_externalVATCard = entity.ExternalVATCard;
-		_externalTAXItemId = entity.ExternalTAXItemId;
-		_invoiceCurrencyVATAmount = entity.InvoiceCurrencyVATAmount;
-		_localVATAmount = entity.LocalVATAmount;
-		_invoiceCurrencyVatableAmount = entity.InvoiceCurrencyVatableAmount;
-		_localVatableAmount = entity.LocalVatableAmount;
-		_vatPercent = entity.VatPercent;
-		_vatTypeId = entity.VatTypeId;
-		_aPInvoiceId = entity.APInvoiceId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

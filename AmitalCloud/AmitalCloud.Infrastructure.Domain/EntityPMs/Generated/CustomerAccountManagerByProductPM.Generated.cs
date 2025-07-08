@@ -27,14 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerAccountManagerByProductPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public CustomerAccountManagerByProductPM() : base() {} 
-   public CustomerAccountManagerByProductPM(POCO.CustomerAccountManagerByProduct entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_productTypeCode = entity.ProductTypeCode;
-		_accountManagerId = entity.AccountManagerId;
-		_accountmanageruser = entity.AccountManagerUser !=null ? new UserPM(entity.AccountManagerUser) : null;
-			_customerId = entity.CustomerId;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

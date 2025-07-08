@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class WorkerRoleNamePM : BaseEntityPM   {
    #region Constructors
    public WorkerRoleNamePM() : base() {} 
-   public WorkerRoleNamePM(POCO.WorkerRoleName entity) : base()
-   {
-		_createDate = entity.CreateDate;
-		_name = entity.Name;
-		_waitingStatus = entity.WaitingStatus;
-   }
    #endregion Constructors
    #region Properties
    	  private DateTime _createDate ;

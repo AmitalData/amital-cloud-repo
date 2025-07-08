@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TarrifTypePM : BaseEntityPM   {
    #region Constructors
    public TarrifTypePM() : base() {} 
-   public TarrifTypePM(POCO.TarrifType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

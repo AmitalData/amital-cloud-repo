@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VatFormatTypePM : BaseEntityPM   {
    #region Constructors
    public VatFormatTypePM() : base() {} 
-   public VatFormatTypePM(POCO.VatFormatType entity) : base()
-   {
-		_viewOrder = entity.ViewOrder;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private int _viewOrder ;

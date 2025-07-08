@@ -11,12 +11,18 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ObjectTableLastUpdateDataMapping: BaseMappingProfile<ObjectTableLastUpdatePM, POCO.ObjectTableLastUpdate>, IMapping<ObjectTableLastUpdatePM, POCO.ObjectTableLastUpdate, ObjectTableLastUpdateList >,IMappingEncodeBase64NVARCHARFields<ObjectTableLastUpdatePM>
     {
-	    public void EncodeBase64NVARCHARFields(ObjectTableLastUpdatePM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.ObjectTableLastUpdate, ObjectTableLastUpdatePM> map)
+        {
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(ObjectTableLastUpdatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

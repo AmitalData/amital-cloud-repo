@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SessionPolicyPM : BaseEntityPM   {
    #region Constructors
    public SessionPolicyPM() : base() {} 
-   public SessionPolicyPM(POCO.SessionPolicy entity) : base()
-   {
-		_webTokenLifeTimeInMinutes = entity.WebTokenLifeTimeInMinutes;
-		_webTokenExpirationWarningInMinutes = entity.WebTokenExpirationWarningInMinutes;
-		_id = entity.Id;
-   }
    #endregion Constructors
    #region Properties
    	  private int _webTokenLifeTimeInMinutes ;

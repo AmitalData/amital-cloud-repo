@@ -26,12 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class AccountingTransferTypePM : BaseEntityPM   {
    #region Constructors
    public AccountingTransferTypePM() : base() {} 
-   public AccountingTransferTypePM(POCO.AccountingTransferType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

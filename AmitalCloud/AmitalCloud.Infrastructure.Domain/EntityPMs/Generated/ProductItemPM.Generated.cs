@@ -26,28 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ProductItemPM : BaseEntityPM   {
    #region Constructors
    public ProductItemPM() : base() {} 
-   public ProductItemPM(POCO.ProductItem entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_sKU = entity.SKU;
-		_inActive = entity.InActive;
-		_description = entity.Description;
-		_name = entity.Name;
-		_brand = entity.Brand;
-		_searchFields = entity.SearchFields;
-		_aSIN = entity.ASIN;
-		_uPC = entity.UPC;
-		_originCountryId = entity.OriginCountryId;
-		_origincountry = entity.OriginCountry !=null ? new CountryPM(entity.OriginCountry) : null;
-			_shipperId = entity.ShipperId;
-		_shipper = entity.Shipper !=null ? new CardPM(entity.Shipper) : null;
-			_productValue = entity.ProductValue;
-		_productValueCurrencyId = entity.ProductValueCurrencyId;
-		_productvaluecurrency = entity.ProductValueCurrency !=null ? new CurrencyPM(entity.ProductValueCurrency) : null;
-			_quantity = entity.Quantity;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

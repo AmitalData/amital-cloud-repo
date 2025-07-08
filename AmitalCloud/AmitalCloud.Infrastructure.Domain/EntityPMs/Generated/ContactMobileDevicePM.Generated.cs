@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactMobileDevicePM : BaseEntityPM   {
    #region Constructors
    public ContactMobileDevicePM() : base() {} 
-   public ContactMobileDevicePM(POCO.ContactMobileDevice entity) : base()
-   {
-		_deviceId = entity.DeviceId;
-		_email = entity.Email;
-		_platform = entity.Platform;
-		_version = entity.Version;
-		_devicetype = entity.Devicetype;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_isSignOut = entity.IsSignOut;
-		_notificationUniqueKey = entity.NotificationUniqueKey;
-		_appVersion = entity.AppVersion;
-   }
    #endregion Constructors
    #region Properties
    	  private string _deviceId ;

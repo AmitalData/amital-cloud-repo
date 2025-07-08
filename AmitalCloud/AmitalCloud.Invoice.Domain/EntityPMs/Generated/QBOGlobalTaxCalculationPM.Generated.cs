@@ -26,12 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class QBOGlobalTaxCalculationPM : BaseEntityPM   {
    #region Constructors
    public QBOGlobalTaxCalculationPM() : base() {} 
-   public QBOGlobalTaxCalculationPM(POCO.QBOGlobalTaxCalculation entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

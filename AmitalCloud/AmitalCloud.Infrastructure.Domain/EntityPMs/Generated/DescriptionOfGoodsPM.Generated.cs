@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DescriptionOfGoodsPM : BaseEntityPM   {
    #region Constructors
    public DescriptionOfGoodsPM() : base() {} 
-   public DescriptionOfGoodsPM(POCO.DescriptionOfGoods entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_name = entity.Name;
-		_descriptionOfGood = entity.DescriptionOfGood;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

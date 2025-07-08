@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalPortalLanguagePM : BaseEntityPM   {
    #region Constructors
    public DigitalPortalLanguagePM() : base() {} 
-   public DigitalPortalLanguagePM(POCO.DigitalPortalLanguage entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_displayText = entity.DisplayText;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

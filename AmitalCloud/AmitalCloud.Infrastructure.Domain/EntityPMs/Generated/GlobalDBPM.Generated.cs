@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class GlobalDBPM : BaseEntityPM   {
    #region Constructors
    public GlobalDBPM() : base() {} 
-   public GlobalDBPM(POCO.GlobalDB entity) : base()
-   {
-		_id = entity.Id;
-		_dBConnection = entity.DBConnection;
-		_isUpgrading = entity.IsUpgrading;
-		_isActive = entity.IsActive;
-		_sharedDWConnection = entity.SharedDWConnection;
-		_secondaryAzureDBConnection = entity.SecondaryAzureDBConnection;
-		_isBlocking = entity.IsBlocking;
-		globalTenants = entity.GlobalTenants != null ? entity.GlobalTenants.Select(a=>new GlobalTenantPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

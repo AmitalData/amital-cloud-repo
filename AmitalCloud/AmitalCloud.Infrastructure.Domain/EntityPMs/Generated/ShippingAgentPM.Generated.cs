@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ShippingAgentPM : BaseEntityPM   {
    #region Constructors
    public ShippingAgentPM() : base() {} 
-   public ShippingAgentPM(POCO.ShippingAgent entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_localCustomsCode = entity.LocalCustomsCode;
-		_forwarderAccountNumber = entity.ForwarderAccountNumber;
-		_forwarderCreditNumber = entity.ForwarderCreditNumber;
-		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class GlobalTenantCounterPM : BaseEntityPM   {
    #region Constructors
    public GlobalTenantCounterPM() : base() {} 
-   public GlobalTenantCounterPM(POCO.GlobalTenantCounter entity) : base()
-   {
-		_id = entity.Id;
-		_lastNumber = entity.LastNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

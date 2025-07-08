@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AirlineMessagingRulePM : BaseEntityPM   {
    #region Constructors
    public AirlineMessagingRulePM() : base() {} 
-   public AirlineMessagingRulePM(POCO.AirlineMessagingRule entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createdByUserId = entity.CreatedByUserId;
-		_createdbyuser = entity.CreatedByUser !=null ? new UserPM(entity.CreatedByUser) : null;
-			_createDate = entity.CreateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_updatedbyuser = entity.UpdatedByUser !=null ? new UserPM(entity.UpdatedByUser) : null;
-			_updateDate = entity.UpdateDate;
-		_messageTypeCode = entity.MessageTypeCode;
-		_ruleFieldId = entity.RuleFieldId;
-		_rulefield = entity.RuleField !=null ? new ObjectFieldPM(entity.RuleField) : null;
-			_isMandatoryForSending = entity.IsMandatoryForSending;
-		_maxSize = entity.MaxSize;
-		_airlineId = entity.AirlineId;
-		_airline = entity.Airline !=null ? new CardPM(entity.Airline) : null;
-			_inActive = entity.InActive;
-		_ruleFieldCode = entity.RuleFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

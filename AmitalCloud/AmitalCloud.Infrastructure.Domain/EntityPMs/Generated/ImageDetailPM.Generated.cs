@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ImageDetailPM : BaseEntityPM   {
    #region Constructors
    public ImageDetailPM() : base() {} 
-   public ImageDetailPM(POCO.ImageDetail entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_extension = entity.Extension;
-		_size = entity.Size;
-		cards = entity.Cards != null ? entity.Cards.Select(a=>new CardPM(a)).ToList() : null;
-		contacts = entity.Contacts != null ? entity.Contacts.Select(a=>new ContactPM(a)).ToList() : null;
-		hybridPartners_Logoid = entity.HybridPartners_Logoid != null ? entity.HybridPartners_Logoid.Select(a=>new HybridPartnerPM(a)).ToList() : null;
-		hybridPartners_Smalllogoid = entity.HybridPartners_Smalllogoid != null ? entity.HybridPartners_Smalllogoid.Select(a=>new HybridPartnerPM(a)).ToList() : null;
-		quoteTemplateSettings_Pagefooterarea1imagedetailid = entity.QuoteTemplateSettings_Pagefooterarea1imagedetailid != null ? entity.QuoteTemplateSettings_Pagefooterarea1imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-		quoteTemplateSettings_Pagefooterarea2imagedetailid = entity.QuoteTemplateSettings_Pagefooterarea2imagedetailid != null ? entity.QuoteTemplateSettings_Pagefooterarea2imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-		quoteTemplateSettings_Pagefooterarea3imagedetailid = entity.QuoteTemplateSettings_Pagefooterarea3imagedetailid != null ? entity.QuoteTemplateSettings_Pagefooterarea3imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-		quoteTemplateSettings_Pageheaderarea1imagedetailid = entity.QuoteTemplateSettings_Pageheaderarea1imagedetailid != null ? entity.QuoteTemplateSettings_Pageheaderarea1imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-		quoteTemplateSettings_Pageheaderarea2imagedetailid = entity.QuoteTemplateSettings_Pageheaderarea2imagedetailid != null ? entity.QuoteTemplateSettings_Pageheaderarea2imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-		quoteTemplateSettings_Pageheaderarea3imagedetailid = entity.QuoteTemplateSettings_Pageheaderarea3imagedetailid != null ? entity.QuoteTemplateSettings_Pageheaderarea3imagedetailid.Select(a=>new QuoteTemplateSettingPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

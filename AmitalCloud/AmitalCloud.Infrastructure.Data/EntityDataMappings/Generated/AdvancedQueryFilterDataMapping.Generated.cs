@@ -11,12 +11,23 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class AdvancedQueryFilterDataMapping: BaseMappingProfile<AdvancedQueryFilterPM, POCO.AdvancedQueryFilter>, IMapping<AdvancedQueryFilterPM, POCO.AdvancedQueryFilter, AdvancedQueryFilterList >,IMappingEncodeBase64NVARCHARFields<AdvancedQueryFilterPM>
     {
-	    public void EncodeBase64NVARCHARFields(AdvancedQueryFilterPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.AdvancedQueryFilter, AdvancedQueryFilterPM> map)
+        {
+            map.ForMember(dest => dest.DisplayInList, opt => opt.MapFrom(src => src.ObjectField.DisplayInList));
+            map.ForMember(dest => dest.IsCustomFilter, opt => opt.MapFrom(src => src.ObjectField.IsCustomFilter));
+            map.ForMember(dest => dest.ObjectFieldName, opt => opt.MapFrom(src => src.ObjectField.FieldName));
+            map.ForMember(dest => dest.DataTypeCode, opt => opt.MapFrom(src => src.ObjectField.DataTypeCode));
+            map.ForMember(dest => dest.ObjectFieldOperator, opt => opt.MapFrom(src => src.ObjectField.Operator));
+            map.ForMember(dest => dest.QueryUserId, opt => opt.MapFrom(src => src.Query.UserId));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(AdvancedQueryFilterPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

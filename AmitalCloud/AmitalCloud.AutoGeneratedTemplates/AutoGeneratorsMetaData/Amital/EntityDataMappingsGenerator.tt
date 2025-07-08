@@ -32,10 +32,10 @@ foreach (string file in Directory.EnumerateFiles(sourceFilePath, "*.lxml"))
 
     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 	string filename = fileNameWithoutExtension+"DataMapping.Generated.cs";
-	GenerateMappingClass(file,destinationFolder+"/Generated/"+filename,false);
+	GenerateMappingClass(file,destinationFolder+"/Generated/"+filename);
 	 
 }
- 
+
 }
 #>
 
@@ -165,11 +165,36 @@ using POCO = <#= NamespacesDictionary["pocosspacestring"] #> ;
 using <#= NamespacesDictionary["pmsspacestring"] #> ;
 using <#= NamespacesDictionary["entitylistsnamespace"] #> ;
 using <#= NamespacesDictionary["databaseclassnamespace"] #> ;
+using AutoMapper;
 
 namespace <#= mapnamespacestring #>
 {
     public partial class <#=tableName #>DataMapping: BaseMappingProfile<<#=pmName #>, POCO.<#=tableName #>>, IMapping<<#=pmName #>, POCO.<#=tableName #>, <#=tableName #>List >,IMappingEncodeBase64NVARCHARFields<<#=pmName #>>
     {
+    <#+		 
+
+    var fieldsToMap = PMFields.Where(field => field.TableRelatedPM.GetType() == typeof(string) && field.TableRelatedPM != null && field.FieldRelatedPM.GetType() == typeof(string) && field.FieldRelatedPM != null).ToList();
+
+    if (fieldsToMap.Count > 0) {
+    #>
+    protected override void ApplyGeneratedMapping(IMappingExpression<POCO.<#=tableName #>, <#=pmName #>> map)
+        {
+    <#+
+	foreach(var field in fieldsToMap)  
+    {
+        string tableRelatedPM = field.TableRelatedPM.ToString().Trim('"');
+        string fieldRelatedPM = field.FieldRelatedPM.ToString().Trim('"');
+        string PMPropertyPath = field.PMPropertyPath.ToString().Trim('"');
+    #>
+        map.ForMember(dest => dest.<#= PMPropertyPath #>, opt => opt.MapFrom(src => src.<#= tableRelatedPM #>.<#= fieldRelatedPM #>));
+    <#+
+    } // end foreach
+    #>
+    }
+
+    <#+
+    } // end if
+    #>
 	    public void EncodeBase64NVARCHARFields(<#= pmName #> entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 

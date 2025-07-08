@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentTypeCategoryPM : BaseEntityPM   {
    #region Constructors
    public DocumentTypeCategoryPM() : base() {} 
-   public DocumentTypeCategoryPM(POCO.DocumentTypeCategory entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

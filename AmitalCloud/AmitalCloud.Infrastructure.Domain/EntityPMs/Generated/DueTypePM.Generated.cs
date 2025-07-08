@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DueTypePM : BaseEntityPM   {
    #region Constructors
    public DueTypePM() : base() {} 
-   public DueTypePM(POCO.DueType entity) : base()
-   {
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_name = entity.Name;
-   }
    #endregion Constructors
    #region Properties
    	  private string _searchFields ;

@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerProductActualDataPM : BaseEntityPM   {
    #region Constructors
    public CustomerProductActualDataPM() : base() {} 
-   public CustomerProductActualDataPM(POCO.CustomerProductActualData entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_productTypeCode = entity.ProductTypeCode;
-		_month = entity.Month;
-		_year = entity.Year;
-		_chargeableWeight = entity.ChargeableWeight;
-		_tEU = entity.TEU;
-		_numberOfShipments = entity.NumberOfShipments;
-		_revenue = entity.Revenue;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

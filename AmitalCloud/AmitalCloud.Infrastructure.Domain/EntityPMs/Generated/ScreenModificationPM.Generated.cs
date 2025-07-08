@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ScreenModificationPM : BaseEntityPM   {
    #region Constructors
    public ScreenModificationPM() : base() {} 
-   public ScreenModificationPM(POCO.ScreenModification entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_screenId = entity.ScreenId;
-		_numberOfRows = entity.NumberOfRows;
-		_numberOfColumns = entity.NumberOfColumns;
-		_screenCode = entity.ScreenCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

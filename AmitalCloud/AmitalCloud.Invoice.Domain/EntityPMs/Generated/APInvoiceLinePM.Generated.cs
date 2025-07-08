@@ -26,39 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class APInvoiceLinePM : BaseEntityPM   {
    #region Constructors
    public APInvoiceLinePM() : base() {} 
-   public APInvoiceLinePM(POCO.APInvoiceLine entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_entityId = entity.EntityId;
-		_entityPayableId = entity.EntityPayableId;
-		_refundAmount = entity.RefundAmount;
-		_aPInvoiceId = entity.APInvoiceId;
-		_apinvoice = entity.APInvoice !=null ? new APInvoicePM(entity.APInvoice) : null;
-			_lineNumber = entity.LineNumber;
-		_invoiceCurrencyAmount = entity.InvoiceCurrencyAmount;
-		_localCurrencyAmount = entity.LocalCurrencyAmount;
-		_profitCurrencyAmount = entity.ProfitCurrencyAmount;
-		_notes = entity.Notes;
-		_chargesTypeId = entity.ChargesTypeId;
-		_chargestype = entity.ChargesType !=null ? new ChargesTypePM(entity.ChargesType) : null;
-			_vatTypeId = entity.VatTypeId;
-		_vattype = entity.VatType !=null ? new VatTypePM(entity.VatType) : null;
-			_vatPercentage = entity.VatPercentage;
-		_foriegnCurrencyId = entity.ForiegnCurrencyId;
-		_currency = entity.Currency !=null ? new CurrencyPM(entity.Currency) : null;
-			_foriegnExchangeRate = entity.ForiegnExchangeRate;
-		_foriegnCurrencyAmount = entity.ForiegnCurrencyAmount;
-		_description = entity.Description;
-		_localDescription = entity.LocalDescription;
-		_debitAccount = entity.DebitAccount;
-		_chargeTypeGLAccountId = entity.ChargeTypeGLAccountId;
-		_authorizedSignatory = entity.AuthorizedSignatory;
-		_prepaidCollectId = entity.PrepaidCollectId;
-		_prepaidcollect = entity.PrepaidCollect !=null ? new PrepaidCollectPM(entity.PrepaidCollect) : null;
-			_containerTypeId = entity.ContainerTypeId;
-		_containertype = entity.ContainerType !=null ? new PackageTypePM(entity.ContainerType) : null;
-			_quantity = entity.Quantity;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

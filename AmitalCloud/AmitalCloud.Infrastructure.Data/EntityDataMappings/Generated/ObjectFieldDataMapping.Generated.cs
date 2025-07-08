@@ -11,12 +11,24 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ObjectFieldDataMapping: BaseMappingProfile<ObjectFieldPM, POCO.ObjectField>, IMapping<ObjectFieldPM, POCO.ObjectField, ObjectFieldList >,IMappingEncodeBase64NVARCHARFields<ObjectFieldPM>
     {
-	    public void EncodeBase64NVARCHARFields(ObjectFieldPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.ObjectField, ObjectFieldPM> map)
+        {
+            map.ForMember(dest => dest.FullNameTextCodeDefaultText, opt => opt.MapFrom(src => src.FullNameTextCode.DefaultText));
+            map.ForMember(dest => dest.FullNameTextCodeLocalDefaultText, opt => opt.MapFrom(src => src.FullNameTextCode.LocalDefaultText));
+            map.ForMember(dest => dest.ObjectTable_LookUpTableName, opt => opt.MapFrom(src => src.ObjectTable_LookUpTable.Name));
+            map.ForMember(dest => dest.ObjectTable_MultiTableName, opt => opt.MapFrom(src => src.ObjectTable_MultiTable.Name));
+            map.ForMember(dest => dest.ListTextCodeDefaultText, opt => opt.MapFrom(src => src.ListTextCode.DefaultText));
+            map.ForMember(dest => dest.HelpTextCodeDefaultText, opt => opt.MapFrom(src => src.HelpTextCode.DefaultText));
+            map.ForMember(dest => dest.ShortNameTextCodeDefaultText, opt => opt.MapFrom(src => src.ShortNameTextCode.DefaultText));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(ObjectFieldPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

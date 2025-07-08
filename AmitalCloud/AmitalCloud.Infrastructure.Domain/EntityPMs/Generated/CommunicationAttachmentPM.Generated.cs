@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CommunicationAttachmentPM : BaseEntityPM   {
    #region Constructors
    public CommunicationAttachmentPM() : base() {} 
-   public CommunicationAttachmentPM(POCO.CommunicationAttachment entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_communicationLogId = entity.CommunicationLogId;
-		_documentId = entity.DocumentId;
-		_document = entity.Document !=null ? new DocumentPM(entity.Document) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

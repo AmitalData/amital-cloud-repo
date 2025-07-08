@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VatTypePercentagePM : BaseEntityPM   {
    #region Constructors
    public VatTypePercentagePM() : base() {} 
-   public VatTypePercentagePM(POCO.VatTypePercentage entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_vatTypeId = entity.VatTypeId;
-		_percentage = entity.Percentage;
-		_fromDate = entity.FromDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantSettingPM : BaseEntityPM   {
    #region Constructors
    public TenantSettingPM() : base() {} 
-   public TenantSettingPM(POCO.TenantSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_settingCode = entity.SettingCode;
-		_settingValue = entity.SettingValue;
-		_objectTableId = entity.ObjectTableId;
-		_size = entity.Size;
-		_prefix = entity.Prefix;
-		_dontIncludeDirects = entity.DontIncludeDirects;
-		_isDocumentFilingByEmailEnabled = entity.IsDocumentFilingByEmailEnabled;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

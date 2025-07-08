@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class EventRemarkDataMapping: BaseMappingProfile<EventRemarkPM, POCO.EventRemark>, IMapping<EventRemarkPM, POCO.EventRemark, EventRemarkList >,IMappingEncodeBase64NVARCHARFields<EventRemarkPM>
     {
-	    public void EncodeBase64NVARCHARFields(EventRemarkPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(EventRemarkPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

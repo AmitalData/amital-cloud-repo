@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TermsofUsePM : BaseEntityPM   {
    #region Constructors
    public TermsofUsePM() : base() {} 
-   public TermsofUsePM(POCO.TermsofUse entity) : base()
-   {
-		_date = entity.Date;
-		_versionNumber = entity.VersionNumber;
-		_tenant = entity.Tenant;
-		_versionDocumentId = entity.VersionDocumentId;
-		_privateLabelId = entity.PrivateLabelId;
-		_dbmigrationslastscript = entity.Dbmigrationslastscript;
-		_id = entity.Id;
-		_isNew = entity.IsNew;
-		termsofUseSignatures = entity.TermsofUseSignatures != null ? entity.TermsofUseSignatures.Select(a=>new TermsofUseSignaturePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private DateTime _date ;

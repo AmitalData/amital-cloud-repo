@@ -26,46 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UserPM : BaseEntityPM   {
    #region Constructors
    public UserPM() : base() {} 
-   public UserPM(POCO.User entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_isBranchRestricted = entity.IsBranchRestricted;
-		_isFreelancer = entity.IsFreelancer;
-		_isProductRestricted = entity.IsProductRestricted;
-		_freelancerId = entity.FreelancerId;
-		_freelancer = entity.Freelancer !=null ? new CardPM(entity.Freelancer) : null;
-			_departmentId = entity.DepartmentId;
-		_branchId = entity.BranchId;
-		_isSalesman = entity.IsSalesman;
-		_businessUnitId = entity.BusinessUnitId;
-		_businessunit = entity.BusinessUnit !=null ? new BusinessUnitPM(entity.BusinessUnit) : null;
-			_createDate = entity.CreateDate;
-		_expirationDate = entity.ExpirationDate;
-		_licencedUser = entity.LicencedUser;
-		_productTypeCode = entity.ProductTypeCode;
-		_distributorCode = entity.DistributorCode;
-		_distributor = entity.Distributor !=null ? new DistributorPM(entity.Distributor) : null;
-			_isDistributor = entity.IsDistributor;
-		_isShowContactDetailsInTheMobileApp = entity.IsShowContactDetailsInTheMobileApp;
-		_personalId = entity.PersonalId;
-		_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-		rolePMLists = null;
-		_isTwoFactorAuthenticationEnabled = entity.IsTwoFactorAuthenticationEnabled;
-		_showLogBoxToolTip = entity.ShowLogBoxToolTip;
-		_showInboxToolTip = entity.ShowInboxToolTip;
-		_setAngularAsDefault = entity.SetAngularAsDefault;
-		_technology = entity.Technology;
-		_documentFilingInbox = entity.DocumentFilingInbox;
-		_showLocalNameInLOV = entity.ShowLocalNameInLOV;
-		_userRoles = entity.UserRoles;
-		_additionalPackagesOnly = entity.AdditionalPackagesOnly;
-		_layoutDirection = entity.LayoutDirection;
-		_signatureImageId = entity.SignatureImageId;
-		_securityLevel = entity.SecurityLevel;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

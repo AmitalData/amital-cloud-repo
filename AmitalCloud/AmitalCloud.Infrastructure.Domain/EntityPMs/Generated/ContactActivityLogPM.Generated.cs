@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactActivityLogPM : BaseEntityPM   {
    #region Constructors
    public ContactActivityLogPM() : base() {} 
-   public ContactActivityLogPM(POCO.ContactActivityLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_module = entity.Module;
-		_activity = entity.Activity;
-		_contactId = entity.ContactId;
-		_logDateTime = entity.LogDateTime;
-		_gMTLogDateTime = entity.GMTLogDateTime;
-		_isSharedLogisticsContact = entity.IsSharedLogisticsContact;
-		_cardId = entity.CardId;
-		_partnerTypeId = entity.PartnerTypeId;
-		_via = entity.Via;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

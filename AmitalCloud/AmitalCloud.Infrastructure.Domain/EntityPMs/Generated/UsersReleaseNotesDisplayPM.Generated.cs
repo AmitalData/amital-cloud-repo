@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UsersReleaseNotesDisplayPM : BaseEntityPM   {
    #region Constructors
    public UsersReleaseNotesDisplayPM() : base() {} 
-   public UsersReleaseNotesDisplayPM(POCO.UsersReleaseNotesDisplay entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

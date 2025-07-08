@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ChargesExternalAccountsByProductPM : BaseEntityPM   {
    #region Constructors
    public ChargesExternalAccountsByProductPM() : base() {} 
-   public ChargesExternalAccountsByProductPM(POCO.ChargesExternalAccountsByProduct entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_payablesGLAccount = entity.PayablesGLAccount;
-		_payablesCostCenter = entity.PayablesCostCenter;
-		_receivablesGLAccount = entity.ReceivablesGLAccount;
-		_receivablesCostCenter = entity.ReceivablesCostCenter;
-		_chargesTypeId = entity.ChargesTypeId;
-		_chargestype = entity.ChargesType !=null ? new ChargesTypePM(entity.ChargesType) : null;
-			_productTypeCode = entity.ProductTypeCode;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

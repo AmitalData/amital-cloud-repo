@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class CustomPickListDataMapping: BaseMappingProfile<CustomPickListPM, POCO.CustomPickList>, IMapping<CustomPickListPM, POCO.CustomPickList, CustomPickListList >,IMappingEncodeBase64NVARCHARFields<CustomPickListPM>
     {
-	    public void EncodeBase64NVARCHARFields(CustomPickListPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(CustomPickListPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

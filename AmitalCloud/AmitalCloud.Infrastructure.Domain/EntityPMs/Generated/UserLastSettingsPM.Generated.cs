@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UserLastSettingsPM : BaseEntityPM   {
    #region Constructors
    public UserLastSettingsPM() : base() {} 
-   public UserLastSettingsPM(POCO.UserLastSettings entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_controlNameSpace = entity.ControlNameSpace;
-		_filterName = entity.FilterName;
-		_filterValue = entity.FilterValue;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

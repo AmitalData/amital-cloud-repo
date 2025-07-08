@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CheckDigitControlAlgorithmPM : BaseEntityPM   {
    #region Constructors
    public CheckDigitControlAlgorithmPM() : base() {} 
-   public CheckDigitControlAlgorithmPM(POCO.CheckDigitControlAlgorithm entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

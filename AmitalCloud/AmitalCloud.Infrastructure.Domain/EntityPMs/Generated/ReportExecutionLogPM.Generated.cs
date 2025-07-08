@@ -26,25 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ReportExecutionLogPM : BaseEntityPM   {
    #region Constructors
    public ReportExecutionLogPM() : base() {} 
-   public ReportExecutionLogPM(POCO.ReportExecutionLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_statusCode = entity.StatusCode;
-		_exceptionMessage = entity.ExceptionMessage;
-		_doneDate = entity.DoneDate;
-		_reportFilterXML = entity.ReportFilterXML;
-		_reportId = entity.ReportId;
-		_report = entity.Report !=null ? new ReportPM(entity.Report) : null;
-			_reportTemplateId = entity.ReportTemplateId;
-		_retryNumber = entity.RetryNumber;
-		_startDate = entity.StartDate;
-		_disablePreview = entity.DisablePreview;
-		_executedByServerName = entity.ExecutedByServerName;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

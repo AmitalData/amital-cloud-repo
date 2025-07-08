@@ -26,29 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AutomationPM : BaseEntityPM   {
    #region Constructors
    public AutomationPM() : base() {} 
-   public AutomationPM(POCO.Automation entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_templateId = entity.TemplateId;
-		_documentTypeId = entity.DocumentTypeId;
-		_version = entity.Version;
-		_automationXML = entity.AutomationXML;
-		_type = entity.Type;
-		_resultCode = entity.ResultCode;
-		_inactive = entity.Inactive;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_from = entity.From;
-		_fromEmail = entity.FromEmail;
-		_order = entity.Order;
-		_name = entity.Name;
-		_description = entity.Description;
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

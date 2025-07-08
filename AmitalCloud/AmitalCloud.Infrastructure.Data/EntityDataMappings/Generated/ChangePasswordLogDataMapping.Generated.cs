@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ChangePasswordLogDataMapping: BaseMappingProfile<ChangePasswordLogPM, POCO.ChangePasswordLog>, IMapping<ChangePasswordLogPM, POCO.ChangePasswordLog, ChangePasswordLogList >,IMappingEncodeBase64NVARCHARFields<ChangePasswordLogPM>
     {
-	    public void EncodeBase64NVARCHARFields(ChangePasswordLogPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(ChangePasswordLogPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

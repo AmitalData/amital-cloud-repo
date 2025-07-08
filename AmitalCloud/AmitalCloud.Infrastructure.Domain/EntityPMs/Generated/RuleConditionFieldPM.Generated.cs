@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RuleConditionFieldPM : BaseEntityPM   {
    #region Constructors
    public RuleConditionFieldPM() : base() {} 
-   public RuleConditionFieldPM(POCO.RuleConditionField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableRuleId = entity.ObjectTableRuleId;
-		_objectFieldId = entity.ObjectFieldId;
-		_value = entity.Value;
-		_operator = entity.Operator;
-		_objectFieldCode = entity.ObjectFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

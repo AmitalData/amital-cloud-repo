@@ -26,14 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ConfirmationNumberDefaultPM : BaseEntityPM   {
    #region Constructors
    public ConfirmationNumberDefaultPM() : base() {} 
-   public ConfirmationNumberDefaultPM(POCO.ConfirmationNumberDefault entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_fromDate = entity.FromDate;
-		_searchFields = entity.SearchFields;
-		_amountForConfirmationNumber = entity.AmountForConfirmationNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

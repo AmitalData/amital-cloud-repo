@@ -1,9 +1,11 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -28,20 +30,20 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             List<ScreenPM> screens;
             List<ScreenPM> zeroscreens;
             List<ScreenPM> currentscreens;
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenDataMapping()));
+            var mapper = config.CreateMapper();
 
             using (TransactionScope scope = TransactionFactory.GetNewTransaction())
             {
-                zeroscreens = repository.GetMultiFromCache("GetScreen0", a => a.Tenant == 0, "ObjectTable", a => new ScreenPM(a)
-                {
-                    ObjectTableName = a.ObjectTable.Name,
-                    UserTenant = tenant,
-                });
+                var zeroscreensPoco = repository.GetMultiFromCache("GetScreen0", a => a.Tenant == 0, "ObjectTable", a => a);
+                zeroscreens = mapper.Map<List<ScreenPM>>(zeroscreensPoco);
 
                 Dictionary<string, ScreenModification> screensDictionary = new Dictionary<string, ScreenModification>();
                 screensDictionary = new Repository<ScreenModification>(context).GetMulti(te => te.Tenant == tenant).ToDictionary(dic => dic.ScreenId, dic => dic);
 
                 foreach (ScreenPM screen in zeroscreens)
                 {
+                    screen.UserTenant = tenant;
                     if (screensDictionary.Keys.Contains(screen.Id))
                     {
                         ScreenModification mod = screensDictionary[screen.Id];
@@ -56,11 +58,8 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
             using (TransactionScope scope = TransactionFactory.GetNewTransaction())
             {
-                currentscreens = repository.GetMultiFromCache($"screens{tenant}", a => a.Tenant == tenant, "ObjectTable", a => new ScreenPM(a)
-                {
-                    ObjectTableName = a.ObjectTable.Name,
-                    UserTenant = tenant,
-                });
+                var currentscreensPoco = repository.GetMultiFromCache($"screens{tenant}", a => a.Tenant == tenant, "ObjectTable", a => a);
+                currentscreens = mapper.Map<List<ScreenPM>>(currentscreensPoco);
             }
             screens = zeroscreens.Concat(currentscreens).ToList();
 

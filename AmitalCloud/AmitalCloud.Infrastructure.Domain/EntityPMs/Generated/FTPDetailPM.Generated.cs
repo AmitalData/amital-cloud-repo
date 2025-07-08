@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FTPDetailPM : BaseEntityPM   {
    #region Constructors
    public FTPDetailPM() : base() {} 
-   public FTPDetailPM(POCO.FTPDetail entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_inActive = entity.InActive;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_userName = entity.UserName;
-		_password = entity.Password;
-		_host = entity.Host;
-		_folder = entity.Folder;
-		_useSFTP = entity.UseSFTP;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

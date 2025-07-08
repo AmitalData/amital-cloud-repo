@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PortGroupPM : BaseEntityPM   {
    #region Constructors
    public PortGroupPM() : base() {} 
-   public PortGroupPM(POCO.PortGroup entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_name = entity.Name;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

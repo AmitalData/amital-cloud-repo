@@ -26,20 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class CustomsTransferHeaderPM : BaseEntityPM   {
    #region Constructors
    public CustomsTransferHeaderPM() : base() {} 
-   public CustomsTransferHeaderPM(POCO.CustomsTransferHeader entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createdByUserId = entity.CreatedByUserId;
-		_searchFields = entity.SearchFields;
-		_transferNumber = entity.TransferNumber;
-		_transferDate = entity.TransferDate;
-		_fileName = entity.FileName;
-		_customsTransferTypeCode = entity.CustomsTransferTypeCode;
-		_customstransfertype = entity.CustomsTransferType !=null ? new CustomsTransferTypePM(entity.CustomsTransferType) : null;
-			_notes = entity.Notes;
-		_shipmentNumber = entity.ShipmentNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

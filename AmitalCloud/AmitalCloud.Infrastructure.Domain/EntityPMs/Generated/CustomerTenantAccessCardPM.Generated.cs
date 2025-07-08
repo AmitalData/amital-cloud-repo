@@ -26,24 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerTenantAccessCardPM : BaseEntityPM   {
    #region Constructors
    public CustomerTenantAccessCardPM() : base() {} 
-   public CustomerTenantAccessCardPM(POCO.CustomerTenantAccessCard entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_customer = entity.Customer !=null ? new CustomerPM(entity.Customer) : null;
-			_customerTenantAccessId = entity.CustomerTenantAccessId;
-		_customertenantaccess = entity.CustomerTenantAccess !=null ? new CustomerTenantAccessPM(entity.CustomerTenantAccess) : null;
-			_createByUserId = entity.CreateByUserId;
-		_createbyuser = entity.CreateByUser !=null ? new UserPM(entity.CreateByUser) : null;
-			_createDate = entity.CreateDate;
-		_lastShipmentDateInQueue = entity.LastShipmentDateInQueue;
-		_lastMappingDateTime = entity.LastMappingDateTime;
-		_updateDateTime = entity.UpdateDateTime;
-		_statusTypeCode = entity.StatusTypeCode;
-		_statustype = entity.StatusType !=null ? new CustomerTenantAccessStatusTypePM(entity.StatusType) : null;
-			_isExportActivated = entity.IsExportActivated;
-		_isCustomsActivated = entity.IsCustomsActivated;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

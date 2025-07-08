@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWQueryColumnPM : BaseEntityPM   {
    #region Constructors
    public DWQueryColumnPM() : base() {} 
-   public DWQueryColumnPM(POCO.DWQueryColumn entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_dWQueryId = entity.DWQueryId;
-		_dwquery = entity.DWQuery !=null ? new DWQueryPM(entity.DWQuery) : null;
-			_dWObjectFieldId = entity.DWObjectFieldId;
-		_dwobjectfield = entity.DWObjectField !=null ? new DWObjectFieldPM(entity.DWObjectField) : null;
-			_indexOrder = entity.IndexOrder;
-		_columnWidth = entity.ColumnWidth;
-		_userId = entity.UserId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -39,20 +39,6 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                     }).FirstOrDefault();
         }
 
-        public IQueryable<RoleFeaturePM> GetRoleFeaturePMsByTenant(int tenant)
-        {
-            return (from a in repository.context.RoleFeatures
-                    where a.Tenant == tenant
-                    select new RoleFeaturePM(a)
-                    );
-        }
-
-        public List<RoleFeaturePM> GetRoleFeaturesForRole(string roleId, int tenant)
-        {
-            return (from a in repository.context.RoleFeatures
-                    where a.RoleId == roleId && a.Tenant == tenant
-                    select new RoleFeaturePM(a)).ToList();
-        }
         public List<RoleFeature> GetRoleFeaturesForRoleFromCache(string roleId, int tenant)
         {
             string entityName = "RoleFeature" + roleId + tenant;

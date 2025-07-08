@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerTenantAccessStatusTypePM : BaseEntityPM   {
    #region Constructors
    public CustomerTenantAccessStatusTypePM() : base() {} 
-   public CustomerTenantAccessStatusTypePM(POCO.CustomerTenantAccessStatusType entity) : base()
-   {
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

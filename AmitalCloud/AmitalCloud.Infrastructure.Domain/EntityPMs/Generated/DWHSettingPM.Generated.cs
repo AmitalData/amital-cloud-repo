@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWHSettingPM : BaseEntityPM   {
    #region Constructors
    public DWHSettingPM() : base() {} 
-   public DWHSettingPM(POCO.DWHSetting entity) : base()
-   {
-		_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

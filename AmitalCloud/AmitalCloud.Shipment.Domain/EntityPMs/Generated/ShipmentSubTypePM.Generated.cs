@@ -26,23 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentSubTypePM : BaseEntityPM   {
    #region Constructors
    public ShipmentSubTypePM() : base() {} 
-   public ShipmentSubTypePM(POCO.ShipmentSubType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_updatedbyuser = entity.UpdatedByUser !=null ? new UserPM(entity.UpdatedByUser) : null;
-			_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_name = entity.Name;
-		_inactive = entity.Inactive;
-		_shipmentTypeCode = entity.ShipmentTypeCode;
-		_shipmenttype = entity.ShipmentType !=null ? new ShipmentTypePM(entity.ShipmentType) : null;
-			_isManuallyAdded = entity.IsManuallyAdded;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

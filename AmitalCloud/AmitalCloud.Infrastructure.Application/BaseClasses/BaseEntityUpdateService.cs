@@ -170,7 +170,9 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                             AddStepTrace("CheckConcurrency");
                             OldEntityPM = new TEntityPM();
                             ChangeTrackingEntityPM = new TEntityPM();
-                            var mapper = Mapping.CreateMapper();
+
+                            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping));
+                            var mapper = config.CreateMapper();
                             mapper.Map(EntityPOCO, OldEntityPM);
                             mapper.Map(EntityPOCO, ChangeTrackingEntityPM);
                             mapper.Map(entityPM, ChangeTrackingEntityPM);
@@ -227,7 +229,8 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                         NetCommonHelper.Logger.DevLog.Instance.WriteWarning($"Not found tracked entity");
                     }
 
-                    var mapper = Mapping.CreateMapper();
+                    var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping));
+                    var mapper = config.CreateMapper();
                     mapper.Map(EntityPM, EntityPOCO);
                 }
                 catch (AutoMapperMappingException ex)

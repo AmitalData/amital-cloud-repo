@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentStatusPM : BaseEntityPM   {
    #region Constructors
    public DocumentStatusPM() : base() {} 
-   public DocumentStatusPM(POCO.DocumentStatus entity) : base()
-   {
-		_code = entity.Code;
-		_dropCdropName = entity.DropCdropName;
-		_dropCdropSearchfields = entity.DropCdropSearchfields;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		documentsFilings = entity.DocumentsFilings != null ? entity.DocumentsFilings.Select(a=>new DocumentsFilingPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

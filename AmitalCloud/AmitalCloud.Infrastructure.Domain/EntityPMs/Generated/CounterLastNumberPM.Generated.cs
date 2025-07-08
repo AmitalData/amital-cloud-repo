@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CounterLastNumberPM : BaseEntityPM   {
    #region Constructors
    public CounterLastNumberPM() : base() {} 
-   public CounterLastNumberPM(POCO.CounterLastNumber entity) : base()
-   {
-		_id = entity.Id;
-		_tableName = entity.TableName;
-		_tenant = entity.Tenant;
-		_lastNumber = entity.LastNumber;
-		_dropRowid = entity.DropRowid;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

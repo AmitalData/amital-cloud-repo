@@ -26,62 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AccountingSettingPM : BaseEntityPM   {
    #region Constructors
    public AccountingSettingPM() : base() {} 
-   public AccountingSettingPM(POCO.AccountingSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant !=null ? new TenantPM(entity.Tenant) : null;
-			_qBOrealMeID = entity.QBOrealMeID;
-		_accountingSystemCode = entity.AccountingSystemCode;
-		_accountingsystem = entity.AccountingSystem !=null ? new AccountingSystemPM(entity.AccountingSystem) : null;
-			_allowMinusInvoicelines = entity.AllowMinusInvoicelines;
-		_allowVoidARI = entity.AllowVoidARI;
-		_allowVoidARP = entity.AllowVoidARP;
-		_allowVoidAPI = entity.AllowVoidAPI;
-		_allowVoidAPP = entity.AllowVoidAPP;
-		_allowManualInvoiceNumber = entity.AllowManualInvoiceNumber;
-		_isVatNumberMandatoryInAR = entity.IsVatNumberMandatoryInAR;
-		_isVatNumberMandatoryInAP = entity.IsVatNumberMandatoryInAP;
-		_isARInvoiceChronologicalDates = entity.IsARInvoiceChronologicalDates;
-		_allowClosureWithoutPayables = entity.AllowClosureWithoutPayables;
-		_isARInvoicesTransferEnabled = entity.IsARInvoicesTransferEnabled;
-		_isAPInvoicesTransferEnabled = entity.IsAPInvoicesTransferEnabled;
-		_aPInvoiceTransferStartDate = entity.APInvoiceTransferStartDate;
-		_aRInvoiceTransferStartDate = entity.ARInvoiceTransferStartDate;
-		_allowPositiveAmountsInTheCreditNote = entity.AllowPositiveAmountsInTheCreditNote;
-		_isSingleTaxPerInvoice = entity.IsSingleTaxPerInvoice;
-		_isARPaymentsTransferEnabled = entity.IsARPaymentsTransferEnabled;
-		_aRPaymentTransferStartDate = entity.ARPaymentTransferStartDate;
-		_transferToDropboxActivated = entity.TransferToDropboxActivated;
-		_enableMultiPercentageVATTypes = entity.EnableMultiPercentageVATTypes;
-		_notifyPastDateOnInvoiceEdit = entity.NotifyPastDateOnInvoiceEdit;
-		_enableMultiRateAPInvoices = entity.EnableMultiRateAPInvoices;
-		_registryDateTypeCode = entity.RegistryDateTypeCode;
-		_registrydatetype = entity.RegistryDateType !=null ? new RegistryDateTypePM(entity.RegistryDateType) : null;
-			_receivableVATCard = entity.ReceivableVATCard;
-		_payableVATCard = entity.PayableVATCard;
-		_enableMultiCurrencyARPayments = entity.EnableMultiCurrencyARPayments;
-		_isAPPaymentsTransferEnabled = entity.IsAPPaymentsTransferEnabled;
-		_enableMultiCurrencyAPPayments = entity.EnableMultiCurrencyAPPayments;
-		_enableNegativeOffsetARPayments = entity.EnableNegativeOffsetARPayments;
-		_enableNegativeOffsetAPPayments = entity.EnableNegativeOffsetAPPayments;
-		_payableVATableTempCard = entity.PayableVATableTempCard;
-		_payableVATExemptTempCard = entity.PayableVATExemptTempCard;
-		_receivableVATableTempCard = entity.ReceivableVATableTempCard;
-		_receivableVATExemptTempCard = entity.ReceivableVATExemptTempCard;
-		_isARPaymentChronologicalDates = entity.IsARPaymentChronologicalDates;
-		_enableInvoiceStocksManagement = entity.EnableInvoiceStocksManagement;
-		_qBOOAuth = entity.QBOOAuth;
-		_refreshToken = entity.RefreshToken;
-		_allowManualARPaymentNumber = entity.AllowManualARPaymentNumber;
-		_allowRegionalTaxManagement = entity.AllowRegionalTaxManagement;
-		_transferToFTPActivated = entity.TransferToFTPActivated;
-		_enableAPPaymentExternalPayment = entity.EnableAPPaymentExternalPayment;
-		_transferFTPDetailId = entity.TransferFTPDetailId;
-		_transferftpdetail = entity.TransferFTPDetail !=null ? new FTPDetailPM(entity.TransferFTPDetail) : null;
-			_enableEnteringTotalVAT = entity.EnableEnteringTotalVAT;
-		_blockSendInvoiceOriginalCopy = entity.BlockSendInvoiceOriginalCopy;
-		_aPPaymentTransferStartDate = entity.APPaymentTransferStartDate;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

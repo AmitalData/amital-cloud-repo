@@ -26,36 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentPM : BaseEntityPM   {
    #region Constructors
    public DocumentPM() : base() {} 
-   public DocumentPM(POCO.Document entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_fileName = entity.FileName;
-		_createDate = entity.CreateDate;
-		_extension = entity.Extension;
-		_fileSize = entity.FileSize;
-		_hasFile = entity.HasFile;
-		_folder = entity.Folder;
-		_smallDocumentId = entity.SmallDocumentId;
-		_smalldocument = entity.SmallDocument !=null ? new SmallDocumentPM(entity.SmallDocument) : null;
-			_calculatedFileName = entity.CalculatedFileName;
-		_isEncrypted = entity.IsEncrypted;
-		_markForDelete = entity.MarkForDelete;
-		communicationAttachments = entity.CommunicationAttachments != null ? entity.CommunicationAttachments.Select(a=>new CommunicationAttachmentPM(a)).ToList() : null;
-		communicationLogs_Documentid = entity.CommunicationLogs_Documentid != null ? entity.CommunicationLogs_Documentid.Select(a=>new CommunicationLogPM(a)).ToList() : null;
-		communicationLogs_Responsedocumentid = entity.CommunicationLogs_Responsedocumentid != null ? entity.CommunicationLogs_Responsedocumentid.Select(a=>new CommunicationLogPM(a)).ToList() : null;
-		communicationLogSteps = entity.CommunicationLogSteps != null ? entity.CommunicationLogSteps.Select(a=>new CommunicationLogStepPM(a)).ToList() : null;
-		documentOutCopys = entity.DocumentOutCopys != null ? entity.DocumentOutCopys.Select(a=>new DocumentOutCopyPM(a)).ToList() : null;
-		documentOuts = entity.DocumentOuts != null ? entity.DocumentOuts.Select(a=>new DocumentOutPM(a)).ToList() : null;
-		filingInboxAttachments = entity.FilingInboxAttachments != null ? entity.FilingInboxAttachments.Select(a=>new FilingInboxAttachmentPM(a)).ToList() : null;
-		imageLibrarys = entity.ImageLibrarys != null ? entity.ImageLibrarys.Select(a=>new ImageLibraryPM(a)).ToList() : null;
-		quoteTemplates_Footerdocid = entity.QuoteTemplates_Footerdocid != null ? entity.QuoteTemplates_Footerdocid.Select(a=>new QuoteTemplatePM(a)).ToList() : null;
-		quoteTemplates_Headerdocid = entity.QuoteTemplates_Headerdocid != null ? entity.QuoteTemplates_Headerdocid.Select(a=>new QuoteTemplatePM(a)).ToList() : null;
-		quoteTemplateSections = entity.QuoteTemplateSections != null ? entity.QuoteTemplateSections.Select(a=>new QuoteTemplateSectionPM(a)).ToList() : null;
-		reports = entity.Reports != null ? entity.Reports.Select(a=>new ReportPM(a)).ToList() : null;
-		reportsTemplatesVersions = entity.ReportsTemplatesVersions != null ? entity.ReportsTemplatesVersions.Select(a=>new ReportsTemplatesVersionPM(a)).ToList() : null;
-		taskSchedulerHistorys = entity.TaskSchedulerHistorys != null ? entity.TaskSchedulerHistorys.Select(a=>new TaskSchedulerHistoryPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

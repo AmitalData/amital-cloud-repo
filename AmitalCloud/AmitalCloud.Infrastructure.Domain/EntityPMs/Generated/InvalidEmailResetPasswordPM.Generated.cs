@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class InvalidEmailResetPasswordPM : BaseEntityPM   {
    #region Constructors
    public InvalidEmailResetPasswordPM() : base() {} 
-   public InvalidEmailResetPasswordPM(POCO.InvalidEmailResetPassword entity) : base()
-   {
-		_id = entity.Id;
-		_iP = entity.IP;
-		_createDate = entity.CreateDate;
-		_email = entity.Email;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

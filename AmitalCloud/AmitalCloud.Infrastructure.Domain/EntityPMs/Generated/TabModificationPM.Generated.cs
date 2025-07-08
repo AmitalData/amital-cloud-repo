@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TabModificationPM : BaseEntityPM   {
    #region Constructors
    public TabModificationPM() : base() {} 
-   public TabModificationPM(POCO.TabModification entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_tabCode = entity.TabCode;
-		_id = entity.Id;
-		_tabId = entity.TabId;
-		_indexOrder = entity.IndexOrder;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

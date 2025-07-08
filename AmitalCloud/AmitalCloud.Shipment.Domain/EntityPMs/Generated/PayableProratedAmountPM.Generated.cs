@@ -27,18 +27,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class PayableProratedAmountPM : BaseEntityPM   {
    #region Constructors
    public PayableProratedAmountPM() : base() {} 
-   public PayableProratedAmountPM(POCO.PayableProratedAmount entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_invoiceId = entity.InvoiceId;
-		_apinvoice = entity.APInvoice !=null ? new APInvoicePM(entity.APInvoice) : null;
-			_payableId = entity.PayableId;
-		_shipmentpayable = entity.ShipmentPayable !=null ? new ShipmentPayablePM(entity.ShipmentPayable) : null;
-			_proratedAmountInLocalCurrency = entity.ProratedAmountInLocalCurrency;
-		_proratedAmountInProfitCurrency = entity.ProratedAmountInProfitCurrency;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

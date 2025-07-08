@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BIReportFolderPM : BaseEntityPM   {
    #region Constructors
    public BIReportFolderPM() : base() {} 
-   public BIReportFolderPM(POCO.BIReportFolder entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_description = entity.Description;
-		_index = entity.Index;
-		_permissionForAll = entity.PermissionForAll;
-		_permittedByUserId = entity.PermittedByUserId;
-		_permittedbyuser = entity.PermittedByUser !=null ? new UserPM(entity.PermittedByUser) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

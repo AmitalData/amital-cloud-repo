@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VesselPM : BaseEntityPM   {
    #region Constructors
    public VesselPM() : base() {} 
-   public VesselPM(POCO.Vessel entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-		_iMOCode = entity.IMOCode;
-		_countryId = entity.CountryId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

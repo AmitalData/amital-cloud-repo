@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class PaymentTermDateTypeDataMapping: BaseMappingProfile<PaymentTermDateTypePM, POCO.PaymentTermDateType>, IMapping<PaymentTermDateTypePM, POCO.PaymentTermDateType, PaymentTermDateTypeList >,IMappingEncodeBase64NVARCHARFields<PaymentTermDateTypePM>
     {
-	    public void EncodeBase64NVARCHARFields(PaymentTermDateTypePM entityPM)
+    	    public void EncodeBase64NVARCHARFields(PaymentTermDateTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

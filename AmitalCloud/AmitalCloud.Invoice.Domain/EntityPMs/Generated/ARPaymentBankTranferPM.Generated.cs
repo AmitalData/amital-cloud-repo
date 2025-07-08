@@ -16,7 +16,7 @@ using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Invoice.Domain.Interfaces;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
- 
+
 
 
 namespace AmitalCloud.Invoice.Domain.EntityPMs
@@ -26,24 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARPaymentBankTranferPM : BaseEntityPM   {
    #region Constructors
    public ARPaymentBankTranferPM() : base() {} 
-   public ARPaymentBankTranferPM(POCO.ARPaymentBankTranfer entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_paymentId = entity.PaymentId;
-		_payment = entity.Payment !=null ? new ARPaymentPM(entity.Payment) : null;
-			_lineNumber = entity.LineNumber;
-		_paymentRef = entity.PaymentRef;
-		_valueDate = entity.ValueDate;
-		_bankAccountId = entity.BankAccountId;
-		_bankaccount = entity.BankAccount !=null ? new BankAccountPM(entity.BankAccount) : null;
-			_currencyId = entity.CurrencyId;
-		_currency = entity.Currency !=null ? new CurrencyPM(entity.Currency) : null;
-			_localAmount = entity.LocalAmount;
-		_foreignAmount = entity.ForeignAmount;
-		_exchageRate = entity.ExchageRate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

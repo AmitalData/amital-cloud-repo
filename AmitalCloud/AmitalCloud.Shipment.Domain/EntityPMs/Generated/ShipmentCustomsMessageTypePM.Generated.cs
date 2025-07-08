@@ -26,10 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentCustomsMessageTypePM : BaseEntityPM   {
    #region Constructors
    public ShipmentCustomsMessageTypePM() : base() {} 
-   public ShipmentCustomsMessageTypePM(POCO.ShipmentCustomsMessageType entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DataBasePropertyPM : BaseEntityPM   {
    #region Constructors
    public DataBasePropertyPM() : base() {} 
-   public DataBasePropertyPM(POCO.DataBaseProperty entity) : base()
-   {
-		_dataBaseNumber = entity.DataBaseNumber;
-		_lastBackupDate = entity.LastBackupDate;
-		_rowid = entity.Rowid;
-   }
    #endregion Constructors
    #region Properties
    	  private int _dataBaseNumber ;

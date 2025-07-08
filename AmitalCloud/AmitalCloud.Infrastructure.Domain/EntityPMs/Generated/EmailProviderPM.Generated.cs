@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EmailProviderPM : BaseEntityPM   {
    #region Constructors
    public EmailProviderPM() : base() {} 
-   public EmailProviderPM(POCO.EmailProvider entity) : base()
-   {
-		_providerNumber = entity.ProviderNumber;
-		_domain = entity.Domain;
-		_userName = entity.UserName;
-		_password = entity.Password;
-		_port = entity.Port;
-		_status = entity.Status;
-		_lastTestSendDate = entity.LastTestSendDate;
-		_lastTestReceivedDate = entity.LastTestReceivedDate;
-		_supportsEmailDelivery = entity.SupportsEmailDelivery;
-   }
    #endregion Constructors
    #region Properties
    	  private string _providerNumber ;

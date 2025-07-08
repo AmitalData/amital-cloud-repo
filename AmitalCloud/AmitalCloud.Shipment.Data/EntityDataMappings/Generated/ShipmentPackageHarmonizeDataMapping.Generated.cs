@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ShipmentPackageHarmonizeDataMapping: IMapping<ShipmentPackageHarmonizePM, POCO.ShipmentPackageHarmonize  ,ShipmentPackageHarmonizeList >,IMappingEncodeBase64NVARCHARFields<ShipmentPackageHarmonizePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageId, 
-	         Harmonize, 
-	         InsidePackageId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageId, 
-	         Harmonize, 
-	         InsidePackageId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ShipmentPackageHarmonizePM entityPM, POCO.ShipmentPackageHarmonize entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageId)) { entityPOCO.PackageId = entityPM.PackageId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Harmonize)) { entityPOCO.Harmonize = entityPM.Harmonize;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InsidePackageId)) { entityPOCO.InsidePackageId = entityPM.InsidePackageId;}
-					}
-		public void POCOToPM(ShipmentPackageHarmonizePM entityPM, POCO.ShipmentPackageHarmonize entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PackageId))
-            {
-					entityPM.PackageId = entityPOCO.PackageId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Harmonize))
-            {
-					entityPM.Harmonize = entityPOCO.Harmonize;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InsidePackageId))
-            {
-					entityPM.InsidePackageId = entityPOCO.InsidePackageId;
-            }
-		}
-		public void PMToOldPM(ShipmentPackageHarmonizePM entityPM, ShipmentPackageHarmonizePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageId))
-            {
-                oldEntityPM.PackageId = entityPM.PackageId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Harmonize))
-            {
-                oldEntityPM.Harmonize = entityPM.Harmonize;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InsidePackageId))
-            {
-                oldEntityPM.InsidePackageId = entityPM.InsidePackageId;
-            }
-					}
-		public void POCOToList(POCO.ShipmentPackageHarmonize entityPOCO, ShipmentPackageHarmonizeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ShipmentPackageHarmonizeList> GetIqueryableList(IQueryable<POCO.ShipmentPackageHarmonize> iQueryable)
-		{
-			IQueryable<ShipmentPackageHarmonizeList> query = (from a in iQueryable
-                                            select new ShipmentPackageHarmonizeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ShipmentPackageHarmonizePM entityPM)
+    public partial class ShipmentPackageHarmonizeDataMapping: BaseMappingProfile<ShipmentPackageHarmonizePM, POCO.ShipmentPackageHarmonize>, IMapping<ShipmentPackageHarmonizePM, POCO.ShipmentPackageHarmonize, ShipmentPackageHarmonizeList >,IMappingEncodeBase64NVARCHARFields<ShipmentPackageHarmonizePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ShipmentPackageHarmonizePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -112,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

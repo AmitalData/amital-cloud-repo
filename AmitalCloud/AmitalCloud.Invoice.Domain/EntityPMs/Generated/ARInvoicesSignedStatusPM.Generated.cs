@@ -26,13 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARInvoicesSignedStatusPM : BaseEntityPM   {
    #region Constructors
    public ARInvoicesSignedStatusPM() : base() {} 
-   public ARInvoicesSignedStatusPM(POCO.ARInvoicesSignedStatus entity) : base()
-   {
-		_code = entity.Code;
-		_localName = entity.LocalName;
-		_englishName = entity.EnglishName;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

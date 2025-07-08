@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class MenuButtonDataMapping: BaseMappingProfile<MenuButtonPM, POCO.MenuButton>, IMapping<MenuButtonPM, POCO.MenuButton, MenuButtonList >,IMappingEncodeBase64NVARCHARFields<MenuButtonPM>
     {
-	    public void EncodeBase64NVARCHARFields(MenuButtonPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(MenuButtonPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

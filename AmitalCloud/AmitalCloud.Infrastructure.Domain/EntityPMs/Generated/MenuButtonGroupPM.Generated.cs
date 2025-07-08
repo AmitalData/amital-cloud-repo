@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MenuButtonGroupPM : BaseEntityPM   {
    #region Constructors
    public MenuButtonGroupPM() : base() {} 
-   public MenuButtonGroupPM(POCO.MenuButtonGroup entity) : base()
-   {
-		_id = entity.Id;
-		_name = entity.Name;
-		_tenant = entity.Tenant;
-		_menuButtonGroupType = entity.MenuButtonGroupType;
-		_objectTableId = entity.ObjectTableId;
-		menuButtons = entity.MenuButtons != null ? entity.MenuButtons.Select(a=>new MenuButtonPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

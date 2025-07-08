@@ -5,218 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class ARInvoiceStockDataMapping: IMapping<ARInvoiceStockPM, POCO.ARInvoiceStock  ,ARInvoiceStockList >,IMappingEncodeBase64NVARCHARFields<ARInvoiceStockPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         Name, 
-	         Description, 
-	         Inactive, 
-	         StatusCode, 
-	         StartDate, 
-	         EndDate, 
-	         Amount, 
-	         Remaining, 
-	         Notes,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         Name, 
-	         Description, 
-	         Inactive, 
-	         StatusCode, 
-	         StartDate, 
-	         EndDate, 
-	         Amount, 
-	         Remaining, 
-	         StatusName, 
-	         Notes, 
-	         LinesCount,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ARInvoiceStockPM entityPM, POCO.ARInvoiceStock entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId)) { entityPOCO.CreatedByUserId = entityPM.CreatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description)) { entityPOCO.Description = entityPM.Description;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Inactive)) { entityPOCO.Inactive = entityPM.Inactive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode)) { entityPOCO.StatusCode = entityPM.StatusCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDate)) { entityPOCO.StartDate = entityPM.StartDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDate)) { entityPOCO.EndDate = entityPM.EndDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Amount)) { entityPOCO.Amount = entityPM.Amount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Remaining)) { entityPOCO.Remaining = entityPM.Remaining;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-					}
-		public void POCOToPM(ARInvoiceStockPM entityPM, POCO.ARInvoiceStock entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserId))
-            {
-					entityPM.CreatedByUserId = entityPOCO.CreatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Description))
-            {
-					entityPM.Description = entityPOCO.Description;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Inactive))
-            {
-					entityPM.Inactive = entityPOCO.Inactive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StatusCode))
-            {
-					entityPM.StatusCode = entityPOCO.StatusCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StartDate))
-            {
-					entityPM.StartDate = entityPOCO.StartDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EndDate))
-            {
-					entityPM.EndDate = entityPOCO.EndDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Amount))
-            {
-					entityPM.Amount = entityPOCO.Amount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Remaining))
-            {
-					entityPM.Remaining = entityPOCO.Remaining;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-		}
-		public void PMToOldPM(ARInvoiceStockPM entityPM, ARInvoiceStockPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId))
-            {
-                oldEntityPM.CreatedByUserId = entityPM.CreatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description))
-            {
-                oldEntityPM.Description = entityPM.Description;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Inactive))
-            {
-                oldEntityPM.Inactive = entityPM.Inactive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode))
-            {
-                oldEntityPM.StatusCode = entityPM.StatusCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StartDate))
-            {
-                oldEntityPM.StartDate = entityPM.StartDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EndDate))
-            {
-                oldEntityPM.EndDate = entityPM.EndDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Amount))
-            {
-                oldEntityPM.Amount = entityPM.Amount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Remaining))
-            {
-                oldEntityPM.Remaining = entityPM.Remaining;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-					}
-		public void POCOToList(POCO.ARInvoiceStock entityPOCO, ARInvoiceStockList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ARInvoiceStockList> GetIqueryableList(IQueryable<POCO.ARInvoiceStock> iQueryable)
-		{
-			IQueryable<ARInvoiceStockList> query = (from a in iQueryable
-                                            select new ARInvoiceStockList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ARInvoiceStockPM entityPM)
+    public partial class ARInvoiceStockDataMapping: BaseMappingProfile<ARInvoiceStockPM, POCO.ARInvoiceStock>, IMapping<ARInvoiceStockPM, POCO.ARInvoiceStock, ARInvoiceStockList >,IMappingEncodeBase64NVARCHARFields<ARInvoiceStockPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ARInvoiceStockPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -224,14 +25,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

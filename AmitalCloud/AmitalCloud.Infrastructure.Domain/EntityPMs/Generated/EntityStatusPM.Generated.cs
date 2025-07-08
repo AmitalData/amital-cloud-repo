@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EntityStatusPM : BaseEntityPM   {
    #region Constructors
    public EntityStatusPM() : base() {} 
-   public EntityStatusPM(POCO.EntityStatus entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_code = entity.Code;
-		_inActive = entity.InActive;
-		_name = entity.Name;
-		_statusWeight = entity.StatusWeight;
-		_searchFields = entity.SearchFields;
-		_displayName = entity.DisplayName;
-		_entityStatusTypeCode = entity.EntityStatusTypeCode;
-		_entitystatustype = entity.EntityStatusType !=null ? new EntityStatusTypePM(entity.EntityStatusType) : null;
-			_statusLocalWeight = entity.StatusLocalWeight;
-		_allowPartial = entity.AllowPartial;
-		_isDigitalPortal = entity.IsDigitalPortal;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

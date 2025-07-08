@@ -26,20 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class APInvoicePaymentPM : BaseEntityPM   {
    #region Constructors
    public APInvoicePaymentPM() : base() {} 
-   public APInvoicePaymentPM(POCO.APInvoicePayment entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_aPInvoiceId = entity.APInvoiceId;
-		_aPPaymentId = entity.APPaymentId;
-		_appayment = entity.APPayment !=null ? new APPaymentPM(entity.APPayment) : null;
-			_foreignCurrencyId = entity.ForeignCurrencyId;
-		_foreigncurrency = entity.ForeignCurrency !=null ? new CurrencyPM(entity.ForeignCurrency) : null;
-			_foreignAmount = entity.ForeignAmount;
-		_localAmount = entity.LocalAmount;
-		_exchangeRate = entity.ExchangeRate;
-		_paymentAmount = entity.PaymentAmount;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

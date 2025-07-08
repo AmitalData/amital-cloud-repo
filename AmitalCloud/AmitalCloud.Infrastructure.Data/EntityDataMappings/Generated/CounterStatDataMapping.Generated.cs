@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class CounterStatDataMapping: BaseMappingProfile<CounterStatPM, POCO.CounterStat>, IMapping<CounterStatPM, POCO.CounterStat, CounterStatList >,IMappingEncodeBase64NVARCHARFields<CounterStatPM>
     {
-	    public void EncodeBase64NVARCHARFields(CounterStatPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(CounterStatPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

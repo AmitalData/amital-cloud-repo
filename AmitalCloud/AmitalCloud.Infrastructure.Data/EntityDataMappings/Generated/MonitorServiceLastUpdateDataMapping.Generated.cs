@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class MonitorServiceLastUpdateDataMapping: BaseMappingProfile<MonitorServiceLastUpdatePM, POCO.MonitorServiceLastUpdate>, IMapping<MonitorServiceLastUpdatePM, POCO.MonitorServiceLastUpdate, MonitorServiceLastUpdateList >,IMappingEncodeBase64NVARCHARFields<MonitorServiceLastUpdatePM>
     {
-	    public void EncodeBase64NVARCHARFields(MonitorServiceLastUpdatePM entityPM)
+    	    public void EncodeBase64NVARCHARFields(MonitorServiceLastUpdatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

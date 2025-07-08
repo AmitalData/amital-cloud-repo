@@ -26,13 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class AccountingSystemsSettingPM : BaseEntityPM   {
    #region Constructors
    public AccountingSystemsSettingPM() : base() {} 
-   public AccountingSystemsSettingPM(POCO.AccountingSystemsSetting entity) : base()
-   {
-		_updateOnNextRequest = entity.UpdateOnNextRequest;
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_getExternalCodeInterval = entity.GetExternalCodeInterval;
-   }
    #endregion Constructors
    #region Properties
    	  private bool _updateOnNextRequest ;

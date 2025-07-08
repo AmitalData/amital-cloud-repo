@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -70,17 +72,18 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         private List<ObjectTableRulePM> GetObjectTableRules(int tenant, IRepository<RuleConditionField> ruleConditionFieldRepository)
         {
-            List<ObjectTableRulePM> objectTableRulePMs = repository.GetMultiFromCache($"GetObjectTableRules{tenant}", a => a.Tenant == tenant, "RuleType", a => new ObjectTableRulePM(a)
-            {
-                RuleTypeName = a.RuleType.Name,
-            });
+            List<ObjectTableRule> objectTableRules = repository.GetMultiFromCache($"GetObjectTableRules{tenant}", a => a.Tenant == tenant, "RuleType", a => a);
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableRuleDataMapping()));
+            var mapper = config.CreateMapper();
+            var objectTableRulePMs = mapper.Map<List<ObjectTableRulePM>>(objectTableRules);
+
+            var configRuleConditionField = new MapperConfiguration(cfg => cfg.AddProfile(new RuleConditionFieldDataMapping()));
+            var mapperRuleConditionField = configRuleConditionField.CreateMapper();
 
             foreach (ObjectTableRulePM rule in objectTableRulePMs)
             {
-                rule.RuleConditionFields = ruleConditionFieldRepository.GetMultiFromCache($"GetObjectTableRulesRuleConditionFields{tenant}-{rule.Id}", a => (a.Tenant == rule.Tenant) && a.ObjectTableRuleId == rule.Id, "ObjectField", a => new RuleConditionFieldPM(a)
-                {
-                    ObjectFieldName = a.ObjectField.FieldName,
-                });
+                var ruleConditionFields = ruleConditionFieldRepository.GetMultiFromCache($"GetObjectTableRulesRuleConditionFields{tenant}-{rule.Id}", a => (a.Tenant == rule.Tenant) && a.ObjectTableRuleId == rule.Id, "ObjectField", a => a);
+                rule.RuleConditionFields = mapperRuleConditionField.Map<List<RuleConditionFieldPM>>(objectTableRules);
             }
             return objectTableRulePMs;
         }

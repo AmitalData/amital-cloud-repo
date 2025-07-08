@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerSalesNotePM : BaseEntityPM   {
    #region Constructors
    public CustomerSalesNotePM() : base() {} 
-   public CustomerSalesNotePM(POCO.CustomerSalesNote entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_notes = entity.Notes;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

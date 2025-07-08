@@ -8,43 +8,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
     public class BankAccountPM : BaseEntityPM
     {
         public BankAccountPM() : base() { }
-        public BankAccountPM(BankAccount entity) : base()
-        {
-            Id = entity.Id;
-            Tenant = entity.Tenant;
-            CreateDate = entity.CreateDate;
-            CreatedByUserId = entity.CreatedByUserId;
-            CreatedByUser = new UserPM(entity.CreatedByUser);
-            UpdateDate = entity.UpdateDate;
-            UpdatedByUserId = entity.UpdatedByUserId;
-            UpdatedByUser = new UserPM(entity.UpdatedByUser);
-            SearchFields = entity.SearchFields;
-            LocalName = entity.LocalName;
-            EnglishName = entity.EnglishName;
-            BankId = entity.BankId;
-            BankCode = new BankCodePM(entity.BankCode);
-            BranchNumber = entity.BranchNumber;
-            AccountNumber = entity.AccountNumber;
-            GLAccountId = entity.GLAccountId;
-            DeferredGLAccountId = entity.DeferredGLAccountId;
-            IBAN = entity.IBAN;
-            SwiftCode = entity.SwiftCode;
-            BranchAddress = entity.BranchAddress;
-            BranchNumber = entity.BranchNumber;
-            Inactive = entity.Inactive;
-            ChequeCounter = entity.ChequeCounter;
-            LastPageNumber = entity.LastPageNumber;
-            LastPageEndDate = entity.LastPageEndDate;
-            LastPageCloseBalance = entity.LastPageCloseBalance;
-            TransferGLAcccountId = entity.TransferGLAcccountId;
-            CurrencyId = entity.CurrencyId;
-            Currency = new CurrencyPM(entity.Currency);
-            PrintingBranchNumber = entity.PrintingBranchNumber;
-            PrintingAccountNumber = entity.PrintingAccountNumber;
-            TotalOpenExternalTransactions = entity.TotalOpenExternalTransactions;
-            TotalOpenPagesLines = entity.TotalOpenPagesLines;
-            ChequeCounterSeriesID = entity.ChequeCounterSeriesID;
-        }
     
         public string Id { get; set; }
         public int Tenant { get; set; }

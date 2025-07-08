@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class PickUpDeliveryFromToTypePM : BaseEntityPM   {
    #region Constructors
    public PickUpDeliveryFromToTypePM() : base() {} 
-   public PickUpDeliveryFromToTypePM(POCO.PickUpDeliveryFromToType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

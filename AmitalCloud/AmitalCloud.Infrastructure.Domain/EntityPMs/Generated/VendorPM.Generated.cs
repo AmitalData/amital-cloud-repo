@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VendorPM : BaseEntityPM   {
    #region Constructors
    public VendorPM() : base() {} 
-   public VendorPM(POCO.Vendor entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

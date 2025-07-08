@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EntityLastActivityTypePM : BaseEntityPM   {
    #region Constructors
    public EntityLastActivityTypePM() : base() {} 
-   public EntityLastActivityTypePM(POCO.EntityLastActivityType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		entityLastActivitys = entity.EntityLastActivitys != null ? entity.EntityLastActivitys.Select(a=>new EntityLastActivityPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerAdditionalServicePM : BaseEntityPM   {
    #region Constructors
    public CustomerAdditionalServicePM() : base() {} 
-   public CustomerAdditionalServicePM(POCO.CustomerAdditionalService entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_potential = entity.Potential;
-		_notes = entity.Notes;
-		_customerId = entity.CustomerId;
-		_additionalServiceId = entity.AdditionalServiceId;
-		_notesRightToLeft = entity.NotesRightToLeft;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

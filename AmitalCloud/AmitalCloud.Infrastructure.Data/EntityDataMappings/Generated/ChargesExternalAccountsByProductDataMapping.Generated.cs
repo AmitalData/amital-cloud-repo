@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ChargesExternalAccountsByProductDataMapping: BaseMappingProfile<ChargesExternalAccountsByProductPM, POCO.ChargesExternalAccountsByProduct>, IMapping<ChargesExternalAccountsByProductPM, POCO.ChargesExternalAccountsByProduct, ChargesExternalAccountsByProductList >,IMappingEncodeBase64NVARCHARFields<ChargesExternalAccountsByProductPM>
     {
-	    public void EncodeBase64NVARCHARFields(ChargesExternalAccountsByProductPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(ChargesExternalAccountsByProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

@@ -26,25 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AdvancedQueryFilterPM : BaseEntityPM   {
    #region Constructors
    public AdvancedQueryFilterPM() : base() {} 
-   public AdvancedQueryFilterPM(POCO.AdvancedQueryFilter entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_queryId = entity.QueryId;
-		_query = entity.Query !=null ? new QueryPM(entity.Query) : null;
-			_objectFieldId = entity.ObjectFieldId;
-		_objectfield = entity.ObjectField !=null ? new ObjectFieldPM(entity.ObjectField) : null;
-			_isPredefined = entity.IsPredefined;
-		_predefinedValue = entity.PredefinedValue;
-		_predefinedValue2 = entity.PredefinedValue2;
-		_operator = entity.Operator;
-		_indexOrder = entity.IndexOrder;
-		_userId = entity.UserId;
-		_user = entity.User !=null ? new UserPM(entity.User) : null;
-			_objectFieldCode = entity.ObjectFieldCode;
-		_queryCode = entity.QueryCode;
-		_customPredefined = entity.CustomPredefined;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

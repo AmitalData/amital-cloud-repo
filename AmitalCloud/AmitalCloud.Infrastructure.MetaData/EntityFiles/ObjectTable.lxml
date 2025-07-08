@@ -6195,6 +6195,8 @@
     IsPrimaryKey="false"
     HasDataBaseField="false"
     HasPMField="true"
+    TableRelatedPM="FullNameTextCode"
+    FieldRelatedPM="DefaultText"
     IsComposition="false"
     IsMaxLength="false"
     NoMetaDataField="false"

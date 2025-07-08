@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RegistryDateTypePM : BaseEntityPM   {
    #region Constructors
    public RegistryDateTypePM() : base() {} 
-   public RegistryDateTypePM(POCO.RegistryDateType entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

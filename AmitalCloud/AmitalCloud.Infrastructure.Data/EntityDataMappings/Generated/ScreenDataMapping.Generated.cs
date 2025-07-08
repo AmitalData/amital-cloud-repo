@@ -11,12 +11,18 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ScreenDataMapping: BaseMappingProfile<ScreenPM, POCO.Screen>, IMapping<ScreenPM, POCO.Screen, ScreenList >,IMappingEncodeBase64NVARCHARFields<ScreenPM>
     {
-	    public void EncodeBase64NVARCHARFields(ScreenPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.Screen, ScreenPM> map)
+        {
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(ScreenPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

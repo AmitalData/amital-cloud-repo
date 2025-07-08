@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AnalyzeQueuePM : BaseEntityPM   {
    #region Constructors
    public AnalyzeQueuePM() : base() {} 
-   public AnalyzeQueuePM(POCO.AnalyzeQueue entity) : base()
-   {
-		_id = entity.Id;
-		_log = entity.Log;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

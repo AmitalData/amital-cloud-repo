@@ -11,12 +11,20 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class CustomsInterfaceSettingDataMapping: BaseMappingProfile<CustomsInterfaceSettingPM, POCO.CustomsInterfaceSetting>, IMapping<CustomsInterfaceSettingPM, POCO.CustomsInterfaceSetting, CustomsInterfaceSettingList >,IMappingEncodeBase64NVARCHARFields<CustomsInterfaceSettingPM>
     {
-	    public void EncodeBase64NVARCHARFields(CustomsInterfaceSettingPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.CustomsInterfaceSetting, CustomsInterfaceSettingPM> map)
+        {
+            map.ForMember(dest => dest.ArtemusOutSettingsHost, opt => opt.MapFrom(src => src.ArtemusOutSettings.Host));
+            map.ForMember(dest => dest.ArtemusInSettingsHost, opt => opt.MapFrom(src => src.ArtemusInSettings.Host));
+            map.ForMember(dest => dest.LocalCustomsInterfaceName, opt => opt.MapFrom(src => src.LocalCustomsInterface.Name));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(CustomsInterfaceSettingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

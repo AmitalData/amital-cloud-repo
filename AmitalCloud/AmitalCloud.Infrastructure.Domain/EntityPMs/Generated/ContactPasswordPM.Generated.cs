@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactPasswordPM : BaseEntityPM   {
    #region Constructors
    public ContactPasswordPM() : base() {} 
-   public ContactPasswordPM(POCO.ContactPassword entity) : base()
-   {
-		_email = entity.Email;
-		_password = entity.Password;
-		_mustChangePassword = entity.MustChangePassword;
-		_isLocked = entity.IsLocked;
-		_numberOfRetries = entity.NumberOfRetries;
-		_lockDateTime = entity.LockDateTime;
-		_sharedMobileAppAlertsforFollowedShipment = entity.SharedMobileAppAlertsforFollowedShipment;
-		_sharedMobileAppAlertonExceptions = entity.SharedMobileAppAlertonExceptions;
-		_isSendNotificationForMobile = entity.IsSendNotificationForMobile;
-		_isBCrypt = entity.IsBCrypt;
-		_passwordExpirationDate = entity.PasswordExpirationDate;
-		_captchaKey = entity.CaptchaKey;
-   }
    #endregion Constructors
    #region Properties
    	  private string _email ;

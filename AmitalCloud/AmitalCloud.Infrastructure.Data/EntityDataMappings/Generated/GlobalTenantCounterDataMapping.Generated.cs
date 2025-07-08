@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class GlobalTenantCounterDataMapping: BaseMappingProfile<GlobalTenantCounterPM, POCO.GlobalTenantCounter>, IMapping<GlobalTenantCounterPM, POCO.GlobalTenantCounter, GlobalTenantCounterList >,IMappingEncodeBase64NVARCHARFields<GlobalTenantCounterPM>
     {
-	    public void EncodeBase64NVARCHARFields(GlobalTenantCounterPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(GlobalTenantCounterPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

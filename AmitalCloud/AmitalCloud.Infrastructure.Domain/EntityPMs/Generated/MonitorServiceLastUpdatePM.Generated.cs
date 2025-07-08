@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MonitorServiceLastUpdatePM : BaseEntityPM   {
    #region Constructors
    public MonitorServiceLastUpdatePM() : base() {} 
-   public MonitorServiceLastUpdatePM(POCO.MonitorServiceLastUpdate entity) : base()
-   {
-		_code = entity.Code;
-		_cdropName = entity.CdropName;
-		_lastUpdate = entity.LastUpdate;
-		_cdropSearchfields = entity.CdropSearchfields;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

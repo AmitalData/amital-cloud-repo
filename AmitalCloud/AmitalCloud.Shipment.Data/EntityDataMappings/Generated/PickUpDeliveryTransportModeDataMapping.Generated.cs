@@ -5,64 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class PickUpDeliveryTransportModeDataMapping: IMapping<PickUpDeliveryTransportModePM, POCO.PickUpDeliveryTransportMode  ,PickUpDeliveryTransportModeList >,IMappingEncodeBase64NVARCHARFields<PickUpDeliveryTransportModePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(PickUpDeliveryTransportModePM entityPM, POCO.PickUpDeliveryTransportMode entityPOCO)
-        {
-			 }
-		public void POCOToPM(PickUpDeliveryTransportModePM entityPM, POCO.PickUpDeliveryTransportMode entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-		}
-		public void PMToOldPM(PickUpDeliveryTransportModePM entityPM, PickUpDeliveryTransportModePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.PickUpDeliveryTransportMode entityPOCO, PickUpDeliveryTransportModeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<PickUpDeliveryTransportModeList> GetIqueryableList(IQueryable<POCO.PickUpDeliveryTransportMode> iQueryable)
-		{
-			IQueryable<PickUpDeliveryTransportModeList> query = (from a in iQueryable
-                                            select new PickUpDeliveryTransportModeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(PickUpDeliveryTransportModePM entityPM)
+    public partial class PickUpDeliveryTransportModeDataMapping: BaseMappingProfile<PickUpDeliveryTransportModePM, POCO.PickUpDeliveryTransportMode>, IMapping<PickUpDeliveryTransportModePM, POCO.PickUpDeliveryTransportMode, PickUpDeliveryTransportModeList >,IMappingEncodeBase64NVARCHARFields<PickUpDeliveryTransportModePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(PickUpDeliveryTransportModePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -70,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

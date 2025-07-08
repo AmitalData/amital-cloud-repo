@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalFieldSecurityPM : BaseEntityPM   {
    #region Constructors
    public DigitalFieldSecurityPM() : base() {} 
-   public DigitalFieldSecurityPM(POCO.DigitalFieldSecurity entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_objectTableId = entity.ObjectTableId;
-		_defaultSettings = entity.DefaultSettings;
-		_profileId = entity.ProfileId;
-		_digitalprofile = entity.DigitalProfile !=null ? new DigitalProfilePM(entity.DigitalProfile) : null;
-			_parentObjectTableId = entity.ParentObjectTableId;
-		_parentobjecttable = entity.ParentObjectTable !=null ? new ObjectTablePM(entity.ParentObjectTable) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

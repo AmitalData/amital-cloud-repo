@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TextCodeTypePM : BaseEntityPM   {
    #region Constructors
    public TextCodeTypePM() : base() {} 
-   public TextCodeTypePM(POCO.TextCodeType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		textCodes = entity.TextCodes != null ? entity.TextCodes.Select(a=>new TextCodePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

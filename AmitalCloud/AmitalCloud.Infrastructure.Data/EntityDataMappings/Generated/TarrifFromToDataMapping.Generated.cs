@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class TarrifFromToDataMapping: BaseMappingProfile<TarrifFromToPM, POCO.TarrifFromTo>, IMapping<TarrifFromToPM, POCO.TarrifFromTo, TarrifFromToList >,IMappingEncodeBase64NVARCHARFields<TarrifFromToPM>
     {
-	    public void EncodeBase64NVARCHARFields(TarrifFromToPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(TarrifFromToPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

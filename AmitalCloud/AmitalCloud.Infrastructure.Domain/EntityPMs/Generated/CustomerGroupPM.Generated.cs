@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerGroupPM : BaseEntityPM   {
    #region Constructors
    public CustomerGroupPM() : base() {} 
-   public CustomerGroupPM(POCO.CustomerGroup entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_inActive = entity.InActive;
-		_description = entity.Description;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

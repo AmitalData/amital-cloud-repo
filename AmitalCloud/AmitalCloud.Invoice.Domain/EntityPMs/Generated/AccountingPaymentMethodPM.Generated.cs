@@ -26,21 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class AccountingPaymentMethodPM : BaseEntityPM   {
    #region Constructors
    public AccountingPaymentMethodPM() : base() {} 
-   public AccountingPaymentMethodPM(POCO.AccountingPaymentMethod entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_addedManually = entity.AddedManually;
-		_inactive = entity.Inactive;
-		_isAR = entity.IsAR;
-		_isAP = entity.IsAP;
-		_aPExternalId = entity.APExternalId;
-		_aRExternalId = entity.ARExternalId;
-		_localName = entity.LocalName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

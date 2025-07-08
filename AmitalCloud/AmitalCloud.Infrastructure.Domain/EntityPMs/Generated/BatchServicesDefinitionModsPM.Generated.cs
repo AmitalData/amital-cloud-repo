@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BatchServicesDefinitionModsPM : BaseEntityPM   {
    #region Constructors
    public BatchServicesDefinitionModsPM() : base() {} 
-   public BatchServicesDefinitionModsPM(POCO.BatchServicesDefinitionMods entity) : base()
-   {
-		_cdropCode = entity.CdropCode;
-		_inActive = entity.InActive;
-		_numberOfThreads = entity.NumberOfThreads;
-		_code = entity.Code;
-		_batchservicesdefinition = entity.BatchServicesDefinition !=null ? new BatchServicesDefinitionPM(entity.BatchServicesDefinition) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _cdropCode ;

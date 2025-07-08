@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ColorIndexPM : BaseEntityPM   {
    #region Constructors
    public ColorIndexPM() : base() {} 
-   public ColorIndexPM(POCO.ColorIndex entity) : base()
-   {
-		_indexNumber = entity.IndexNumber;
-		_color = entity.Color;
-		_rowid = entity.Rowid;
-   }
    #endregion Constructors
    #region Properties
    	  private int _indexNumber ;

@@ -26,14 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ContainersExternalDataPM : BaseEntityPM   {
    #region Constructors
    public ContainersExternalDataPM() : base() {} 
-   public ContainersExternalDataPM(POCO.ContainersExternalData entity) : base()
-   {
-		_id = entity.Id;
-		_container = entity.Container !=null ? new ContainerPM(entity.Container) : null;
-			_tenant = entity.Tenant;
-		_gateIn = entity.GateIn;
-		_gateOut = entity.GateOut;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

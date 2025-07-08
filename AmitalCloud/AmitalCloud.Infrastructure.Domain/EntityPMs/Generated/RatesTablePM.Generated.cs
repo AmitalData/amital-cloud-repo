@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RatesTablePM : BaseEntityPM   {
    #region Constructors
    public RatesTablePM() : base() {} 
-   public RatesTablePM(POCO.RatesTable entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_logDateTime = entity.LogDateTime;
-		_foreignCurrencyId = entity.ForeignCurrencyId;
-		_foreigncurrency = entity.ForeignCurrency !=null ? new CurrencyPM(entity.ForeignCurrency) : null;
-			_baseCurrencyId = entity.BaseCurrencyId;
-		_basecurrency = entity.BaseCurrency !=null ? new CurrencyPM(entity.BaseCurrency) : null;
-			_rate = entity.Rate;
-		_valueDate = entity.ValueDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_updatedDate = entity.UpdatedDate;
-		_unit = entity.Unit;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

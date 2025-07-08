@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerCompetitorProductPM : BaseEntityPM   {
    #region Constructors
    public CustomerCompetitorProductPM() : base() {} 
-   public CustomerCompetitorProductPM(POCO.CustomerCompetitorProduct entity) : base()
-   {
-		_productTypeCode = entity.ProductTypeCode;
-		_producttype = entity.ProductType !=null ? new ProductTypePM(entity.ProductType) : null;
-			_customerId = entity.CustomerId;
-		_competitorId = entity.CompetitorId;
-		_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _productTypeCode ;

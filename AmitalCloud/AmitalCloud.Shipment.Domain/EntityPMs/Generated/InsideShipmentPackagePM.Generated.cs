@@ -26,42 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class InsideShipmentPackagePM : BaseEntityPM   {
    #region Constructors
    public InsideShipmentPackagePM() : base() {} 
-   public InsideShipmentPackagePM(POCO.InsideShipmentPackage entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_originalShipmentPackageId = entity.OriginalShipmentPackageId;
-		_originalInsideShipmentPackageId = entity.OriginalInsideShipmentPackageId;
-		_volumetricWeight = entity.VolumetricWeight;
-		_shipmentPackageId = entity.ShipmentPackageId;
-		_shipmentpackage = entity.ShipmentPackage !=null ? new ShipmentPackagePM(entity.ShipmentPackage) : null;
-			_packageTypeId = entity.PackageTypeId;
-		_packagetype = entity.PackageType !=null ? new PackageTypePM(entity.PackageType) : null;
-			_quantity = entity.Quantity;
-		_height = entity.Height;
-		_width = entity.Width;
-		_length = entity.Length;
-		_volume = entity.Volume;
-		_weight = entity.Weight;
-		_description = entity.Description;
-		_reference1 = entity.Reference1;
-		_reference2 = entity.Reference2;
-		_reference3 = entity.Reference3;
-		_commodityNumber = entity.CommodityNumber;
-		_reference4 = entity.Reference4;
-		_commodityName = entity.CommodityName;
-		_make = entity.Make;
-		_model = entity.Model;
-		_year = entity.Year;
-		_color = entity.Color;
-		_chassisNumber = entity.ChassisNumber;
-		_registrationNumber = entity.RegistrationNumber;
-		_countryId = entity.CountryId;
-		_harmonize = entity.Harmonize;
-		_isMultiHarmonize = entity.IsMultiHarmonize;
-		_horseId = entity.HorseId;
-		_horse = entity.Horse !=null ? new HorsePM(entity.Horse) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

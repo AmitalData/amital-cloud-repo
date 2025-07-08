@@ -11,12 +11,18 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class CardDataMapping: BaseMappingProfile<CardPM, POCO.Card>, IMapping<CardPM, POCO.Card, CardList >,IMappingEncodeBase64NVARCHARFields<CardPM>
     {
-	    public void EncodeBase64NVARCHARFields(CardPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.Card, CardPM> map)
+        {
+            map.ForMember(dest => dest.SalesmanUserId, opt => opt.MapFrom(src => src.Customer.SalesmanUserId));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(CardPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

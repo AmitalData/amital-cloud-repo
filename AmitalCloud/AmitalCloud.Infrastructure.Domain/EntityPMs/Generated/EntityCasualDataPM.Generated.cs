@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EntityCasualDataPM : BaseEntityPM   {
    #region Constructors
    public EntityCasualDataPM() : base() {} 
-   public EntityCasualDataPM(POCO.EntityCasualData entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_casualTypeCode = entity.CasualTypeCode;
-		_objectTableId = entity.ObjectTableId;
-		_entityId = entity.EntityId;
-		_localName = entity.LocalName;
-		_englishName = entity.EnglishName;
-		_city = entity.City;
-		_zipCode = entity.ZipCode;
-		_faxNumber = entity.FaxNumber;
-		_phoneNumber = entity.PhoneNumber;
-		_address1 = entity.Address1;
-		_address2 = entity.Address2;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

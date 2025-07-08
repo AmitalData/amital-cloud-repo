@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalPreDefinedComponentPM : BaseEntityPM   {
    #region Constructors
    public DigitalPreDefinedComponentPM() : base() {} 
-   public DigitalPreDefinedComponentPM(POCO.DigitalPreDefinedComponent entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_name = entity.Name;
-		_objectTableId = entity.ObjectTableId;
-		_content = entity.Content;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

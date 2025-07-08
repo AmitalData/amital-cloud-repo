@@ -26,28 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TraceEventPM : BaseEntityPM   {
    #region Constructors
    public TraceEventPM() : base() {} 
-   public TraceEventPM(POCO.TraceEvent entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_entityId = entity.EntityId;
-		_objectTableId = entity.ObjectTableId;
-		_deleted = entity.Deleted;
-		_externalId = entity.ExternalId;
-		_customerCareUserEmail = entity.CustomerCareUserEmail;
-		_isAddedManually = entity.IsAddedManually;
-		_partnerName = entity.PartnerName;
-		_eventTypeId = entity.EventTypeId;
-		_notes = entity.Notes;
-		_eventDateTime = entity.EventDateTime;
-		_logDateTime = entity.LogDateTime;
-		_userId = entity.UserId;
-		_user = entity.User !=null ? new UserPM(entity.User) : null;
-			_location = entity.Location;
-		_childEntityId = entity.ChildEntityId;
-		_childObjectTableId = entity.ChildObjectTableId;
-		_childobjecttable = entity.ChildObjectTable !=null ? new ObjectTablePM(entity.ChildObjectTable) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

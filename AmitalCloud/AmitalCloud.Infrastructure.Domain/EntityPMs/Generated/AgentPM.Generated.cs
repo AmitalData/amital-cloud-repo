@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AgentPM : BaseEntityPM   {
    #region Constructors
    public AgentPM() : base() {} 
-   public AgentPM(POCO.Agent entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_cASSCode = entity.CASSCode;
-		_iATACode = entity.IATACode;
-		_regulatedAgentCode = entity.RegulatedAgentCode;
-		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
-		_agentSharedLogisticsKey = entity.AgentSharedLogisticsKey;
-		_isCreditLimitEnabled = entity.IsCreditLimitEnabled;
-		_blockNewInvoiceCreation = entity.BlockNewInvoiceCreation;
-		_blockNewShipmentCreation = entity.BlockNewShipmentCreation;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

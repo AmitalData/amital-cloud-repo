@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HybridPartnerPM : BaseEntityPM   {
    #region Constructors
    public HybridPartnerPM() : base() {} 
-   public HybridPartnerPM(POCO.HybridPartner entity) : base()
-   {
-		_id = entity.Id;
-		_logoId = entity.LogoId;
-		_imagedetail = entity.ImageDetail !=null ? new ImageDetailPM(entity.ImageDetail) : null;
-			_smallLogoId = entity.SmallLogoId;
-		_imagedetail1 = entity.ImageDetail1 !=null ? new ImageDetailPM(entity.ImageDetail1) : null;
-			_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-		_partnerTenant = entity.PartnerTenant;
-		_isExternalPartner = entity.IsExternalPartner;
-		_receiveAllStatuses = entity.ReceiveAllStatuses;
-		_allowSendingDocsToAgent = entity.AllowSendingDocsToAgent;
-		_isMislakaActivated = entity.IsMislakaActivated;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

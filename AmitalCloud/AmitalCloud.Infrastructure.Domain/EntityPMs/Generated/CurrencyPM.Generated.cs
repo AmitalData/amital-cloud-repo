@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CurrencyPM : BaseEntityPM   {
    #region Constructors
    public CurrencyPM() : base() {} 
-   public CurrencyPM(POCO.Currency entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_notes = entity.Notes;
-		_accountingExternalCode = entity.AccountingExternalCode;
-		_sign = entity.Sign;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

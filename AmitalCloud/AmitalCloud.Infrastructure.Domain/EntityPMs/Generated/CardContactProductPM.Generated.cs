@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CardContactProductPM : BaseEntityPM   {
    #region Constructors
    public CardContactProductPM() : base() {} 
-   public CardContactProductPM(POCO.CardContactProduct entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_cardContactId = entity.CardContactId;
-		_productTypeCode = entity.ProductTypeCode;
-		_producttype = entity.ProductType !=null ? new ProductTypePM(entity.ProductType) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

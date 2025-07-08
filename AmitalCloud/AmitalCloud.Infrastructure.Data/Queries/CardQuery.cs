@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class CardQuery
@@ -33,7 +35,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 string entityKeyString = $"CardPM({id},{tenant})";
                 CardPM entity;
                 var repository = new Repository<Address>(tenant);
-                var addresslist = repository.GetMulti(a => a.Tenant == tenant && a.CardId == id, a => new AddressPM(a), "Country,State").ToList();
+                var addresslist = repository.GetMulti(a => a.Tenant == tenant && a.CardId == id, a => a, "Country,State").ToList();
                 string myMainAddressId = addresslist.Where(a => a.AddressTypeId.ToUpper() == "M").FirstOrDefault().Id;
                 string myBillingAddressId = addresslist.Where(a => a.AddressTypeId.ToUpper() == "B").FirstOrDefault().Id;
                 string myPickupDeliveryAddressId = addresslist.Where(a => a.AddressTypeId.ToUpper() == "P").FirstOrDefault().Id;
@@ -68,29 +70,11 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             return entity;
         }
         private CardPM GetNewPM(string myMainAddressId, string myBillingAddressId, string myPickupDeliveryAddressId, Card a)
-            => new CardPM(a)
-            {
-                //PartnerTypeName = a.PartnerType == null ? null : a.PartnerType.Name,
-                //MainAddressId = myMainAddressId,
-                //BillingAddressId = myBillingAddressId,
-                //PickupDeliveryAddressId = myPickupDeliveryAddressId,
-                //ComputedLocalName = string.IsNullOrEmpty(a.LocalName) ? a.EnglishName : a.LocalName,
-                //ClassifierName = a.ClassifierUser != null ? a.ClassifierUser.Contact.EnglishName : "",
-                //CollectorName = a.CollectorUser != null ? a.CollectorUser.Contact.EnglishName : "",
-                EnableConsolidationInvoices = a.EnableConsolidationInvoices,
-                SalesmanUserId = a.Customer != null ? a.Customer.SalesmanUserId : null,
-                //AccountManagerUserId = a.Customer == null ? null : a.Customer.AccountManagerUserId,
-                //TeamId = a.Customer == null ? null : a.Customer.TeamId,
-                //SalesmanBusinessUnitId = a.Customer == null ? null : (a.Customer.SalesmanUser == null ? null : a.Customer.SalesmanUser.BusinessUnitId),
-                //CustomerStatusCode = a.Customer != null ? (a.Customer.CustomerStatus != null ? a.Customer.CustomerStatus.Code : null) : null,
-                //RankId = a.Customer != null ? (a.Customer.Rank != null ? a.Customer.Rank.Id : null) : null,
-                //IndustryId = a.Customer != null ? (a.Customer.Industry != null ? a.Customer.Industry.Id : null) : null,
-                //LeadSourceId = a.Customer != null ? (a.Customer.LeadSource != null ? a.Customer.LeadSource.Id : null) : null,
-                //LeadDescription = a.Customer != null ? a.Customer.LeadDescription : null,
-                //StartWorkingDate = a.Customer != null ? a.Customer.StartWorkingDate : null,
-                //ICAO = a.Airline ? .ICAO ,
-                //CustomerSizeId = a.Customer != null ? (a.Customer.CustomerSize != null ? a.Customer.CustomerSize.Id : null) : null,
-            };
+        {
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CardDataMapping()));
+            var mapper = config.CreateMapper();
+            return mapper.Map<CardPM>(a);
+        }
         private CardPM Set(CardPM card, int tenant)
         {
             List<DocumentTypeList> documentTypeLists =

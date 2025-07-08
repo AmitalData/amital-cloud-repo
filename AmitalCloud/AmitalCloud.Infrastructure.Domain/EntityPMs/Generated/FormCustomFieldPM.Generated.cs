@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FormCustomFieldPM : BaseEntityPM   {
    #region Constructors
    public FormCustomFieldPM() : base() {} 
-   public FormCustomFieldPM(POCO.FormCustomField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_documentTypeId = entity.DocumentTypeId;
-		_objectTableId = entity.ObjectTableId;
-		_entityId = entity.EntityId;
-		_fieldCode = entity.FieldCode;
-		_value = entity.Value;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

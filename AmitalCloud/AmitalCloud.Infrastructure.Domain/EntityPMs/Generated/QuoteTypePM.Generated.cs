@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTypePM : BaseEntityPM   {
    #region Constructors
    public QuoteTypePM() : base() {} 
-   public QuoteTypePM(POCO.QuoteType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

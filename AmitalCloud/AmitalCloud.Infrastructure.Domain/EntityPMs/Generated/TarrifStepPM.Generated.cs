@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TarrifStepPM : BaseEntityPM   {
    #region Constructors
    public TarrifStepPM() : base() {} 
-   public TarrifStepPM(POCO.TarrifStep entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_tarrifHeaderId = entity.TarrifHeaderId;
-		_minPrice = entity.MinPrice;
-		_maxPrice = entity.MaxPrice;
-		_unitPrice = entity.UnitPrice;
-		_step = entity.Step;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

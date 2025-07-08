@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class RoleFeatureDataMapping: BaseMappingProfile<RoleFeaturePM, POCO.RoleFeature>, IMapping<RoleFeaturePM, POCO.RoleFeature, RoleFeatureList >,IMappingEncodeBase64NVARCHARFields<RoleFeaturePM>
     {
-	    public void EncodeBase64NVARCHARFields(RoleFeaturePM entityPM)
+    	    public void EncodeBase64NVARCHARFields(RoleFeaturePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

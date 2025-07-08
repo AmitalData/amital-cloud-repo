@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SharedLogisticsContactLastLoginPM : BaseEntityPM   {
    #region Constructors
    public SharedLogisticsContactLastLoginPM() : base() {} 
-   public SharedLogisticsContactLastLoginPM(POCO.SharedLogisticsContactLastLogin entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_contactId = entity.ContactId;
-		_contact = entity.Contact !=null ? new ContactPM(entity.Contact) : null;
-			_cardId = entity.CardId;
-		_partnerTypeId = entity.PartnerTypeId;
-		_via = entity.Via;
-		_loginDateTime = entity.LoginDateTime;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

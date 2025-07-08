@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ConvertProgramInfoPM : BaseEntityPM   {
    #region Constructors
    public ConvertProgramInfoPM() : base() {} 
-   public ConvertProgramInfoPM(POCO.ConvertProgramInfo entity) : base()
-   {
-		_id = entity.Id;
-		_methodName = entity.MethodName;
-		_isApplied = entity.IsApplied;
-		_globalDBId = entity.GlobalDBId;
-		_globaldb = entity.GlobalDB !=null ? new GlobalDBPM(entity.GlobalDB) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

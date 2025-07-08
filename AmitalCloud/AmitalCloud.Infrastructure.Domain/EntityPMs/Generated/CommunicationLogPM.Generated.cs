@@ -26,59 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CommunicationLogPM : BaseEntityPM   {
    #region Constructors
    public CommunicationLogPM() : base() {} 
-   public CommunicationLogPM(POCO.CommunicationLog entity) : base()
-   {
-		_entityId = entity.EntityId;
-		_documentId = entity.DocumentId;
-		_document = entity.Document !=null ? new DocumentPM(entity.Document) : null;
-			_exceptionMessage = entity.ExceptionMessage;
-		_logs = entity.Logs;
-		_correlationID = entity.CorrelationID;
-		_messageLockId = entity.MessageLockId;
-		_replyToList = entity.ReplyToList;
-		_createdByUserId = entity.CreatedByUserId;
-		_createDate = entity.CreateDate;
-		_subject = entity.Subject;
-		_doneDate = entity.DoneDate;
-		_inOut = entity.InOut;
-		_cC = entity.CC;
-		_documentOutId = entity.DocumentOutId;
-		_internaldocument = entity.InternalDocument !=null ? new DocumentOutPM(entity.InternalDocument) : null;
-			_to = entity.To;
-		_communicationStatusTypeCode = entity.CommunicationStatusTypeCode;
-		_communicationstatustype = entity.CommunicationStatusType !=null ? new CommunicationStatusTypePM(entity.CommunicationStatusType) : null;
-			_communicationLogTypeCode = entity.CommunicationLogTypeCode;
-		_communicationlogtype = entity.CommunicationLogType !=null ? new CommunicationLogTypePM(entity.CommunicationLogType) : null;
-			_retries = entity.Retries;
-		_bCC = entity.BCC;
-		_objectTableId = entity.ObjectTableId;
-		_from = entity.From;
-		_lastStatusDate = entity.LastStatusDate;
-		_entityReference = entity.EntityReference;
-		_searchFields = entity.SearchFields;
-		_id = entity.Id;
-		_createDateUTC = entity.CreateDateUTC;
-		_doneDateUTC = entity.DoneDateUTC;
-		_lastStatusDateUTC = entity.LastStatusDateUTC;
-		_nextTryDateTimeUTC = entity.NextTryDateTimeUTC;
-		_nextTryDateTime = entity.NextTryDateTime;
-		_queueName = entity.QueueName;
-		_priority = entity.Priority;
-		_aWBNumber = entity.AWBNumber;
-		_tenant = entity.Tenant;
-		_currenttenant = entity.CurrentTenant !=null ? new TenantPM(entity.CurrentTenant) : null;
-			_isSecured = entity.IsSecured;
-		_responseDocumentId = entity.ResponseDocumentId;
-		_responsedocument = entity.ResponseDocument !=null ? new DocumentPM(entity.ResponseDocument) : null;
-			_childEntityId = entity.ChildEntityId;
-		_childObjectTableId = entity.ChildObjectTableId;
-		_emailDeliveryError = entity.EmailDeliveryError;
-		_logSettings = entity.LogSettings;
-		_uniqueNumber = entity.UniqueNumber;
-		_additionalFields = entity.AdditionalFields;
-		_wasAnalyzed = entity.WasAnalyzed;
-		_channel = entity.Channel;
-   }
    #endregion Constructors
    #region Properties
    	  private string _entityId ;

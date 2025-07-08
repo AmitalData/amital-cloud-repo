@@ -11,12 +11,19 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class MenusTableDataMapping: BaseMappingProfile<MenusTablePM, POCO.MenusTable>, IMapping<MenusTablePM, POCO.MenusTable, MenusTableList >,IMappingEncodeBase64NVARCHARFields<MenusTablePM>
     {
-	    public void EncodeBase64NVARCHARFields(MenusTablePM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.MenusTable, MenusTablePM> map)
+        {
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
+            map.ForMember(dest => dest.FeatureCode, opt => opt.MapFrom(src => src.Feature.Code));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(MenusTablePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

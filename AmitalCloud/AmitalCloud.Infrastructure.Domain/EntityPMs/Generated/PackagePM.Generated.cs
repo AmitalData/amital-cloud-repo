@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PackagePM : BaseEntityPM   {
    #region Constructors
    public PackagePM() : base() {} 
-   public PackagePM(POCO.Package entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_featurePackageTypeCode = entity.FeaturePackageTypeCode;
-		_featurepackagetype = entity.FeaturePackageType !=null ? new FeaturePackageTypePM(entity.FeaturePackageType) : null;
-			_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

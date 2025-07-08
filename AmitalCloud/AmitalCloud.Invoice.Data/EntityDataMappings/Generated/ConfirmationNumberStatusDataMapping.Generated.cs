@@ -5,107 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class ConfirmationNumberStatusDataMapping: IMapping<ConfirmationNumberStatusPM, POCO.ConfirmationNumberStatus  ,ConfirmationNumberStatusList >,IMappingEncodeBase64NVARCHARFields<ConfirmationNumberStatusPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         LocalName, 
-	         InActive,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         LocalName, 
-	         InActive,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ConfirmationNumberStatusPM entityPM, POCO.ConfirmationNumberStatus entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ConfirmationNumberStatusPM entityPM, POCO.ConfirmationNumberStatus entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-		}
-		public void PMToOldPM(ConfirmationNumberStatusPM entityPM, ConfirmationNumberStatusPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-					}
-		public void POCOToList(POCO.ConfirmationNumberStatus entityPOCO, ConfirmationNumberStatusList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ConfirmationNumberStatusList> GetIqueryableList(IQueryable<POCO.ConfirmationNumberStatus> iQueryable)
-		{
-			IQueryable<ConfirmationNumberStatusList> query = (from a in iQueryable
-                                            select new ConfirmationNumberStatusList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ConfirmationNumberStatusPM entityPM)
+    public partial class ConfirmationNumberStatusDataMapping: BaseMappingProfile<ConfirmationNumberStatusPM, POCO.ConfirmationNumberStatus>, IMapping<ConfirmationNumberStatusPM, POCO.ConfirmationNumberStatus, ConfirmationNumberStatusList >,IMappingEncodeBase64NVARCHARFields<ConfirmationNumberStatusPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ConfirmationNumberStatusPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -121,20 +33,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ConfirmationNumberStatusPM entityPM, POCO.ConfirmationNumberStatus entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

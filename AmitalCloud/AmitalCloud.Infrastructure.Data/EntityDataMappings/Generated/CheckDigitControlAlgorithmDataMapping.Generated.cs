@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class CheckDigitControlAlgorithmDataMapping: BaseMappingProfile<CheckDigitControlAlgorithmPM, POCO.CheckDigitControlAlgorithm>, IMapping<CheckDigitControlAlgorithmPM, POCO.CheckDigitControlAlgorithm, CheckDigitControlAlgorithmList >,IMappingEncodeBase64NVARCHARFields<CheckDigitControlAlgorithmPM>
     {
-	    public void EncodeBase64NVARCHARFields(CheckDigitControlAlgorithmPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(CheckDigitControlAlgorithmPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

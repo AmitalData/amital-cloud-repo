@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MetodoPagoPM : BaseEntityPM   {
    #region Constructors
    public MetodoPagoPM() : base() {} 
-   public MetodoPagoPM(POCO.MetodoPago entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

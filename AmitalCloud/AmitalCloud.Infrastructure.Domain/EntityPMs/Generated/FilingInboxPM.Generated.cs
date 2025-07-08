@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FilingInboxPM : BaseEntityPM   {
    #region Constructors
    public FilingInboxPM() : base() {} 
-   public FilingInboxPM(POCO.FilingInbox entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_sender = entity.Sender;
-		_subject = entity.Subject;
-		_isDeleted = entity.IsDeleted;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_bodyDocumentId = entity.BodyDocumentId;
-		_bodydocument = entity.BodyDocument !=null ? new DocumentPM(entity.BodyDocument) : null;
-			_searchFields = entity.SearchFields;
-		filingInboxAttachments = null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

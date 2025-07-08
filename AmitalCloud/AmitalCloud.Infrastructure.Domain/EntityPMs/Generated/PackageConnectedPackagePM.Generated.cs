@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PackageConnectedPackagePM : BaseEntityPM   {
    #region Constructors
    public PackageConnectedPackagePM() : base() {} 
-   public PackageConnectedPackagePM(POCO.PackageConnectedPackage entity) : base()
-   {
-		_id = entity.Id;
-		_packageCode = entity.PackageCode;
-		_package = entity.Package !=null ? new PackagePM(entity.Package) : null;
-			_connectedPackageCode = entity.ConnectedPackageCode;
-		_connectedpackage = entity.ConnectedPackage !=null ? new PackagePM(entity.ConnectedPackage) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

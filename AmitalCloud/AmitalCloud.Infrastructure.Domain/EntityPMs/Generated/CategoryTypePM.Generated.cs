@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CategoryTypePM : BaseEntityPM   {
    #region Constructors
    public CategoryTypePM() : base() {} 
-   public CategoryTypePM(POCO.CategoryType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		menusTables = entity.MenusTables != null ? entity.MenusTables.Select(a=>new MenusTablePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

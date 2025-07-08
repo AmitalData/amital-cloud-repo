@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalProfilePM : BaseEntityPM   {
    #region Constructors
    public DigitalProfilePM() : base() {} 
-   public DigitalProfilePM(POCO.DigitalProfile entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_name = entity.Name;
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

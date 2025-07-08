@@ -26,41 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BusinessHourPM : BaseEntityPM   {
    #region Constructors
    public BusinessHourPM() : base() {} 
-   public BusinessHourPM(POCO.BusinessHour entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_searchFields = entity.SearchFields;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_name = entity.Name;
-		_description = entity.Description;
-		_is247 = entity.Is247;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_isMondayEnabeled = entity.IsMondayEnabeled;
-		_isTuesdayEnabeled = entity.IsTuesdayEnabeled;
-		_isWednesdayEnabeled = entity.IsWednesdayEnabeled;
-		_isThursdayEnabeled = entity.IsThursdayEnabeled;
-		_isFridayEnabeled = entity.IsFridayEnabeled;
-		_isSaturdayEnabeled = entity.IsSaturdayEnabeled;
-		_isSundayEnabeled = entity.IsSundayEnabeled;
-		_mondayFromHour = entity.MondayFromHour;
-		_tuesdayFromHour = entity.TuesdayFromHour;
-		_wednesdayFromHour = entity.WednesdayFromHour;
-		_thursdayFromHour = entity.ThursdayFromHour;
-		_fridayFromHour = entity.FridayFromHour;
-		_saturdayFromHour = entity.SaturdayFromHour;
-		_sundayFromHour = entity.SundayFromHour;
-		_mondayToHour = entity.MondayToHour;
-		_tuesdayToHour = entity.TuesdayToHour;
-		_wednesdayToHour = entity.WednesdayToHour;
-		_thursdayToHour = entity.ThursdayToHour;
-		_fridayToHour = entity.FridayToHour;
-		_saturdayToHour = entity.SaturdayToHour;
-		_sundayToHour = entity.SundayToHour;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

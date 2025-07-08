@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class WarehouseStoragePricingPM : BaseEntityPM   {
    #region Constructors
    public WarehouseStoragePricingPM() : base() {} 
-   public WarehouseStoragePricingPM(POCO.WarehouseStoragePricing entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_warehouseId = entity.WarehouseId;
-		_warehouse = entity.Warehouse !=null ? new CardPM(entity.Warehouse) : null;
-			_stepFrom = entity.StepFrom;
-		_stepTo = entity.StepTo;
-		_days = entity.Days;
-		_salePrice = entity.SalePrice;
-		_lineNumber = entity.LineNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MenusTablePM : BaseEntityPM   {
    #region Constructors
    public MenusTablePM() : base() {} 
-   public MenusTablePM(POCO.MenusTable entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_menuTypeCode = entity.MenuTypeCode;
-		_menutype = entity.MenuType !=null ? new MenuTypePM(entity.MenuType) : null;
-			_categoryTypeCode = entity.CategoryTypeCode;
-		_categorytype = entity.CategoryType !=null ? new CategoryTypePM(entity.CategoryType) : null;
-			_indexOfOrder = entity.IndexOfOrder;
-		_icon = entity.Icon;
-		_textCode = entity.TextCode;
-		_userControlName = entity.UserControlName;
-		_objectTableId = entity.ObjectTableId;
-		_featureId = entity.FeatureId;
-		_feature = entity.Feature !=null ? new FeaturePM(entity.Feature) : null;
-			_code = entity.Code;
-		_htmlView = entity.HtmlView;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-		_querySection = entity.QuerySection;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,14 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ConfirmationNumberStatusPM : BaseEntityPM   {
    #region Constructors
    public ConfirmationNumberStatusPM() : base() {} 
-   public ConfirmationNumberStatusPM(POCO.ConfirmationNumberStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

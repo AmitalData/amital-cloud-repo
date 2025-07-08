@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWHBuildStatusPM : BaseEntityPM   {
    #region Constructors
    public DWHBuildStatusPM() : base() {} 
-   public DWHBuildStatusPM(POCO.DWHBuildStatus entity) : base()
-   {
-		_id = entity.Id;
-		_lastIncrementalDWUpdateDate = entity.LastIncrementalDWUpdateDate;
-		_dWNextRunTime = entity.DWNextRunTime;
-		_isFullBuildDWRunning = entity.IsFullBuildDWRunning;
-		_isIncrementalDWRunning = entity.IsIncrementalDWRunning;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

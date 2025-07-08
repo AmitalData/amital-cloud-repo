@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class QueueMessageMoreDetailsDataMapping: BaseMappingProfile<QueueMessageMoreDetailsPM, POCO.QueueMessageMoreDetails>, IMapping<QueueMessageMoreDetailsPM, POCO.QueueMessageMoreDetails, QueueMessageMoreDetailsList >,IMappingEncodeBase64NVARCHARFields<QueueMessageMoreDetailsPM>
     {
-	    public void EncodeBase64NVARCHARFields(QueueMessageMoreDetailsPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(QueueMessageMoreDetailsPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

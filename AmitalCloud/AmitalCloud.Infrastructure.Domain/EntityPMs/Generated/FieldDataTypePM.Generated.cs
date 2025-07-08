@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FieldDataTypePM : BaseEntityPM   {
    #region Constructors
    public FieldDataTypePM() : base() {} 
-   public FieldDataTypePM(POCO.FieldDataType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		objectFields = entity.ObjectFields != null ? entity.ObjectFields.Select(a=>new ObjectFieldPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

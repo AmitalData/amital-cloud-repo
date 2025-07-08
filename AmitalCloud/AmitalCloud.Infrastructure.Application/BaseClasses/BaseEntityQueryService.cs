@@ -2,6 +2,8 @@
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.BaseClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System.Linq.Expressions;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
@@ -18,12 +20,16 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         protected IRepository<TEntityPOCO> Repository;
         protected IContext MainContext;
         protected TEntityKeys EntityKeys;
-        
+        protected IMapper mapper;
+
         public BaseEntityQueryService(IRepository<TEntityPOCO> repository, IMapping<TEntityPM, TEntityPOCO, TEntityList> mapping)
         {
             this.Repository = repository;
             this.mapping = mapping;
             this.InitializeSettings();
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)mapping));
+            mapper = config.CreateMapper();
         }
         public TEntityPM GetSingle(TEntityKeys entityKeys, bool getComposition, bool getFromCache)
         {
@@ -84,7 +90,6 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                 return default(TEntityPM);
             }
 
-            var mapper = mapping.CreateMapper();
             entityPM = mapper.Map<TEntityPM>(entityPOCO);
 
             if (getComposition && entityKeys != null)
@@ -116,13 +121,13 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                         GetComposition(entityKeys, entityPM);
                     }
                 }
-                var mapper = mapping.CreateMapper();
+
                 entityPM = mapper.Map<TEntityPM>(entityPOCO);
                 entityPMs.Add(entityPM);
             }
             return entityPMs;
         }
-        public List<TEntityPM> GetMultiFromCache(string cacheKey, Expression<Func<TEntityPOCO, bool>> predicate, string include = null, Expression<Func<TEntityPOCO, TEntityPM>> select = null)
+        public List<TEntityPM> GetMultiFromCache(string cacheKey, Expression<Func<TEntityPOCO, bool>> predicate, string include = null)
         {
             List<TEntityPM> entityPMs;
             var formattedCacheKey = $"PMCache:{typeof(TEntityPOCO).Name}:{cacheKey}:{include}";
@@ -136,15 +141,13 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             {
                 if (!string.IsNullOrEmpty(include))
                 {
-                    if (select == null)
-                    {
-                        throw new Exception("you can not include tables without selecting columns");
-                    }
-                    entityPMs = Repository.GetMulti<TEntityPM>(predicate, select, include);
+                    entityPMs = Repository.GetQueryable().Where(predicate)
+                        .ProjectTo<TEntityPM>(mapper.ConfigurationProvider)
+                        .ToList();
                 }
                 else
                 {
-                    entityPMs = Repository.GetMulti<TEntityPM>(predicate);
+                    entityPMs = Repository.GetMulti<TEntityPM>(predicate, mapper);
                 }
 
                 if (entityPMs != null)
@@ -160,8 +163,10 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         }
         public TEntityPOCO GetFirst() => Repository.GetFirst();
         public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate)
-        => Repository.GetMulti<TEntityPM>(predicate);        
-         public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TEntityPM>> select)
+        {
+            return Repository.GetMulti<TEntityPM>(predicate, mapper);
+        }
+        public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TEntityPM>> select)
         => Repository.GetMulti(predicate,select);
         public List<TEntityPM> GetMulti(Expression<Func<TEntityPOCO, bool>> predicate, Expression<Func<TEntityPOCO, TEntityPM>> select, string include)
         => Repository.GetMulti(predicate, select,include);

@@ -661,6 +661,8 @@
     IsPrimaryKey="false"
     HasDataBaseField="false"
     HasPMField="true"
+    TableRelatedPM="ObjectField"
+    FieldRelatedPM="FieldName"
     IsComposition="false"
     IsMaxLength="false"
     NoMetaDataField="false"

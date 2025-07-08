@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LastRunDetailPM : BaseEntityPM   {
    #region Constructors
    public LastRunDetailPM() : base() {} 
-   public LastRunDetailPM(POCO.LastRunDetail entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_lastRunDate = entity.LastRunDate;
-		_lastRunByUserId = entity.LastRunByUserId;
-		_lastrunbyuser = entity.LastRunByUser !=null ? new UserPM(entity.LastRunByUser) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

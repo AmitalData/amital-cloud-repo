@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class BluesnapContractTypeDataMapping: BaseMappingProfile<BluesnapContractTypePM, POCO.BluesnapContractType>, IMapping<BluesnapContractTypePM, POCO.BluesnapContractType, BluesnapContractTypeList >,IMappingEncodeBase64NVARCHARFields<BluesnapContractTypePM>
     {
-	    public void EncodeBase64NVARCHARFields(BluesnapContractTypePM entityPM)
+    	    public void EncodeBase64NVARCHARFields(BluesnapContractTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

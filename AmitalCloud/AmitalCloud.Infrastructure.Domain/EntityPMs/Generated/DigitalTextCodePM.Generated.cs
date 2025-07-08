@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalTextCodePM : BaseEntityPM   {
    #region Constructors
    public DigitalTextCodePM() : base() {} 
-   public DigitalTextCodePM(POCO.DigitalTextCode entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_objectTableId = entity.ObjectTableId;
-		_labels = entity.Labels;
-		_profileId = entity.ProfileId;
-		_languageCode = entity.LanguageCode;
-		_digitalportallanguage = entity.DigitalPortalLanguage !=null ? new DigitalPortalLanguagePM(entity.DigitalPortalLanguage) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

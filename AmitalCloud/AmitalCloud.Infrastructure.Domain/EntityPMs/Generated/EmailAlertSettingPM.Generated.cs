@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EmailAlertSettingPM : BaseEntityPM   {
    #region Constructors
    public EmailAlertSettingPM() : base() {} 
-   public EmailAlertSettingPM(POCO.EmailAlertSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_description = entity.Description;
-		_objectTableId = entity.ObjectTableId;
-		_settingLevelCode = entity.SettingLevelCode;
-		_to = entity.To;
-		_indexOrder = entity.IndexOrder;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

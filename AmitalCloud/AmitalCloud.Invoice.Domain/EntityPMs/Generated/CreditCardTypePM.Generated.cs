@@ -26,16 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class CreditCardTypePM : BaseEntityPM   {
    #region Constructors
    public CreditCardTypePM() : base() {} 
-   public CreditCardTypePM(POCO.CreditCardType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-		_bankAccountId = entity.BankAccountId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

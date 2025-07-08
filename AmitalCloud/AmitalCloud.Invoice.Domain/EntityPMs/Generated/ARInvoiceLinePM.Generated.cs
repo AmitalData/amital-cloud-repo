@@ -26,45 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARInvoiceLinePM : BaseEntityPM   {
    #region Constructors
    public ARInvoiceLinePM() : base() {} 
-   public ARInvoiceLinePM(POCO.ARInvoiceLine entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_aRInvoiceId = entity.ARInvoiceId;
-		_arinvoice = entity.ARInvoice !=null ? new ARInvoicePM(entity.ARInvoice) : null;
-			_lineNumber = entity.LineNumber;
-		_receivableId = entity.ReceivableId;
-		_isExchangeRateFixed = entity.IsExchangeRateFixed;
-		_entityId = entity.EntityId;
-		_chargesTypeId = entity.ChargesTypeId;
-		_description = entity.Description;
-		_foriegnExchangeRate = entity.ForiegnExchangeRate;
-		_quantity = entity.Quantity;
-		_unitPrice = entity.UnitPrice;
-		_vatTypeId = entity.VatTypeId;
-		_foriegnCurrencyId = entity.ForiegnCurrencyId;
-		_foriegnCurrencyAmount = entity.ForiegnCurrencyAmount;
-		_localCurrencyAmount = entity.LocalCurrencyAmount;
-		_invoiceCurrencyAmount = entity.InvoiceCurrencyAmount;
-		_creditAccount = entity.CreditAccount;
-		_notes = entity.Notes;
-		_profitCurrencyAmount = entity.ProfitCurrencyAmount;
-		_measurementId = entity.MeasurementId;
-		_measurement = entity.Measurement !=null ? new MeasurementPM(entity.Measurement) : null;
-			_prepaidCollectId = entity.PrepaidCollectId;
-		_localDescription = entity.LocalDescription;
-		_vatPercentage = entity.VatPercentage;
-		_exchangeRateDate = entity.ExchangeRateDate;
-		_dateForInterest = entity.DateForInterest;
-		_valueDate = entity.ValueDate;
-		_isBackToBack = entity.IsBackToBack;
-		_isExpense = entity.IsExpense;
-		_gLAccountId = entity.GLAccountId;
-		_lineActionCode = entity.LineActionCode;
-		_arinvoicelineaction = entity.ARInvoiceLineAction !=null ? new ARInvoiceLineActionPM(entity.ARInvoiceLineAction) : null;
-			_isRegionalTax = entity.IsRegionalTax;
-		_invoiceCurrencyExchangeRate = entity.InvoiceCurrencyExchangeRate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

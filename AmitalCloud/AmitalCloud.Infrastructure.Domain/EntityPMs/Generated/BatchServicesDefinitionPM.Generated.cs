@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BatchServicesDefinitionPM : BaseEntityPM   {
    #region Constructors
    public BatchServicesDefinitionPM() : base() {} 
-   public BatchServicesDefinitionPM(POCO.BatchServicesDefinition entity) : base()
-   {
-		_code = entity.Code;
-		_className = entity.ClassName;
-		_parameter1 = entity.Parameter1;
-		_parameter2 = entity.Parameter2;
-		_queueDefinitionCode = entity.QueueDefinitionCode;
-		_useRabbitMQ = entity.UseRabbitMQ;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

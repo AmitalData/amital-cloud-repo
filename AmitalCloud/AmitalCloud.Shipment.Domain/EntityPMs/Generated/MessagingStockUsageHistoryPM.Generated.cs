@@ -26,25 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class MessagingStockUsageHistoryPM : BaseEntityPM   {
    #region Constructors
    public MessagingStockUsageHistoryPM() : base() {} 
-   public MessagingStockUsageHistoryPM(POCO.MessagingStockUsageHistory entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_entityId = entity.EntityId;
-		_entityNumber = entity.EntityNumber;
-		_stockId = entity.StockId;
-		_stock = entity.Stock !=null ? new MessagingStockPM(entity.Stock) : null;
-			_messageType = entity.MessageType;
-		_mAWB = entity.MAWB;
-		_hAWB = entity.HAWB;
-		_actionType = entity.ActionType;
-		_firstActionDate = entity.FirstActionDate;
-		_lastActionDate = entity.LastActionDate;
-		_firstActionByUserId = entity.FirstActionByUserId;
-		_firstactionbyuser = entity.FirstActionByUser !=null ? new UserPM(entity.FirstActionByUser) : null;
-			_lastActionByUserId = entity.LastActionByUserId;
-		_lastactionbyuser = entity.LastActionByUser !=null ? new UserPM(entity.LastActionByUser) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

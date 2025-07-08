@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class UserPermittedBranchDataMapping: BaseMappingProfile<UserPermittedBranchPM, POCO.UserPermittedBranch>, IMapping<UserPermittedBranchPM, POCO.UserPermittedBranch, UserPermittedBranchList >,IMappingEncodeBase64NVARCHARFields<UserPermittedBranchPM>
     {
-	    public void EncodeBase64NVARCHARFields(UserPermittedBranchPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(UserPermittedBranchPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

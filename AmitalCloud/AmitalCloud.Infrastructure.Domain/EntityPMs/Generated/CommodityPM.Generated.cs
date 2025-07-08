@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CommodityPM : BaseEntityPM   {
    #region Constructors
    public CommodityPM() : base() {} 
-   public CommodityPM(POCO.Commodity entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-		_airlineId = entity.AirlineId;
-		_airline = entity.Airline !=null ? new CardPM(entity.Airline) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BluesnapTransactionPM : BaseEntityPM   {
    #region Constructors
    public BluesnapTransactionPM() : base() {} 
-   public BluesnapTransactionPM(POCO.BluesnapTransaction entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_id = entity.Id;
-		_createDate = entity.CreateDate;
-		_transactionDate = entity.TransactionDate;
-		_documentId = entity.DocumentId;
-		_logitudeAmital = entity.LogitudeAmital;
-		_invoiceAmountInUSD = entity.InvoiceAmountInUSD;
-		_taxAmountInUSD = entity.TaxAmountInUSD;
-		_contractNumber = entity.ContractNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

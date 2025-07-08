@@ -9,7 +9,6 @@ using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
-
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AmitalCloud.Infrastructure.Domain.BaseClasses;
@@ -27,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class MasterPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public MasterPM() : base() {} 
-   public MasterPM(POCO.Master entity) : base()
-   {
-		_specialServicesTypeId = entity.SpecialServicesTypeId;
-		_documentsClosingDate = entity.DocumentsClosingDate;
-		_statusDate = entity.StatusDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _specialServicesTypeId ;

@@ -29,57 +29,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentReceivablePM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ShipmentReceivablePM() : base() {} 
-   public ShipmentReceivablePM(POCO.ShipmentReceivable entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_payableLocal = entity.PayableLocal;
-		_updateByUserId = entity.UpdateByUserId;
-		_updatebyuser = entity.UpdateByUser !=null ? new UserPM(entity.UpdateByUser) : null;
-			_updateDate = entity.UpdateDate;
-		_aRInvoiceLineId = entity.ARInvoiceLineId;
-		_arinvoiceline = entity.ARInvoiceLine !=null ? new ARInvoiceLinePM(entity.ARInvoiceLine) : null;
-			_amountInProfitCurrency = entity.AmountInProfitCurrency;
-		_profitCurrencyExchangeRate = entity.ProfitCurrencyExchangeRate;
-		_aRInvoiceId = entity.ARInvoiceId;
-		_arinvoice = entity.ARInvoice !=null ? new ARInvoicePM(entity.ARInvoice) : null;
-			_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_isFromQuote = entity.IsFromQuote;
-		_isFixedPrice = entity.IsFixedPrice;
-		_quoteChargeId = entity.QuoteChargeId;
-		_isChargeBySteps = entity.IsChargeBySteps;
-		_notes = entity.Notes;
-		_iATACodeId = entity.IATACodeId;
-		_isExchangeRateFixed = entity.IsExchangeRateFixed;
-		_aWBPrint = entity.AWBPrint;
-		_dueTypeCode = entity.DueTypeCode;
-		_shipmentReceivableLineStatusCode = entity.ShipmentReceivableLineStatusCode;
-		_shipmentreceivablelinestatus = entity.ShipmentReceivableLineStatus !=null ? new ShipmentReceivableLineStatusPM(entity.ShipmentReceivableLineStatus) : null;
-			_prepaidCollectId = entity.PrepaidCollectId;
-		_measurementId = entity.MeasurementId;
-		_quantity = entity.Quantity;
-		_rate = entity.Rate;
-		_currencyId = entity.CurrencyId;
-		_unitPrice = entity.UnitPrice;
-		_totalAmount = entity.TotalAmount;
-		_totalAmountLocal = entity.TotalAmountLocal;
-		_chargesTypeId = entity.ChargesTypeId;
-		_chargestype = entity.ChargesType !=null ? new ChargesTypePM(entity.ChargesType) : null;
-			_vatTypeId = entity.VatTypeId;
-		_vattype = entity.VatType !=null ? new VatTypePM(entity.VatType) : null;
-			_shipmentReceivableParentId = entity.ShipmentReceivableParentId;
-		_shipmentreceivableparent = entity.ShipmentReceivableParent !=null ? new ShipmentReceivablePM(entity.ShipmentReceivableParent) : null;
-			_isBackToBack = entity.IsBackToBack;
-		_isExpense = entity.IsExpense;
-		_quoteSaleMinAmount = entity.QuoteSaleMinAmount;
-		_quoteSaleMaxAmount = entity.QuoteSaleMaxAmount;
-		_vatAmountProfit = entity.VatAmountProfit;
-		_vatAmountLocal = entity.VatAmountLocal;
-		_payableVendorId = entity.PayableVendorId;
-		_payablevendor = entity.PayableVendor !=null ? new CardPM(entity.PayableVendor) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

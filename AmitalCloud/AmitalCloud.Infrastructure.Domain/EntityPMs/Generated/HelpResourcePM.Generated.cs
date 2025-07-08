@@ -26,24 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HelpResourcePM : BaseEntityPM   {
    #region Constructors
    public HelpResourcePM() : base() {} 
-   public HelpResourcePM(POCO.HelpResource entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_language = entity.Language;
-		_type = entity.Type;
-		_category = entity.Category;
-		_videoURL = entity.VideoURL;
-		_duration = entity.Duration;
-		_fileName = entity.FileName;
-		_searchFields = entity.SearchFields;
-		_isNew = entity.IsNew;
-		_featureCode = entity.FeatureCode;
-		_tenant = entity.Tenant;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

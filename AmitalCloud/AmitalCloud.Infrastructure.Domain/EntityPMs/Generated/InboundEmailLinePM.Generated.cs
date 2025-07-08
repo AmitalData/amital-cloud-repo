@@ -26,27 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class InboundEmailLinePM : BaseEntityPM   {
    #region Constructors
    public InboundEmailLinePM() : base() {} 
-   public InboundEmailLinePM(POCO.InboundEmailLine entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_fullBody = entity.FullBody;
-		_hTMLFullBody = entity.HTMLFullBody;
-		_bcc = entity.Bcc;
-		_internalUsers = entity.InternalUsers;
-		_entityLineId = entity.EntityLineId;
-		_inboundEmailId = entity.InboundEmailId;
-		_inboundemail = entity.InboundEmail !=null ? new InboundEmailPM(entity.InboundEmail) : null;
-			_createDate = entity.CreateDate;
-		_sender = entity.Sender;
-		_recepient = entity.Recepient;
-		_subject = entity.Subject;
-		_direction = entity.Direction;
-		_cCs = entity.CCs;
-		_communicationLogId = entity.CommunicationLogId;
-		_communicationlog = entity.CommunicationLog !=null ? new CommunicationLogPM(entity.CommunicationLog) : null;
-			_body = entity.Body;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

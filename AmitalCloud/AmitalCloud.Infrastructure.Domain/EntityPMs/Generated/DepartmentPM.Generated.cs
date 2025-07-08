@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DepartmentPM : BaseEntityPM   {
    #region Constructors
    public DepartmentPM() : base() {} 
-   public DepartmentPM(POCO.Department entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_notes = entity.Notes;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-		_directionId = entity.DirectionId;
-		_direction = entity.Direction !=null ? new DirectionPM(entity.Direction) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BorderTypePM : BaseEntityPM   {
    #region Constructors
    public BorderTypePM() : base() {} 
-   public BorderTypePM(POCO.BorderType entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

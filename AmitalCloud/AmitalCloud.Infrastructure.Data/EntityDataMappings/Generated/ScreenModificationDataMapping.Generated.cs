@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ScreenModificationDataMapping: BaseMappingProfile<ScreenModificationPM, POCO.ScreenModification>, IMapping<ScreenModificationPM, POCO.ScreenModification, ScreenModificationList >,IMappingEncodeBase64NVARCHARFields<ScreenModificationPM>
     {
-	    public void EncodeBase64NVARCHARFields(ScreenModificationPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(ScreenModificationPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

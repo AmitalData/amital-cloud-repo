@@ -5,95 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ContainersExternalDataDataMapping: IMapping<ContainersExternalDataPM, POCO.ContainersExternalData  ,ContainersExternalDataList >,IMappingEncodeBase64NVARCHARFields<ContainersExternalDataPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         GateIn, 
-	         GateOut,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         GateIn, 
-	         GateOut,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContainersExternalDataPM entityPM, POCO.ContainersExternalData entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GateIn)) { entityPOCO.GateIn = entityPM.GateIn;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GateOut)) { entityPOCO.GateOut = entityPM.GateOut;}
-					}
-		public void POCOToPM(ContainersExternalDataPM entityPM, POCO.ContainersExternalData entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GateIn))
-            {
-					entityPM.GateIn = entityPOCO.GateIn;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GateOut))
-            {
-					entityPM.GateOut = entityPOCO.GateOut;
-            }
-		}
-		public void PMToOldPM(ContainersExternalDataPM entityPM, ContainersExternalDataPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GateIn))
-            {
-                oldEntityPM.GateIn = entityPM.GateIn;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GateOut))
-            {
-                oldEntityPM.GateOut = entityPM.GateOut;
-            }
-					}
-		public void POCOToList(POCO.ContainersExternalData entityPOCO, ContainersExternalDataList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContainersExternalDataList> GetIqueryableList(IQueryable<POCO.ContainersExternalData> iQueryable)
-		{
-			IQueryable<ContainersExternalDataList> query = (from a in iQueryable
-                                            select new ContainersExternalDataList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ContainersExternalDataPM entityPM)
+    public partial class ContainersExternalDataDataMapping: BaseMappingProfile<ContainersExternalDataPM, POCO.ContainersExternalData>, IMapping<ContainersExternalDataPM, POCO.ContainersExternalData, ContainersExternalDataList >,IMappingEncodeBase64NVARCHARFields<ContainersExternalDataPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ContainersExternalDataPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -101,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

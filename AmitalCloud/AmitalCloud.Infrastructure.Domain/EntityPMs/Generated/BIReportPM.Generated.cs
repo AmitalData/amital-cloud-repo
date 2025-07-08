@@ -26,29 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BIReportPM : BaseEntityPM   {
    #region Constructors
    public BIReportPM() : base() {} 
-   public BIReportPM(POCO.BIReport entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_description = entity.Description;
-		_dWQueryId = entity.DWQueryId;
-		_dwquery = entity.DWQuery !=null ? new DWQueryPM(entity.DWQuery) : null;
-			_inactive = entity.Inactive;
-		_typeCode = entity.TypeCode;
-		_bireportstype = entity.BIReportsType !=null ? new BIReportsTypePM(entity.BIReportsType) : null;
-			_aGGridOptionsXML = entity.AGGridOptionsXML;
-		_bIReportFolderId = entity.BIReportFolderId;
-		_bireportfolder = entity.BIReportFolder !=null ? new BIReportFolderPM(entity.BIReportFolder) : null;
-			_factTableName = entity.FactTableName;
-		_lastRunId = entity.LastRunId;
-		_lastrundetail = entity.LastRunDetail !=null ? new LastRunDetailPM(entity.LastRunDetail) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

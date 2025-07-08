@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CarrierServiceLinePM : BaseEntityPM   {
    #region Constructors
    public CarrierServiceLinePM() : base() {} 
-   public CarrierServiceLinePM(POCO.CarrierServiceLine entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_cardId = entity.CardId;
-		_name = entity.Name;
-		_description = entity.Description;
-		_partnerTypeId = entity.PartnerTypeId;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

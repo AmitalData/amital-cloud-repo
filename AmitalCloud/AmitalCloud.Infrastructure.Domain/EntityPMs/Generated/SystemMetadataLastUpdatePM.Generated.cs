@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SystemMetadataLastUpdatePM : BaseEntityPM   {
    #region Constructors
    public SystemMetadataLastUpdatePM() : base() {} 
-   public SystemMetadataLastUpdatePM(POCO.SystemMetadataLastUpdate entity) : base()
-   {
-		_id = entity.Id;
-		_translationsUpdateDateGMT = entity.TranslationsUpdateDateGMT;
-		_objectFieldsUpdateDateGMT = entity.ObjectFieldsUpdateDateGMT;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

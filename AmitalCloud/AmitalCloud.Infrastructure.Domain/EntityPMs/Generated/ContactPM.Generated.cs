@@ -26,44 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactPM : BaseEntityPM   {
    #region Constructors
    public ContactPM() : base() {} 
-   public ContactPM(POCO.Contact entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_facebookId = entity.FacebookId;
-		_externalId = entity.ExternalId;
-		_signature = entity.Signature;
-		_displayGettingStarted = entity.DisplayGettingStarted;
-		_imageDetailId = entity.ImageDetailId;
-		_dontShowLocalLabels = entity.DontShowLocalLabels;
-		_indexColor = entity.IndexColor;
-		_colorindex = entity.ColorIndex !=null ? new ColorIndexPM(entity.ColorIndex) : null;
-			_notes = entity.Notes;
-		_birthdayReminder = entity.BirthdayReminder;
-		_anniversaryReminder = entity.AnniversaryReminder;
-		_doneDate = entity.DoneDate;
-		_birthDayOfYear = entity.BirthDayOfYear;
-		_contactDoneMethodCode = entity.ContactDoneMethodCode;
-		_contactdonemethod = entity.ContactDoneMethod !=null ? new ContactDoneMethodPM(entity.ContactDoneMethod) : null;
-			_position = entity.Position;
-		_searchFields = entity.SearchFields;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_email = entity.Email;
-		_mobile = entity.Mobile;
-		_businessPhone = entity.BusinessPhone;
-		_fax = entity.Fax;
-		_birthday = entity.Birthday;
-		_anniversary = entity.Anniversary;
-		_inActive = entity.InActive;
-		_signatureHtml = entity.SignatureHtml;
-		_companyName = entity.CompanyName;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_digitalPortalLanguage = entity.DigitalPortalLanguage;
-		_digitalportallanguagecode = entity.DigitalPortalLanguageCode !=null ? new DigitalPortalLanguagePM(entity.DigitalPortalLanguageCode) : null;
-			_contactForAccounting = entity.ContactForAccounting;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentLevelPM : BaseEntityPM   {
    #region Constructors
    public ShipmentLevelPM() : base() {} 
-   public ShipmentLevelPM(POCO.ShipmentLevel entity) : base()
-   {
-		_name = entity.Name;
-		_code = entity.Code;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _name ;

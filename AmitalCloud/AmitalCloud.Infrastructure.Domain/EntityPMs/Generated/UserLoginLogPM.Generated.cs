@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UserLoginLogPM : BaseEntityPM   {
    #region Constructors
    public UserLoginLogPM() : base() {} 
-   public UserLoginLogPM(POCO.UserLoginLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_iP = entity.IP;
-		_browser = entity.Browser;
-		_userId = entity.UserId;
-		_gMTDateTime = entity.GMTDateTime;
-		_localDateTime = entity.LocalDateTime;
-		_computerId = entity.ComputerId;
-		_userAgent = entity.UserAgent;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

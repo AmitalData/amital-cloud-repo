@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class ObjectFieldValidationDataMapping: BaseMappingProfile<ObjectFieldValidationPM, POCO.ObjectFieldValidation>, IMapping<ObjectFieldValidationPM, POCO.ObjectFieldValidation, ObjectFieldValidationList >,IMappingEncodeBase64NVARCHARFields<ObjectFieldValidationPM>
     {
-	    public void EncodeBase64NVARCHARFields(ObjectFieldValidationPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(ObjectFieldValidationPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

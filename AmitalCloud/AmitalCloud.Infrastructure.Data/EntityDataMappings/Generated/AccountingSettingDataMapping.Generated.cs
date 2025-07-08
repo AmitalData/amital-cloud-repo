@@ -11,12 +11,18 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class AccountingSettingDataMapping: BaseMappingProfile<AccountingSettingPM, POCO.AccountingSetting>, IMapping<AccountingSettingPM, POCO.AccountingSetting, AccountingSettingList >,IMappingEncodeBase64NVARCHARFields<AccountingSettingPM>
     {
-	    public void EncodeBase64NVARCHARFields(AccountingSettingPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.AccountingSetting, AccountingSettingPM> map)
+        {
+            map.ForMember(dest => dest.TransferFTPDetailHost, opt => opt.MapFrom(src => src.TransferFTPDetail.Host));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(AccountingSettingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

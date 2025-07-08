@@ -8,7 +8,6 @@
 using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AmitalCloud.Infrastructure.Domain.BaseClasses;
@@ -26,9 +25,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ContainerFollowUpPM : BaseEntityPM   {
    #region Constructors
    public ContainerFollowUpPM() : base() {} 
-   public ContainerFollowUpPM(POCO.ContainerFollowUp entity) : base()
-   {
-   }
    #endregion Constructors
    #region Properties
    	  private CustomFieldClass _shipmentNumber ;

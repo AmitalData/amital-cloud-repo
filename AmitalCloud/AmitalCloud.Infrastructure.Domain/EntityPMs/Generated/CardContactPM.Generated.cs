@@ -26,28 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CardContactPM : BaseEntityPM   {
    #region Constructors
    public CardContactPM() : base() {} 
-   public CardContactPM(POCO.CardContact entity) : base()
-   {
-		_id = entity.Id;
-		_contactId = entity.ContactId;
-		_contact = entity.Contact !=null ? new ContactPM(entity.Contact) : null;
-			_cardId = entity.CardId;
-		_card = entity.Card !=null ? new CardPM(entity.Card) : null;
-			_tenant = entity.Tenant;
-		_internetAccess = entity.InternetAccess;
-		_isAirExport = entity.IsAirExport;
-		_isAirImport = entity.IsAirImport;
-		_isOceanExport = entity.IsOceanExport;
-		_isOceanImport = entity.IsOceanImport;
-		_isInlandExport = entity.IsInlandExport;
-		_isInlandImport = entity.IsInlandImport;
-		_isCustomsImport = entity.IsCustomsImport;
-		_isInlandDomestic = entity.IsInlandDomestic;
-		_isAll = entity.IsAll;
-		_lastLoginDate = entity.LastLoginDate;
-		cardContactAdditionalServices = entity.CardContactAdditionalServices != null ? entity.CardContactAdditionalServices.Select(a=>new CardContactAdditionalServicePM(a)).ToList() : null;
-		cardContactProducts = entity.CardContactProducts != null ? entity.CardContactProducts.Select(a=>new CardContactProductPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

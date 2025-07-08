@@ -26,25 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class BankAccountLitePM : BaseEntityPM   {
    #region Constructors
    public BankAccountLitePM() : base() {} 
-   public BankAccountLitePM(POCO.BankAccountLite entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_localName = entity.LocalName;
-		_englishName = entity.EnglishName;
-		_accountNumber = entity.AccountNumber;
-		_branchNumber = entity.BranchNumber;
-		_iBAN = entity.IBAN;
-		_swiftCode = entity.SwiftCode;
-		_bankCode = entity.BankCode;
-		_branchAddress = entity.BranchAddress;
-		_currencyId = entity.CurrencyId;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_inactive = entity.Inactive;
-		_vatNumber = entity.VatNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

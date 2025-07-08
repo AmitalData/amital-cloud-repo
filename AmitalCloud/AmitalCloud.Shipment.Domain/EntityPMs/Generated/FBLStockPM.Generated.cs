@@ -26,15 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class FBLStockPM : BaseEntityPM   {
    #region Constructors
    public FBLStockPM() : base() {} 
-   public FBLStockPM(POCO.FBLStock entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isUsed = entity.IsUsed;
-		_number = entity.Number;
-		_insertionDate = entity.InsertionDate;
-		_notes = entity.Notes;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

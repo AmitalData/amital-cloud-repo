@@ -5,96 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ShipmentCustomerTypeDataMapping: IMapping<ShipmentCustomerTypePM, POCO.ShipmentCustomerType  ,ShipmentCustomerTypeList >,IMappingEncodeBase64NVARCHARFields<ShipmentCustomerTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         ShowInLOV,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         ShowInLOV,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ShipmentCustomerTypePM entityPM, POCO.ShipmentCustomerType entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShowInLOV)) { entityPOCO.ShowInLOV = entityPM.ShowInLOV;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ShipmentCustomerTypePM entityPM, POCO.ShipmentCustomerType entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShowInLOV))
-            {
-					entityPM.ShowInLOV = entityPOCO.ShowInLOV;
-            }
-		}
-		public void PMToOldPM(ShipmentCustomerTypePM entityPM, ShipmentCustomerTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShowInLOV))
-            {
-                oldEntityPM.ShowInLOV = entityPM.ShowInLOV;
-            }
-					}
-		public void POCOToList(POCO.ShipmentCustomerType entityPOCO, ShipmentCustomerTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ShipmentCustomerTypeList> GetIqueryableList(IQueryable<POCO.ShipmentCustomerType> iQueryable)
-		{
-			IQueryable<ShipmentCustomerTypeList> query = (from a in iQueryable
-                                            select new ShipmentCustomerTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ShipmentCustomerTypePM entityPM)
+    public partial class ShipmentCustomerTypeDataMapping: BaseMappingProfile<ShipmentCustomerTypePM, POCO.ShipmentCustomerType>, IMapping<ShipmentCustomerTypePM, POCO.ShipmentCustomerType, ShipmentCustomerTypeList >,IMappingEncodeBase64NVARCHARFields<ShipmentCustomerTypePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ShipmentCustomerTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -106,20 +29,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ShipmentCustomerTypePM entityPM, POCO.ShipmentCustomerType entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

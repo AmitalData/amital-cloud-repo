@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class FailedTokenLogDataMapping: BaseMappingProfile<FailedTokenLogPM, POCO.FailedTokenLog>, IMapping<FailedTokenLogPM, POCO.FailedTokenLog, FailedTokenLogList >,IMappingEncodeBase64NVARCHARFields<FailedTokenLogPM>
     {
-	    public void EncodeBase64NVARCHARFields(FailedTokenLogPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(FailedTokenLogPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

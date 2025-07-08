@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PerformanceLogPM : BaseEntityPM   {
    #region Constructors
    public PerformanceLogPM() : base() {} 
-   public PerformanceLogPM(POCO.PerformanceLog entity) : base()
-   {
-		_id = entity.Id;
-		_logDateTimeGMT = entity.LogDateTimeGMT;
-		_logDateTimeLocal = entity.LogDateTimeLocal;
-		_email = entity.Email;
-		_modelName = entity.ModelName;
-		_methodName = entity.MethodName;
-		_monitoringService = entity.MonitoringService;
-		_executionTime = entity.ExecutionTime;
-		_userIP = entity.UserIP;
-		_methodParameters = entity.MethodParameters;
-		_tenant = entity.Tenant;
-		_serverTime = entity.ServerTime;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

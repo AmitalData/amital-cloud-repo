@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerFieldsUpdateSettingPM : BaseEntityPM   {
    #region Constructors
    public CustomerFieldsUpdateSettingPM() : base() {} 
-   public CustomerFieldsUpdateSettingPM(POCO.CustomerFieldsUpdateSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectFieldId = entity.ObjectFieldId;
-		_objectfield = entity.ObjectField !=null ? new ObjectFieldPM(entity.ObjectField) : null;
-			_updateDirection = entity.UpdateDirection;
-		_objectFieldCode = entity.ObjectFieldCode;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

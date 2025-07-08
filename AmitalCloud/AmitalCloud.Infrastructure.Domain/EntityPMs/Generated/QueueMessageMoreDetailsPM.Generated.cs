@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QueueMessageMoreDetailsPM : BaseEntityPM   {
    #region Constructors
    public QueueMessageMoreDetailsPM() : base() {} 
-   public QueueMessageMoreDetailsPM(POCO.QueueMessageMoreDetails entity) : base()
-   {
-		_id = entity.Id;
-		_tenantPriority = entity.TenantPriority;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

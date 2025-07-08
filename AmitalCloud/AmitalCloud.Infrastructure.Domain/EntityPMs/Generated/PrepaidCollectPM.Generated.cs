@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PrepaidCollectPM : BaseEntityPM   {
    #region Constructors
    public PrepaidCollectPM() : base() {} 
-   public PrepaidCollectPM(POCO.PrepaidCollect entity) : base()
-   {
-		_id = entity.Id;
-		_name = entity.Name;
-		_displayInLOV = entity.DisplayInLOV;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

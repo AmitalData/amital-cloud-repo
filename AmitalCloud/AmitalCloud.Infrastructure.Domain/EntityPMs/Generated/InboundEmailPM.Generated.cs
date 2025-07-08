@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class InboundEmailPM : BaseEntityPM   {
    #region Constructors
    public InboundEmailPM() : base() {} 
-   public InboundEmailPM(POCO.InboundEmail entity) : base()
-   {
-		_id = entity.Id;
-		_isRejected = entity.IsRejected;
-		_analyzeQueueId = entity.AnalyzeQueueId;
-		_entityId = entity.EntityId;
-		_uniquekey = entity.Uniquekey;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_objectTableId = entity.ObjectTableId;
-		_createdByContactId = entity.CreatedByContactId;
-		_createdbycontact = entity.CreatedByContact !=null ? new ContactPM(entity.CreatedByContact) : null;
-			_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SmallDocumentPM : BaseEntityPM   {
    #region Constructors
    public SmallDocumentPM() : base() {} 
-   public SmallDocumentPM(POCO.SmallDocument entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_content = entity.Content;
-		documents = entity.Documents != null ? entity.Documents.Select(a=>new DocumentPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

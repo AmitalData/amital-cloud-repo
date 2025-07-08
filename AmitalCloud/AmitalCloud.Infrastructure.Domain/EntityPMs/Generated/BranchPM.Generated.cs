@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BranchPM : BaseEntityPM   {
    #region Constructors
    public BranchPM() : base() {} 
-   public BranchPM(POCO.Branch entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-		_addressId = entity.AddressId;
-		_address = entity.Address !=null ? new AddressPM(entity.Address) : null;
-			_externalId = entity.ExternalId;
-		_signature = entity.Signature;
-		_iNTTRAId = entity.INTTRAId;
-		_iNTTRAContactId = entity.INTTRAContactId;
-		_inttracontact = entity.INTTRAContact !=null ? new ContactPM(entity.INTTRAContact) : null;
-			_iNTTRAAlias = entity.INTTRAAlias;
-		_counterCode = entity.CounterCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

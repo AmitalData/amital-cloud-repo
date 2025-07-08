@@ -11,12 +11,22 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class QueryDataMapping: BaseMappingProfile<QueryPM, POCO.Query>, IMapping<QueryPM, POCO.Query, QueryList >,IMappingEncodeBase64NVARCHARFields<QueryPM>
     {
-	    public void EncodeBase64NVARCHARFields(QueryPM entityPM)
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.Query, QueryPM> map)
+        {
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
+            map.ForMember(dest => dest.ObjectTableIsNewWizard, opt => opt.MapFrom(src => src.ObjectTable.IsNewWizard));
+            map.ForMember(dest => dest.ObjectTableNewWizardControlName, opt => opt.MapFrom(src => src.ObjectTable.NewWizardControlName));
+            map.ForMember(dest => dest.QueryGroupIndexOrder, opt => opt.MapFrom(src => src.QueryGroup.IndexOrder));
+            map.ForMember(dest => dest.NewViewName, opt => opt.MapFrom(src => src.NameTextCode.DefaultText));
+        }
+
+    	    public void EncodeBase64NVARCHARFields(QueryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

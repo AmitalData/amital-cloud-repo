@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DefaultAndConfigurationKeyPM : BaseEntityPM   {
    #region Constructors
    public DefaultAndConfigurationKeyPM() : base() {} 
-   public DefaultAndConfigurationKeyPM(POCO.DefaultAndConfigurationKey entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_setType1 = entity.SetType1;
-		_setKey = entity.SetKey;
-		_shortDescription = entity.ShortDescription;
-		_fullDesctiption = entity.FullDesctiption;
-		_setType2 = entity.SetType2;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

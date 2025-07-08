@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TaskSchedulerHistoryPM : BaseEntityPM   {
    #region Constructors
    public TaskSchedulerHistoryPM() : base() {} 
-   public TaskSchedulerHistoryPM(POCO.TaskSchedulerHistory entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_startDateTime = entity.StartDateTime;
-		_endDateTime = entity.EndDateTime;
-		_runResult = entity.RunResult;
-		_taskId = entity.TaskId;
-		_taskscheduler = entity.TaskScheduler !=null ? new TasksSchedulerPM(entity.TaskScheduler) : null;
-			_isError = entity.IsError;
-		_startDateTimeUTC = entity.StartDateTimeUTC;
-		_endDateTimeUTC = entity.EndDateTimeUTC;
-		_logFirstLine = entity.LogFirstLine;
-		_logType = entity.LogType;
-		_logDocumentId = entity.LogDocumentId;
-		_logdocument = entity.LogDocument !=null ? new DocumentPM(entity.LogDocument) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

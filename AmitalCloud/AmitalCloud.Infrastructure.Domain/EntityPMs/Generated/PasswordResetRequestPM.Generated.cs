@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PasswordResetRequestPM : BaseEntityPM   {
    #region Constructors
    public PasswordResetRequestPM() : base() {} 
-   public PasswordResetRequestPM(POCO.PasswordResetRequest entity) : base()
-   {
-		_requestNumber = entity.RequestNumber;
-		_email = entity.Email;
-		_isDone = entity.IsDone;
-		_isMobileOnly = entity.IsMobileOnly;
-		_expirationDate = entity.ExpirationDate;
-		_doneDate = entity.DoneDate;
-		_createDate = entity.CreateDate;
-		_verificationCode = entity.VerificationCode;
-		_type = entity.Type;
-   }
    #endregion Constructors
    #region Properties
    	  private string _requestNumber ;

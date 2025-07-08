@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DimensionsUnitPM : BaseEntityPM   {
    #region Constructors
    public DimensionsUnitPM() : base() {} 
-   public DimensionsUnitPM(POCO.DimensionsUnit entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_printAs = entity.PrintAs;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

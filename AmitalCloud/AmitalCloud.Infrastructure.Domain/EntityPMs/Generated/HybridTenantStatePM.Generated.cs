@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HybridTenantStatePM : BaseEntityPM   {
    #region Constructors
    public HybridTenantStatePM() : base() {} 
-   public HybridTenantStatePM(POCO.HybridTenantState entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_failedQueue = entity.FailedQueue;
-		_waitingQueue = entity.WaitingQueue;
-		_lastUpdateDateTime = entity.LastUpdateDateTime;
-		_lastQueueDateTime = entity.LastQueueDateTime;
-		_versionNumber = entity.VersionNumber;
-		_versionDate = entity.VersionDate;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TeamMemberBusinessRolePM : BaseEntityPM   {
    #region Constructors
    public TeamMemberBusinessRolePM() : base() {} 
-   public TeamMemberBusinessRolePM(POCO.TeamMemberBusinessRole entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_teamMemberId = entity.TeamMemberId;
-		_lbpteammember = entity.LBPTeamMember !=null ? new LBPTeamMemberPM(entity.LBPTeamMember) : null;
-			_addedByUserId = entity.AddedByUserId;
-		_addDate = entity.AddDate;
-		_businessRoleId = entity.BusinessRoleId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

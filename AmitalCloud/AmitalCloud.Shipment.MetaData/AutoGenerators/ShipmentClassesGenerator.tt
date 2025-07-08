@@ -41,7 +41,7 @@ namespaces.Add("updateservicespacestring","AmitalCloud.Shipment.Application.Enti
 namespaces.Add("queryeservicespacestring","AmitalCloud.Shipment.Application.EntityQueryServices");
 namespaces.Add("entitylistqueryeservicespacestring","AmitalCloud.Shipment.Application.EntityListQueryServices");
 namespaces.Add("domaininterfacesspacestring","AmitalCloud.Shipment.Domain.Interfaces");
-
+namespaces.Add("databaseclassnamespace","AmitalCloud.Infrastructure.Data.BaseClasses");
 
 
 

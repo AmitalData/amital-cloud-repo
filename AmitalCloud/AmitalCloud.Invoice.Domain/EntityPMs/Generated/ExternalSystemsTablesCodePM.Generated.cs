@@ -26,17 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ExternalSystemsTablesCodePM : BaseEntityPM   {
    #region Constructors
    public ExternalSystemsTablesCodePM() : base() {} 
-   public ExternalSystemsTablesCodePM(POCO.ExternalSystemsTablesCode entity) : base()
-   {
-		_id = entity.Id;
-		_code = entity.Code;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_logitudeTable = entity.LogitudeTable;
-		_createdDate = entity.CreatedDate;
-		_updatedDate = entity.UpdatedDate;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

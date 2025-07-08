@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SatisfactionSurveyPM : BaseEntityPM   {
    #region Constructors
    public SatisfactionSurveyPM() : base() {} 
-   public SatisfactionSurveyPM(POCO.SatisfactionSurvey entity) : base()
-   {
-		_id = entity.Id;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_searchFields = entity.SearchFields;
-		_rating = entity.Rating;
-		_comments = entity.Comments;
-		_tenant = entity.Tenant;
-		_isSync = entity.IsSync;
-		_lockedBy = entity.LockedBy;
-		_syncDate = entity.SyncDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

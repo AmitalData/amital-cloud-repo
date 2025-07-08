@@ -26,16 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class AccountingSystemsSyncStatusPM : BaseEntityPM   {
    #region Constructors
    public AccountingSystemsSyncStatusPM() : base() {} 
-   public AccountingSystemsSyncStatusPM(POCO.AccountingSystemsSyncStatus entity) : base()
-   {
-		_lastErrorDate = entity.LastErrorDate;
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_externalCodesLastUpdate = entity.ExternalCodesLastUpdate;
-		_lastRequestDate = entity.LastRequestDate;
-		_lastError = entity.LastError;
-		_syncInterval = entity.SyncInterval;
-   }
    #endregion Constructors
    #region Properties
    	  private DateTime? _lastErrorDate ;

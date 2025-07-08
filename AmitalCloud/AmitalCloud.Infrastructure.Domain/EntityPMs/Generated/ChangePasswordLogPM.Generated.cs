@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ChangePasswordLogPM : BaseEntityPM   {
    #region Constructors
    public ChangePasswordLogPM() : base() {} 
-   public ChangePasswordLogPM(POCO.ChangePasswordLog entity) : base()
-   {
-		_id = entity.Id;
-		_email = entity.Email;
-		_createDate = entity.CreateDate;
-		_currentPassword = entity.CurrentPassword;
-		_enteredPassword = entity.EnteredPassword;
-		_log = entity.log;
-		_iP = entity.IP;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

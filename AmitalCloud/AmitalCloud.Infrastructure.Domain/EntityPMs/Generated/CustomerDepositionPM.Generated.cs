@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerDepositionPM : BaseEntityPM   {
    #region Constructors
    public CustomerDepositionPM() : base() {} 
-   public CustomerDepositionPM(POCO.CustomerDeposition entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_customsShipperId = entity.CustomsShipperId;
-		_customsshipper = entity.CustomsShipper !=null ? new CustomsShipperPM(entity.CustomsShipper) : null;
-			_depositionNumber = entity.DepositionNumber;
-		_validityStartDate = entity.ValidityStartDate;
-		_validityEndDate = entity.ValidityEndDate;
-		_createDate = entity.CreateDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

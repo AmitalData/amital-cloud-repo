@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentsDataProviderPM : BaseEntityPM   {
    #region Constructors
    public DocumentsDataProviderPM() : base() {} 
-   public DocumentsDataProviderPM(POCO.DocumentsDataProvider entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		documentTypes = entity.DocumentTypes != null ? entity.DocumentTypes.Select(a=>new DocumentTypePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class GlobalContactPM : BaseEntityPM   {
    #region Constructors
    public GlobalContactPM() : base() {} 
-   public GlobalContactPM(POCO.GlobalContact entity) : base()
-   {
-		_id = entity.Id;
-		_globalTenantId = entity.GlobalTenantId;
-		_globaltenant = entity.GlobalTenant !=null ? new GlobalTenantPM(entity.GlobalTenant) : null;
-			_email = entity.Email;
-		_inActive = entity.InActive;
-		_isUser = entity.IsUser;
-		_internetAccess = entity.InternetAccess;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

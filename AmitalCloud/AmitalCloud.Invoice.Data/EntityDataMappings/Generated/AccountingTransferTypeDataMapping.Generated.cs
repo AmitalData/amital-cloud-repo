@@ -5,59 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class AccountingTransferTypeDataMapping: IMapping<AccountingTransferTypePM, POCO.AccountingTransferType  ,AccountingTransferTypeList >,IMappingEncodeBase64NVARCHARFields<AccountingTransferTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AccountingTransferTypePM entityPM, POCO.AccountingTransferType entityPOCO)
-        {
-			 }
-		public void POCOToPM(AccountingTransferTypePM entityPM, POCO.AccountingTransferType entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(AccountingTransferTypePM entityPM, AccountingTransferTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.AccountingTransferType entityPOCO, AccountingTransferTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AccountingTransferTypeList> GetIqueryableList(IQueryable<POCO.AccountingTransferType> iQueryable)
-		{
-			IQueryable<AccountingTransferTypeList> query = (from a in iQueryable
-                                            select new AccountingTransferTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(AccountingTransferTypePM entityPM)
+    public partial class AccountingTransferTypeDataMapping: BaseMappingProfile<AccountingTransferTypePM, POCO.AccountingTransferType>, IMapping<AccountingTransferTypePM, POCO.AccountingTransferType, AccountingTransferTypeList >,IMappingEncodeBase64NVARCHARFields<AccountingTransferTypePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(AccountingTransferTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -65,14 +25,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

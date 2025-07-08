@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerTenantAccessCardsBatchPM : BaseEntityPM   {
    #region Constructors
    public CustomerTenantAccessCardsBatchPM() : base() {} 
-   public CustomerTenantAccessCardsBatchPM(POCO.CustomerTenantAccessCardsBatch entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_customerId = entity.CustomerId;
-		_customerTenantAccessId = entity.CustomerTenantAccessId;
-		_createDateTime = entity.CreateDateTime;
-		_doneDate = entity.DoneDate;
-		_status = entity.Status;
-		_batchNumber = entity.BatchNumber;
-		_totalFailed = entity.TotalFailed;
-		_totalShipment = entity.TotalShipment;
-		_totalsucceeded = entity.Totalsucceeded;
-		_fromDateTime = entity.FromDateTime;
-		_toDateTime = entity.ToDateTime;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

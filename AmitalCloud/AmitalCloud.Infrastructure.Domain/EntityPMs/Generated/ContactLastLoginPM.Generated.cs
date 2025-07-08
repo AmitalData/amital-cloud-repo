@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContactLastLoginPM : BaseEntityPM   {
    #region Constructors
    public ContactLastLoginPM() : base() {} 
-   public ContactLastLoginPM(POCO.ContactLastLogin entity) : base()
-   {
-		_id = entity.Id;
-		_computerId = entity.ComputerId;
-		_loginDateTime = entity.LoginDateTime;
-		_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

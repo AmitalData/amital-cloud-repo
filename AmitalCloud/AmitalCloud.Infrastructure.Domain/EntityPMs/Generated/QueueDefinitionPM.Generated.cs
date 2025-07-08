@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QueueDefinitionPM : BaseEntityPM   {
    #region Constructors
    public QueueDefinitionPM() : base() {} 
-   public QueueDefinitionPM(POCO.QueueDefinition entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_duplicateMessagesAutoRemove = entity.DuplicateMessagesAutoRemove;
-		queueMessageMoreDetailss = entity.QueueMessageMoreDetailss != null ? entity.QueueMessageMoreDetailss.Select(a=>new QueueMessageMoreDetailsPM(a)).ToList() : null;
-		queueMessages = entity.QueueMessages != null ? entity.QueueMessages.Select(a=>new QueueMessagePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

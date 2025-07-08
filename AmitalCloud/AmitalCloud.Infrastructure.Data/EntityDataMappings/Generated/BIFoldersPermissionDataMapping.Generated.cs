@@ -11,12 +11,13 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
 using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
     public partial class BIFoldersPermissionDataMapping: BaseMappingProfile<BIFoldersPermissionPM, POCO.BIFoldersPermission>, IMapping<BIFoldersPermissionPM, POCO.BIFoldersPermission, BIFoldersPermissionList >,IMappingEncodeBase64NVARCHARFields<BIFoldersPermissionPM>
     {
-	    public void EncodeBase64NVARCHARFields(BIFoldersPermissionPM entityPM)
+    	    public void EncodeBase64NVARCHARFields(BIFoldersPermissionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {

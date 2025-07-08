@@ -26,25 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FollowUpPM : BaseEntityPM   {
    #region Constructors
    public FollowUpPM() : base() {} 
-   public FollowUpPM(POCO.FollowUp entity) : base()
-   {
-		_id = entity.Id;
-		_shipmentId = entity.ShipmentId;
-		_jobId = entity.JobId;
-		_tenant = entity.Tenant;
-		_internalDocumentId = entity.InternalDocumentId;
-		_internaldocument = entity.InternalDocument !=null ? new DocumentOutPM(entity.InternalDocument) : null;
-			_legType = entity.LegType;
-		_area = entity.Area;
-		_documentTypeId = entity.DocumentTypeId;
-		_automationId = entity.AutomationId;
-		_notes = entity.Notes;
-		_eventTypeId = entity.EventTypeId;
-		_eventtype = entity.EventType !=null ? new EventTypePM(entity.EventType) : null;
-			_ownerUserId = entity.OwnerUserId;
-		_owneruser = entity.OwnerUser !=null ? new UserPM(entity.OwnerUser) : null;
-			_date = entity.Date;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

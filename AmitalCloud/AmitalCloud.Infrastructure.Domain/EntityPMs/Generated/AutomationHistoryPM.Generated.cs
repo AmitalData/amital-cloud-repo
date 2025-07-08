@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AutomationHistoryPM : BaseEntityPM   {
    #region Constructors
    public AutomationHistoryPM() : base() {} 
-   public AutomationHistoryPM(POCO.AutomationHistory entity) : base()
-   {
-		_version = entity.Version;
-		_automationsId = entity.AutomationsId;
-		_automation = entity.Automation !=null ? new AutomationPM(entity.Automation) : null;
-			_tenant = entity.Tenant;
-		_automationXML = entity.AutomationXML;
-		_createDate = entity.CreateDate;
-   }
    #endregion Constructors
    #region Properties
    	  private int _version ;

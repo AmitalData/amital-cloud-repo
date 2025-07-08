@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MeasurementPM : BaseEntityPM   {
    #region Constructors
    public MeasurementPM() : base() {} 
-   public MeasurementPM(POCO.Measurement entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isContainer = entity.IsContainer;
-		_isContainerMeasurement = entity.IsContainerMeasurement;
-		_code = entity.Code;
-		_name = entity.Name;
-		_shortName = entity.ShortName;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

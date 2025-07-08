@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWObjectFieldCategoriesPM : BaseEntityPM   {
    #region Constructors
    public DWObjectFieldCategoriesPM() : base() {} 
-   public DWObjectFieldCategoriesPM(POCO.DWObjectFieldCategories entity) : base()
-   {
-		_id = entity.Id;
-		_dWObjectFieldCode = entity.DWObjectFieldCode;
-		_dWCategoryCode = entity.DWCategoryCode;
-		_dwcategories = entity.DWCategories !=null ? new DWCategoriesPM(entity.DWCategories) : null;
-			_dWObjectTableCode = entity.DWObjectTableCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

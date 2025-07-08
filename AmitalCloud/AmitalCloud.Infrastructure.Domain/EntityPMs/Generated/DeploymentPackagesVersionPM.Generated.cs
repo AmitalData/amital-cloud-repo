@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DeploymentPackagesVersionPM : BaseEntityPM   {
    #region Constructors
    public DeploymentPackagesVersionPM() : base() {} 
-   public DeploymentPackagesVersionPM(POCO.DeploymentPackagesVersion entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_deploymentPackageID = entity.DeploymentPackageID;
-		_deploymentpackage = entity.DeploymentPackage !=null ? new DeploymentPackagePM(entity.DeploymentPackage) : null;
-			_isExported = entity.IsExported;
-		_documentId = entity.DocumentId;
-		_versionNumber = entity.VersionNumber;
-		_versionName = entity.VersionName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
