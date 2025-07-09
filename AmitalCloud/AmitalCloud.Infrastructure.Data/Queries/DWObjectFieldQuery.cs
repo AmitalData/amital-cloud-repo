@@ -9,6 +9,9 @@ using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Collections.Concurrent;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using AutoMapper.QueryableExtensions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -19,29 +22,15 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         readonly Repository<DWObjectField> repository;
         private const string DIM_CustomPickLists = "DIM_CustomPickLists";
         private const string Fact = "Fact";
+        private IMapper mapper;
 
         public DWObjectFieldQuery(int tenant)
         {
             this.tenant = tenant;
             context = AmitalCloudContext.GetContext(tenant);
             repository = new Repository<DWObjectField>(context);
-        }
-
-        public List<DWObjectFieldPM> GetDWObjectFieldWithChildrenFieldsPMsByTenant()
-        {
-            List<string> dwObjectTablesCodes = new Repository<DWObjectTable>(context).GetMulti(a => a.Tenant == tenant, a => new DWObjectTablePM(a)).Where(dwTable => dwTable.TypeCode == Fact && string.IsNullOrEmpty(dwTable.ParentFactCode)).Select(dwTable => dwTable.Code).ToList();
-
-            ConcurrentBag<DWObjectFieldPM> bag = new ConcurrentBag<DWObjectFieldPM>();
-
-            Parallel.ForEach(dwObjectTablesCodes, dwTableCode =>
-            {
-                foreach (var field in GetDWObjectFieldWithChildrenFieldsPMsByDWObjectTabelAndTenant(dwTableCode))
-                {
-                    bag.Add(field);
-                }
-            });
-
-            return bag.ToList();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DWObjectFieldDataMapping()));
+            mapper = config.CreateMapper();
         }
 
         public List<DWObjectFieldPM> GetDWObjectFieldWithChildrenFieldsPMsByDWObjectTabelAndTenant(string dwotCode)
@@ -51,14 +40,16 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             var Parents = TempList.Where(a => a.DimensionTableCode != null).ToList();
             List<string> dimensionTable = Parents.GroupBy(d => d.DimensionTableCode).Select(d => d.First().DimensionTableCode).ToList();
             dimensionTable.Add(DIM_CustomPickLists);
-            IEnumerable<IGrouping<string, DWObjectFieldPM>> DWObjectFieldPMDimensionGroups = GetDWObjectFieldPMDimensionListsGroups(dimensionTable);
+            IEnumerable<IGrouping<string, DWObjectField>> DWObjectFieldPMDimensionGroups = GetDWObjectFieldPMDimensionListsGroups(dimensionTable);
 
             foreach (var parent in Parents)
             {
                 var tempInnerList = new List<DWObjectFieldPM>();
-                var dWObjectFieldPMDimensionGroup = DWObjectFieldPMDimensionGroups.Where(d => d.Key == parent.DimensionTableCode).FirstOrDefault();
-                if (dWObjectFieldPMDimensionGroup != null)
+                var dWObjectFieldPMDimensionGroupPoco = DWObjectFieldPMDimensionGroups.Where(d => d.Key == parent.DimensionTableCode).FirstOrDefault();
+                if (dWObjectFieldPMDimensionGroupPoco != null)
                 {
+                    var dWObjectFieldPMDimensionGroup = mapper.Map<List<DWObjectFieldPM>>(dWObjectFieldPMDimensionGroupPoco);
+
                     string parentfieldName = parent.Name;
                     foreach (DWObjectFieldPM item in dWObjectFieldPMDimensionGroup.ToList().Where(d => (string.IsNullOrEmpty(d.RecordType) || (!string.IsNullOrEmpty(d.RecordType) && d.RecordType.Split(',').Contains(parentfieldName)))))
                     {
@@ -76,7 +67,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         public IQueryable<DWObjectFieldPM> GetDWObjectFieldByDWObjectTableCode(string dwotCode)
         {
-            var TempList = repository.GetQueryable().Where(a => a.Tenant == tenant && a.DWObjectTableCode == dwotCode && a.CannotFilter == false).Select(a => new DWObjectFieldPM(a));
+            var TempList = repository.GetQueryable().Where(a => a.Tenant == tenant && a.DWObjectTableCode == dwotCode && a.CannotFilter == false).ProjectTo<DWObjectFieldPM>(mapper.ConfigurationProvider);
             return TempList;
         }
 
@@ -117,9 +108,9 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             };
         }
 
-        private IEnumerable<IGrouping<string, DWObjectFieldPM>> GetDWObjectFieldPMDimensionListsGroups(List<string> dimensionTableLists)
+        private IEnumerable<IGrouping<string, DWObjectField>> GetDWObjectFieldPMDimensionListsGroups(List<string> dimensionTableLists)
         {
-            IEnumerable<IGrouping<string, DWObjectFieldPM>> list = repository.GetMulti(a => a.Tenant == tenant && dimensionTableLists.Contains(a.DWObjectTableCode) && a.DisplayInQueryBuilder == true, a => new DWObjectFieldPM(a)).ToList().GroupBy(d => d.DWObjectTableCode);
+            IEnumerable<IGrouping<string, DWObjectField>> list = repository.GetMulti(a => a.Tenant == tenant && dimensionTableLists.Contains(a.DWObjectTableCode) && a.DisplayInQueryBuilder == true).ToList().GroupBy(d => d.DWObjectTableCode);
             return list;
         }
 
@@ -132,10 +123,36 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                                              join a in repository.GetQueryable() on aa.DWObjectFieldCode equals a.Code
                                              join b in DWCategoriesRepo.GetQueryable() on aa.DWCategoryCode equals b.Code
                                              where a.Tenant == tenant && a.DWObjectTableCode == dwotCode && aa.DWObjectTableCode == dwotCode && (string.IsNullOrEmpty(a.RecordType) || (!string.IsNullOrEmpty(a.RecordType) && a.RecordType.IndexOf(recordType) > -1))
-                                             select new DWObjectFieldPM(a)
+                                             select new DWObjectFieldPM()
                                              {
+                                                 Id = a.Id,
+                                                 Tenant = a.Tenant,
+                                                 Name = a.Name,
+                                                 Code = a.Code,
+                                                 DimensionTableCode = a.DimensionTableCode,
+                                                 DataTypeCode = a.DataTypeCode,
+                                                 DWObjectTableCode = a.DWObjectTableCode,
+                                                 IsRequiered = a.IsRequired,
+                                                 MaxLength = a.MaxLength,
+                                                 MinLength = a.MinLength,
+                                                 IsPrimaryKey = a.IsPrimaryKey,
+                                                 IsMeasurement = a.IsMeasurement,
+                                                 AggregationTypeCode = a.AggregationTypeCode,
+                                                 DisplayInQueryBuilder = a.DisplayInQueryBuilder,
+                                                 LOVAdditionalColumns = a.LOVAdditionalColumns,
                                                  Category = aa.DWCategories.Name,
                                                  CategoryIndex = b.Index,
+                                                 HideTree = a.HideTree,
+                                                 CannotFilter = a.CannotFilter,
+                                                 HelpText = a.HelpText,
+                                                 IsCustom = a.IsCustom,
+                                                 OriginalObjectFieldCode = a.OriginalObjectFieldCode,
+                                                 ViewFieldDisplayName = a.ViewFieldDisplayName,
+                                                 DontDisplayInView = a.DontDisplayInView,
+                                                 DimensionDataViewName = a.DimensionDataViewName,
+                                                 IsMultipleSelection = a.IsMultipleSelection,
+                                                 UseUnitSelection = a.UseUnitSelection,
+                                                 RecordType = a.RecordType,
                                              }).ToList();
 
             results = SetDWFullNameTextCode(results);

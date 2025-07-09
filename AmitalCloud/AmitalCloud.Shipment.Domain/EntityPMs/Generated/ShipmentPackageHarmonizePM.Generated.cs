@@ -26,15 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentPackageHarmonizePM : BaseEntityPM   {
    #region Constructors
    public ShipmentPackageHarmonizePM() : base() {} 
-   public ShipmentPackageHarmonizePM(POCO.ShipmentPackageHarmonize entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_packageId = entity.PackageId;
-		_harmonize = entity.Harmonize;
-		_insidePackageId = entity.InsidePackageId;
-		_insidepackage = entity.InsidePackage !=null ? new InsideShipmentPackagePM(entity.InsidePackage) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

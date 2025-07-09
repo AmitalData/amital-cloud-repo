@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BluesnapContractPM : BaseEntityPM   {
    #region Constructors
    public BluesnapContractPM() : base() {} 
-   public BluesnapContractPM(POCO.BluesnapContract entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_contractId = entity.ContractId;
-		_inActive = entity.InActive;
-		_id = entity.Id;
-		_bluesnapContractTypeCode = entity.BluesnapContractTypeCode;
-		_bluesnapcontracttype = entity.BluesnapContractType !=null ? new BluesnapContractTypePM(entity.BluesnapContractType) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

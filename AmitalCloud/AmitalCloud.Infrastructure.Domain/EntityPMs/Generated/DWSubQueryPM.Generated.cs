@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWSubQueryPM : BaseEntityPM   {
    #region Constructors
    public DWSubQueryPM() : base() {} 
-   public DWSubQueryPM(POCO.DWSubQuery entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_dWFactTableCode = entity.DWFactTableCode;
-		_dWQueryId = entity.DWQueryId;
-		_sQLString = entity.SQLString;
-		_filtersXML = entity.FiltersXML;
-		_columnsXML = entity.ColumnsXML;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

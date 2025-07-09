@@ -5,127 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class BatchServicesDefinitionDataMapping: IMapping<BatchServicesDefinitionPM, POCO.BatchServicesDefinition  ,BatchServicesDefinitionList >,IMappingEncodeBase64NVARCHARFields<BatchServicesDefinitionPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         ClassName, 
-	         Parameter1, 
-	         Parameter2, 
-	         QueueDefinitionCode, 
-	         UseRabbitMQ,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         LastActivity, 
-	         InActive, 
-	         NumberOfThreads, 
-	         ClassName, 
-	         Parameter1, 
-	         Parameter2, 
-	         CPU, 
-	         NumberOfDoneItems, 
-	         DoneItemsInOneHour, 
-	         DoneItemsInOneMinute, 
-	         DoneItemsInFiveMinutes, 
-	         WaitingItems, 
-	         FailedItems, 
-	         QueueDefinitionCode, 
-	         UseRabbitMQ,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(BatchServicesDefinitionPM entityPM, POCO.BatchServicesDefinition entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName)) { entityPOCO.ClassName = entityPM.ClassName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Parameter1)) { entityPOCO.Parameter1 = entityPM.Parameter1;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Parameter2)) { entityPOCO.Parameter2 = entityPM.Parameter2;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.QueueDefinitionCode)) { entityPOCO.QueueDefinitionCode = entityPM.QueueDefinitionCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UseRabbitMQ)) { entityPOCO.UseRabbitMQ = entityPM.UseRabbitMQ;}
-					}
-		public void POCOToPM(BatchServicesDefinitionPM entityPM, POCO.BatchServicesDefinition entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ClassName))
-            {
-					entityPM.ClassName = entityPOCO.ClassName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Parameter1))
-            {
-					entityPM.Parameter1 = entityPOCO.Parameter1;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Parameter2))
-            {
-					entityPM.Parameter2 = entityPOCO.Parameter2;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.QueueDefinitionCode))
-            {
-					entityPM.QueueDefinitionCode = entityPOCO.QueueDefinitionCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UseRabbitMQ))
-            {
-					entityPM.UseRabbitMQ = entityPOCO.UseRabbitMQ;
-            }
-		}
-		public void PMToOldPM(BatchServicesDefinitionPM entityPM, BatchServicesDefinitionPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClassName))
-            {
-                oldEntityPM.ClassName = entityPM.ClassName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Parameter1))
-            {
-                oldEntityPM.Parameter1 = entityPM.Parameter1;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Parameter2))
-            {
-                oldEntityPM.Parameter2 = entityPM.Parameter2;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.QueueDefinitionCode))
-            {
-                oldEntityPM.QueueDefinitionCode = entityPM.QueueDefinitionCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UseRabbitMQ))
-            {
-                oldEntityPM.UseRabbitMQ = entityPM.UseRabbitMQ;
-            }
-					}
-		public void POCOToList(POCO.BatchServicesDefinition entityPOCO, BatchServicesDefinitionList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<BatchServicesDefinitionList> GetIqueryableList(IQueryable<POCO.BatchServicesDefinition> iQueryable)
-		{
-			IQueryable<BatchServicesDefinitionList> query = (from a in iQueryable
-                                            select new BatchServicesDefinitionList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(BatchServicesDefinitionPM entityPM)
+    public partial class BatchServicesDefinitionDataMapping: BaseMappingProfile<BatchServicesDefinitionPM, POCO.BatchServicesDefinition>, IMapping<BatchServicesDefinitionPM, POCO.BatchServicesDefinition, BatchServicesDefinitionList >,IMappingEncodeBase64NVARCHARFields<BatchServicesDefinitionPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(BatchServicesDefinitionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -133,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

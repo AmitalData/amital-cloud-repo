@@ -5,84 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class WorkerRoleNameDataMapping: IMapping<WorkerRoleNamePM, POCO.WorkerRoleName  ,WorkerRoleNameList >,IMappingEncodeBase64NVARCHARFields<WorkerRoleNamePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         CreateDate, 
-	         Name, 
-	         WaitingStatus,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         CreateDate, 
-	         Name, 
-	         WaitingStatus,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(WorkerRoleNamePM entityPM, POCO.WorkerRoleName entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingStatus)) { entityPOCO.WaitingStatus = entityPM.WaitingStatus;}
-					}
-		public void POCOToPM(WorkerRoleNamePM entityPM, POCO.WorkerRoleName entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.WaitingStatus))
-            {
-					entityPM.WaitingStatus = entityPOCO.WaitingStatus;
-            }
-		}
-		public void PMToOldPM(WorkerRoleNamePM entityPM, WorkerRoleNamePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.WaitingStatus))
-            {
-                oldEntityPM.WaitingStatus = entityPM.WaitingStatus;
-            }
-					}
-		public void POCOToList(POCO.WorkerRoleName entityPOCO, WorkerRoleNameList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<WorkerRoleNameList> GetIqueryableList(IQueryable<POCO.WorkerRoleName> iQueryable)
-		{
-			IQueryable<WorkerRoleNameList> query = (from a in iQueryable
-                                            select new WorkerRoleNameList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(WorkerRoleNamePM entityPM)
+    public partial class WorkerRoleNameDataMapping: BaseMappingProfile<WorkerRoleNamePM, POCO.WorkerRoleName>, IMapping<WorkerRoleNamePM, POCO.WorkerRoleName, WorkerRoleNameList >,IMappingEncodeBase64NVARCHARFields<WorkerRoleNamePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(WorkerRoleNamePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -90,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

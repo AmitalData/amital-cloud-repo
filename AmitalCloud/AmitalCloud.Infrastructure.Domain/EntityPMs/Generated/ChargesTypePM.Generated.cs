@@ -27,78 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ChargesTypePM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ChargesTypePM() : base() {} 
-   public ChargesTypePM(POCO.ChargesType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_receivableAccountId = entity.ReceivableAccountId;
-		_receivableaccount = entity.ReceivableAccount !=null ? new AccountPM(entity.ReceivableAccount) : null;
-			_payableAccountId = entity.PayableAccountId;
-		_payableaccount = entity.PayableAccount !=null ? new AccountPM(entity.PayableAccount) : null;
-			_accountingVATSplit = entity.AccountingVATSplit;
-		_payableDebitAccount = entity.PayableDebitAccount;
-		_receivableCreditAccount = entity.ReceivableCreditAccount;
-		_receivablesChargesTypeExternalCode = entity.ReceivablesChargesTypeExternalCode;
-		_payablesChargesTypeExternalCode = entity.PayablesChargesTypeExternalCode;
-		_iATACodeId = entity.IATACodeId;
-		_iatacode = entity.IATACode !=null ? new IATACodePM(entity.IATACode) : null;
-			_viewOrder = entity.ViewOrder;
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_containerMeasurementId = entity.ContainerMeasurementId;
-		_containermeasurement = entity.ContainerMeasurement !=null ? new MeasurementPM(entity.ContainerMeasurement) : null;
-			_measurementId = entity.MeasurementId;
-		_measurement = entity.Measurement !=null ? new MeasurementPM(entity.Measurement) : null;
-			_vatTypeId = entity.VatTypeId;
-		_chargesGroupCode = entity.ChargesGroupCode;
-		_dueTypeCode = entity.DueTypeCode;
-		_duetype = entity.DueType !=null ? new DueTypePM(entity.DueType) : null;
-			_description = entity.Description;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_isReceivable = entity.IsReceivable;
-		_isPayable = entity.IsPayable;
-		_isAir = entity.IsAir;
-		_isOcean = entity.IsOcean;
-		_isInland = entity.IsInland;
-		_isAutoDisplayInShipment = entity.IsAutoDisplayInShipment;
-		_isAutoDisplayInQuote = entity.IsAutoDisplayInQuote;
-		_isAutoDisplayInConsolidation = entity.IsAutoDisplayInConsolidation;
-		_aWBPrintDescription = entity.AWBPrintDescription;
-		_sATExternalId = entity.SATExternalId;
-		_payableDebitGLAcountId = entity.PayableDebitGLAcountId;
-		_receivableCreditGLAccountId = entity.ReceivableCreditGLAccountId;
-		_chargesGroupId = entity.ChargesGroupId;
-		_chargesgroup = entity.ChargesGroup !=null ? new ChargesGroupPM(entity.ChargesGroup) : null;
-			_isBackToBack = entity.IsBackToBack;
-		_isAutoDisplayInCustoms = entity.IsAutoDisplayInCustoms;
-		_isCustoms = entity.IsCustoms;
-		_isExpense = entity.IsExpense;
-		_isExport = entity.IsExport;
-		_isImport = entity.IsImport;
-		_isDomestic = entity.IsDomestic;
-		_isDrop = entity.IsDrop;
-		_receivablesDefaultCurrencyId = entity.ReceivablesDefaultCurrencyId;
-		_receivablesdefaultcurrency = entity.ReceivablesDefaultCurrency !=null ? new CurrencyPM(entity.ReceivablesDefaultCurrency) : null;
-			_payablesDefaultCurrencyId = entity.PayablesDefaultCurrencyId;
-		_payablesdefaultcurrency = entity.PayablesDefaultCurrency !=null ? new CurrencyPM(entity.PayablesDefaultCurrency) : null;
-			_recCreditGLAcountLocalName = entity.RecCreditGLAcountLocalName;
-		_payDebitGLAcountLocalName = entity.PayDebitGLAcountLocalName;
-		_applyRegionalTax = entity.ApplyRegionalTax;
-		_hasPickup = entity.HasPickup;
-		_hasDelivery = entity.HasDelivery;
-		_isDirectionRestricted = entity.IsDirectionRestricted;
-		_isActiveInExport = entity.IsActiveInExport;
-		_isActiveInImport = entity.IsActiveInImport;
-		_isActiveInDomestic = entity.IsActiveInDomestic;
-		_isActiveInDrop = entity.IsActiveInDrop;
-		_quoteChargesGroupCode = entity.QuoteChargesGroupCode;
-		_quoteChargesGroupId = entity.QuoteChargesGroupId;
-		_quotechargesgroup = entity.QuoteChargesGroup !=null ? new QuoteChargesGroupPM(entity.QuoteChargesGroup) : null;
-			_quoteGroupSectionID = entity.QuoteGroupSectionID;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
@@ -526,6 +454,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private VatTypePM _vattype;
+		
+        [DataMember]
+        public virtual VatTypePM VatType 
+		{ 
+		get { return _vattype; } 
+		set { _vattype = value; }
+		}
 	  private string _chargesGroupCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FailedTokenLogPM : BaseEntityPM   {
    #region Constructors
    public FailedTokenLogPM() : base() {} 
-   public FailedTokenLogPM(POCO.FailedTokenLog entity) : base()
-   {
-		_id = entity.Id;
-		_iP = entity.IP;
-		_browser = entity.Browser;
-		_token = entity.Token;
-		_gMTDateTime = entity.GMTDateTime;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

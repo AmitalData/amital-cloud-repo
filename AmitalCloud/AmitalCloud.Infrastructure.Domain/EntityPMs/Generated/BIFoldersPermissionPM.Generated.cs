@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BIFoldersPermissionPM : BaseEntityPM   {
    #region Constructors
    public BIFoldersPermissionPM() : base() {} 
-   public BIFoldersPermissionPM(POCO.BIFoldersPermission entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_folderId = entity.FolderId;
-		_folder = entity.Folder !=null ? new BIReportFolderPM(entity.Folder) : null;
-			_userId = entity.UserId;
-		_user = entity.User !=null ? new UserPM(entity.User) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

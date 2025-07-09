@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentsMetaDataTypePM : BaseEntityPM   {
    #region Constructors
    public DocumentsMetaDataTypePM() : base() {} 
-   public DocumentsMetaDataTypePM(POCO.DocumentsMetaDataType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-		_format = entity.Format;
-		_customsMetaDataCode = entity.CustomsMetaDataCode;
-		documentsFilingMetaDataValues = entity.DocumentsFilingMetaDataValues != null ? entity.DocumentsFilingMetaDataValues.Select(a=>new DocumentsFilingMetaDataValuePM(a)).ToList() : null;
-		documentTypeMetaDatas = entity.DocumentTypeMetaDatas != null ? entity.DocumentTypeMetaDatas.Select(a=>new DocumentTypeMetaDataPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

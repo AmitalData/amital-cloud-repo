@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HTSCodePM : BaseEntityPM   {
    #region Constructors
    public HTSCodePM() : base() {} 
-   public HTSCodePM(POCO.HTSCode entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_itemId = entity.ItemId;
-		_item = entity.Item !=null ? new ProductItemPM(entity.Item) : null;
-			_code = entity.Code;
-		_approvedByCustomer = entity.ApprovedByCustomer;
-		_inActive = entity.InActive;
-		_destinationCountryId = entity.DestinationCountryId;
-		_lineNumber = entity.LineNumber;
-		_vATPercentage = entity.VATPercentage;
-		_dutiesPercentage = entity.DutiesPercentage;
-		_otherDuties = entity.OtherDuties;
-		_remarks = entity.Remarks;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

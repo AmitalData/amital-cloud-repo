@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWQueryPM : BaseEntityPM   {
    #region Constructors
    public DWQueryPM() : base() {} 
-   public DWQueryPM(POCO.DWQuery entity) : base()
-   {
-		_cdropId = entity.CdropId;
-		_tenant = entity.Tenant;
-		_sQLString = entity.SQLString;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateByUserId = entity.UpdateByUserId;
-		_updatebyuseriduser = entity.UpdateByUserIdUser !=null ? new UserPM(entity.UpdateByUserIdUser) : null;
-			_createdDate = entity.CreatedDate;
-		_updatedDate = entity.UpdatedDate;
-		_id = entity.Id;
-		bIReports = entity.BIReports != null ? entity.BIReports.Select(a=>new BIReportPM(a)).ToList() : null;
-		dWQueryColumns = entity.DWQueryColumns != null ? entity.DWQueryColumns.Select(a=>new DWQueryColumnPM(a)).ToList() : null;
-		dWQueryFilters = entity.DWQueryFilters != null ? entity.DWQueryFilters.Select(a=>new DWQueryFilterPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _cdropId ;

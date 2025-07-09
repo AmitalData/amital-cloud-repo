@@ -5,95 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CargoTenantMilestoneDefinitionDataMapping: IMapping<CargoTenantMilestoneDefinitionPM, POCO.CargoTenantMilestoneDefinition  ,CargoTenantMilestoneDefinitionList >,IMappingEncodeBase64NVARCHARFields<CargoTenantMilestoneDefinitionPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Code, 
-	         IsCustomerView,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Code, 
-	         IsCustomerView,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CargoTenantMilestoneDefinitionPM entityPM, POCO.CargoTenantMilestoneDefinition entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustomerView)) { entityPOCO.IsCustomerView = entityPM.IsCustomerView;}
-					}
-		public void POCOToPM(CargoTenantMilestoneDefinitionPM entityPM, POCO.CargoTenantMilestoneDefinition entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsCustomerView))
-            {
-					entityPM.IsCustomerView = entityPOCO.IsCustomerView;
-            }
-		}
-		public void PMToOldPM(CargoTenantMilestoneDefinitionPM entityPM, CargoTenantMilestoneDefinitionPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCustomerView))
-            {
-                oldEntityPM.IsCustomerView = entityPM.IsCustomerView;
-            }
-					}
-		public void POCOToList(POCO.CargoTenantMilestoneDefinition entityPOCO, CargoTenantMilestoneDefinitionList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CargoTenantMilestoneDefinitionList> GetIqueryableList(IQueryable<POCO.CargoTenantMilestoneDefinition> iQueryable)
-		{
-			IQueryable<CargoTenantMilestoneDefinitionList> query = (from a in iQueryable
-                                            select new CargoTenantMilestoneDefinitionList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CargoTenantMilestoneDefinitionPM entityPM)
+    public partial class CargoTenantMilestoneDefinitionDataMapping: BaseMappingProfile<CargoTenantMilestoneDefinitionPM, POCO.CargoTenantMilestoneDefinition>, IMapping<CargoTenantMilestoneDefinitionPM, POCO.CargoTenantMilestoneDefinition, CargoTenantMilestoneDefinitionList >,IMappingEncodeBase64NVARCHARFields<CargoTenantMilestoneDefinitionPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CargoTenantMilestoneDefinitionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -101,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -4107,6 +4107,8 @@
     IsPrimaryKey="false"
     HasDataBaseField="false"
     HasPMField="true"
+    TableRelatedPM="TransferFTPDetail"
+    FieldRelatedPM="Host"
     IsComposition="false"
     IsMaxLength="false"
     NoMetaDataField="false"

@@ -5,128 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class RoleFeatureDataMapping: IMapping<RoleFeaturePM, POCO.RoleFeature  ,RoleFeatureList >,IMappingEncodeBase64NVARCHARFields<RoleFeaturePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         RoleId, 
-	         FeatureId, 
-	         FeatureAccessLevelCode, 
-	         IsDeleted, 
-	         FeatureUniqeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         RoleId, 
-	         FeatureId, 
-	         FeatureAccessLevelCode, 
-	         IsDeleted, 
-	         FeatureUniqeCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(RoleFeaturePM entityPM, POCO.RoleFeature entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RoleId)) { entityPOCO.RoleId = entityPM.RoleId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId)) { entityPOCO.FeatureId = entityPM.FeatureId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureAccessLevelCode)) { entityPOCO.FeatureAccessLevelCode = entityPM.FeatureAccessLevelCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsDeleted)) { entityPOCO.IsDeleted = entityPM.IsDeleted;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode)) { entityPOCO.FeatureUniqeCode = entityPM.FeatureUniqeCode;}
-					}
-		public void POCOToPM(RoleFeaturePM entityPM, POCO.RoleFeature entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.RoleId))
-            {
-					entityPM.RoleId = entityPOCO.RoleId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureId))
-            {
-					entityPM.FeatureId = entityPOCO.FeatureId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureAccessLevelCode))
-            {
-					entityPM.FeatureAccessLevelCode = entityPOCO.FeatureAccessLevelCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsDeleted))
-            {
-					entityPM.IsDeleted = entityPOCO.IsDeleted;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureUniqeCode))
-            {
-					entityPM.FeatureUniqeCode = entityPOCO.FeatureUniqeCode;
-            }
-		}
-		public void PMToOldPM(RoleFeaturePM entityPM, RoleFeaturePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RoleId))
-            {
-                oldEntityPM.RoleId = entityPM.RoleId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId))
-            {
-                oldEntityPM.FeatureId = entityPM.FeatureId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureAccessLevelCode))
-            {
-                oldEntityPM.FeatureAccessLevelCode = entityPM.FeatureAccessLevelCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsDeleted))
-            {
-                oldEntityPM.IsDeleted = entityPM.IsDeleted;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode))
-            {
-                oldEntityPM.FeatureUniqeCode = entityPM.FeatureUniqeCode;
-            }
-					}
-		public void POCOToList(POCO.RoleFeature entityPOCO, RoleFeatureList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<RoleFeatureList> GetIqueryableList(IQueryable<POCO.RoleFeature> iQueryable)
-		{
-			IQueryable<RoleFeatureList> query = (from a in iQueryable
-                                            select new RoleFeatureList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(RoleFeaturePM entityPM)
+    public partial class RoleFeatureDataMapping: BaseMappingProfile<RoleFeaturePM, POCO.RoleFeature>, IMapping<RoleFeaturePM, POCO.RoleFeature, RoleFeatureList >,IMappingEncodeBase64NVARCHARFields<RoleFeaturePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(RoleFeaturePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -134,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

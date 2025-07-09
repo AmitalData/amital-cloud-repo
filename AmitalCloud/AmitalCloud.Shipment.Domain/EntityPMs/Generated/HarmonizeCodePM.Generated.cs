@@ -26,16 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class HarmonizeCodePM : BaseEntityPM   {
    #region Constructors
    public HarmonizeCodePM() : base() {} 
-   public HarmonizeCodePM(POCO.HarmonizeCode entity) : base()
-   {
-		_code = entity.Code;
-		_searchFields = entity.SearchFields;
-		_description = entity.Description;
-		_chapterCode = entity.ChapterCode;
-		_chapterDescription = entity.ChapterDescription;
-		_subChapterCode = entity.SubChapterCode;
-		_subChapterDescription = entity.SubChapterDescription;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

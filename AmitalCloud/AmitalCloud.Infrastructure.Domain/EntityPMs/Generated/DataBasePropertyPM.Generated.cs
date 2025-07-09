@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DataBasePropertyPM : BaseEntityPM   {
    #region Constructors
    public DataBasePropertyPM() : base() {} 
-   public DataBasePropertyPM(POCO.DataBaseProperty entity) : base()
-   {
-		_dataBaseNumber = entity.DataBaseNumber;
-		_lastBackupDate = entity.LastBackupDate;
-   }
    #endregion Constructors
    #region Properties
    	  private int _dataBaseNumber ;
@@ -63,6 +58,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LastBackupDate",OldValue=_lastBackupDate,NewValue=value,PropertyType="DateTime?"};
 		    NotifyPropertyChanged(values);
 		   _lastBackupDate=value;
+		   }
+		 }
+	   }
+	  private string _rowid ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string Rowid  
+	   {
+	     get { return _rowid; }
+		 set
+		 {
+		   if(_rowid != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _rowid=value;
 		   }
 		 }
 	   }

@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VatTypePM : BaseEntityPM   {
    #region Constructors
    public VatTypePM() : base() {} 
-   public VatTypePM(POCO.VatType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_externalTAXItemId = entity.ExternalTAXItemId;
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_description = entity.Description;
-		_localDescription = entity.LocalDescription;
-		_externalVATCard = entity.ExternalVATCard;
-		_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_isMultiPercentage = entity.IsMultiPercentage;
-		_recognizedPercentage = entity.RecognizedPercentage;
-		_payablesExternalId = entity.PayablesExternalId;
-		_receivablesExternalId = entity.ReceivablesExternalId;
-		_isRegionalTax = entity.IsRegionalTax;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

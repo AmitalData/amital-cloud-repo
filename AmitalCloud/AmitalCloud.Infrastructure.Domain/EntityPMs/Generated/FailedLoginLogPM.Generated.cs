@@ -8,7 +8,6 @@
 using System;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AmitalCloud.Infrastructure.Domain.BaseClasses;
@@ -26,16 +25,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FailedLoginLogPM : BaseEntityPM   {
    #region Constructors
    public FailedLoginLogPM() : base() {} 
-   public FailedLoginLogPM(POCO.FailedLoginLog entity) : base()
-   {
-		_id = entity.Id;
-		_iP = entity.IP;
-		_browser = entity.Browser;
-		_email = entity.Email;
-		_gMTDateTime = entity.GMTDateTime;
-		_userAgent = entity.UserAgent;
-		_reason = entity.Reason;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

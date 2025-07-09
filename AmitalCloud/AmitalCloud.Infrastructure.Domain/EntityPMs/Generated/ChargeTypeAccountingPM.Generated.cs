@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ChargeTypeAccountingPM : BaseEntityPM   {
    #region Constructors
    public ChargeTypeAccountingPM() : base() {} 
-   public ChargeTypeAccountingPM(POCO.ChargeTypeAccounting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_vatTypeId = entity.VatTypeId;
-		_vattype = entity.VatType !=null ? new VatTypePM(entity.VatType) : null;
-			_chargeTypeId = entity.ChargeTypeId;
-		_chargetype = entity.ChargeType !=null ? new ChargesTypePM(entity.ChargeType) : null;
-			_payableDebitAccount = entity.PayableDebitAccount;
-		_receivableCreditAccount = entity.ReceivableCreditAccount;
-		_payableDebitGLAcountId = entity.PayableDebitGLAcountId;
-		_receivableCreditGLAccountId = entity.ReceivableCreditGLAccountId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
@@ -90,14 +77,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private VatTypePM _vattype;
-		
-        [DataMember]
-        public virtual VatTypePM VatType 
-		{ 
-		get { return _vattype; } 
-		set { _vattype = value; }
-		}
 	  private string _chargeTypeId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

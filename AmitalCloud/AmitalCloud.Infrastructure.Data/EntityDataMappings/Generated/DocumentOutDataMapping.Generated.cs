@@ -5,172 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DocumentOutDataMapping: IMapping<DocumentOutPM, POCO.DocumentOut  ,DocumentOutList >,IMappingEncodeBase64NVARCHARFields<DocumentOutPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Issued, 
-	         EditableFields, 
-	         DocumentTemplateId, 
-	         EmailTemplateId, 
-	         XamlDocumentId, 
-	         NeedsRebuild, 
-	         IsBlobExist, 
-	         IssuedDate, 
-	         IssuedByUserId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Issued, 
-	         EditableFields, 
-	         DocumentTemplateId, 
-	         EmailTemplateId, 
-	         XamlDocumentId, 
-	         NeedsRebuild, 
-	         IsBlobExist, 
-	         IssuedDate, 
-	         IssuedByUserId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DocumentOutPM entityPM, POCO.DocumentOut entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Issued)) { entityPOCO.Issued = entityPM.Issued;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EditableFields)) { entityPOCO.EditableFields = entityPM.EditableFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentTemplateId)) { entityPOCO.DocumentTemplateId = entityPM.DocumentTemplateId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailTemplateId)) { entityPOCO.EmailTemplateId = entityPM.EmailTemplateId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.XamlDocumentId)) { entityPOCO.XamlDocumentId = entityPM.XamlDocumentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NeedsRebuild)) { entityPOCO.NeedsRebuild = entityPM.NeedsRebuild;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsBlobExist)) { entityPOCO.IsBlobExist = entityPM.IsBlobExist;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IssuedDate)) { entityPOCO.IssuedDate = entityPM.IssuedDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IssuedByUserId)) { entityPOCO.IssuedByUserId = entityPM.IssuedByUserId;}
-					}
-		public void POCOToPM(DocumentOutPM entityPM, POCO.DocumentOut entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Issued))
-            {
-					entityPM.Issued = entityPOCO.Issued;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EditableFields))
-            {
-					entityPM.EditableFields = entityPOCO.EditableFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentTemplateId))
-            {
-					entityPM.DocumentTemplateId = entityPOCO.DocumentTemplateId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EmailTemplateId))
-            {
-					entityPM.EmailTemplateId = entityPOCO.EmailTemplateId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.XamlDocumentId))
-            {
-					entityPM.XamlDocumentId = entityPOCO.XamlDocumentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.NeedsRebuild))
-            {
-					entityPM.NeedsRebuild = entityPOCO.NeedsRebuild;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsBlobExist))
-            {
-					entityPM.IsBlobExist = entityPOCO.IsBlobExist;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IssuedDate))
-            {
-					entityPM.IssuedDate = entityPOCO.IssuedDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IssuedByUserId))
-            {
-					entityPM.IssuedByUserId = entityPOCO.IssuedByUserId;
-            }
-		}
-		public void PMToOldPM(DocumentOutPM entityPM, DocumentOutPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Issued))
-            {
-                oldEntityPM.Issued = entityPM.Issued;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EditableFields))
-            {
-                oldEntityPM.EditableFields = entityPM.EditableFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentTemplateId))
-            {
-                oldEntityPM.DocumentTemplateId = entityPM.DocumentTemplateId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EmailTemplateId))
-            {
-                oldEntityPM.EmailTemplateId = entityPM.EmailTemplateId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.XamlDocumentId))
-            {
-                oldEntityPM.XamlDocumentId = entityPM.XamlDocumentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NeedsRebuild))
-            {
-                oldEntityPM.NeedsRebuild = entityPM.NeedsRebuild;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsBlobExist))
-            {
-                oldEntityPM.IsBlobExist = entityPM.IsBlobExist;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IssuedDate))
-            {
-                oldEntityPM.IssuedDate = entityPM.IssuedDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IssuedByUserId))
-            {
-                oldEntityPM.IssuedByUserId = entityPM.IssuedByUserId;
-            }
-					}
-		public void POCOToList(POCO.DocumentOut entityPOCO, DocumentOutList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DocumentOutList> GetIqueryableList(IQueryable<POCO.DocumentOut> iQueryable)
-		{
-			IQueryable<DocumentOutList> query = (from a in iQueryable
-                                            select new DocumentOutList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(DocumentOutPM entityPM)
+    public partial class DocumentOutDataMapping: BaseMappingProfile<DocumentOutPM, POCO.DocumentOut>, IMapping<DocumentOutPM, POCO.DocumentOut, DocumentOutList >,IMappingEncodeBase64NVARCHARFields<DocumentOutPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(DocumentOutPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -178,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

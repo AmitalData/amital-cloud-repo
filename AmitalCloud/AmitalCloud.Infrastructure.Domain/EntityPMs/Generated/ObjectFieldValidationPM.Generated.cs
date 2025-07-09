@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectFieldValidationPM : BaseEntityPM   {
    #region Constructors
    public ObjectFieldValidationPM() : base() {} 
-   public ObjectFieldValidationPM(POCO.ObjectFieldValidation entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_validationExpression = entity.ValidationExpression;
-		_errorMessage = entity.ErrorMessage;
-		_objectFieldId = entity.ObjectFieldId;
-		_validationOrder = entity.ValidationOrder;
-		_condition = entity.Condition;
-		_objectFieldCode = entity.ObjectFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

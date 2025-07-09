@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -30,7 +32,11 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         public List<RolePM> GetRolesForContact(string contactid, int tenant)
         {
-            List<RolePM> roles = repository.GetMulti(a => (a.Tenant == tenant && contactid != null) || a.Tenant == 0).Select(a => new RolePM(a)).ToList();
+            List<Role> rolesPoco = repository.GetMulti(a => (a.Tenant == tenant && contactid != null) || a.Tenant == 0).ToList();
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new RoleDataMapping()));
+            var mapper = config.CreateMapper();
+            var roles = mapper.Map<List<RolePM>>(rolesPoco);
 
             if (contactid != null)
             {
@@ -52,19 +58,6 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 }
             }
             return roles;
-        }
-        private List<RolePM> GetCustomRolesByIds(List<string> myRolesIds)
-        {
-            List<RolePM> myResult = new List<RolePM>();
-
-            if (myRolesIds.Count > 0)
-            {
-                myResult = (from a in context.Roles
-                            where myRolesIds.Contains(a.Id) && a.IsCustomRole == true
-                            select new RolePM(a)).ToList();
-            }
-
-            return myResult;
         }
     }
 }

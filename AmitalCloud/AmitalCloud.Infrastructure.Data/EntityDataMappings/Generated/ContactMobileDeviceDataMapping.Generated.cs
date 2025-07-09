@@ -5,161 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ContactMobileDeviceDataMapping: IMapping<ContactMobileDevicePM, POCO.ContactMobileDevice  ,ContactMobileDeviceList >,IMappingEncodeBase64NVARCHARFields<ContactMobileDevicePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         DeviceId, 
-	         Email, 
-	         Platform, 
-	         Version, 
-	         Devicetype, 
-	         CreateDate, 
-	         UpdateDate, 
-	         IsSignOut, 
-	         NotificationUniqueKey, 
-	         AppVersion,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         DeviceId, 
-	         Email, 
-	         Platform, 
-	         Version, 
-	         Devicetype, 
-	         CreateDate, 
-	         UpdateDate, 
-	         IsSignOut, 
-	         NotificationUniqueKey, 
-	         AppVersion,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContactMobileDevicePM entityPM, POCO.ContactMobileDevice entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Platform)) { entityPOCO.Platform = entityPM.Platform;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Version)) { entityPOCO.Version = entityPM.Version;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Devicetype)) { entityPOCO.Devicetype = entityPM.Devicetype;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSignOut)) { entityPOCO.IsSignOut = entityPM.IsSignOut;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NotificationUniqueKey)) { entityPOCO.NotificationUniqueKey = entityPM.NotificationUniqueKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AppVersion)) { entityPOCO.AppVersion = entityPM.AppVersion;}
-					}
-		public void POCOToPM(ContactMobileDevicePM entityPM, POCO.ContactMobileDevice entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DeviceId))
-            {
-					entityPM.DeviceId = entityPOCO.DeviceId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Platform))
-            {
-					entityPM.Platform = entityPOCO.Platform;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Version))
-            {
-					entityPM.Version = entityPOCO.Version;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Devicetype))
-            {
-					entityPM.Devicetype = entityPOCO.Devicetype;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsSignOut))
-            {
-					entityPM.IsSignOut = entityPOCO.IsSignOut;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.NotificationUniqueKey))
-            {
-					entityPM.NotificationUniqueKey = entityPOCO.NotificationUniqueKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AppVersion))
-            {
-					entityPM.AppVersion = entityPOCO.AppVersion;
-            }
-		}
-		public void PMToOldPM(ContactMobileDevicePM entityPM, ContactMobileDevicePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Platform))
-            {
-                oldEntityPM.Platform = entityPM.Platform;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Version))
-            {
-                oldEntityPM.Version = entityPM.Version;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Devicetype))
-            {
-                oldEntityPM.Devicetype = entityPM.Devicetype;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSignOut))
-            {
-                oldEntityPM.IsSignOut = entityPM.IsSignOut;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.NotificationUniqueKey))
-            {
-                oldEntityPM.NotificationUniqueKey = entityPM.NotificationUniqueKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AppVersion))
-            {
-                oldEntityPM.AppVersion = entityPM.AppVersion;
-            }
-					}
-		public void POCOToList(POCO.ContactMobileDevice entityPOCO, ContactMobileDeviceList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContactMobileDeviceList> GetIqueryableList(IQueryable<POCO.ContactMobileDevice> iQueryable)
-		{
-			IQueryable<ContactMobileDeviceList> query = (from a in iQueryable
-                                            select new ContactMobileDeviceList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ContactMobileDevicePM entityPM)
+    public partial class ContactMobileDeviceDataMapping: BaseMappingProfile<ContactMobileDevicePM, POCO.ContactMobileDevice>, IMapping<ContactMobileDevicePM, POCO.ContactMobileDevice, ContactMobileDeviceList >,IMappingEncodeBase64NVARCHARFields<ContactMobileDevicePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ContactMobileDevicePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -167,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

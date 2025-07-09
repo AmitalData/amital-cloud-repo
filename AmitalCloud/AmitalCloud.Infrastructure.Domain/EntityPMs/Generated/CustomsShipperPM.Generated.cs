@@ -27,16 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomsShipperPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public CustomsShipperPM() : base() {} 
-   public CustomsShipperPM(POCO.CustomsShipper entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_customsShipperCode = entity.CustomsShipperCode;
-		_validDepositionNumber = entity.ValidDepositionNumber;
-		_validityStartDate = entity.ValidityStartDate;
-		_validityEndDate = entity.ValidityEndDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

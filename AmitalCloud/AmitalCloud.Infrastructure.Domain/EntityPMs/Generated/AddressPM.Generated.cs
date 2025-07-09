@@ -26,31 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AddressPM : BaseEntityPM   {
    #region Constructors
    public AddressPM() : base() {} 
-   public AddressPM(POCO.Address entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_addressTypeId = entity.AddressTypeId;
-		_addresstype = entity.AddressType !=null ? new AddressTypePM(entity.AddressType) : null;
-			_externalId = entity.ExternalId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_description = entity.Description;
-		_city = entity.City;
-		_address1 = entity.Address1;
-		_address2 = entity.Address2;
-		_countryId = entity.CountryId;
-		_country = entity.Country !=null ? new CountryPM(entity.Country) : null;
-			_stateId = entity.StateId;
-		_state = entity.State !=null ? new StatePM(entity.State) : null;
-			_zipCode = entity.ZipCode;
-		_phoneNumber = entity.PhoneNumber;
-		_faxNumber = entity.FaxNumber;
-		_aTTN = entity.ATTN;
-		_cardId = entity.CardId;
-		_isLocalLanguage = entity.IsLocalLanguage;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class OtherParticipantIdPM : BaseEntityPM   {
    #region Constructors
    public OtherParticipantIdPM() : base() {} 
-   public OtherParticipantIdPM(POCO.OtherParticipantId entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

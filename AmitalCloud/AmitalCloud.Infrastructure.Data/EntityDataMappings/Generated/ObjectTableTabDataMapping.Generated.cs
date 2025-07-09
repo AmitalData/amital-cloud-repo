@@ -5,242 +5,26 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ObjectTableTabDataMapping: IMapping<ObjectTableTabPM, POCO.ObjectTableTab  ,ObjectTableTabList >,IMappingEncodeBase64NVARCHARFields<ObjectTableTabPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ObjectTableId, 
-	         ControlPath, 
-	         TabNameTextCodeId, 
-	         IndexOrder, 
-	         Code, 
-	         FeatureId, 
-	         HtmlComponentName, 
-	         HtmlComponentUrl, 
-	         TabNameTextCodeCode, 
-	         FeatureUniqeCode, 
-	         Type, 
-	         ScreenCode, 
-	         OriginalTabCode, 
-	         HideTabNameInScreen, 
-	         IsLocked,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ObjectTableId, 
-	         ControlPath, 
-	         TabNameTextCodeId, 
-	         IndexOrder, 
-	         Code, 
-	         FeatureId, 
-	         HtmlComponentName, 
-	         HtmlComponentUrl, 
-	         TabNameTextCodeCode, 
-	         FeatureUniqeCode, 
-	         Type, 
-	         ScreenCode, 
-	         OriginalTabCode, 
-	         HideTabNameInScreen, 
-	         IsLocked, 
-	         TabNameTextCodeDefaultText, 
-	         Name, 
-	         ObjectTableName, 
-	         ScreenName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ObjectTableTabPM entityPM, POCO.ObjectTableTab entityPOCO)
+    public partial class ObjectTableTabDataMapping: BaseMappingProfile<ObjectTableTabPM, POCO.ObjectTableTab>, IMapping<ObjectTableTabPM, POCO.ObjectTableTab, ObjectTableTabList >,IMappingEncodeBase64NVARCHARFields<ObjectTableTabPM>
+    {
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.ObjectTableTab, ObjectTableTabPM> map)
         {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId)) { entityPOCO.ObjectTableId = entityPM.ObjectTableId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ControlPath)) { entityPOCO.ControlPath = entityPM.ControlPath;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabNameTextCodeId)) { entityPOCO.TabNameTextCodeId = entityPM.TabNameTextCodeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IndexOrder)) { entityPOCO.IndexOrder = entityPM.IndexOrder;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId)) { entityPOCO.FeatureId = entityPM.FeatureId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentName)) { entityPOCO.HtmlComponentName = entityPM.HtmlComponentName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentUrl)) { entityPOCO.HtmlComponentUrl = entityPM.HtmlComponentUrl;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabNameTextCodeCode)) { entityPOCO.TabNameTextCodeCode = entityPM.TabNameTextCodeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode)) { entityPOCO.FeatureUniqeCode = entityPM.FeatureUniqeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Type)) { entityPOCO.Type = entityPM.Type;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenCode)) { entityPOCO.ScreenCode = entityPM.ScreenCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.OriginalTabCode)) { entityPOCO.OriginalTabCode = entityPM.OriginalTabCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HideTabNameInScreen)) { entityPOCO.HideTabNameInScreen = entityPM.HideTabNameInScreen;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsLocked)) { entityPOCO.IsLocked = entityPM.IsLocked;}
-					}
-		public void POCOToPM(ObjectTableTabPM entityPM, POCO.ObjectTableTab entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ControlPath))
-            {
-					entityPM.ControlPath = entityPOCO.ControlPath;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TabNameTextCodeId))
-            {
-					entityPM.TabNameTextCodeId = entityPOCO.TabNameTextCodeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IndexOrder))
-            {
-					entityPM.IndexOrder = entityPOCO.IndexOrder;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureId))
-            {
-					entityPM.FeatureId = entityPOCO.FeatureId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HtmlComponentName))
-            {
-					entityPM.HtmlComponentName = entityPOCO.HtmlComponentName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HtmlComponentUrl))
-            {
-					entityPM.HtmlComponentUrl = entityPOCO.HtmlComponentUrl;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TabNameTextCodeCode))
-            {
-					entityPM.TabNameTextCodeCode = entityPOCO.TabNameTextCodeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureUniqeCode))
-            {
-					entityPM.FeatureUniqeCode = entityPOCO.FeatureUniqeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Type))
-            {
-					entityPM.Type = entityPOCO.Type;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ScreenCode))
-            {
-					entityPM.ScreenCode = entityPOCO.ScreenCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.OriginalTabCode))
-            {
-					entityPM.OriginalTabCode = entityPOCO.OriginalTabCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HideTabNameInScreen))
-            {
-					entityPM.HideTabNameInScreen = entityPOCO.HideTabNameInScreen;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsLocked))
-            {
-					entityPM.IsLocked = entityPOCO.IsLocked;
-            }
-		}
-		public void PMToOldPM(ObjectTableTabPM entityPM, ObjectTableTabPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId))
-            {
-                oldEntityPM.ObjectTableId = entityPM.ObjectTableId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ControlPath))
-            {
-                oldEntityPM.ControlPath = entityPM.ControlPath;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabNameTextCodeId))
-            {
-                oldEntityPM.TabNameTextCodeId = entityPM.TabNameTextCodeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IndexOrder))
-            {
-                oldEntityPM.IndexOrder = entityPM.IndexOrder;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId))
-            {
-                oldEntityPM.FeatureId = entityPM.FeatureId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentName))
-            {
-                oldEntityPM.HtmlComponentName = entityPM.HtmlComponentName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentUrl))
-            {
-                oldEntityPM.HtmlComponentUrl = entityPM.HtmlComponentUrl;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabNameTextCodeCode))
-            {
-                oldEntityPM.TabNameTextCodeCode = entityPM.TabNameTextCodeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode))
-            {
-                oldEntityPM.FeatureUniqeCode = entityPM.FeatureUniqeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Type))
-            {
-                oldEntityPM.Type = entityPM.Type;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenCode))
-            {
-                oldEntityPM.ScreenCode = entityPM.ScreenCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.OriginalTabCode))
-            {
-                oldEntityPM.OriginalTabCode = entityPM.OriginalTabCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HideTabNameInScreen))
-            {
-                oldEntityPM.HideTabNameInScreen = entityPM.HideTabNameInScreen;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsLocked))
-            {
-                oldEntityPM.IsLocked = entityPM.IsLocked;
-            }
-					}
-		public void POCOToList(POCO.ObjectTableTab entityPOCO, ObjectTableTabList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
+            map.ForMember(dest => dest.TabNameTextCodeDefaultText, opt => opt.MapFrom(src => src.TabNameTextCode.DefaultText));
+            map.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.TabNameTextCode.DefaultText));
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
         }
-		public IQueryable<ObjectTableTabList> GetIqueryableList(IQueryable<POCO.ObjectTableTab> iQueryable)
-		{
-			IQueryable<ObjectTableTabList> query = (from a in iQueryable
-                                            select new ObjectTableTabList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ObjectTableTabPM entityPM)
+
+    	    public void EncodeBase64NVARCHARFields(ObjectTableTabPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -248,14 +32,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerProductLocationActualDataPM : BaseEntityPM   {
    #region Constructors
    public CustomerProductLocationActualDataPM() : base() {} 
-   public CustomerProductLocationActualDataPM(POCO.CustomerProductLocationActualData entity) : base()
-   {
-		_customerId = entity.CustomerId;
-		_productTypeCode = entity.ProductTypeCode;
-		_month = entity.Month;
-		_year = entity.Year;
-		_countryId = entity.CountryId;
-		_country = entity.Country !=null ? new CountryPM(entity.Country) : null;
-			_tenant = entity.Tenant;
-		_tEU = entity.TEU;
-		_numberOfShipments = entity.NumberOfShipments;
-		_chargeableWeight = entity.ChargeableWeight;
-		_revenue = entity.Revenue;
-   }
    #endregion Constructors
    #region Properties
    	  private string _customerId ;

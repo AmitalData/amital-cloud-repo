@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalPortalScreenPM : BaseEntityPM   {
    #region Constructors
    public DigitalPortalScreenPM() : base() {} 
-   public DigitalPortalScreenPM(POCO.DigitalPortalScreen entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_objectTableId = entity.ObjectTableId;
-		_screenCode = entity.ScreenCode;
-		_name = entity.Name;
-		_content = entity.Content;
-		_draftContent = entity.DraftContent;
-		_profileId = entity.ProfileId;
-		_isList = entity.IsList;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

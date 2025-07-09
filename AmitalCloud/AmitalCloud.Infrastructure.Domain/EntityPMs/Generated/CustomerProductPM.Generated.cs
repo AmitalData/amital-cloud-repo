@@ -26,25 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerProductPM : BaseEntityPM   {
    #region Constructors
    public CustomerProductPM() : base() {} 
-   public CustomerProductPM(POCO.CustomerProduct entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_notesRightToLeft = entity.NotesRightToLeft;
-		_customerId = entity.CustomerId;
-		_productTypeCode = entity.ProductTypeCode;
-		_notes = entity.Notes;
-		_potentialChargeableWeight = entity.PotentialChargeableWeight;
-		_commitmentChargeableWeight = entity.CommitmentChargeableWeight;
-		_potentialTEU = entity.PotentialTEU;
-		_commitmentTEU = entity.CommitmentTEU;
-		_potentialNumberOfShipments = entity.PotentialNumberOfShipments;
-		_commitmentNumberOfShipments = entity.CommitmentNumberOfShipments;
-		_potentialRevenue = entity.PotentialRevenue;
-		_commitmentRevenue = entity.CommitmentRevenue;
-		_lastShipmentDate = entity.LastShipmentDate;
-		_prepaidCollectId = entity.PrepaidCollectId;
-		_prepaidcollect = entity.PrepaidCollect !=null ? new PrepaidCollectPM(entity.PrepaidCollect) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

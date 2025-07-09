@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RuleUpdateHistoryPM : BaseEntityPM   {
    #region Constructors
    public RuleUpdateHistoryPM() : base() {} 
-   public RuleUpdateHistoryPM(POCO.RuleUpdateHistory entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_ruleCode = entity.RuleCode;
-		_eventName = entity.EventName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

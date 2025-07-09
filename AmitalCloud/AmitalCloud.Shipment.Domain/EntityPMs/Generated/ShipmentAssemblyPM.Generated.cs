@@ -26,19 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentAssemblyPM : BaseEntityPM   {
    #region Constructors
    public ShipmentAssemblyPM() : base() {} 
-   public ShipmentAssemblyPM(POCO.ShipmentAssembly entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_shipperId = entity.ShipperId;
-		_shipper = entity.Shipper !=null ? new CardPM(entity.Shipper) : null;
-			_house = entity.House;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

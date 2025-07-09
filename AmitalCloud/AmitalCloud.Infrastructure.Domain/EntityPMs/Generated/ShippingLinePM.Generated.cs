@@ -27,28 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ShippingLinePM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ShippingLinePM() : base() {} 
-   public ShippingLinePM(POCO.ShippingLine entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_sCACCode = entity.SCACCode;
-		_shippingAgentId = entity.ShippingAgentId;
-		_shippingagent = entity.ShippingAgent !=null ? new ShippingAgentPM(entity.ShippingAgent) : null;
-			_addedManually = entity.AddedManually;
-		_ourCreditNumber = entity.OurCreditNumber;
-		_isINTTRARegistered = entity.IsINTTRARegistered;
-		_iNTTRARegistrationNotes = entity.INTTRARegistrationNotes;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-		_cBSA = entity.CBSA;
-		_cAAT = entity.CAAT;
-		_iNTTRAUpdatesShipment = entity.INTTRAUpdatesShipment;
-		_isSendingByContainer = entity.IsSendingByContainer;
-		_isSendingByBillOfLading = entity.IsSendingByBillOfLading;
-		_isSupportsContainerTracking = entity.IsSupportsContainerTracking;
-		_isAutomaticRequestsSent = entity.IsAutomaticRequestsSent;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

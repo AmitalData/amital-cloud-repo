@@ -5,95 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ConvertProgramInfoDataMapping: IMapping<ConvertProgramInfoPM, POCO.ConvertProgramInfo  ,ConvertProgramInfoList >,IMappingEncodeBase64NVARCHARFields<ConvertProgramInfoPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         MethodName, 
-	         IsApplied, 
-	         GlobalDBId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         MethodName, 
-	         IsApplied, 
-	         GlobalDBId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ConvertProgramInfoPM entityPM, POCO.ConvertProgramInfo entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MethodName)) { entityPOCO.MethodName = entityPM.MethodName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsApplied)) { entityPOCO.IsApplied = entityPM.IsApplied;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalDBId)) { entityPOCO.GlobalDBId = entityPM.GlobalDBId;}
-					}
-		public void POCOToPM(ConvertProgramInfoPM entityPM, POCO.ConvertProgramInfo entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MethodName))
-            {
-					entityPM.MethodName = entityPOCO.MethodName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsApplied))
-            {
-					entityPM.IsApplied = entityPOCO.IsApplied;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GlobalDBId))
-            {
-					entityPM.GlobalDBId = entityPOCO.GlobalDBId;
-            }
-		}
-		public void PMToOldPM(ConvertProgramInfoPM entityPM, ConvertProgramInfoPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MethodName))
-            {
-                oldEntityPM.MethodName = entityPM.MethodName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsApplied))
-            {
-                oldEntityPM.IsApplied = entityPM.IsApplied;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalDBId))
-            {
-                oldEntityPM.GlobalDBId = entityPM.GlobalDBId;
-            }
-					}
-		public void POCOToList(POCO.ConvertProgramInfo entityPOCO, ConvertProgramInfoList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ConvertProgramInfoList> GetIqueryableList(IQueryable<POCO.ConvertProgramInfo> iQueryable)
-		{
-			IQueryable<ConvertProgramInfoList> query = (from a in iQueryable
-                                            select new ConvertProgramInfoList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ConvertProgramInfoPM entityPM)
+    public partial class ConvertProgramInfoDataMapping: BaseMappingProfile<ConvertProgramInfoPM, POCO.ConvertProgramInfo>, IMapping<ConvertProgramInfoPM, POCO.ConvertProgramInfo, ConvertProgramInfoList >,IMappingEncodeBase64NVARCHARFields<ConvertProgramInfoPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ConvertProgramInfoPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -105,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

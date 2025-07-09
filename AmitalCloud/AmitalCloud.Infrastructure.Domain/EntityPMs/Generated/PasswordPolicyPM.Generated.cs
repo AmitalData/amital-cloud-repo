@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PasswordPolicyPM : BaseEntityPM   {
    #region Constructors
    public PasswordPolicyPM() : base() {} 
-   public PasswordPolicyPM(POCO.PasswordPolicy entity) : base()
-   {
-		_code = entity.Code;
-		_passwordStrength = entity.PasswordStrength;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

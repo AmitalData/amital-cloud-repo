@@ -5,163 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class MeasurementDataMapping: IMapping<MeasurementPM, POCO.Measurement  ,MeasurementList >,IMappingEncodeBase64NVARCHARFields<MeasurementPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         IsContainer, 
-	         IsContainerMeasurement, 
-	         Code, 
-	         Name, 
-	         ShortName, 
-	         LocalName, 
-	         InActive, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         IsContainer, 
-	         IsContainerMeasurement, 
-	         Code, 
-	         Name, 
-	         ShortName, 
-	         LocalName, 
-	         InActive, 
-	         SearchFields, 
-	         PartnerCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(MeasurementPM entityPM, POCO.Measurement entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsContainer)) { entityPOCO.IsContainer = entityPM.IsContainer;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsContainerMeasurement)) { entityPOCO.IsContainerMeasurement = entityPM.IsContainerMeasurement;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortName)) { entityPOCO.ShortName = entityPM.ShortName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(MeasurementPM entityPM, POCO.Measurement entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsContainer))
-            {
-					entityPM.IsContainer = entityPOCO.IsContainer;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsContainerMeasurement))
-            {
-					entityPM.IsContainerMeasurement = entityPOCO.IsContainerMeasurement;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShortName))
-            {
-					entityPM.ShortName = entityPOCO.ShortName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-		}
-		public void PMToOldPM(MeasurementPM entityPM, MeasurementPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsContainer))
-            {
-                oldEntityPM.IsContainer = entityPM.IsContainer;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsContainerMeasurement))
-            {
-                oldEntityPM.IsContainerMeasurement = entityPM.IsContainerMeasurement;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortName))
-            {
-                oldEntityPM.ShortName = entityPM.ShortName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-					}
-		public void POCOToList(POCO.Measurement entityPOCO, MeasurementList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<MeasurementList> GetIqueryableList(IQueryable<POCO.Measurement> iQueryable)
-		{
-			IQueryable<MeasurementList> query = (from a in iQueryable
-                                            select new MeasurementList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(MeasurementPM entityPM)
+    public partial class MeasurementDataMapping: BaseMappingProfile<MeasurementPM, POCO.Measurement>, IMapping<MeasurementPM, POCO.Measurement, MeasurementList >,IMappingEncodeBase64NVARCHARFields<MeasurementPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(MeasurementPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -177,20 +33,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(MeasurementPM entityPM, POCO.Measurement entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

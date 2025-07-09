@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CardSearchPM : BaseEntityPM   {
    #region Constructors
    public CardSearchPM() : base() {} 
-   public CardSearchPM(POCO.CardSearch entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_recordDate = entity.RecordDate;
-		_keyword = entity.Keyword;
-		_weight = entity.Weight;
-		_cardId = entity.CardId;
-		_partnerTypeId = entity.PartnerTypeId;
-		_inActive = entity.InActive;
-		_isCustomer = entity.IsCustomer;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

@@ -26,24 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class MessagingStockPM : BaseEntityPM   {
    #region Constructors
    public MessagingStockPM() : base() {} 
-   public MessagingStockPM(POCO.MessagingStock entity) : base()
-   {
-		_id = entity.Id;
-		_searchFields = entity.SearchFields;
-		_amount = entity.Amount;
-		_remaining = entity.Remaining;
-		_startDate = entity.StartDate;
-		_endDate = entity.EndDate;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_isCancelled = entity.IsCancelled;
-		_notes = entity.Notes;
-		_tenantNumber = entity.TenantNumber;
-		_totalPrice = entity.TotalPrice;
-		_stockType = entity.StockType;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

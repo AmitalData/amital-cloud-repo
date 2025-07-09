@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ValidationTypePM : BaseEntityPM   {
    #region Constructors
    public ValidationTypePM() : base() {} 
-   public ValidationTypePM(POCO.ValidationType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_className = entity.ClassName;
-		_field = entity.Field;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PortTimeZonePM : BaseEntityPM   {
    #region Constructors
    public PortTimeZonePM() : base() {} 
-   public PortTimeZonePM(POCO.PortTimeZone entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_notes = entity.Notes;
-		_uTCOffset = entity.UTCOffset;
-		_uTCDSTOffset = entity.UTCDSTOffset;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

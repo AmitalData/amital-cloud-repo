@@ -26,38 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EventTypePM : BaseEntityPM   {
    #region Constructors
    public EventTypePM() : base() {} 
-   public EventTypePM(POCO.EventType entity) : base()
-   {
-		_id = entity.Id;
-		_shortView = entity.ShortView;
-		_customerRoleId = entity.CustomerRoleId;
-		_agentRoleId = entity.AgentRoleId;
-		_allowedInAutomation = entity.AllowedInAutomation;
-		_searchFields = entity.SearchFields;
-		_eventTypeCategoryCode = entity.EventTypeCategoryCode;
-		_eventtypecategory = entity.EventTypeCategory !=null ? new EventTypeCategoryPM(entity.EventTypeCategory) : null;
-			_isCustomerView = entity.IsCustomerView;
-		_isAgentView = entity.IsAgentView;
-		_tenant = entity.Tenant;
-		_isSharedLogisticsEnabled = entity.IsSharedLogisticsEnabled;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_objectTableId = entity.ObjectTableId;
-		_entityStatusId = entity.EntityStatusId;
-		_entitystatus = entity.EntityStatus !=null ? new EntityStatusPM(entity.EntityStatus) : null;
-			_isFollowUp = entity.IsFollowUp;
-		_followUpEnglishName = entity.FollowUpEnglishName;
-		_followUpLocalName = entity.FollowUpLocalName;
-		_addedManually = entity.AddedManually;
-		_isManualEntry = entity.IsManualEntry;
-		_manualActivatedFollowUp = entity.ManualActivatedFollowUp;
-		_inActive = entity.InActive;
-		_customField = entity.CustomField;
-		_isStatusNotModified = entity.IsStatusNotModified;
-		_eventTrigger = entity.EventTrigger;
-		_weight = entity.Weight;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

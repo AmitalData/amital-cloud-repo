@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AuthenticationTokenPM : BaseEntityPM   {
    #region Constructors
    public AuthenticationTokenPM() : base() {} 
-   public AuthenticationTokenPM(POCO.AuthenticationToken entity) : base()
-   {
-		_token = entity.Token;
-		_tenant = entity.Tenant;
-		_email = entity.Email;
-		_password = entity.Password;
-		_createDate = entity.CreateDate;
-		_aPIToken = entity.APIToken;
-		_aPICredentialID = entity.APICredentialID;
-		_clientType = entity.ClientType;
-		_inActive = entity.InActive;
-		_inActiveReason = entity.InActiveReason;
-		_expirationDate = entity.ExpirationDate;
-		_inActiveDate = entity.InActiveDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _token ;

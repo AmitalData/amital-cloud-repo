@@ -5,128 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ChangePasswordLogDataMapping: IMapping<ChangePasswordLogPM, POCO.ChangePasswordLog  ,ChangePasswordLogList >,IMappingEncodeBase64NVARCHARFields<ChangePasswordLogPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Email, 
-	         CreateDate, 
-	         CurrentPassword, 
-	         EnteredPassword, 
-	         log, 
-	         IP,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Email, 
-	         CreateDate, 
-	         CurrentPassword, 
-	         EnteredPassword, 
-	         log, 
-	         IP,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ChangePasswordLogPM entityPM, POCO.ChangePasswordLog entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrentPassword)) { entityPOCO.CurrentPassword = entityPM.CurrentPassword;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnteredPassword)) { entityPOCO.EnteredPassword = entityPM.EnteredPassword;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.log)) { entityPOCO.log = entityPM.log;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP)) { entityPOCO.IP = entityPM.IP;}
-					}
-		public void POCOToPM(ChangePasswordLogPM entityPM, POCO.ChangePasswordLog entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CurrentPassword))
-            {
-					entityPM.CurrentPassword = entityPOCO.CurrentPassword;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EnteredPassword))
-            {
-					entityPM.EnteredPassword = entityPOCO.EnteredPassword;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.log))
-            {
-					entityPM.log = entityPOCO.log;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IP))
-            {
-					entityPM.IP = entityPOCO.IP;
-            }
-		}
-		public void PMToOldPM(ChangePasswordLogPM entityPM, ChangePasswordLogPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrentPassword))
-            {
-                oldEntityPM.CurrentPassword = entityPM.CurrentPassword;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnteredPassword))
-            {
-                oldEntityPM.EnteredPassword = entityPM.EnteredPassword;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.log))
-            {
-                oldEntityPM.log = entityPM.log;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP))
-            {
-                oldEntityPM.IP = entityPM.IP;
-            }
-					}
-		public void POCOToList(POCO.ChangePasswordLog entityPOCO, ChangePasswordLogList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ChangePasswordLogList> GetIqueryableList(IQueryable<POCO.ChangePasswordLog> iQueryable)
-		{
-			IQueryable<ChangePasswordLogList> query = (from a in iQueryable
-                                            select new ChangePasswordLogList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ChangePasswordLogPM entityPM)
+    public partial class ChangePasswordLogDataMapping: BaseMappingProfile<ChangePasswordLogPM, POCO.ChangePasswordLog>, IMapping<ChangePasswordLogPM, POCO.ChangePasswordLog, ChangePasswordLogList >,IMappingEncodeBase64NVARCHARFields<ChangePasswordLogPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ChangePasswordLogPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -134,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

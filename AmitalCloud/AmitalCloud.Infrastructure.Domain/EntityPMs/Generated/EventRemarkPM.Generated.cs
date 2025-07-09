@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EventRemarkPM : BaseEntityPM   {
    #region Constructors
    public EventRemarkPM() : base() {} 
-   public EventRemarkPM(POCO.EventRemark entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_searchFields = entity.SearchFields;
-		_eventTypeId = entity.EventTypeId;
-		_eventtype = entity.EventType !=null ? new EventTypePM(entity.EventType) : null;
-			_partnerTypeId = entity.PartnerTypeId;
-		_isChoose = entity.IsChoose;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
@@ -161,6 +149,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private PartnerTypePM _partnertype;
+		
+        [DataMember]
+        public virtual PartnerTypePM PartnerType 
+		{ 
+		get { return _partnertype; } 
+		set { _partnertype = value; }
+		}
 	  private bool _isChoose ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

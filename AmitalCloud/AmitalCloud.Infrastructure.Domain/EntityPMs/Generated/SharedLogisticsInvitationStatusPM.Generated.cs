@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SharedLogisticsInvitationStatusPM : BaseEntityPM   {
    #region Constructors
    public SharedLogisticsInvitationStatusPM() : base() {} 
-   public SharedLogisticsInvitationStatusPM(POCO.SharedLogisticsInvitationStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

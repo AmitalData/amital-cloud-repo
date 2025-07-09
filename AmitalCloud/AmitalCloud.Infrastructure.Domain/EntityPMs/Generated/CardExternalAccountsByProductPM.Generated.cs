@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CardExternalAccountsByProductPM : BaseEntityPM   {
    #region Constructors
    public CardExternalAccountsByProductPM() : base() {} 
-   public CardExternalAccountsByProductPM(POCO.CardExternalAccountsByProduct entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_gLAccount = entity.GLAccount;
-		_costCenter = entity.CostCenter;
-		_updateDate = entity.UpdateDate;
-		_cardId = entity.CardId;
-		_card = entity.Card !=null ? new CardPM(entity.Card) : null;
-			_productTypeCode = entity.ProductTypeCode;
-		_updatedByUserId = entity.UpdatedByUserId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

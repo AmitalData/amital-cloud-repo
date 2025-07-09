@@ -26,56 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SharedLogisticsSettingPM : BaseEntityPM   {
    #region Constructors
    public SharedLogisticsSettingPM() : base() {} 
-   public SharedLogisticsSettingPM(POCO.SharedLogisticsSetting entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_isAgentShared = entity.IsAgentShared;
-		_isShipperNotExporterShared = entity.IsShipperNotExporterShared;
-		_isNotify1Shared = entity.IsNotify1Shared;
-		_isNotify2Shared = entity.IsNotify2Shared;
-		_isFreightForwarderShared = entity.IsFreightForwarderShared;
-		_isColoaderShared = entity.IsColoaderShared;
-		_isConsigneeNotImporterShared = entity.IsConsigneeNotImporterShared;
-		_isMainCarrierShared = entity.IsMainCarrierShared;
-		_isPickDelivCarriesShared = entity.IsPickDelivCarriesShared;
-		_isInvoicesMenuEnabled = entity.IsInvoicesMenuEnabled;
-		_isMoneyTabEnabled = entity.IsMoneyTabEnabled;
-		_id = entity.Id;
-		_isIssuingCarrierAgentShared = entity.IsIssuingCarrierAgentShared;
-		_isCustomsAgentExportShared = entity.IsCustomsAgentExportShared;
-		_isCustomsAgentImportShared = entity.IsCustomsAgentImportShared;
-		_isCustomClearancePoinShared = entity.IsCustomClearancePoinShared;
-		_isConsolidatorShared = entity.IsConsolidatorShared;
-		_isReleasingAgentShared = entity.IsReleasingAgentShared;
-		_isShipperShared = entity.IsShipperShared;
-		_isConsigneeShared = entity.IsConsigneeShared;
-		_isShowAmountLocalCurrency = entity.IsShowAmountLocalCurrency;
-		_isShipperShowContactTS = entity.IsShipperShowContactTS;
-		_isConsigneeShowContactTS = entity.IsConsigneeShowContactTS;
-		_isAgentShowContactTS = entity.IsAgentShowContactTS;
-		_isShipperNotExShowContactTS = entity.IsShipperNotExShowContactTS;
-		_isConsigneeNotImShowContactTS = entity.IsConsigneeNotImShowContactTS;
-		_isNotify1ShowContactTS = entity.IsNotify1ShowContactTS;
-		_isNotify2ShowContactTS = entity.IsNotify2ShowContactTS;
-		_isFreightForwardShowContactTS = entity.IsFreightForwardShowContactTS;
-		_isColoaderShowContactTS = entity.IsColoaderShowContactTS;
-		_isCustomAgentExShowContactTS = entity.IsCustomAgentExShowContactTS;
-		_isCustomAgentImShowContactTS = entity.IsCustomAgentImShowContactTS;
-		_isCustomCleaPointShowContactTS = entity.IsCustomCleaPointShowContactTS;
-		_isConsolidatorShowContactTS = entity.IsConsolidatorShowContactTS;
-		_isReleasingAgentShowContactTS = entity.IsReleasingAgentShowContactTS;
-		_isIssuingCarAgentShowContactTS = entity.IsIssuingCarAgentShowContactTS;
-		_isCustomerShared = entity.IsCustomerShared;
-		_isCustomerShowContactTS = entity.IsCustomerShowContactTS;
-		_isAccountManagerShared = entity.IsAccountManagerShared;
-		_isAccountManagerShowContactTS = entity.IsAccountManagerShowContactTS;
-		_isSalesmanShared = entity.IsSalesmanShared;
-		_isSalesmanShowContactTS = entity.IsSalesmanShowContactTS;
-		_isCollectorShared = entity.IsCollectorShared;
-		_isCollectorShowContactTS = entity.IsCollectorShowContactTS;
-		_isPickDelivCarShowContactTS = entity.IsPickDelivCarShowContactTS;
-		_isMainCarShowContactTS = entity.IsMainCarShowContactTS;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

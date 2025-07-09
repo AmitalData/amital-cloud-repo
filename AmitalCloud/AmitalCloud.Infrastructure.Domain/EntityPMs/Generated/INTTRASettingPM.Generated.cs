@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class INTTRASettingPM : BaseEntityPM   {
    #region Constructors
    public INTTRASettingPM() : base() {} 
-   public INTTRASettingPM(POCO.INTTRASetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_outSettingsId = entity.OutSettingsId;
-		_outftpdetail = entity.OutFTPDetail !=null ? new FTPDetailPM(entity.OutFTPDetail) : null;
-			_inSettingsId = entity.InSettingsId;
-		_inftpdetail = entity.InFTPDetail !=null ? new FTPDetailPM(entity.InFTPDetail) : null;
-			_iNTTRASettingModeCode = entity.INTTRASettingModeCode;
-		_inttrasettingmode = entity.INTTRASettingMode !=null ? new INTTRASettingModePM(entity.INTTRASettingMode) : null;
-			_iNTTRAId = entity.INTTRAId;
-		_iNTTRAAlias = entity.INTTRAAlias;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

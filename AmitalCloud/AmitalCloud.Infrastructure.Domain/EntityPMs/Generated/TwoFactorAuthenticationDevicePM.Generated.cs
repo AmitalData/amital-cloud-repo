@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TwoFactorAuthenticationDevicePM : BaseEntityPM   {
    #region Constructors
    public TwoFactorAuthenticationDevicePM() : base() {} 
-   public TwoFactorAuthenticationDevicePM(POCO.TwoFactorAuthenticationDevice entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_inActive = entity.InActive;
-		_twoFactorkey = entity.TwoFactorkey;
-		_userId = entity.UserId;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_lastLoginDate = entity.LastLoginDate;
-		_codeExpirationDate = entity.CodeExpirationDate;
-		_deviceDescription = entity.DeviceDescription;
-		_lastLoginIP = entity.LastLoginIP;
-		_authenticationCode = entity.AuthenticationCode;
-		_id = entity.Id;
-		_isVerified = entity.IsVerified;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

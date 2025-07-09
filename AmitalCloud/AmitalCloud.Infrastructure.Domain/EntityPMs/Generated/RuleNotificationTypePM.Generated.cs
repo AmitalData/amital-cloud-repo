@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RuleNotificationTypePM : BaseEntityPM   {
    #region Constructors
    public RuleNotificationTypePM() : base() {} 
-   public RuleNotificationTypePM(POCO.RuleNotificationType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		objectTableRuleFields = entity.ObjectTableRuleFields != null ? entity.ObjectTableRuleFields.Select(a=>new ObjectTableRuleFieldPM(a)).ToList() : null;
-		objectTableRules = entity.ObjectTableRules != null ? entity.ObjectTableRules.Select(a=>new ObjectTableRulePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

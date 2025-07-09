@@ -26,10 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class SATInterfacePM : BaseEntityPM   {
    #region Constructors
    public SATInterfacePM() : base() {} 
-   public SATInterfacePM(POCO.SATInterface entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,14 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ReferenceTypePM : BaseEntityPM   {
    #region Constructors
    public ReferenceTypePM() : base() {} 
-   public ReferenceTypePM(POCO.ReferenceType entity) : base()
-   {
-		_code = entity.Code;
-		_localName = entity.LocalName;
-		_englishName = entity.EnglishName;
-		_searchFields = entity.SearchFields;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

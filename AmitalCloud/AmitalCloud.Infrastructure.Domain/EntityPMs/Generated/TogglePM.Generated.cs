@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TogglePM : BaseEntityPM   {
    #region Constructors
    public TogglePM() : base() {} 
-   public TogglePM(POCO.Toggle entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_description = entity.Description;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

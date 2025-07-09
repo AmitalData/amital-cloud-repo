@@ -5,241 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class MenuButtonDataMapping: IMapping<MenuButtonPM, POCO.MenuButton  ,MenuButtonList >,IMappingEncodeBase64NVARCHARFields<MenuButtonPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         MenuButtonGroupId, 
-	         Id, 
-	         Tenant, 
-	         LabelTextCodeId, 
-	         ParentMenuButtonId, 
-	         EventCode, 
-	         Index, 
-	         IsActive, 
-	         FeatureId, 
-	         MenuButtonType, 
-	         DropDownControl, 
-	         Style, 
-	         Width, 
-	         ControlPath, 
-	         HtmlComponentPath, 
-	         LabelTextCodeCode, 
-	         FeatureUniqeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         MenuButtonGroupId, 
-	         Id, 
-	         Tenant, 
-	         LabelTextCodeId, 
-	         ParentMenuButtonId, 
-	         EventCode, 
-	         Index, 
-	         IsActive, 
-	         FeatureId, 
-	         MenuButtonType, 
-	         DropDownControl, 
-	         Style, 
-	         Width, 
-	         ControlPath, 
-	         HtmlComponentPath, 
-	         LabelTextCodeCode, 
-	         FeatureUniqeCode, 
-	         LabelTextCodeDefaultText, 
-	         ObjectTableId, 
-	         LocalDefaultText,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(MenuButtonPM entityPM, POCO.MenuButton entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MenuButtonGroupId)) { entityPOCO.MenuButtonGroupId = entityPM.MenuButtonGroupId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LabelTextCodeId)) { entityPOCO.LabelTextCodeId = entityPM.LabelTextCodeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ParentMenuButtonId)) { entityPOCO.ParentMenuButtonId = entityPM.ParentMenuButtonId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EventCode)) { entityPOCO.EventCode = entityPM.EventCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Index)) { entityPOCO.Index = entityPM.Index;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive)) { entityPOCO.IsActive = entityPM.IsActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId)) { entityPOCO.FeatureId = entityPM.FeatureId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MenuButtonType)) { entityPOCO.MenuButtonType = entityPM.MenuButtonType;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropDownControl)) { entityPOCO.DropDownControl = entityPM.DropDownControl;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Style)) { entityPOCO.Style = entityPM.Style;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Width)) { entityPOCO.Width = entityPM.Width;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ControlPath)) { entityPOCO.ControlPath = entityPM.ControlPath;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentPath)) { entityPOCO.HtmlComponentPath = entityPM.HtmlComponentPath;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LabelTextCodeCode)) { entityPOCO.LabelTextCodeCode = entityPM.LabelTextCodeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode)) { entityPOCO.FeatureUniqeCode = entityPM.FeatureUniqeCode;}
-					}
-		public void POCOToPM(MenuButtonPM entityPM, POCO.MenuButton entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MenuButtonGroupId))
-            {
-					entityPM.MenuButtonGroupId = entityPOCO.MenuButtonGroupId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LabelTextCodeId))
-            {
-					entityPM.LabelTextCodeId = entityPOCO.LabelTextCodeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ParentMenuButtonId))
-            {
-					entityPM.ParentMenuButtonId = entityPOCO.ParentMenuButtonId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EventCode))
-            {
-					entityPM.EventCode = entityPOCO.EventCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Index))
-            {
-					entityPM.Index = entityPOCO.Index;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsActive))
-            {
-					entityPM.IsActive = entityPOCO.IsActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureId))
-            {
-					entityPM.FeatureId = entityPOCO.FeatureId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MenuButtonType))
-            {
-					entityPM.MenuButtonType = entityPOCO.MenuButtonType;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropDownControl))
-            {
-					entityPM.DropDownControl = entityPOCO.DropDownControl;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Style))
-            {
-					entityPM.Style = entityPOCO.Style;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Width))
-            {
-					entityPM.Width = entityPOCO.Width;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ControlPath))
-            {
-					entityPM.ControlPath = entityPOCO.ControlPath;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HtmlComponentPath))
-            {
-					entityPM.HtmlComponentPath = entityPOCO.HtmlComponentPath;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LabelTextCodeCode))
-            {
-					entityPM.LabelTextCodeCode = entityPOCO.LabelTextCodeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureUniqeCode))
-            {
-					entityPM.FeatureUniqeCode = entityPOCO.FeatureUniqeCode;
-            }
-		}
-		public void PMToOldPM(MenuButtonPM entityPM, MenuButtonPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MenuButtonGroupId))
-            {
-                oldEntityPM.MenuButtonGroupId = entityPM.MenuButtonGroupId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LabelTextCodeId))
-            {
-                oldEntityPM.LabelTextCodeId = entityPM.LabelTextCodeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ParentMenuButtonId))
-            {
-                oldEntityPM.ParentMenuButtonId = entityPM.ParentMenuButtonId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EventCode))
-            {
-                oldEntityPM.EventCode = entityPM.EventCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Index))
-            {
-                oldEntityPM.Index = entityPM.Index;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive))
-            {
-                oldEntityPM.IsActive = entityPM.IsActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId))
-            {
-                oldEntityPM.FeatureId = entityPM.FeatureId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MenuButtonType))
-            {
-                oldEntityPM.MenuButtonType = entityPM.MenuButtonType;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropDownControl))
-            {
-                oldEntityPM.DropDownControl = entityPM.DropDownControl;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Style))
-            {
-                oldEntityPM.Style = entityPM.Style;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Width))
-            {
-                oldEntityPM.Width = entityPM.Width;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ControlPath))
-            {
-                oldEntityPM.ControlPath = entityPM.ControlPath;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HtmlComponentPath))
-            {
-                oldEntityPM.HtmlComponentPath = entityPM.HtmlComponentPath;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LabelTextCodeCode))
-            {
-                oldEntityPM.LabelTextCodeCode = entityPM.LabelTextCodeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode))
-            {
-                oldEntityPM.FeatureUniqeCode = entityPM.FeatureUniqeCode;
-            }
-					}
-		public void POCOToList(POCO.MenuButton entityPOCO, MenuButtonList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<MenuButtonList> GetIqueryableList(IQueryable<POCO.MenuButton> iQueryable)
-		{
-			IQueryable<MenuButtonList> query = (from a in iQueryable
-                                            select new MenuButtonList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(MenuButtonPM entityPM)
+    public partial class MenuButtonDataMapping: BaseMappingProfile<MenuButtonPM, POCO.MenuButton>, IMapping<MenuButtonPM, POCO.MenuButton, MenuButtonList >,IMappingEncodeBase64NVARCHARFields<MenuButtonPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(MenuButtonPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -247,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

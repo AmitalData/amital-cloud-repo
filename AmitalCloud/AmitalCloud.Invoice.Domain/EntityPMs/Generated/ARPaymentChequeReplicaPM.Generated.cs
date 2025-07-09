@@ -16,7 +16,7 @@ using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Invoice.Domain.Interfaces;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
- 
+
 
 
 namespace AmitalCloud.Invoice.Domain.EntityPMs
@@ -26,25 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARPaymentChequeReplicaPM : BaseEntityPM   {
    #region Constructors
    public ARPaymentChequeReplicaPM() : base() {} 
-   public ARPaymentChequeReplicaPM(POCO.ARPaymentChequeReplica entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_paymentId = entity.PaymentId;
-		_lineNumber = entity.LineNumber;
-		_chequeNumber = entity.ChequeNumber;
-		_valueDate = entity.ValueDate;
-		_currencyId = entity.CurrencyId;
-		_localAmount = entity.LocalAmount;
-		_foreignAmount = entity.ForeignAmount;
-		_bankId = entity.BankId;
-		_bankBranch = entity.BankBranch;
-		_bankAccount = entity.BankAccount;
-		_statusCode = entity.StatusCode;
-		_arpaymentchequestatus = entity.ARPaymentChequeStatus !=null ? new ARPaymentChequeStatusPM(entity.ARPaymentChequeStatus) : null;
-			_exchangeRate = entity.ExchangeRate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

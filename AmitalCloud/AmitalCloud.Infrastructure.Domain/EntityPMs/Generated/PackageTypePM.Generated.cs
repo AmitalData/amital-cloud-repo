@@ -26,29 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PackageTypePM : BaseEntityPM   {
    #region Constructors
    public PackageTypePM() : base() {} 
-   public PackageTypePM(POCO.PackageType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_measurementId = entity.MeasurementId;
-		_tEU = entity.TEU;
-		_volume = entity.Volume;
-		_containerSize = entity.ContainerSize;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_isOcean = entity.IsOcean;
-		_isAir = entity.IsAir;
-		_isInland = entity.IsInland;
-		_addedManually = entity.AddedManually;
-		_isContainer = entity.IsContainer;
-		_notes = entity.Notes;
-		_printAs = entity.PrintAs;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-		_isRefrigerated = entity.IsRefrigerated;
-		_isVehicle = entity.IsVehicle;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentDigitalFieldPM : BaseEntityPM   {
    #region Constructors
    public ShipmentDigitalFieldPM() : base() {} 
-   public ShipmentDigitalFieldPM(POCO.ShipmentDigitalField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isCustomerArchived = entity.IsCustomerArchived;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

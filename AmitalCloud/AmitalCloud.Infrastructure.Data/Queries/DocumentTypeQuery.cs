@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -15,6 +17,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
     {
         IRepository<DocumentType> repository;
         private bool isFullAccounting;
+        private IMapper mapper;
         #region Constructor
 
 
@@ -22,11 +25,13 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         {
             repository = new Repository<DocumentType>(tenant);
             isFullAccounting = IsFullAccountingActivated(tenant);
+            CreateMapper();
         }
 
         public DocumentTypeQuery(IRepository<DocumentType> repository)
         {
             this.repository = repository;
+            CreateMapper();
         }
         #endregion Constructor
 
@@ -129,11 +134,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         private List<DocumentTypeList> GetList(Expression<Func<DocumentType, bool>> predicate) => repository.GetMulti(predicate, a => CreateDocumentTypeList(a));
         private DocumentTypePM CreateDocumentTypePM(DocumentType a)
         {
-            return new DocumentTypePM(a)
-            {
-                //ObjectTableName = a.ObjectTable != null ? a.ObjectTable.Name : null,
-                //DocumentTypeCategoryName = a.DocumentTypeCategory != null ? a.DocumentTypeCategory.Name : null,
-            };
+            return mapper.Map<DocumentTypePM>(a);
         }
         private IQueryable<DocumentTypeList> FilterDocumentTypeListByTransportModeIdAndShipmentLevelCode(string transportModeId, string shipmentLevelCode, IQueryable<DocumentTypeList> documentTypes)
         {
@@ -270,8 +271,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         //    }
         //    return GetPMList(a => a.Tenant == tenant && followUpDocumenttypeIds.Contains(a.Id) && a.IsDocOut).ToList();
         //}
-        public List<DocumentTypePM> GetTop5DocumentTypePMsByObjectTableId(string objectTableid, int tenant) => repository.GetMulti(a => a.Tenant == tenant && a.ObjectTableId == objectTableid && a.InActive == false
-                , a => CreateDocumentTypePM(a), a => a.OrderBy, 0, 4);
+        public List<DocumentTypePM> GetTop5DocumentTypePMsByObjectTableId(string objectTableid, int tenant)
+        {
+            var documentTypes = repository.GetMulti(a => a.Tenant == tenant && a.ObjectTableId == objectTableid && a.InActive == false, a => a.OrderBy, 0, 4);
+            var documentTypePMs = mapper.Map<List<DocumentTypePM>>(documentTypes);
+            return documentTypePMs;
+        }
         public List<DocumentTypePM> GetDocumentTypesPMByObjectTableIdForDocumentPremissions(string objectTableid, int tenant)
         {
             List<DocumentTypePM> documentTypes =
@@ -353,6 +358,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         {
             return from documentType in iQueryable.Include("ObjectTable").Include("DocumentTypeCategory")
                    select CreateDocumentTypeList(documentType);
+        }
+
+        private void CreateMapper()
+        {
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentTypeDataMapping()));
+            mapper = config.CreateMapper();
         }
     }
 

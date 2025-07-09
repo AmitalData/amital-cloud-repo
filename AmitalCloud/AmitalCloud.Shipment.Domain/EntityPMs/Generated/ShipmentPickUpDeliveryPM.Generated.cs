@@ -27,50 +27,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentPickUpDeliveryPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ShipmentPickUpDeliveryPM() : base() {} 
-   public ShipmentPickUpDeliveryPM(POCO.ShipmentPickUpDelivery entity) : base()
-   {
-		_id = entity.Id;
-		_aTD = entity.ATD;
-		_aTA = entity.ATA;
-		_eTD = entity.ETD;
-		_eTA = entity.ETA;
-		_carrierNumber = entity.CarrierNumber;
-		_notes = entity.Notes;
-		_pickUpDeliveryNumber = entity.PickUpDeliveryNumber;
-		_fromPartnerCardId = entity.FromPartnerCardId;
-		_frompartnercard = entity.FromPartnerCard !=null ? new CardPM(entity.FromPartnerCard) : null;
-			_fromPortId = entity.FromPortId;
-		_driver = entity.Driver;
-		_toPartnerCardId = entity.ToPartnerCardId;
-		_topartnercard = entity.ToPartnerCard !=null ? new CardPM(entity.ToPartnerCard) : null;
-			_toPortId = entity.ToPortId;
-		_carrierId = entity.CarrierId;
-		_carriercard = entity.CarrierCard !=null ? new CardPM(entity.CarrierCard) : null;
-			_truckNumber = entity.TruckNumber;
-		_trailerNumber = entity.TrailerNumber;
-		_pickUpDeliveryTypeCode = entity.PickUpDeliveryTypeCode;
-		_pickupdeliverytype = entity.PickUpDeliveryType !=null ? new PickUpDeliveryTypePM(entity.PickUpDeliveryType) : null;
-			_pickUpDeliveryFromTypeCode = entity.PickUpDeliveryFromTypeCode;
-		_pickupdeliveryfromtype = entity.PickUpDeliveryFromType !=null ? new PickUpDeliveryFromToTypePM(entity.PickUpDeliveryFromType) : null;
-			_pickUpDeliveryToTypeCode = entity.PickUpDeliveryToTypeCode;
-		_pickupdeliverytotype = entity.PickUpDeliveryToType !=null ? new PickUpDeliveryFromToTypePM(entity.PickUpDeliveryToType) : null;
-			_fromAddressCity = entity.FromAddressCity;
-		_fromAddressZipCode = entity.FromAddressZipCode;
-		_fromAddressCountryId = entity.FromAddressCountryId;
-		_fromaddresscountry = entity.FromAddressCountry !=null ? new CountryPM(entity.FromAddressCountry) : null;
-			_toAddressCity = entity.ToAddressCity;
-		_toAddressZipCode = entity.ToAddressZipCode;
-		_toAddressCountryId = entity.ToAddressCountryId;
-		_toaddresscountry = entity.ToAddressCountry !=null ? new CountryPM(entity.ToAddressCountry) : null;
-			_transportModeCode = entity.TransportModeCode;
-		_parentPickUpDeliveryId = entity.ParentPickUpDeliveryId;
-		_parentpickupdelivery = entity.ParentPickUpDelivery !=null ? new ShipmentPickUpDeliveryPM(entity.ParentPickUpDelivery) : null;
-			_childPickUpIndex = entity.ChildPickUpIndex;
-		_childDeliveryIndex = entity.ChildDeliveryIndex;
-		_standaloneShipmentId = entity.StandaloneShipmentId;
-		_standaloneshipment = entity.StandaloneShipment !=null ? new ShipmentPM(entity.StandaloneShipment) : null;
-			_standaloneShipmentNumber = entity.StandaloneShipmentNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

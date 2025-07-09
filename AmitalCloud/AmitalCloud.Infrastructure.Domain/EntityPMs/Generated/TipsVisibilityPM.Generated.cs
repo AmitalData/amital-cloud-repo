@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TipsVisibilityPM : BaseEntityPM   {
    #region Constructors
    public TipsVisibilityPM() : base() {} 
-   public TipsVisibilityPM(POCO.TipsVisibility entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_tipCode = entity.TipCode;
-		_tip = entity.Tip !=null ? new TipPM(entity.Tip) : null;
-			_isVisible = entity.IsVisible;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

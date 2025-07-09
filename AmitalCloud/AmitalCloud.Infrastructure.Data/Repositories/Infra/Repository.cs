@@ -10,6 +10,8 @@ using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using AmitalCloud.Infrastructure.Data.DBHelpers;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace AmitalCloud.Infrastructure.Data.Repositories
 {
@@ -188,7 +190,11 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
 
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select) => _dbSet.Where(predicate).Select(select).ToList();
 
-        public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate) => _dbSet.Where(predicate).ToList().AsEnumerable().Select(a => NewObject<TResult>(a)).ToList();
+        public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, IMapper mapper)
+        {
+            var result = _dbSet.Where(predicate).ProjectTo<TResult>(mapper.ConfigurationProvider).ToList();
+            return result;
+        }
 
         public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, string include) => ApplyInclude(predicate, include).ToList().AsEnumerable().Select(a => NewObject<TResult>(a)).ToList();
 
@@ -214,7 +220,8 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
                 }
                 else
                 {
-                    entityPMs = this.GetMulti<TResult>(predicate);
+                    throw new NotImplementedException("not implemented without include");
+                    // entityPMs = this.GetMulti<TResult>(predicate);
                 }
 
                 if (entityPMs != null)

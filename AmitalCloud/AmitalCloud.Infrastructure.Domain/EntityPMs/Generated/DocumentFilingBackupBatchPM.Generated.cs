@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentFilingBackupBatchPM : BaseEntityPM   {
    #region Constructors
    public DocumentFilingBackupBatchPM() : base() {} 
-   public DocumentFilingBackupBatchPM(POCO.DocumentFilingBackupBatch entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDateTime = entity.CreateDateTime;
-		_doneDate = entity.DoneDate;
-		_status = entity.Status;
-		_batchNumber = entity.BatchNumber;
-		_totalFailed = entity.TotalFailed;
-		_totalDocuments = entity.TotalDocuments;
-		_totalSucceeded = entity.TotalSucceeded;
-		_includeBackedUp = entity.IncludeBackedUp;
-		_fromDateTime = entity.FromDateTime;
-		_toDateTime = entity.ToDateTime;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

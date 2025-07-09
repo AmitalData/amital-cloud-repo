@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWHEnvironmentSettingPM : BaseEntityPM   {
    #region Constructors
    public DWHEnvironmentSettingPM() : base() {} 
-   public DWHEnvironmentSettingPM(POCO.DWHEnvironmentSetting entity) : base()
-   {
-		_id = entity.Id;
-		_factCodes = entity.FactCodes;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

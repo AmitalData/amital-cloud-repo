@@ -5,117 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TabModificationDataMapping: IMapping<TabModificationPM, POCO.TabModification  ,TabModificationList >,IMappingEncodeBase64NVARCHARFields<TabModificationPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         Name, 
-	         TabCode, 
-	         Id, 
-	         TabId, 
-	         IndexOrder,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         Name, 
-	         TabCode, 
-	         Id, 
-	         TabId, 
-	         IndexOrder,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TabModificationPM entityPM, POCO.TabModification entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabCode)) { entityPOCO.TabCode = entityPM.TabCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabId)) { entityPOCO.TabId = entityPM.TabId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IndexOrder)) { entityPOCO.IndexOrder = entityPM.IndexOrder;}
-					}
-		public void POCOToPM(TabModificationPM entityPM, POCO.TabModification entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TabCode))
-            {
-					entityPM.TabCode = entityPOCO.TabCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TabId))
-            {
-					entityPM.TabId = entityPOCO.TabId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IndexOrder))
-            {
-					entityPM.IndexOrder = entityPOCO.IndexOrder;
-            }
-		}
-		public void PMToOldPM(TabModificationPM entityPM, TabModificationPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabCode))
-            {
-                oldEntityPM.TabCode = entityPM.TabCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TabId))
-            {
-                oldEntityPM.TabId = entityPM.TabId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IndexOrder))
-            {
-                oldEntityPM.IndexOrder = entityPM.IndexOrder;
-            }
-					}
-		public void POCOToList(POCO.TabModification entityPOCO, TabModificationList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TabModificationList> GetIqueryableList(IQueryable<POCO.TabModification> iQueryable)
-		{
-			IQueryable<TabModificationList> query = (from a in iQueryable
-                                            select new TabModificationList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(TabModificationPM entityPM)
+    public partial class TabModificationDataMapping: BaseMappingProfile<TabModificationPM, POCO.TabModification>, IMapping<TabModificationPM, POCO.TabModification, TabModificationList >,IMappingEncodeBase64NVARCHARFields<TabModificationPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(TabModificationPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -127,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

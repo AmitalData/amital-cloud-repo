@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TranslationPM : BaseEntityPM   {
    #region Constructors
    public TranslationPM() : base() {} 
-   public TranslationPM(POCO.Translation entity) : base()
-   {
-		_id = entity.Id;
-		_translationHeaderCode = entity.TranslationHeaderCode;
-		_translationheader = entity.TranslationHeader !=null ? new TranslationHeaderPM(entity.TranslationHeader) : null;
-			_textCodeId = entity.TextCodeId;
-		_textcode = entity.TextCode !=null ? new TextCodePM(entity.TextCode) : null;
-			_translatedText = entity.TranslatedText;
-		_translatedTextPlural = entity.TranslatedTextPlural;
-		_tenant = entity.Tenant;
-		_translateDate = entity.TranslateDate;
-		_translatedByUserId = entity.TranslatedByUserId;
-		_updateDateGMT = entity.UpdateDateGMT;
-		_textCodeCode = entity.TextCodeCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,18 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ContainerDiscrepancyPM : BaseEntityPM   {
    #region Constructors
    public ContainerDiscrepancyPM() : base() {} 
-   public ContainerDiscrepancyPM(POCO.ContainerDiscrepancy entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_searchFields = entity.SearchFields;
-		_containerID = entity.ContainerID;
-		_container = entity.Container !=null ? new ContainerPM(entity.Container) : null;
-			_shipmentId = entity.ShipmentId;
-		_shipment = entity.Shipment !=null ? new ShipmentPM(entity.Shipment) : null;
-			_discrepancyDate = entity.DiscrepancyDate;
-		_discrepancy = entity.Discrepancy;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

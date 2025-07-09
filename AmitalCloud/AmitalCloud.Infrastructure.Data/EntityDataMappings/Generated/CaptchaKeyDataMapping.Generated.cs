@@ -5,128 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CaptchaKeyDataMapping: IMapping<CaptchaKeyPM, POCO.CaptchaKey  ,CaptchaKeyList >,IMappingEncodeBase64NVARCHARFields<CaptchaKeyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Code, 
-	         CreateDate, 
-	         Email, 
-	         IP, 
-	         Activity, 
-	         IsUsed,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Code, 
-	         CreateDate, 
-	         Email, 
-	         IP, 
-	         Activity, 
-	         IsUsed,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CaptchaKeyPM entityPM, POCO.CaptchaKey entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP)) { entityPOCO.IP = entityPM.IP;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Activity)) { entityPOCO.Activity = entityPM.Activity;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUsed)) { entityPOCO.IsUsed = entityPM.IsUsed;}
-					}
-		public void POCOToPM(CaptchaKeyPM entityPM, POCO.CaptchaKey entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IP))
-            {
-					entityPM.IP = entityPOCO.IP;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Activity))
-            {
-					entityPM.Activity = entityPOCO.Activity;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsUsed))
-            {
-					entityPM.IsUsed = entityPOCO.IsUsed;
-            }
-		}
-		public void PMToOldPM(CaptchaKeyPM entityPM, CaptchaKeyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IP))
-            {
-                oldEntityPM.IP = entityPM.IP;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Activity))
-            {
-                oldEntityPM.Activity = entityPM.Activity;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUsed))
-            {
-                oldEntityPM.IsUsed = entityPM.IsUsed;
-            }
-					}
-		public void POCOToList(POCO.CaptchaKey entityPOCO, CaptchaKeyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CaptchaKeyList> GetIqueryableList(IQueryable<POCO.CaptchaKey> iQueryable)
-		{
-			IQueryable<CaptchaKeyList> query = (from a in iQueryable
-                                            select new CaptchaKeyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CaptchaKeyPM entityPM)
+    public partial class CaptchaKeyDataMapping: BaseMappingProfile<CaptchaKeyPM, POCO.CaptchaKey>, IMapping<CaptchaKeyPM, POCO.CaptchaKey, CaptchaKeyList >,IMappingEncodeBase64NVARCHARFields<CaptchaKeyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CaptchaKeyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -134,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

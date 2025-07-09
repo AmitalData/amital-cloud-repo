@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ScreenSectionPM : BaseEntityPM   {
    #region Constructors
    public ScreenSectionPM() : base() {} 
-   public ScreenSectionPM(POCO.ScreenSection entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_createdByUserId = entity.CreatedByUserId;
-		_name = entity.Name;
-		_screenCode = entity.ScreenCode;
-		_numberOfRows = entity.NumberOfRows;
-		_number = entity.Number;
-		_inactive = entity.Inactive;
-		_relatedScreenCode = entity.RelatedScreenCode;
-		_type = entity.Type;
-		_id = entity.Id;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HybridTenantThresholdPM : BaseEntityPM   {
    #region Constructors
    public HybridTenantThresholdPM() : base() {} 
-   public HybridTenantThresholdPM(POCO.HybridTenantThreshold entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_failedThresold = entity.FailedThresold;
-		_waitingThresold = entity.WaitingThresold;
-		_typeCode = entity.TypeCode;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

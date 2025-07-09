@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UserPermittedProductPM : BaseEntityPM   {
    #region Constructors
    public UserPermittedProductPM() : base() {} 
-   public UserPermittedProductPM(POCO.UserPermittedProduct entity) : base()
-   {
-		_cdropId = entity.CdropId;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_productTypeCode = entity.ProductTypeCode;
-		_id = entity.Id;
-   }
    #endregion Constructors
    #region Properties
    	  private string _cdropId ;

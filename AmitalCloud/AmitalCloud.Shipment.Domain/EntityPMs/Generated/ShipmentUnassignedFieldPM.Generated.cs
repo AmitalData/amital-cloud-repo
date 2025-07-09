@@ -26,18 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentUnassignedFieldPM : BaseEntityPM   {
    #region Constructors
    public ShipmentUnassignedFieldPM() : base() {} 
-   public ShipmentUnassignedFieldPM(POCO.ShipmentUnassignedField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_fieldName = entity.FieldName;
-		_receivedCode = entity.ReceivedCode;
-		_receivedData = entity.ReceivedData;
-		_replacedDataId = entity.ReplacedDataId;
-		_objectTableId = entity.ObjectTableId;
-		_computingPartnrCode = entity.ComputingPartnrCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

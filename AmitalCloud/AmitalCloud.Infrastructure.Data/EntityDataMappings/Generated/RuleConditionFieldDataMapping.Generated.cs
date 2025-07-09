@@ -5,129 +5,24 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class RuleConditionFieldDataMapping: IMapping<RuleConditionFieldPM, POCO.RuleConditionField  ,RuleConditionFieldList >,IMappingEncodeBase64NVARCHARFields<RuleConditionFieldPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ObjectTableRuleId, 
-	         ObjectFieldId, 
-	         Value, 
-	         Operator, 
-	         ObjectFieldCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ObjectTableRuleId, 
-	         ObjectFieldId, 
-	         Value, 
-	         Operator, 
-	         ObjectFieldCode, 
-	         ObjectFieldName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(RuleConditionFieldPM entityPM, POCO.RuleConditionField entityPOCO)
+    public partial class RuleConditionFieldDataMapping: BaseMappingProfile<RuleConditionFieldPM, POCO.RuleConditionField>, IMapping<RuleConditionFieldPM, POCO.RuleConditionField, RuleConditionFieldList >,IMappingEncodeBase64NVARCHARFields<RuleConditionFieldPM>
+    {
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.RuleConditionField, RuleConditionFieldPM> map)
         {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableRuleId)) { entityPOCO.ObjectTableRuleId = entityPM.ObjectTableRuleId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId)) { entityPOCO.ObjectFieldId = entityPM.ObjectFieldId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Value)) { entityPOCO.Value = entityPM.Value;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Operator)) { entityPOCO.Operator = entityPM.Operator;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode)) { entityPOCO.ObjectFieldCode = entityPM.ObjectFieldCode;}
-					}
-		public void POCOToPM(RuleConditionFieldPM entityPM, POCO.RuleConditionField entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableRuleId))
-            {
-					entityPM.ObjectTableRuleId = entityPOCO.ObjectTableRuleId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldId))
-            {
-					entityPM.ObjectFieldId = entityPOCO.ObjectFieldId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Value))
-            {
-					entityPM.Value = entityPOCO.Value;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Operator))
-            {
-					entityPM.Operator = entityPOCO.Operator;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldCode))
-            {
-					entityPM.ObjectFieldCode = entityPOCO.ObjectFieldCode;
-            }
-		}
-		public void PMToOldPM(RuleConditionFieldPM entityPM, RuleConditionFieldPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableRuleId))
-            {
-                oldEntityPM.ObjectTableRuleId = entityPM.ObjectTableRuleId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId))
-            {
-                oldEntityPM.ObjectFieldId = entityPM.ObjectFieldId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Value))
-            {
-                oldEntityPM.Value = entityPM.Value;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Operator))
-            {
-                oldEntityPM.Operator = entityPM.Operator;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode))
-            {
-                oldEntityPM.ObjectFieldCode = entityPM.ObjectFieldCode;
-            }
-					}
-		public void POCOToList(POCO.RuleConditionField entityPOCO, RuleConditionFieldList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
+            map.ForMember(dest => dest.ObjectFieldName, opt => opt.MapFrom(src => src.ObjectField.FieldName));
         }
-		public IQueryable<RuleConditionFieldList> GetIqueryableList(IQueryable<POCO.RuleConditionField> iQueryable)
-		{
-			IQueryable<RuleConditionFieldList> query = (from a in iQueryable
-                                            select new RuleConditionFieldList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(RuleConditionFieldPM entityPM)
+
+    	    public void EncodeBase64NVARCHARFields(RuleConditionFieldPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -135,14 +30,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

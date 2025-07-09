@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerStatusPM : BaseEntityPM   {
    #region Constructors
    public CustomerStatusPM() : base() {} 
-   public CustomerStatusPM(POCO.CustomerStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

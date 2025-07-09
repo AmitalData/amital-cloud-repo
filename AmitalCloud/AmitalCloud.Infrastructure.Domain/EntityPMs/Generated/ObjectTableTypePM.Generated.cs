@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectTableTypePM : BaseEntityPM   {
    #region Constructors
    public ObjectTableTypePM() : base() {} 
-   public ObjectTableTypePM(POCO.ObjectTableType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		objectTables = entity.ObjectTables != null ? entity.ObjectTables.Select(a=>new ObjectTablePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

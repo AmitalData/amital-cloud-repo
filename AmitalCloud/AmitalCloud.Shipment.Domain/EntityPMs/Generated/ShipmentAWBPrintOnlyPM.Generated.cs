@@ -26,25 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentAWBPrintOnlyPM : BaseEntityPM   {
    #region Constructors
    public ShipmentAWBPrintOnlyPM() : base() {} 
-   public ShipmentAWBPrintOnlyPM(POCO.ShipmentAWBPrintOnly entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_exchangeRate = entity.ExchangeRate;
-		_measurementId = entity.MeasurementId;
-		_measurement = entity.Measurement !=null ? new MeasurementPM(entity.Measurement) : null;
-			_iATACodeId = entity.IATACodeId;
-		_iatacode = entity.IATACode !=null ? new IATACodePM(entity.IATACode) : null;
-			_currencyId = entity.CurrencyId;
-		_dueTypeCode = entity.DueTypeCode;
-		_duetype = entity.DueType !=null ? new DueTypePM(entity.DueType) : null;
-			_prepaidCollectId = entity.PrepaidCollectId;
-		_prepaidcollect = entity.PrepaidCollect !=null ? new PrepaidCollectPM(entity.PrepaidCollect) : null;
-			_shipmentId = entity.ShipmentId;
-		_quantity = entity.Quantity;
-		_unitPrice = entity.UnitPrice;
-		_amount = entity.Amount;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

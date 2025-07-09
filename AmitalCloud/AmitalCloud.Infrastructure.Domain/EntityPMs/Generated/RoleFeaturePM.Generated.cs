@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RoleFeaturePM : BaseEntityPM   {
    #region Constructors
    public RoleFeaturePM() : base() {} 
-   public RoleFeaturePM(POCO.RoleFeature entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_roleId = entity.RoleId;
-		_featureId = entity.FeatureId;
-		_featureAccessLevelCode = entity.FeatureAccessLevelCode;
-		_featureaccesslevel = entity.FeatureAccessLevel !=null ? new FeatureAccessLevelPM(entity.FeatureAccessLevel) : null;
-			_isDeleted = entity.IsDeleted;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

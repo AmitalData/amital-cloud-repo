@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerTenantAccessRequestPM : BaseEntityPM   {
    #region Constructors
    public CustomerTenantAccessRequestPM() : base() {} 
-   public CustomerTenantAccessRequestPM(POCO.CustomerTenantAccessRequest entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_requestDateTime = entity.RequestDateTime;
-		_requestStatus = entity.RequestStatus;
-		_requeststatuscode = entity.RequestStatusCode !=null ? new CustomerTenantAccessStatusTypePM(entity.RequestStatusCode) : null;
-			_forwarderId = entity.ForwarderId;
-		_hybridpartnerid = entity.HybridPartnerId !=null ? new HybridPartnerPM(entity.HybridPartnerId) : null;
-			_isCustoms = entity.IsCustoms;
-		_isExport = entity.IsExport;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

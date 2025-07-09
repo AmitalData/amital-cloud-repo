@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectTableRuleFieldPM : BaseEntityPM   {
    #region Constructors
    public ObjectTableRuleFieldPM() : base() {} 
-   public ObjectTableRuleFieldPM(POCO.ObjectTableRuleField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_systemLevel = entity.SystemLevel;
-		_objectFieldId = entity.ObjectFieldId;
-		_objectTableRuleId = entity.ObjectTableRuleId;
-		_objecttablerule = entity.ObjectTableRule !=null ? new ObjectTableRulePM(entity.ObjectTableRule) : null;
-			_expression = entity.Expression;
-		_ruleNotificationTypeCode = entity.RuleNotificationTypeCode;
-		_objectFieldCode = entity.ObjectFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

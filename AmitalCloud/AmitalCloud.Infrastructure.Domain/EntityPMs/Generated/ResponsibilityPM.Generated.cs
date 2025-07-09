@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ResponsibilityPM : BaseEntityPM   {
    #region Constructors
    public ResponsibilityPM() : base() {} 
-   public ResponsibilityPM(POCO.Responsibility entity) : base()
-   {
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_searchFields = entity.SearchFields;
-		_localName = entity.LocalName;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentStatusPM : BaseEntityPM   {
    #region Constructors
    public DocumentStatusPM() : base() {} 
-   public DocumentStatusPM(POCO.DocumentStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		documentsFilings = entity.DocumentsFilings != null ? entity.DocumentsFilings.Select(a=>new DocumentsFilingPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;
@@ -49,6 +42,38 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Code",OldValue=_code,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _code=value;
+		   }
+		 }
+	   }
+	  private string _dropCdropName ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DropCdropName  
+	   {
+	     get { return _dropCdropName; }
+		 set
+		 {
+		   if(_dropCdropName != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropCdropName",OldValue=_dropCdropName,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _dropCdropName=value;
+		   }
+		 }
+	   }
+	  private string _dropCdropSearchfields ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DropCdropSearchfields  
+	   {
+	     get { return _dropCdropSearchfields; }
+		 set
+		 {
+		   if(_dropCdropSearchfields != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropCdropSearchfields",OldValue=_dropCdropSearchfields,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _dropCdropSearchfields=value;
 		   }
 		 }
 	   }

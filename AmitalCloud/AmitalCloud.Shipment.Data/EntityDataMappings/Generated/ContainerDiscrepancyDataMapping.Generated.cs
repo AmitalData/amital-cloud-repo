@@ -5,129 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ContainerDiscrepancyDataMapping: IMapping<ContainerDiscrepancyPM, POCO.ContainerDiscrepancy  ,ContainerDiscrepancyList >,IMappingEncodeBase64NVARCHARFields<ContainerDiscrepancyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         ContainerID, 
-	         ShipmentId, 
-	         DiscrepancyDate, 
-	         Discrepancy,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         ContainerID, 
-	         ShipmentId, 
-	         DiscrepancyDate, 
-	         Discrepancy,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContainerDiscrepancyPM entityPM, POCO.ContainerDiscrepancy entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ContainerID)) { entityPOCO.ContainerID = entityPM.ContainerID;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId)) { entityPOCO.ShipmentId = entityPM.ShipmentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DiscrepancyDate)) { entityPOCO.DiscrepancyDate = entityPM.DiscrepancyDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Discrepancy)) { entityPOCO.Discrepancy = entityPM.Discrepancy;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ContainerDiscrepancyPM entityPM, POCO.ContainerDiscrepancy entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ContainerID))
-            {
-					entityPM.ContainerID = entityPOCO.ContainerID;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShipmentId))
-            {
-					entityPM.ShipmentId = entityPOCO.ShipmentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DiscrepancyDate))
-            {
-					entityPM.DiscrepancyDate = entityPOCO.DiscrepancyDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Discrepancy))
-            {
-					entityPM.Discrepancy = entityPOCO.Discrepancy;
-            }
-		}
-		public void PMToOldPM(ContainerDiscrepancyPM entityPM, ContainerDiscrepancyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ContainerID))
-            {
-                oldEntityPM.ContainerID = entityPM.ContainerID;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId))
-            {
-                oldEntityPM.ShipmentId = entityPM.ShipmentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DiscrepancyDate))
-            {
-                oldEntityPM.DiscrepancyDate = entityPM.DiscrepancyDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Discrepancy))
-            {
-                oldEntityPM.Discrepancy = entityPM.Discrepancy;
-            }
-					}
-		public void POCOToList(POCO.ContainerDiscrepancy entityPOCO, ContainerDiscrepancyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContainerDiscrepancyList> GetIqueryableList(IQueryable<POCO.ContainerDiscrepancy> iQueryable)
-		{
-			IQueryable<ContainerDiscrepancyList> query = (from a in iQueryable
-                                            select new ContainerDiscrepancyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ContainerDiscrepancyPM entityPM)
+    public partial class ContainerDiscrepancyDataMapping: BaseMappingProfile<ContainerDiscrepancyPM, POCO.ContainerDiscrepancy>, IMapping<ContainerDiscrepancyPM, POCO.ContainerDiscrepancy, ContainerDiscrepancyList >,IMappingEncodeBase64NVARCHARFields<ContainerDiscrepancyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ContainerDiscrepancyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -139,20 +29,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ContainerDiscrepancyPM entityPM, POCO.ContainerDiscrepancy entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

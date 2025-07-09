@@ -5,151 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class SATInterfaceSettingDataMapping: IMapping<SATInterfaceSettingPM, POCO.SATInterfaceSetting  ,SATInterfaceSettingList >,IMappingEncodeBase64NVARCHARFields<SATInterfaceSettingPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         SATInterfaceCode, 
-	         Token, 
-	         ActivationDate, 
-	         MetodoPagoCode, 
-	         IsARInvoiceTransferEnabled, 
-	         IsCartaPorteTransferEnabled, 
-	         SATCompanyName, 
-	         TransferExpenseCharges,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         SATInterfaceCode, 
-	         Token, 
-	         SATInterfaceName, 
-	         ActivationDate, 
-	         MetodoPagoCode, 
-	         IsARInvoiceTransferEnabled, 
-	         IsCartaPorteTransferEnabled, 
-	         SATCompanyName, 
-	         TransferExpenseCharges,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(SATInterfaceSettingPM entityPM, POCO.SATInterfaceSetting entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SATInterfaceCode)) { entityPOCO.SATInterfaceCode = entityPM.SATInterfaceCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Token)) { entityPOCO.Token = entityPM.Token;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ActivationDate)) { entityPOCO.ActivationDate = entityPM.ActivationDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MetodoPagoCode)) { entityPOCO.MetodoPagoCode = entityPM.MetodoPagoCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsARInvoiceTransferEnabled)) { entityPOCO.IsARInvoiceTransferEnabled = entityPM.IsARInvoiceTransferEnabled;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCartaPorteTransferEnabled)) { entityPOCO.IsCartaPorteTransferEnabled = entityPM.IsCartaPorteTransferEnabled;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SATCompanyName)) { entityPOCO.SATCompanyName = entityPM.SATCompanyName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferExpenseCharges)) { entityPOCO.TransferExpenseCharges = entityPM.TransferExpenseCharges;}
-					}
-		public void POCOToPM(SATInterfaceSettingPM entityPM, POCO.SATInterfaceSetting entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SATInterfaceCode))
-            {
-					entityPM.SATInterfaceCode = entityPOCO.SATInterfaceCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Token))
-            {
-					entityPM.Token = entityPOCO.Token;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ActivationDate))
-            {
-					entityPM.ActivationDate = entityPOCO.ActivationDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MetodoPagoCode))
-            {
-					entityPM.MetodoPagoCode = entityPOCO.MetodoPagoCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsARInvoiceTransferEnabled))
-            {
-					entityPM.IsARInvoiceTransferEnabled = entityPOCO.IsARInvoiceTransferEnabled;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsCartaPorteTransferEnabled))
-            {
-					entityPM.IsCartaPorteTransferEnabled = entityPOCO.IsCartaPorteTransferEnabled;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SATCompanyName))
-            {
-					entityPM.SATCompanyName = entityPOCO.SATCompanyName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransferExpenseCharges))
-            {
-					entityPM.TransferExpenseCharges = entityPOCO.TransferExpenseCharges;
-            }
-		}
-		public void PMToOldPM(SATInterfaceSettingPM entityPM, SATInterfaceSettingPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SATInterfaceCode))
-            {
-                oldEntityPM.SATInterfaceCode = entityPM.SATInterfaceCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Token))
-            {
-                oldEntityPM.Token = entityPM.Token;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ActivationDate))
-            {
-                oldEntityPM.ActivationDate = entityPM.ActivationDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MetodoPagoCode))
-            {
-                oldEntityPM.MetodoPagoCode = entityPM.MetodoPagoCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsARInvoiceTransferEnabled))
-            {
-                oldEntityPM.IsARInvoiceTransferEnabled = entityPM.IsARInvoiceTransferEnabled;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsCartaPorteTransferEnabled))
-            {
-                oldEntityPM.IsCartaPorteTransferEnabled = entityPM.IsCartaPorteTransferEnabled;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SATCompanyName))
-            {
-                oldEntityPM.SATCompanyName = entityPM.SATCompanyName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferExpenseCharges))
-            {
-                oldEntityPM.TransferExpenseCharges = entityPM.TransferExpenseCharges;
-            }
-					}
-		public void POCOToList(POCO.SATInterfaceSetting entityPOCO, SATInterfaceSettingList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<SATInterfaceSettingList> GetIqueryableList(IQueryable<POCO.SATInterfaceSetting> iQueryable)
-		{
-			IQueryable<SATInterfaceSettingList> query = (from a in iQueryable
-                                            select new SATInterfaceSettingList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(SATInterfaceSettingPM entityPM)
+    public partial class SATInterfaceSettingDataMapping: BaseMappingProfile<SATInterfaceSettingPM, POCO.SATInterfaceSetting>, IMapping<SATInterfaceSettingPM, POCO.SATInterfaceSetting, SATInterfaceSettingList >,IMappingEncodeBase64NVARCHARFields<SATInterfaceSettingPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(SATInterfaceSettingPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -165,14 +33,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

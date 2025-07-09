@@ -8,6 +8,8 @@ using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System.Diagnostics;
 using System.Text;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class CommunicationLogStepQuery
@@ -64,8 +66,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         public static CommunicationLogStepList GetStepListVersion(CommunicationLogStep a)///itzik said reUse !!!
         => new CommunicationLogStepList(a = a ?? new CommunicationLogStep());
-        private CommunicationLogStepPM GetEntityPM(CommunicationLogStep a) => new CommunicationLogStepPM(a);
-
+        private CommunicationLogStepPM GetEntityPM(CommunicationLogStep a)
+        {
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CommunicationLogStepDataMapping()));
+            var mapper = config.CreateMapper();
+            return mapper.Map<CommunicationLogStepPM>(a);
+        }
         public IQueryable<CommunicationLogStepList> GetIQueryableEntityList(IQueryable<CommunicationLogStep> iQueryable)
         {
             IQueryable<CommunicationLogStepList> result = from a in iQueryable

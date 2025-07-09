@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerAdditionalServicePM : BaseEntityPM   {
    #region Constructors
    public CustomerAdditionalServicePM() : base() {} 
-   public CustomerAdditionalServicePM(POCO.CustomerAdditionalService entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_potential = entity.Potential;
-		_notes = entity.Notes;
-		_customerId = entity.CustomerId;
-		_customer = entity.Customer !=null ? new CustomerPM(entity.Customer) : null;
-			_additionalServiceId = entity.AdditionalServiceId;
-		_notesRightToLeft = entity.NotesRightToLeft;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;
@@ -103,14 +93,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private CustomerPM _customer;
-		
-        [DataMember]
-        public virtual CustomerPM Customer 
-		{ 
-		get { return _customer; } 
-		set { _customer = value; }
-		}
 	  private string _additionalServiceId ;
 	         [Key]
 	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]

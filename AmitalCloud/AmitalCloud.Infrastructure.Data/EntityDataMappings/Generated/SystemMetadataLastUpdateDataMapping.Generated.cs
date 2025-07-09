@@ -5,84 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class SystemMetadataLastUpdateDataMapping: IMapping<SystemMetadataLastUpdatePM, POCO.SystemMetadataLastUpdate  ,SystemMetadataLastUpdateList >,IMappingEncodeBase64NVARCHARFields<SystemMetadataLastUpdatePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TranslationsUpdateDateGMT, 
-	         ObjectFieldsUpdateDateGMT,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TranslationsUpdateDateGMT, 
-	         ObjectFieldsUpdateDateGMT,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(SystemMetadataLastUpdatePM entityPM, POCO.SystemMetadataLastUpdate entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TranslationsUpdateDateGMT)) { entityPOCO.TranslationsUpdateDateGMT = entityPM.TranslationsUpdateDateGMT;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldsUpdateDateGMT)) { entityPOCO.ObjectFieldsUpdateDateGMT = entityPM.ObjectFieldsUpdateDateGMT;}
-					}
-		public void POCOToPM(SystemMetadataLastUpdatePM entityPM, POCO.SystemMetadataLastUpdate entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TranslationsUpdateDateGMT))
-            {
-					entityPM.TranslationsUpdateDateGMT = entityPOCO.TranslationsUpdateDateGMT;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldsUpdateDateGMT))
-            {
-					entityPM.ObjectFieldsUpdateDateGMT = entityPOCO.ObjectFieldsUpdateDateGMT;
-            }
-		}
-		public void PMToOldPM(SystemMetadataLastUpdatePM entityPM, SystemMetadataLastUpdatePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TranslationsUpdateDateGMT))
-            {
-                oldEntityPM.TranslationsUpdateDateGMT = entityPM.TranslationsUpdateDateGMT;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldsUpdateDateGMT))
-            {
-                oldEntityPM.ObjectFieldsUpdateDateGMT = entityPM.ObjectFieldsUpdateDateGMT;
-            }
-					}
-		public void POCOToList(POCO.SystemMetadataLastUpdate entityPOCO, SystemMetadataLastUpdateList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<SystemMetadataLastUpdateList> GetIqueryableList(IQueryable<POCO.SystemMetadataLastUpdate> iQueryable)
-		{
-			IQueryable<SystemMetadataLastUpdateList> query = (from a in iQueryable
-                                            select new SystemMetadataLastUpdateList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(SystemMetadataLastUpdatePM entityPM)
+    public partial class SystemMetadataLastUpdateDataMapping: BaseMappingProfile<SystemMetadataLastUpdatePM, POCO.SystemMetadataLastUpdate>, IMapping<SystemMetadataLastUpdatePM, POCO.SystemMetadataLastUpdate, SystemMetadataLastUpdateList >,IMappingEncodeBase64NVARCHARFields<SystemMetadataLastUpdatePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(SystemMetadataLastUpdatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -90,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

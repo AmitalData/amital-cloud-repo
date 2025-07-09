@@ -1,8 +1,10 @@
-﻿using AmitalCloud.Infrastructure.Data.Queries;
+﻿using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using AmitalCloud.Infrastructure.Data.Queries;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AutoMapper;
 
 
 
@@ -58,9 +60,13 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             var _featureRepo = new Repository<Feature>(tenant);
             var _packageFeatureRepo = new Repository<PackageFeature>(tenant);
 
-            var allFeaturesDict = _featureRepo
-                .GetMulti(f => f.Tenant == 0 || f.Tenant == tenant, f => new FeaturePM(f))
-                .ToDictionary(f => f.FeatureUniqeCode, f => f);
+            var allFeatures = _featureRepo
+                .GetMulti(f => f.Tenant == 0 || f.Tenant == tenant);
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()));
+            var mapper = config.CreateMapper();
+            var allFeaturesPM =  mapper.Map<List<FeaturePM>>(allFeatures);
+            var allFeaturesDict = allFeaturesPM.ToDictionary(f => f.FeatureUniqeCode, f => f);
 
             var roleFeatureQuery = new RoleFeatureQuery(tenant);
 

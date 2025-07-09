@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PaymentTermDateTypePM : BaseEntityPM   {
    #region Constructors
    public PaymentTermDateTypePM() : base() {} 
-   public PaymentTermDateTypePM(POCO.PaymentTermDateType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

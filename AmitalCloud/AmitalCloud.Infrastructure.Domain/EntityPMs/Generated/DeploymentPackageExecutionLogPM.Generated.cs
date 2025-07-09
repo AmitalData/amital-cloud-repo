@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DeploymentPackageExecutionLogPM : BaseEntityPM   {
    #region Constructors
    public DeploymentPackageExecutionLogPM() : base() {} 
-   public DeploymentPackageExecutionLogPM(POCO.DeploymentPackageExecutionLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_statusCode = entity.StatusCode;
-		_code = entity.Code !=null ? new CommunicationStatusTypePM(entity.Code) : null;
-			_exceptionMessage = entity.ExceptionMessage;
-		_requestXML = entity.RequestXML;
-		_subject = entity.Subject;
-		_logs = entity.Logs;
-		_retryNumber = entity.RetryNumber;
-		_startDate = entity.StartDate;
-		_doneDate = entity.DoneDate;
-		_executedByServerName = entity.ExecutedByServerName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

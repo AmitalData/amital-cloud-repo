@@ -5,233 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CountryDataMapping: IMapping<CountryPM, POCO.Country  ,CountryList >,IMappingEncodeBase64NVARCHARFields<CountryPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LocalName, 
-	         GlobalZoneId, 
-	         AddedManually, 
-	         InActive, 
-	         EC, 
-	         Notes, 
-	         HasStates, 
-	         IsStateRequired, 
-	         HasCitiesList, 
-	         SearchFields, 
-	         Code, 
-	         EnglishName, 
-	         IsNorthAmerica, 
-	         AutomaticLastUpdateDate, 
-	         IsGreaterChina,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LocalName, 
-	         ComputedLocalName, 
-	         GlobalZoneId, 
-	         AddedManually, 
-	         InActive, 
-	         EC, 
-	         Notes, 
-	         HasStates, 
-	         IsStateRequired, 
-	         HasCitiesList, 
-	         SearchFields, 
-	         Code, 
-	         EnglishName, 
-	         IsSecured, 
-	         IsHybrid, 
-	         IsNorthAmerica, 
-	         IsGreaterChina, 
-	         PartnerCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CountryPM entityPM, POCO.Country entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalZoneId)) { entityPOCO.GlobalZoneId = entityPM.GlobalZoneId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AddedManually)) { entityPOCO.AddedManually = entityPM.AddedManually;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EC)) { entityPOCO.EC = entityPM.EC;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasStates)) { entityPOCO.HasStates = entityPM.HasStates;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsStateRequired)) { entityPOCO.IsStateRequired = entityPM.IsStateRequired;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasCitiesList)) { entityPOCO.HasCitiesList = entityPM.HasCitiesList;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code)) { entityPOCO.Code = entityPM.Code;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnglishName)) { entityPOCO.EnglishName = entityPM.EnglishName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsNorthAmerica)) { entityPOCO.IsNorthAmerica = entityPM.IsNorthAmerica;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsGreaterChina)) { entityPOCO.IsGreaterChina = entityPM.IsGreaterChina;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(CountryPM entityPM, POCO.Country entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GlobalZoneId))
-            {
-					entityPM.GlobalZoneId = entityPOCO.GlobalZoneId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AddedManually))
-            {
-					entityPM.AddedManually = entityPOCO.AddedManually;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EC))
-            {
-					entityPM.EC = entityPOCO.EC;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HasStates))
-            {
-					entityPM.HasStates = entityPOCO.HasStates;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsStateRequired))
-            {
-					entityPM.IsStateRequired = entityPOCO.IsStateRequired;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HasCitiesList))
-            {
-					entityPM.HasCitiesList = entityPOCO.HasCitiesList;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EnglishName))
-            {
-					entityPM.EnglishName = entityPOCO.EnglishName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsNorthAmerica))
-            {
-					entityPM.IsNorthAmerica = entityPOCO.IsNorthAmerica;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsGreaterChina))
-            {
-					entityPM.IsGreaterChina = entityPOCO.IsGreaterChina;
-            }
-		}
-		public void PMToOldPM(CountryPM entityPM, CountryPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalZoneId))
-            {
-                oldEntityPM.GlobalZoneId = entityPM.GlobalZoneId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AddedManually))
-            {
-                oldEntityPM.AddedManually = entityPM.AddedManually;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EC))
-            {
-                oldEntityPM.EC = entityPM.EC;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasStates))
-            {
-                oldEntityPM.HasStates = entityPM.HasStates;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsStateRequired))
-            {
-                oldEntityPM.IsStateRequired = entityPM.IsStateRequired;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasCitiesList))
-            {
-                oldEntityPM.HasCitiesList = entityPM.HasCitiesList;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Code))
-            {
-                oldEntityPM.Code = entityPM.Code;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnglishName))
-            {
-                oldEntityPM.EnglishName = entityPM.EnglishName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsNorthAmerica))
-            {
-                oldEntityPM.IsNorthAmerica = entityPM.IsNorthAmerica;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsGreaterChina))
-            {
-                oldEntityPM.IsGreaterChina = entityPM.IsGreaterChina;
-            }
-					}
-		public void POCOToList(POCO.Country entityPOCO, CountryList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CountryList> GetIqueryableList(IQueryable<POCO.Country> iQueryable)
-		{
-			IQueryable<CountryList> query = (from a in iQueryable
-                                            select new CountryList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CountryPM entityPM)
+    public partial class CountryDataMapping: BaseMappingProfile<CountryPM, POCO.Country>, IMapping<CountryPM, POCO.Country, CountryList >,IMappingEncodeBase64NVARCHARFields<CountryPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CountryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -251,20 +37,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(CountryPM entityPM, POCO.Country entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTemplateSectionPM : BaseEntityPM   {
    #region Constructors
    public QuoteTemplateSectionPM() : base() {} 
-   public QuoteTemplateSectionPM(POCO.QuoteTemplateSection entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_description = entity.Description;
-		_isCancel = entity.IsCancel;
-		_quoteTemplateId = entity.QuoteTemplateId;
-		_quotetemplate = entity.QuoteTemplate !=null ? new QuoteTemplatePM(entity.QuoteTemplate) : null;
-			_sectionDocId = entity.SectionDocId;
-		_sectiondoc = entity.SectionDoc !=null ? new DocumentPM(entity.SectionDoc) : null;
-			_order = entity.Order;
-		_quoteTemplateSectionTypeCode = entity.QuoteTemplateSectionTypeCode;
-		_quotetemplatesectiontype = entity.QuoteTemplateSectionType !=null ? new QuoteTemplateSectionTypePM(entity.QuoteTemplateSectionType) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

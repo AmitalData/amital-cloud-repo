@@ -5,151 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class FeatureChangeDataMapping: IMapping<FeatureChangePM, POCO.FeatureChange  ,FeatureChangeList >,IMappingEncodeBase64NVARCHARFields<FeatureChangePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Name, 
-	         EventDateTime, 
-	         UserId, 
-	         RoleId, 
-	         PackageCode, 
-	         Notes, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Name, 
-	         EventDateTime, 
-	         UserId, 
-	         RoleId, 
-	         PackageCode, 
-	         Notes, 
-	         SearchFields,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(FeatureChangePM entityPM, POCO.FeatureChange entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EventDateTime)) { entityPOCO.EventDateTime = entityPM.EventDateTime;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId)) { entityPOCO.UserId = entityPM.UserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RoleId)) { entityPOCO.RoleId = entityPM.RoleId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode)) { entityPOCO.PackageCode = entityPM.PackageCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(FeatureChangePM entityPM, POCO.FeatureChange entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EventDateTime))
-            {
-					entityPM.EventDateTime = entityPOCO.EventDateTime;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UserId))
-            {
-					entityPM.UserId = entityPOCO.UserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.RoleId))
-            {
-					entityPM.RoleId = entityPOCO.RoleId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PackageCode))
-            {
-					entityPM.PackageCode = entityPOCO.PackageCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-		}
-		public void PMToOldPM(FeatureChangePM entityPM, FeatureChangePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EventDateTime))
-            {
-                oldEntityPM.EventDateTime = entityPM.EventDateTime;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId))
-            {
-                oldEntityPM.UserId = entityPM.UserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RoleId))
-            {
-                oldEntityPM.RoleId = entityPM.RoleId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode))
-            {
-                oldEntityPM.PackageCode = entityPM.PackageCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-					}
-		public void POCOToList(POCO.FeatureChange entityPOCO, FeatureChangeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<FeatureChangeList> GetIqueryableList(IQueryable<POCO.FeatureChange> iQueryable)
-		{
-			IQueryable<FeatureChangeList> query = (from a in iQueryable
-                                            select new FeatureChangeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(FeatureChangePM entityPM)
+    public partial class FeatureChangeDataMapping: BaseMappingProfile<FeatureChangePM, POCO.FeatureChange>, IMapping<FeatureChangePM, POCO.FeatureChange, FeatureChangeList >,IMappingEncodeBase64NVARCHARFields<FeatureChangePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(FeatureChangePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -165,20 +33,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(FeatureChangePM entityPM, POCO.FeatureChange entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

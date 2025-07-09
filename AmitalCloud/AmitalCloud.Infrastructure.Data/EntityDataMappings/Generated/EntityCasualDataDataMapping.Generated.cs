@@ -5,206 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class EntityCasualDataDataMapping: IMapping<EntityCasualDataPM, POCO.EntityCasualData  ,EntityCasualDataList >,IMappingEncodeBase64NVARCHARFields<EntityCasualDataPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CasualTypeCode, 
-	         ObjectTableId, 
-	         EntityId, 
-	         LocalName, 
-	         EnglishName, 
-	         City, 
-	         ZipCode, 
-	         FaxNumber, 
-	         PhoneNumber, 
-	         Address1, 
-	         Address2, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CasualTypeCode, 
-	         ObjectTableId, 
-	         EntityId, 
-	         LocalName, 
-	         EnglishName, 
-	         City, 
-	         ZipCode, 
-	         FaxNumber, 
-	         PhoneNumber, 
-	         Address1, 
-	         Address2, 
-	         SearchFields,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(EntityCasualDataPM entityPM, POCO.EntityCasualData entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CasualTypeCode)) { entityPOCO.CasualTypeCode = entityPM.CasualTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId)) { entityPOCO.ObjectTableId = entityPM.ObjectTableId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EntityId)) { entityPOCO.EntityId = entityPM.EntityId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName)) { entityPOCO.LocalName = entityPM.LocalName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnglishName)) { entityPOCO.EnglishName = entityPM.EnglishName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.City)) { entityPOCO.City = entityPM.City;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ZipCode)) { entityPOCO.ZipCode = entityPM.ZipCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FaxNumber)) { entityPOCO.FaxNumber = entityPM.FaxNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PhoneNumber)) { entityPOCO.PhoneNumber = entityPM.PhoneNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Address1)) { entityPOCO.Address1 = entityPM.Address1;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Address2)) { entityPOCO.Address2 = entityPM.Address2;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(EntityCasualDataPM entityPM, POCO.EntityCasualData entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CasualTypeCode))
-            {
-					entityPM.CasualTypeCode = entityPOCO.CasualTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EntityId))
-            {
-					entityPM.EntityId = entityPOCO.EntityId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalName))
-            {
-					entityPM.LocalName = entityPOCO.LocalName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.EnglishName))
-            {
-					entityPM.EnglishName = entityPOCO.EnglishName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.City))
-            {
-					entityPM.City = entityPOCO.City;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ZipCode))
-            {
-					entityPM.ZipCode = entityPOCO.ZipCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FaxNumber))
-            {
-					entityPM.FaxNumber = entityPOCO.FaxNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PhoneNumber))
-            {
-					entityPM.PhoneNumber = entityPOCO.PhoneNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Address1))
-            {
-					entityPM.Address1 = entityPOCO.Address1;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Address2))
-            {
-					entityPM.Address2 = entityPOCO.Address2;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-		}
-		public void PMToOldPM(EntityCasualDataPM entityPM, EntityCasualDataPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CasualTypeCode))
-            {
-                oldEntityPM.CasualTypeCode = entityPM.CasualTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId))
-            {
-                oldEntityPM.ObjectTableId = entityPM.ObjectTableId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EntityId))
-            {
-                oldEntityPM.EntityId = entityPM.EntityId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalName))
-            {
-                oldEntityPM.LocalName = entityPM.LocalName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.EnglishName))
-            {
-                oldEntityPM.EnglishName = entityPM.EnglishName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.City))
-            {
-                oldEntityPM.City = entityPM.City;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ZipCode))
-            {
-                oldEntityPM.ZipCode = entityPM.ZipCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FaxNumber))
-            {
-                oldEntityPM.FaxNumber = entityPM.FaxNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PhoneNumber))
-            {
-                oldEntityPM.PhoneNumber = entityPM.PhoneNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Address1))
-            {
-                oldEntityPM.Address1 = entityPM.Address1;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Address2))
-            {
-                oldEntityPM.Address2 = entityPM.Address2;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-					}
-		public void POCOToList(POCO.EntityCasualData entityPOCO, EntityCasualDataList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<EntityCasualDataList> GetIqueryableList(IQueryable<POCO.EntityCasualData> iQueryable)
-		{
-			IQueryable<EntityCasualDataList> query = (from a in iQueryable
-                                            select new EntityCasualDataList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(EntityCasualDataPM entityPM)
+    public partial class EntityCasualDataDataMapping: BaseMappingProfile<EntityCasualDataPM, POCO.EntityCasualData>, IMapping<EntityCasualDataPM, POCO.EntityCasualData, EntityCasualDataList >,IMappingEncodeBase64NVARCHARFields<EntityCasualDataPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(EntityCasualDataPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -216,20 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(EntityCasualDataPM entityPM, POCO.EntityCasualData entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

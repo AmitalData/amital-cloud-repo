@@ -5,153 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class AccountingTransferHeaderDataMapping: IMapping<AccountingTransferHeaderPM, POCO.AccountingTransferHeader  ,AccountingTransferHeaderList >,IMappingEncodeBase64NVARCHARFields<AccountingTransferHeaderPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TransferNumber, 
-	         TransferDate, 
-	         FileName, 
-	         UserId, 
-	         AccountingTransferTypeCode, 
-	         SearchFields, 
-	         Notes,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TransferNumber, 
-	         TransferDate, 
-	         FileName, 
-	         UserId, 
-	         AccountingTransferTypeCode, 
-	         SearchFields, 
-	         UserName, 
-	         AccountingTransferTypeName, 
-	         Notes,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AccountingTransferHeaderPM entityPM, POCO.AccountingTransferHeader entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferNumber)) { entityPOCO.TransferNumber = entityPM.TransferNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferDate)) { entityPOCO.TransferDate = entityPM.TransferDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName)) { entityPOCO.FileName = entityPM.FileName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId)) { entityPOCO.UserId = entityPM.UserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccountingTransferTypeCode)) { entityPOCO.AccountingTransferTypeCode = entityPM.AccountingTransferTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(AccountingTransferHeaderPM entityPM, POCO.AccountingTransferHeader entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransferNumber))
-            {
-					entityPM.TransferNumber = entityPOCO.TransferNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransferDate))
-            {
-					entityPM.TransferDate = entityPOCO.TransferDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FileName))
-            {
-					entityPM.FileName = entityPOCO.FileName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UserId))
-            {
-					entityPM.UserId = entityPOCO.UserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AccountingTransferTypeCode))
-            {
-					entityPM.AccountingTransferTypeCode = entityPOCO.AccountingTransferTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-		}
-		public void PMToOldPM(AccountingTransferHeaderPM entityPM, AccountingTransferHeaderPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferNumber))
-            {
-                oldEntityPM.TransferNumber = entityPM.TransferNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferDate))
-            {
-                oldEntityPM.TransferDate = entityPM.TransferDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName))
-            {
-                oldEntityPM.FileName = entityPM.FileName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId))
-            {
-                oldEntityPM.UserId = entityPM.UserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AccountingTransferTypeCode))
-            {
-                oldEntityPM.AccountingTransferTypeCode = entityPM.AccountingTransferTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-					}
-		public void POCOToList(POCO.AccountingTransferHeader entityPOCO, AccountingTransferHeaderList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AccountingTransferHeaderList> GetIqueryableList(IQueryable<POCO.AccountingTransferHeader> iQueryable)
-		{
-			IQueryable<AccountingTransferHeaderList> query = (from a in iQueryable
-                                            select new AccountingTransferHeaderList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(AccountingTransferHeaderPM entityPM)
+    public partial class AccountingTransferHeaderDataMapping: BaseMappingProfile<AccountingTransferHeaderPM, POCO.AccountingTransferHeader>, IMapping<AccountingTransferHeaderPM, POCO.AccountingTransferHeader, AccountingTransferHeaderList >,IMappingEncodeBase64NVARCHARFields<AccountingTransferHeaderPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(AccountingTransferHeaderPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -167,20 +33,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(AccountingTransferHeaderPM entityPM, POCO.AccountingTransferHeader entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

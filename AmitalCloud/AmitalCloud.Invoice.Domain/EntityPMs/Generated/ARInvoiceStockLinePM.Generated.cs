@@ -26,21 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARInvoiceStockLinePM : BaseEntityPM   {
    #region Constructors
    public ARInvoiceStockLinePM() : base() {} 
-   public ARInvoiceStockLinePM(POCO.ARInvoiceStockLine entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_aRInvoiceStockId = entity.ARInvoiceStockId;
-		_arinvoicestock = entity.ARInvoiceStock !=null ? new ARInvoiceStockPM(entity.ARInvoiceStock) : null;
-			_aRInvoiceId = entity.ARInvoiceId;
-		_number = entity.Number;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_isUsed = entity.IsUsed;
-		_shipmentNumber = entity.ShipmentNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

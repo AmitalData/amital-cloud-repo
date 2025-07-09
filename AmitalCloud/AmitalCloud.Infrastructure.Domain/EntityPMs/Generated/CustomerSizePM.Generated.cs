@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerSizePM : BaseEntityPM   {
    #region Constructors
    public CustomerSizePM() : base() {} 
-   public CustomerSizePM(POCO.CustomerSize entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_inActive = entity.InActive;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,19 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class SATInterfaceSettingPM : BaseEntityPM   {
    #region Constructors
    public SATInterfaceSettingPM() : base() {} 
-   public SATInterfaceSettingPM(POCO.SATInterfaceSetting entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_sATInterfaceCode = entity.SATInterfaceCode;
-		_satinterface = entity.SATInterface !=null ? new SATInterfacePM(entity.SATInterface) : null;
-			_token = entity.Token;
-		_activationDate = entity.ActivationDate;
-		_metodoPagoCode = entity.MetodoPagoCode;
-		_isARInvoiceTransferEnabled = entity.IsARInvoiceTransferEnabled;
-		_isCartaPorteTransferEnabled = entity.IsCartaPorteTransferEnabled;
-		_sATCompanyName = entity.SATCompanyName;
-		_transferExpenseCharges = entity.TransferExpenseCharges;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

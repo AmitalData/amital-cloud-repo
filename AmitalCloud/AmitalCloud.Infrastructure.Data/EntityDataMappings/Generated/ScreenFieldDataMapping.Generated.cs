@@ -5,152 +5,24 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ScreenFieldDataMapping: IMapping<ScreenFieldPM, POCO.ScreenField  ,ScreenFieldList >,IMappingEncodeBase64NVARCHARFields<ScreenFieldPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Column, 
-	         Row, 
-	         ScreenId, 
-	         ObjectFieldId, 
-	         ObjectFieldCode, 
-	         ScreenCode, 
-	         SectionNumber,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         Column, 
-	         Row, 
-	         ScreenId, 
-	         ObjectFieldId, 
-	         ObjectFieldCode, 
-	         ScreenCode, 
-	         SectionNumber, 
-	         ObjectFieldName, 
-	         ObjectFieldObjectTableName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ScreenFieldPM entityPM, POCO.ScreenField entityPOCO)
+    public partial class ScreenFieldDataMapping: BaseMappingProfile<ScreenFieldPM, POCO.ScreenField>, IMapping<ScreenFieldPM, POCO.ScreenField, ScreenFieldList >,IMappingEncodeBase64NVARCHARFields<ScreenFieldPM>
+    {
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.ScreenField, ScreenFieldPM> map)
         {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Column)) { entityPOCO.Column = entityPM.Column;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Row)) { entityPOCO.Row = entityPM.Row;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenId)) { entityPOCO.ScreenId = entityPM.ScreenId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId)) { entityPOCO.ObjectFieldId = entityPM.ObjectFieldId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode)) { entityPOCO.ObjectFieldCode = entityPM.ObjectFieldCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenCode)) { entityPOCO.ScreenCode = entityPM.ScreenCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SectionNumber)) { entityPOCO.SectionNumber = entityPM.SectionNumber;}
-					}
-		public void POCOToPM(ScreenFieldPM entityPM, POCO.ScreenField entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Column))
-            {
-					entityPM.Column = entityPOCO.Column;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Row))
-            {
-					entityPM.Row = entityPOCO.Row;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ScreenId))
-            {
-					entityPM.ScreenId = entityPOCO.ScreenId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldId))
-            {
-					entityPM.ObjectFieldId = entityPOCO.ObjectFieldId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldCode))
-            {
-					entityPM.ObjectFieldCode = entityPOCO.ObjectFieldCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ScreenCode))
-            {
-					entityPM.ScreenCode = entityPOCO.ScreenCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SectionNumber))
-            {
-					entityPM.SectionNumber = entityPOCO.SectionNumber;
-            }
-		}
-		public void PMToOldPM(ScreenFieldPM entityPM, ScreenFieldPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Column))
-            {
-                oldEntityPM.Column = entityPM.Column;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Row))
-            {
-                oldEntityPM.Row = entityPM.Row;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenId))
-            {
-                oldEntityPM.ScreenId = entityPM.ScreenId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId))
-            {
-                oldEntityPM.ObjectFieldId = entityPM.ObjectFieldId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode))
-            {
-                oldEntityPM.ObjectFieldCode = entityPM.ObjectFieldCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ScreenCode))
-            {
-                oldEntityPM.ScreenCode = entityPM.ScreenCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SectionNumber))
-            {
-                oldEntityPM.SectionNumber = entityPM.SectionNumber;
-            }
-					}
-		public void POCOToList(POCO.ScreenField entityPOCO, ScreenFieldList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
+            map.ForMember(dest => dest.ObjectFieldName, opt => opt.MapFrom(src => src.ObjectField.FieldName));
         }
-		public IQueryable<ScreenFieldList> GetIqueryableList(IQueryable<POCO.ScreenField> iQueryable)
-		{
-			IQueryable<ScreenFieldList> query = (from a in iQueryable
-                                            select new ScreenFieldList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ScreenFieldPM entityPM)
+
+    	    public void EncodeBase64NVARCHARFields(ScreenFieldPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -158,14 +30,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

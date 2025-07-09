@@ -26,15 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class AWBAdditionalHandlingInfoPM : BaseEntityPM   {
    #region Constructors
    public AWBAdditionalHandlingInfoPM() : base() {} 
-   public AWBAdditionalHandlingInfoPM(POCO.AWBAdditionalHandlingInfo entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_printDescription = entity.PrintDescription;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

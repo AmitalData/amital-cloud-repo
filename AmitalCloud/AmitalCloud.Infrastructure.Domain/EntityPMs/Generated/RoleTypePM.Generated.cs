@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RoleTypePM : BaseEntityPM   {
    #region Constructors
    public RoleTypePM() : base() {} 
-   public RoleTypePM(POCO.RoleType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		roles = entity.Roles != null ? entity.Roles.Select(a=>new RolePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

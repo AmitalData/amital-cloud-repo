@@ -26,38 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantManagmentPrivateLabelsPM : BaseEntityPM   {
    #region Constructors
    public TenantManagmentPrivateLabelsPM() : base() {} 
-   public TenantManagmentPrivateLabelsPM(POCO.TenantManagmentPrivateLabels entity) : base()
-   {
-		_mainLogo = entity.MainLogo;
-		_smallLogo = entity.SmallLogo;
-		_hybridPartnerId = entity.HybridPartnerId;
-		_id = entity.Id;
-		_privateLabelShortName = entity.PrivateLabelShortName;
-		_privateLabelName = entity.PrivateLabelName;
-		_privateLabelUrl = entity.PrivateLabelUrl;
-		_contactUsEmail = entity.ContactUsEmail;
-		_receiveAllStatuses = entity.ReceiveAllStatuses;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-		_tenant = entity.Tenant;
-		_backgroundImageId = entity.BackgroundImageId;
-		_loginImageId = entity.LoginImageId;
-		_privateLabelDomain = entity.PrivateLabelDomain;
-		_mainColor = entity.MainColor;
-		_loginProgressImageId = entity.LoginProgressImageId;
-		_forgetPasswordImageId = entity.ForgetPasswordImageId;
-		_secondaryColor = entity.SecondaryColor;
-		_hasLogboxAccess = entity.HasLogboxAccess;
-		_mainTabHighlightColor = entity.MainTabHighlightColor;
-		_documentTypeHighlightColor = entity.DocumentTypeHighlightColor;
-		_isCustomsActivated = entity.IsCustomsActivated;
-		_isExportActivated = entity.IsExportActivated;
-		_queryFiltersHighlightColor = entity.QueryFiltersHighlightColor;
-		_createShipmentsWithoutDocs = entity.CreateShipmentsWithoutDocs;
-		_createOShipmentsWithoutDocs = entity.CreateOShipmentsWithoutDocs;
-		_filingInboxDomain = entity.FilingInboxDomain;
-		_distributorCode = entity.DistributorCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _mainLogo ;

@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TarrifChargePM : BaseEntityPM   {
    #region Constructors
    public TarrifChargePM() : base() {} 
-   public TarrifChargePM(POCO.TarrifCharge entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_tarrifHeaderId = entity.TarrifHeaderId;
-		_tarrifheader = entity.TarrifHeader !=null ? new TarrifHeaderPM(entity.TarrifHeader) : null;
-			_currencyId = entity.CurrencyId;
-		_currency = entity.Currency !=null ? new CurrencyPM(entity.Currency) : null;
-			_chargesTypeId = entity.ChargesTypeId;
-		_chargestype = entity.ChargesType !=null ? new ChargesTypePM(entity.ChargesType) : null;
-			_measurementId = entity.MeasurementId;
-		_minPrice = entity.MinPrice;
-		_maxPrice = entity.MaxPrice;
-		_unitPrice = entity.UnitPrice;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

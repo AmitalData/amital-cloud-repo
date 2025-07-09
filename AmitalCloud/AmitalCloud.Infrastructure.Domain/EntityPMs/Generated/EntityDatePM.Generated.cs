@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class EntityDatePM : BaseEntityPM   {
    #region Constructors
    public EntityDatePM() : base() {} 
-   public EntityDatePM(POCO.EntityDate entity) : base()
-   {
-		_id = entity.Id;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

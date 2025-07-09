@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomsInterfacePM : BaseEntityPM   {
    #region Constructors
    public CustomsInterfacePM() : base() {} 
-   public CustomsInterfacePM(POCO.CustomsInterface entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

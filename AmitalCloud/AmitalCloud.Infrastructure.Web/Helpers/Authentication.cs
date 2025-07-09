@@ -18,6 +18,8 @@ using System.Transactions;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using UAParser;
 using Microsoft.Extensions.Caching.Memory;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers
 {
@@ -448,7 +450,9 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                             ContactPassword contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(parameters.Email, parameters.Password);
                             if (contactPasswordPOCO != null)
                             {
-                                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
+                                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                                var mapper = config.CreateMapper();
+                                contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                                 hashedPassword = contactPassword.Password;
                             }
 
@@ -503,7 +507,9 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
         private void AddAuthenticationToken(AuthenticationToken authentication, AuthenticationTokenUpdateService authenticationUpdateService)
         {
-            AuthenticationTokenPM authenticationPM = new AuthenticationTokenPM(authentication);
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AuthenticationTokenDataMapping()));
+            var mapper = config.CreateMapper();
+            AuthenticationTokenPM authenticationPM = mapper.Map<AuthenticationTokenPM>(authentication);
             authenticationPM.ChangeSetOp = ChangeSetOperation.Insert;
             authenticationUpdateService.Update(authenticationPM, true);
 
@@ -588,7 +594,9 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
                     if (contactPasswordPOCO != null)
                     {
-                        contactPassword = new ContactPasswordPM(contactPasswordPOCO);
+                        var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                        var mapper = config.CreateMapper();
+                        contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                         CheckLockedUser(contactPassword, clientType);
 
                         if ((!contactPassword.IsLocked || clientType == "Web") && (!contactPassword.MustChangePassword || OneTimePassword))
@@ -1088,7 +1096,9 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
             if (contactPasswordPOCO != null)
             {
-                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                var mapper = config.CreateMapper();
+                contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                 CheckLockedUser(contactPassword, clientType);
 
                 GlobalContactPM contact = globalContactQueryService.GetMulti(d => d.GlobalTenantId == 0 && d.InActive == false && d.Email.ToLower() == email).FirstOrDefault();

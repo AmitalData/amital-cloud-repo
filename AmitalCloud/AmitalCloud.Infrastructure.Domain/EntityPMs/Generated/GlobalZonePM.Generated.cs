@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class GlobalZonePM : BaseEntityPM   {
    #region Constructors
    public GlobalZonePM() : base() {} 
-   public GlobalZonePM(POCO.GlobalZone entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_notes = entity.Notes;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

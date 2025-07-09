@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UserPermittedBranchPM : BaseEntityPM   {
    #region Constructors
    public UserPermittedBranchPM() : base() {} 
-   public UserPermittedBranchPM(POCO.UserPermittedBranch entity) : base()
-   {
-		_cdropId = entity.CdropId;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_branchId = entity.BranchId;
-		_branch = entity.Branch !=null ? new BranchPM(entity.Branch) : null;
-			_id = entity.Id;
-   }
    #endregion Constructors
    #region Properties
    	  private string _cdropId ;

@@ -26,17 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class AWBSpecialHandlingCodePM : BaseEntityPM   {
    #region Constructors
    public AWBSpecialHandlingCodePM() : base() {} 
-   public AWBSpecialHandlingCodePM(POCO.AWBSpecialHandlingCode entity) : base()
-   {
-		_id = entity.Id;
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_isIATA = entity.IsIATA;
-		_inActive = entity.InActive;
-		_airlineId = entity.AirlineId;
-		_airline = entity.Airline !=null ? new CardPM(entity.Airline) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

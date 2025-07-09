@@ -26,18 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentReferancePM : BaseEntityPM   {
    #region Constructors
    public ShipmentReferancePM() : base() {} 
-   public ShipmentReferancePM(POCO.ShipmentReferance entity) : base()
-   {
-		_shipmentId = entity.ShipmentId;
-		_shipmentcode = entity.ShipmentCode !=null ? new ShipmentPM(entity.ShipmentCode) : null;
-			_tenant = entity.Tenant;
-		_lineNumber = entity.LineNumber;
-		_referenceType = entity.ReferenceType;
-		_referencetypecode = entity.ReferenceTypeCode !=null ? new ReferenceTypePM(entity.ReferenceTypeCode) : null;
-			_partnerId = entity.PartnerId;
-		_card = entity.Card !=null ? new CardPM(entity.Card) : null;
-			_referenceValue = entity.ReferenceValue;
-   }
    #endregion Constructors
    #region Properties
    	  private string _shipmentId ;

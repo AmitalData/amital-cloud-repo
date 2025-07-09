@@ -5,216 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class AgentSharedLogisticsKeyDataMapping: IMapping<AgentSharedLogisticsKeyPM, POCO.AgentSharedLogisticsKey  ,AgentSharedLogisticsKeyList >,IMappingEncodeBase64NVARCHARFields<AgentSharedLogisticsKeyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         CdropSharedkey, 
-	         Agent1Tenant, 
-	         Agent2Tenant, 
-	         CreateDate, 
-	         CdropCreatedbyuseremail, 
-	         CdropApprovedbyuseremail, 
-	         ApproveDate, 
-	         InactiveDate, 
-	         CdropInactivebyuseremail, 
-	         CdropStatuscode, 
-	         SharedKey, 
-	         CreatedByUserEmail, 
-	         ApprovedByUserEmail, 
-	         InactiveByUserEmail, 
-	         StatusCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         CdropSharedkey, 
-	         Agent1Tenant, 
-	         Agent2Tenant, 
-	         CreateDate, 
-	         CdropCreatedbyuseremail, 
-	         CdropApprovedbyuseremail, 
-	         ApproveDate, 
-	         InactiveDate, 
-	         CdropInactivebyuseremail, 
-	         CdropStatuscode, 
-	         SharedKey, 
-	         CreatedByUserEmail, 
-	         ApprovedByUserEmail, 
-	         InactiveByUserEmail, 
-	         StatusCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AgentSharedLogisticsKeyPM entityPM, POCO.AgentSharedLogisticsKey entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropSharedkey)) { entityPOCO.CdropSharedkey = entityPM.CdropSharedkey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Agent1Tenant)) { entityPOCO.Agent1Tenant = entityPM.Agent1Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Agent2Tenant)) { entityPOCO.Agent2Tenant = entityPM.Agent2Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropCreatedbyuseremail)) { entityPOCO.CdropCreatedbyuseremail = entityPM.CdropCreatedbyuseremail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropApprovedbyuseremail)) { entityPOCO.CdropApprovedbyuseremail = entityPM.CdropApprovedbyuseremail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ApproveDate)) { entityPOCO.ApproveDate = entityPM.ApproveDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InactiveDate)) { entityPOCO.InactiveDate = entityPM.InactiveDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropInactivebyuseremail)) { entityPOCO.CdropInactivebyuseremail = entityPM.CdropInactivebyuseremail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropStatuscode)) { entityPOCO.CdropStatuscode = entityPM.CdropStatuscode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserEmail)) { entityPOCO.CreatedByUserEmail = entityPM.CreatedByUserEmail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ApprovedByUserEmail)) { entityPOCO.ApprovedByUserEmail = entityPM.ApprovedByUserEmail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InactiveByUserEmail)) { entityPOCO.InactiveByUserEmail = entityPM.InactiveByUserEmail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode)) { entityPOCO.StatusCode = entityPM.StatusCode;}
-					}
-		public void POCOToPM(AgentSharedLogisticsKeyPM entityPM, POCO.AgentSharedLogisticsKey entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropSharedkey))
-            {
-					entityPM.CdropSharedkey = entityPOCO.CdropSharedkey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Agent1Tenant))
-            {
-					entityPM.Agent1Tenant = entityPOCO.Agent1Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Agent2Tenant))
-            {
-					entityPM.Agent2Tenant = entityPOCO.Agent2Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropCreatedbyuseremail))
-            {
-					entityPM.CdropCreatedbyuseremail = entityPOCO.CdropCreatedbyuseremail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropApprovedbyuseremail))
-            {
-					entityPM.CdropApprovedbyuseremail = entityPOCO.CdropApprovedbyuseremail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ApproveDate))
-            {
-					entityPM.ApproveDate = entityPOCO.ApproveDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InactiveDate))
-            {
-					entityPM.InactiveDate = entityPOCO.InactiveDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropInactivebyuseremail))
-            {
-					entityPM.CdropInactivebyuseremail = entityPOCO.CdropInactivebyuseremail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropStatuscode))
-            {
-					entityPM.CdropStatuscode = entityPOCO.CdropStatuscode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SharedKey))
-            {
-					entityPM.SharedKey = entityPOCO.SharedKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserEmail))
-            {
-					entityPM.CreatedByUserEmail = entityPOCO.CreatedByUserEmail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ApprovedByUserEmail))
-            {
-					entityPM.ApprovedByUserEmail = entityPOCO.ApprovedByUserEmail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InactiveByUserEmail))
-            {
-					entityPM.InactiveByUserEmail = entityPOCO.InactiveByUserEmail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StatusCode))
-            {
-					entityPM.StatusCode = entityPOCO.StatusCode;
-            }
-		}
-		public void PMToOldPM(AgentSharedLogisticsKeyPM entityPM, AgentSharedLogisticsKeyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropSharedkey))
-            {
-                oldEntityPM.CdropSharedkey = entityPM.CdropSharedkey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Agent1Tenant))
-            {
-                oldEntityPM.Agent1Tenant = entityPM.Agent1Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Agent2Tenant))
-            {
-                oldEntityPM.Agent2Tenant = entityPM.Agent2Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropCreatedbyuseremail))
-            {
-                oldEntityPM.CdropCreatedbyuseremail = entityPM.CdropCreatedbyuseremail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropApprovedbyuseremail))
-            {
-                oldEntityPM.CdropApprovedbyuseremail = entityPM.CdropApprovedbyuseremail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ApproveDate))
-            {
-                oldEntityPM.ApproveDate = entityPM.ApproveDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InactiveDate))
-            {
-                oldEntityPM.InactiveDate = entityPM.InactiveDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropInactivebyuseremail))
-            {
-                oldEntityPM.CdropInactivebyuseremail = entityPM.CdropInactivebyuseremail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropStatuscode))
-            {
-                oldEntityPM.CdropStatuscode = entityPM.CdropStatuscode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserEmail))
-            {
-                oldEntityPM.CreatedByUserEmail = entityPM.CreatedByUserEmail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ApprovedByUserEmail))
-            {
-                oldEntityPM.ApprovedByUserEmail = entityPM.ApprovedByUserEmail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InactiveByUserEmail))
-            {
-                oldEntityPM.InactiveByUserEmail = entityPM.InactiveByUserEmail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode))
-            {
-                oldEntityPM.StatusCode = entityPM.StatusCode;
-            }
-					}
-		public void POCOToList(POCO.AgentSharedLogisticsKey entityPOCO, AgentSharedLogisticsKeyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AgentSharedLogisticsKeyList> GetIqueryableList(IQueryable<POCO.AgentSharedLogisticsKey> iQueryable)
-		{
-			IQueryable<AgentSharedLogisticsKeyList> query = (from a in iQueryable
-                                            select new AgentSharedLogisticsKeyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(AgentSharedLogisticsKeyPM entityPM)
+    public partial class AgentSharedLogisticsKeyDataMapping: BaseMappingProfile<AgentSharedLogisticsKeyPM, POCO.AgentSharedLogisticsKey>, IMapping<AgentSharedLogisticsKeyPM, POCO.AgentSharedLogisticsKey, AgentSharedLogisticsKeyList >,IMappingEncodeBase64NVARCHARFields<AgentSharedLogisticsKeyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(AgentSharedLogisticsKeyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -242,14 +45,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

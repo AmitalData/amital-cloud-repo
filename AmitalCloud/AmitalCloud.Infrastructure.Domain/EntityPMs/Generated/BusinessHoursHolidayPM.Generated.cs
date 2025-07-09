@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BusinessHoursHolidayPM : BaseEntityPM   {
    #region Constructors
    public BusinessHoursHolidayPM() : base() {} 
-   public BusinessHoursHolidayPM(POCO.BusinessHoursHoliday entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_businessHourId = entity.BusinessHourId;
-		_businesshour = entity.BusinessHour !=null ? new BusinessHourPM(entity.BusinessHour) : null;
-			_day = entity.Day;
-		_month = entity.Month;
-		_year = entity.Year;
-		_holidayName = entity.HolidayName;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_isRecurring = entity.IsRecurring;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_inactive = entity.Inactive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

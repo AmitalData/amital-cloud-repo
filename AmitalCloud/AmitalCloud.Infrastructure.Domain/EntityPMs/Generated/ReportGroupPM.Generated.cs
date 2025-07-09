@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ReportGroupPM : BaseEntityPM   {
    #region Constructors
    public ReportGroupPM() : base() {} 
-   public ReportGroupPM(POCO.ReportGroup entity) : base()
-   {
-		_dropCdropId = entity.DropCdropId;
-		_tenant = entity.Tenant;
-		_orderNumber = entity.OrderNumber;
-		_id = entity.Id;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		reports = entity.Reports != null ? entity.Reports.Select(a=>new ReportPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _dropCdropId ;

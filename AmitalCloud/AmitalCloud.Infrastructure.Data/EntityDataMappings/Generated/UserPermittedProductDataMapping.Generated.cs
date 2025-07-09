@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class UserPermittedProductDataMapping: IMapping<UserPermittedProductPM, POCO.UserPermittedProduct  ,UserPermittedProductList >,IMappingEncodeBase64NVARCHARFields<UserPermittedProductPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         CdropId, 
-	         Tenant, 
-	         UserId, 
-	         ProductTypeCode, 
-	         Id,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         CdropId, 
-	         Tenant, 
-	         UserId, 
-	         ProductTypeCode, 
-	         Id,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(UserPermittedProductPM entityPM, POCO.UserPermittedProduct entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropId)) { entityPOCO.CdropId = entityPM.CdropId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId)) { entityPOCO.UserId = entityPM.UserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode)) { entityPOCO.ProductTypeCode = entityPM.ProductTypeCode;}
-					}
-		public void POCOToPM(UserPermittedProductPM entityPM, POCO.UserPermittedProduct entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropId))
-            {
-					entityPM.CdropId = entityPOCO.CdropId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UserId))
-            {
-					entityPM.UserId = entityPOCO.UserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProductTypeCode))
-            {
-					entityPM.ProductTypeCode = entityPOCO.ProductTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-		}
-		public void PMToOldPM(UserPermittedProductPM entityPM, UserPermittedProductPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropId))
-            {
-                oldEntityPM.CdropId = entityPM.CdropId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId))
-            {
-                oldEntityPM.UserId = entityPM.UserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode))
-            {
-                oldEntityPM.ProductTypeCode = entityPM.ProductTypeCode;
-            }
-					}
-		public void POCOToList(POCO.UserPermittedProduct entityPOCO, UserPermittedProductList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<UserPermittedProductList> GetIqueryableList(IQueryable<POCO.UserPermittedProduct> iQueryable)
-		{
-			IQueryable<UserPermittedProductList> query = (from a in iQueryable
-                                            select new UserPermittedProductList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(UserPermittedProductPM entityPM)
+    public partial class UserPermittedProductDataMapping: BaseMappingProfile<UserPermittedProductPM, POCO.UserPermittedProduct>, IMapping<UserPermittedProductPM, POCO.UserPermittedProduct, UserPermittedProductList >,IMappingEncodeBase64NVARCHARFields<UserPermittedProductPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(UserPermittedProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -116,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

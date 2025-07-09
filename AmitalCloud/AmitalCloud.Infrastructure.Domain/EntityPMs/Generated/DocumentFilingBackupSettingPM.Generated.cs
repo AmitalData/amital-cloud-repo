@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentFilingBackupSettingPM : BaseEntityPM   {
    #region Constructors
    public DocumentFilingBackupSettingPM() : base() {} 
-   public DocumentFilingBackupSettingPM(POCO.DocumentFilingBackupSetting entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_activationDate = entity.ActivationDate;
-		_deactivationDate = entity.DeactivationDate;
-		_isActive = entity.IsActive;
-		_fTPDetailId = entity.FTPDetailId;
-		_id = entity.Id !=null ? new FTPDetailPM(entity.Id) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

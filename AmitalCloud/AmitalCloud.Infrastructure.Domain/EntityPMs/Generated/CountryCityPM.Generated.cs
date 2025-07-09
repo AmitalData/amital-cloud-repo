@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CountryCityPM : BaseEntityPM   {
    #region Constructors
    public CountryCityPM() : base() {} 
-   public CountryCityPM(POCO.CountryCity entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_countryId = entity.CountryId;
-		_inActive = entity.InActive;
-		_addedManually = entity.AddedManually;
-		_searchFields = entity.SearchFields;
-		_notes = entity.Notes;
-		_code = entity.Code;
-		_stateId = entity.StateId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

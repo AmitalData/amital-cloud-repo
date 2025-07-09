@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MultiEntityUpdateLogPM : BaseEntityPM   {
    #region Constructors
    public MultiEntityUpdateLogPM() : base() {} 
-   public MultiEntityUpdateLogPM(POCO.MultiEntityUpdateLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_statusCode = entity.StatusCode;
-		_exceptionMessage = entity.ExceptionMessage;
-		_doneDate = entity.DoneDate;
-		_xMLData = entity.XMLData;
-		_objectTableId = entity.ObjectTableId;
-		_retryNumber = entity.RetryNumber;
-		_startDate = entity.StartDate;
-		_updatedEntitiesNumber = entity.UpdatedEntitiesNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

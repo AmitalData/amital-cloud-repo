@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AccountTypePM : BaseEntityPM   {
    #region Constructors
    public AccountTypePM() : base() {} 
-   public AccountTypePM(POCO.AccountType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

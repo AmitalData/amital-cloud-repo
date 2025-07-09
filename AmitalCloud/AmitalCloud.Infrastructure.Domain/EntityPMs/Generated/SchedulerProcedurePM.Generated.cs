@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SchedulerProcedurePM : BaseEntityPM   {
    #region Constructors
    public SchedulerProcedurePM() : base() {} 
-   public SchedulerProcedurePM(POCO.SchedulerProcedure entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_description = entity.Description;
-		_isInternallyDefined = entity.IsInternallyDefined;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -11,6 +11,8 @@ using System.Linq;
 using System.Transactions;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Linq.Expressions;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class FeatureQuery
@@ -35,7 +37,11 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 List<PackageFeature> allPackageFeatures = new List<PackageFeature>();
 
                 #region allFeatures
-                allFeatures = repository.GetMulti(a => a.Tenant == 0 || a.Tenant == tenant, a => new FeaturePM(a)).ToList();
+                var allFeaturesPoco = repository.GetMulti(a => a.Tenant == 0 || a.Tenant == tenant).ToList();
+
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()));
+                var mapper = config.CreateMapper();
+                allFeatures = mapper.Map<List<FeaturePM>>(allFeaturesPoco);
                 #endregion
 
                 #region allRoleFeatures

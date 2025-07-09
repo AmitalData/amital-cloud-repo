@@ -5,164 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class CustomsTransferHeaderDataMapping: IMapping<CustomsTransferHeaderPM, POCO.CustomsTransferHeader  ,CustomsTransferHeaderList >,IMappingEncodeBase64NVARCHARFields<CustomsTransferHeaderPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreatedByUserId, 
-	         SearchFields, 
-	         TransferNumber, 
-	         TransferDate, 
-	         FileName, 
-	         CustomsTransferTypeCode, 
-	         Notes, 
-	         ShipmentNumber,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreatedByUserId, 
-	         SearchFields, 
-	         TransferNumber, 
-	         TransferDate, 
-	         FileName, 
-	         CustomsTransferTypeCode, 
-	         CustomsTransferTypeName, 
-	         Notes, 
-	         CreatedByUserName, 
-	         ShipmentNumber,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomsTransferHeaderPM entityPM, POCO.CustomsTransferHeader entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId)) { entityPOCO.CreatedByUserId = entityPM.CreatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferNumber)) { entityPOCO.TransferNumber = entityPM.TransferNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferDate)) { entityPOCO.TransferDate = entityPM.TransferDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName)) { entityPOCO.FileName = entityPM.FileName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomsTransferTypeCode)) { entityPOCO.CustomsTransferTypeCode = entityPM.CustomsTransferTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentNumber)) { entityPOCO.ShipmentNumber = entityPM.ShipmentNumber;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(CustomsTransferHeaderPM entityPM, POCO.CustomsTransferHeader entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserId))
-            {
-					entityPM.CreatedByUserId = entityPOCO.CreatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransferNumber))
-            {
-					entityPM.TransferNumber = entityPOCO.TransferNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransferDate))
-            {
-					entityPM.TransferDate = entityPOCO.TransferDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FileName))
-            {
-					entityPM.FileName = entityPOCO.FileName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomsTransferTypeCode))
-            {
-					entityPM.CustomsTransferTypeCode = entityPOCO.CustomsTransferTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShipmentNumber))
-            {
-					entityPM.ShipmentNumber = entityPOCO.ShipmentNumber;
-            }
-		}
-		public void PMToOldPM(CustomsTransferHeaderPM entityPM, CustomsTransferHeaderPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId))
-            {
-                oldEntityPM.CreatedByUserId = entityPM.CreatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferNumber))
-            {
-                oldEntityPM.TransferNumber = entityPM.TransferNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransferDate))
-            {
-                oldEntityPM.TransferDate = entityPM.TransferDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName))
-            {
-                oldEntityPM.FileName = entityPM.FileName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomsTransferTypeCode))
-            {
-                oldEntityPM.CustomsTransferTypeCode = entityPM.CustomsTransferTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentNumber))
-            {
-                oldEntityPM.ShipmentNumber = entityPM.ShipmentNumber;
-            }
-					}
-		public void POCOToList(POCO.CustomsTransferHeader entityPOCO, CustomsTransferHeaderList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomsTransferHeaderList> GetIqueryableList(IQueryable<POCO.CustomsTransferHeader> iQueryable)
-		{
-			IQueryable<CustomsTransferHeaderList> query = (from a in iQueryable
-                                            select new CustomsTransferHeaderList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CustomsTransferHeaderPM entityPM)
+    public partial class CustomsTransferHeaderDataMapping: BaseMappingProfile<CustomsTransferHeaderPM, POCO.CustomsTransferHeader>, IMapping<CustomsTransferHeaderPM, POCO.CustomsTransferHeader, CustomsTransferHeaderList >,IMappingEncodeBase64NVARCHARFields<CustomsTransferHeaderPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CustomsTransferHeaderPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -182,20 +37,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(CustomsTransferHeaderPM entityPM, POCO.CustomsTransferHeader entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

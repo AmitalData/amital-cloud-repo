@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CardExternalCodeByCurrencyPM : BaseEntityPM   {
    #region Constructors
    public CardExternalCodeByCurrencyPM() : base() {} 
-   public CardExternalCodeByCurrencyPM(POCO.CardExternalCodeByCurrency entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_cardId = entity.CardId;
-		_currencyId = entity.CurrencyId;
-		_currency = entity.Currency !=null ? new CurrencyPM(entity.Currency) : null;
-			_externalRecievableTableId = entity.ExternalRecievableTableId;
-		_externalPayableTableId = entity.ExternalPayableTableId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,13 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class SATPaymentMethodPM : BaseEntityPM   {
    #region Constructors
    public SATPaymentMethodPM() : base() {} 
-   public SATPaymentMethodPM(POCO.SATPaymentMethod entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_localName = entity.LocalName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

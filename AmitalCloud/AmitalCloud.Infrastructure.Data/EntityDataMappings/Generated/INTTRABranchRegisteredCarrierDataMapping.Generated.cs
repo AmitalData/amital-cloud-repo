@@ -5,117 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class INTTRABranchRegisteredCarrierDataMapping: IMapping<INTTRABranchRegisteredCarrierPM, POCO.INTTRABranchRegisteredCarrier  ,INTTRABranchRegisteredCarrierList >,IMappingEncodeBase64NVARCHARFields<INTTRABranchRegisteredCarrierPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         ShippingLineId, 
-	         BranchId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         ShippingLineId, 
-	         BranchId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(INTTRABranchRegisteredCarrierPM entityPM, POCO.INTTRABranchRegisteredCarrier entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShippingLineId)) { entityPOCO.ShippingLineId = entityPM.ShippingLineId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BranchId)) { entityPOCO.BranchId = entityPM.BranchId;}
-					}
-		public void POCOToPM(INTTRABranchRegisteredCarrierPM entityPM, POCO.INTTRABranchRegisteredCarrier entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShippingLineId))
-            {
-					entityPM.ShippingLineId = entityPOCO.ShippingLineId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BranchId))
-            {
-					entityPM.BranchId = entityPOCO.BranchId;
-            }
-		}
-		public void PMToOldPM(INTTRABranchRegisteredCarrierPM entityPM, INTTRABranchRegisteredCarrierPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShippingLineId))
-            {
-                oldEntityPM.ShippingLineId = entityPM.ShippingLineId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BranchId))
-            {
-                oldEntityPM.BranchId = entityPM.BranchId;
-            }
-					}
-		public void POCOToList(POCO.INTTRABranchRegisteredCarrier entityPOCO, INTTRABranchRegisteredCarrierList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<INTTRABranchRegisteredCarrierList> GetIqueryableList(IQueryable<POCO.INTTRABranchRegisteredCarrier> iQueryable)
-		{
-			IQueryable<INTTRABranchRegisteredCarrierList> query = (from a in iQueryable
-                                            select new INTTRABranchRegisteredCarrierList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(INTTRABranchRegisteredCarrierPM entityPM)
+    public partial class INTTRABranchRegisteredCarrierDataMapping: BaseMappingProfile<INTTRABranchRegisteredCarrierPM, POCO.INTTRABranchRegisteredCarrier>, IMapping<INTTRABranchRegisteredCarrierPM, POCO.INTTRABranchRegisteredCarrier, INTTRABranchRegisteredCarrierList >,IMappingEncodeBase64NVARCHARFields<INTTRABranchRegisteredCarrierPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(INTTRABranchRegisteredCarrierPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -123,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

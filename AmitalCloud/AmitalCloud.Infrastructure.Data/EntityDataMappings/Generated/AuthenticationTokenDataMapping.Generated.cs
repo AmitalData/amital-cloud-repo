@@ -5,183 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class AuthenticationTokenDataMapping: IMapping<AuthenticationTokenPM, POCO.AuthenticationToken  ,AuthenticationTokenList >,IMappingEncodeBase64NVARCHARFields<AuthenticationTokenPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Token, 
-	         Tenant, 
-	         Email, 
-	         Password, 
-	         CreateDate, 
-	         APIToken, 
-	         APICredentialID, 
-	         ClientType, 
-	         InActive, 
-	         InActiveReason, 
-	         ExpirationDate, 
-	         InActiveDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Token, 
-	         Tenant, 
-	         Email, 
-	         Password, 
-	         CreateDate, 
-	         APIToken, 
-	         APICredentialID, 
-	         ClientType, 
-	         InActive, 
-	         InActiveReason, 
-	         ExpirationDate, 
-	         InActiveDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AuthenticationTokenPM entityPM, POCO.AuthenticationToken entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Password)) { entityPOCO.Password = entityPM.Password;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APIToken)) { entityPOCO.APIToken = entityPM.APIToken;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APICredentialID)) { entityPOCO.APICredentialID = entityPM.APICredentialID;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClientType)) { entityPOCO.ClientType = entityPM.ClientType;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActiveReason)) { entityPOCO.InActiveReason = entityPM.InActiveReason;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExpirationDate)) { entityPOCO.ExpirationDate = entityPM.ExpirationDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActiveDate)) { entityPOCO.InActiveDate = entityPM.InActiveDate;}
-					}
-		public void POCOToPM(AuthenticationTokenPM entityPM, POCO.AuthenticationToken entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Token))
-            {
-					entityPM.Token = entityPOCO.Token;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Password))
-            {
-					entityPM.Password = entityPOCO.Password;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.APIToken))
-            {
-					entityPM.APIToken = entityPOCO.APIToken;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.APICredentialID))
-            {
-					entityPM.APICredentialID = entityPOCO.APICredentialID;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ClientType))
-            {
-					entityPM.ClientType = entityPOCO.ClientType;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActiveReason))
-            {
-					entityPM.InActiveReason = entityPOCO.InActiveReason;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExpirationDate))
-            {
-					entityPM.ExpirationDate = entityPOCO.ExpirationDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActiveDate))
-            {
-					entityPM.InActiveDate = entityPOCO.InActiveDate;
-            }
-		}
-		public void PMToOldPM(AuthenticationTokenPM entityPM, AuthenticationTokenPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Password))
-            {
-                oldEntityPM.Password = entityPM.Password;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APIToken))
-            {
-                oldEntityPM.APIToken = entityPM.APIToken;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APICredentialID))
-            {
-                oldEntityPM.APICredentialID = entityPM.APICredentialID;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ClientType))
-            {
-                oldEntityPM.ClientType = entityPM.ClientType;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActiveReason))
-            {
-                oldEntityPM.InActiveReason = entityPM.InActiveReason;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExpirationDate))
-            {
-                oldEntityPM.ExpirationDate = entityPM.ExpirationDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActiveDate))
-            {
-                oldEntityPM.InActiveDate = entityPM.InActiveDate;
-            }
-					}
-		public void POCOToList(POCO.AuthenticationToken entityPOCO, AuthenticationTokenList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AuthenticationTokenList> GetIqueryableList(IQueryable<POCO.AuthenticationToken> iQueryable)
-		{
-			IQueryable<AuthenticationTokenList> query = (from a in iQueryable
-                                            select new AuthenticationTokenList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(AuthenticationTokenPM entityPM)
+    public partial class AuthenticationTokenDataMapping: BaseMappingProfile<AuthenticationTokenPM, POCO.AuthenticationToken>, IMapping<AuthenticationTokenPM, POCO.AuthenticationToken, AuthenticationTokenList >,IMappingEncodeBase64NVARCHARFields<AuthenticationTokenPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(AuthenticationTokenPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -189,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

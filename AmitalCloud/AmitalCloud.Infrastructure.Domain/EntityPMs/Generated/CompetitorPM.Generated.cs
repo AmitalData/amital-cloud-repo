@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CompetitorPM : BaseEntityPM   {
    #region Constructors
    public CompetitorPM() : base() {} 
-   public CompetitorPM(POCO.Competitor entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_website = entity.Website;
-		_strengths = entity.Strengths;
-		_weaknesses = entity.Weaknesses;
-		_opportunity = entity.Opportunity;
-		_threat = entity.Threat;
-		_addressId = entity.AddressId;
-		_address = entity.Address !=null ? new AddressPM(entity.Address) : null;
-			_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

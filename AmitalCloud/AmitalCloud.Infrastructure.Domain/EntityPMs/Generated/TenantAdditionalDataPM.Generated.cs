@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantAdditionalDataPM : BaseEntityPM   {
    #region Constructors
    public TenantAdditionalDataPM() : base() {} 
-   public TenantAdditionalDataPM(POCO.TenantAdditionalData entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_dropBoxAccessToken = entity.DropBoxAccessToken;
-		_dropBoxState = entity.DropBoxState;
-		_dropBoxUID = entity.DropBoxUID;
-		_dropBoxUEmail = entity.DropBoxUEmail;
-		_paymentGatewayPartnerCode = entity.PaymentGatewayPartnerCode;
-		_paymentgatewaypartner = entity.PaymentGatewayPartner !=null ? new PaymentGatewayPartnerPM(entity.PaymentGatewayPartner) : null;
-			_paymentGatewayConnectionString = entity.PaymentGatewayConnectionString;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

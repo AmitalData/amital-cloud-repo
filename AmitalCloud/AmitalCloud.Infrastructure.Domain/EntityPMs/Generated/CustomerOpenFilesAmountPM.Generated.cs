@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerOpenFilesAmountPM : BaseEntityPM   {
    #region Constructors
    public CustomerOpenFilesAmountPM() : base() {} 
-   public CustomerOpenFilesAmountPM(POCO.CustomerOpenFilesAmount entity) : base()
-   {
-		_customerId = entity.CustomerId;
-		_totalOpenFilesAmount = entity.TotalOpenFilesAmount;
-		_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _customerId ;

@@ -5,84 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class QueueDefinitionDataMapping: IMapping<QueueDefinitionPM, POCO.QueueDefinition  ,QueueDefinitionList >,IMappingEncodeBase64NVARCHARFields<QueueDefinitionPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         DuplicateMessagesAutoRemove,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         DuplicateMessagesAutoRemove,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(QueueDefinitionPM entityPM, POCO.QueueDefinition entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DuplicateMessagesAutoRemove)) { entityPOCO.DuplicateMessagesAutoRemove = entityPM.DuplicateMessagesAutoRemove;}
-					}
-		public void POCOToPM(QueueDefinitionPM entityPM, POCO.QueueDefinition entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DuplicateMessagesAutoRemove))
-            {
-					entityPM.DuplicateMessagesAutoRemove = entityPOCO.DuplicateMessagesAutoRemove;
-            }
-		}
-		public void PMToOldPM(QueueDefinitionPM entityPM, QueueDefinitionPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DuplicateMessagesAutoRemove))
-            {
-                oldEntityPM.DuplicateMessagesAutoRemove = entityPM.DuplicateMessagesAutoRemove;
-            }
-					}
-		public void POCOToList(POCO.QueueDefinition entityPOCO, QueueDefinitionList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<QueueDefinitionList> GetIqueryableList(IQueryable<POCO.QueueDefinition> iQueryable)
-		{
-			IQueryable<QueueDefinitionList> query = (from a in iQueryable
-                                            select new QueueDefinitionList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(QueueDefinitionPM entityPM)
+    public partial class QueueDefinitionDataMapping: BaseMappingProfile<QueueDefinitionPM, POCO.QueueDefinition>, IMapping<QueueDefinitionPM, POCO.QueueDefinition, QueueDefinitionList >,IMappingEncodeBase64NVARCHARFields<QueueDefinitionPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(QueueDefinitionPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -90,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

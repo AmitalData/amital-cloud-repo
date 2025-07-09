@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class OneTimePasswordPM : BaseEntityPM   {
    #region Constructors
    public OneTimePasswordPM() : base() {} 
-   public OneTimePasswordPM(POCO.OneTimePassword entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_userId = entity.UserId;
-		_userEmail = entity.UserEmail;
-		_createDate = entity.CreateDate;
-		_usageDate = entity.UsageDate;
-		_expirationDate = entity.ExpirationDate;
-		_isUsed = entity.IsUsed;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

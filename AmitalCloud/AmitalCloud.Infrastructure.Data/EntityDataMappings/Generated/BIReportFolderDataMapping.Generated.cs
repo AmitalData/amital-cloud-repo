@@ -5,186 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class BIReportFolderDataMapping: IMapping<BIReportFolderPM, POCO.BIReportFolder  ,BIReportFolderList >,IMappingEncodeBase64NVARCHARFields<BIReportFolderPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         SearchFields, 
-	         Name, 
-	         Description, 
-	         Index, 
-	         PermissionForAll, 
-	         PermittedByUserId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CreateDate, 
-	         CreatedByUserId, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         SearchFields, 
-	         Name, 
-	         Description, 
-	         Index, 
-	         CreatedByUserName, 
-	         UpdatedByUserName, 
-	         PermissionForAll, 
-	         PermittedByUserId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(BIReportFolderPM entityPM, POCO.BIReportFolder entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId)) { entityPOCO.CreatedByUserId = entityPM.CreatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description)) { entityPOCO.Description = entityPM.Description;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Index)) { entityPOCO.Index = entityPM.Index;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PermissionForAll)) { entityPOCO.PermissionForAll = entityPM.PermissionForAll;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PermittedByUserId)) { entityPOCO.PermittedByUserId = entityPM.PermittedByUserId;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(BIReportFolderPM entityPM, POCO.BIReportFolder entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserId))
-            {
-					entityPM.CreatedByUserId = entityPOCO.CreatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Description))
-            {
-					entityPM.Description = entityPOCO.Description;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Index))
-            {
-					entityPM.Index = entityPOCO.Index;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PermissionForAll))
-            {
-					entityPM.PermissionForAll = entityPOCO.PermissionForAll;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PermittedByUserId))
-            {
-					entityPM.PermittedByUserId = entityPOCO.PermittedByUserId;
-            }
-		}
-		public void PMToOldPM(BIReportFolderPM entityPM, BIReportFolderPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId))
-            {
-                oldEntityPM.CreatedByUserId = entityPM.CreatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Description))
-            {
-                oldEntityPM.Description = entityPM.Description;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Index))
-            {
-                oldEntityPM.Index = entityPM.Index;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PermissionForAll))
-            {
-                oldEntityPM.PermissionForAll = entityPM.PermissionForAll;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PermittedByUserId))
-            {
-                oldEntityPM.PermittedByUserId = entityPM.PermittedByUserId;
-            }
-					}
-		public void POCOToList(POCO.BIReportFolder entityPOCO, BIReportFolderList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<BIReportFolderList> GetIqueryableList(IQueryable<POCO.BIReportFolder> iQueryable)
-		{
-			IQueryable<BIReportFolderList> query = (from a in iQueryable
-                                            select new BIReportFolderList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(BIReportFolderPM entityPM)
+    public partial class BIReportFolderDataMapping: BaseMappingProfile<BIReportFolderPM, POCO.BIReportFolder>, IMapping<BIReportFolderPM, POCO.BIReportFolder, BIReportFolderList >,IMappingEncodeBase64NVARCHARFields<BIReportFolderPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(BIReportFolderPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -196,20 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(BIReportFolderPM entityPM, POCO.BIReportFolder entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

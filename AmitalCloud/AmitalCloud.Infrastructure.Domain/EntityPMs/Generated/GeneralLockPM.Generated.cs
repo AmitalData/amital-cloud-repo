@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class GeneralLockPM : BaseEntityPM   {
    #region Constructors
    public GeneralLockPM() : base() {} 
-   public GeneralLockPM(POCO.GeneralLock entity) : base()
-   {
-		_dropCdropGeneralkey = entity.DropCdropGeneralkey;
-		_tenant = entity.Tenant;
-		_createdAt = entity.CreatedAt;
-		_generalKey = entity.GeneralKey;
-		_searchfields = entity.Searchfields;
-		_entityid1 = entity.Entityid1;
-		_objecttableid1 = entity.Objecttableid1;
-		_entityid2 = entity.Entityid2;
-		_objecttableid2 = entity.Objecttableid2;
-		_objecttableid2objecttable = entity.Objecttableid2ObjectTable !=null ? new ObjectTablePM(entity.Objecttableid2ObjectTable) : null;
-			_userid = entity.Userid;
-		_sessionid = entity.Sessionid;
-   }
    #endregion Constructors
    #region Properties
    	  private string _dropCdropGeneralkey ;

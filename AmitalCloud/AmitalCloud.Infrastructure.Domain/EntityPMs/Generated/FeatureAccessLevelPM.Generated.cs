@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FeatureAccessLevelPM : BaseEntityPM   {
    #region Constructors
    public FeatureAccessLevelPM() : base() {} 
-   public FeatureAccessLevelPM(POCO.FeatureAccessLevel entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

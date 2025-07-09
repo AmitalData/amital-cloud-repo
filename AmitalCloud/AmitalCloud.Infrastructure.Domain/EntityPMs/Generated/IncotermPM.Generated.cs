@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class IncotermPM : BaseEntityPM   {
    #region Constructors
    public IncotermPM() : base() {} 
-   public IncotermPM(POCO.Incoterm entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-		_freight = entity.Freight;
-		_freightprepaidcollect = entity.FreightPrepaidCollect !=null ? new PrepaidCollectPM(entity.FreightPrepaidCollect) : null;
-			_otherCharges = entity.OtherCharges;
-		_otherchargesprepaidcollect = entity.OtherChargesPrepaidCollect !=null ? new PrepaidCollectPM(entity.OtherChargesPrepaidCollect) : null;
-			_addedManually = entity.AddedManually;
-		_inActive = entity.InActive;
-		_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DocumentsFilingMetaDataValueDataMapping: IMapping<DocumentsFilingMetaDataValuePM, POCO.DocumentsFilingMetaDataValue  ,DocumentsFilingMetaDataValueList >,IMappingEncodeBase64NVARCHARFields<DocumentsFilingMetaDataValuePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DocumentsFilingId, 
-	         DocumentsMetaDataTypeId, 
-	         MetaDataValue,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DocumentsFilingId, 
-	         DocumentsMetaDataTypeId, 
-	         MetaDataValue,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DocumentsFilingMetaDataValuePM entityPM, POCO.DocumentsFilingMetaDataValue entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentsFilingId)) { entityPOCO.DocumentsFilingId = entityPM.DocumentsFilingId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentsMetaDataTypeId)) { entityPOCO.DocumentsMetaDataTypeId = entityPM.DocumentsMetaDataTypeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MetaDataValue)) { entityPOCO.MetaDataValue = entityPM.MetaDataValue;}
-					}
-		public void POCOToPM(DocumentsFilingMetaDataValuePM entityPM, POCO.DocumentsFilingMetaDataValue entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentsFilingId))
-            {
-					entityPM.DocumentsFilingId = entityPOCO.DocumentsFilingId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentsMetaDataTypeId))
-            {
-					entityPM.DocumentsMetaDataTypeId = entityPOCO.DocumentsMetaDataTypeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MetaDataValue))
-            {
-					entityPM.MetaDataValue = entityPOCO.MetaDataValue;
-            }
-		}
-		public void PMToOldPM(DocumentsFilingMetaDataValuePM entityPM, DocumentsFilingMetaDataValuePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentsFilingId))
-            {
-                oldEntityPM.DocumentsFilingId = entityPM.DocumentsFilingId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentsMetaDataTypeId))
-            {
-                oldEntityPM.DocumentsMetaDataTypeId = entityPM.DocumentsMetaDataTypeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MetaDataValue))
-            {
-                oldEntityPM.MetaDataValue = entityPM.MetaDataValue;
-            }
-					}
-		public void POCOToList(POCO.DocumentsFilingMetaDataValue entityPOCO, DocumentsFilingMetaDataValueList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DocumentsFilingMetaDataValueList> GetIqueryableList(IQueryable<POCO.DocumentsFilingMetaDataValue> iQueryable)
-		{
-			IQueryable<DocumentsFilingMetaDataValueList> query = (from a in iQueryable
-                                            select new DocumentsFilingMetaDataValueList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(DocumentsFilingMetaDataValuePM entityPM)
+    public partial class DocumentsFilingMetaDataValueDataMapping: BaseMappingProfile<DocumentsFilingMetaDataValuePM, POCO.DocumentsFilingMetaDataValue>, IMapping<DocumentsFilingMetaDataValuePM, POCO.DocumentsFilingMetaDataValue, DocumentsFilingMetaDataValueList >,IMappingEncodeBase64NVARCHARFields<DocumentsFilingMetaDataValuePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(DocumentsFilingMetaDataValuePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -116,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

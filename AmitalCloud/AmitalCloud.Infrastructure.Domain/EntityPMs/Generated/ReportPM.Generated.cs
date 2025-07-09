@@ -27,34 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ReportPM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public ReportPM() : base() {} 
-   public ReportPM(POCO.Report entity) : base()
-   {
-		_reportGroupId = entity.ReportGroupId;
-		_reportgroup = entity.ReportGroup !=null ? new ReportGroupPM(entity.ReportGroup) : null;
-			_featureId = entity.FeatureId;
-		_reportDocumentId = entity.ReportDocumentId;
-		_reportdocument = entity.ReportDocument !=null ? new DocumentPM(entity.ReportDocument) : null;
-			_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_filterControlName = entity.FilterControlName;
-		_description = entity.Description;
-		_searchFields = entity.SearchFields;
-		_code = entity.Code;
-		_inActive = entity.InActive;
-		_defaultTemplateId = entity.DefaultTemplateId;
-		_reportstemplate = entity.ReportsTemplate !=null ? new ReportsTemplatePM(entity.ReportsTemplate) : null;
-			_defaultMessageTemplateId = entity.DefaultMessageTemplateId;
-		_reportstemplatedefaultmessage = entity.ReportsTemplateDefaultMessage !=null ? new ReportsTemplatePM(entity.ReportsTemplateDefaultMessage) : null;
-			_localName = entity.LocalName;
-		_filterHtmlComponentUrl = entity.FilterHtmlComponentUrl;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-		_availableForScheduling = entity.AvailableForScheduling;
-		_disablePreview = entity.DisablePreview;
-		_defaultExcelTemplateId = entity.DefaultExcelTemplateId;
-		_reportstemplatedefaultexcel = entity.ReportsTemplateDefaultExcel !=null ? new ReportsTemplatePM(entity.ReportsTemplateDefaultExcel) : null;
-			_isExcelReportAllowed = entity.IsExcelReportAllowed;
-   }
    #endregion Constructors
    #region Properties
    	  private string _reportGroupId ;
@@ -97,6 +69,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private FeaturePM _feature;
+		
+        [DataMember]
+        public virtual FeaturePM Feature 
+		{ 
+		get { return _feature; } 
+		set { _feature = value; }
+		}
 	  private string _reportDocumentId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

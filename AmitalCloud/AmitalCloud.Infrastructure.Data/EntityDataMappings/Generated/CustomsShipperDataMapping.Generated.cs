@@ -5,134 +5,20 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using AmitalCloud.Infrastructure.Data.Services;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CustomsShipperDataMapping: IMapping<CustomsShipperPM, POCO.CustomsShipper  ,CustomsShipperList >,IMappingEncodeBase64NVARCHARFields<CustomsShipperPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         CustomsShipperCode, 
-	         ValidDepositionNumber, 
-	         ValidityStartDate, 
-	         ValidityEndDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         CustomsShipperCode, 
-	         ValidDepositionNumber, 
-	         ValidityStartDate, 
-	         ValidityEndDate, 
-	         EnglishName, 
-	         ShipperVAT,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomsShipperPM entityPM, POCO.CustomsShipper entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomsShipperCode)) { entityPOCO.CustomsShipperCode = entityPM.CustomsShipperCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidDepositionNumber)) { entityPOCO.ValidDepositionNumber = entityPM.ValidDepositionNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidityStartDate)) { entityPOCO.ValidityStartDate = entityPM.ValidityStartDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidityEndDate)) { entityPOCO.ValidityEndDate = entityPM.ValidityEndDate;}
-								new EntityCustomFieldService(new EntityCustomFieldServiceArgs() { ObjectTableName = "CustomsShipper", EntityId = entityPM.Id, Tenant = entityPM.Tenant, Type = "PM", Entities = new List<CustomsShipperPM> { entityPM }.Cast<object>().ToList() }).Update();
-		 				BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(CustomsShipperPM entityPM, POCO.CustomsShipper entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CustomsShipperCode))
-            {
-					entityPM.CustomsShipperCode = entityPOCO.CustomsShipperCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ValidDepositionNumber))
-            {
-					entityPM.ValidDepositionNumber = entityPOCO.ValidDepositionNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ValidityStartDate))
-            {
-					entityPM.ValidityStartDate = entityPOCO.ValidityStartDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ValidityEndDate))
-            {
-					entityPM.ValidityEndDate = entityPOCO.ValidityEndDate;
-            }
-			new EntityCustomFieldService(new EntityCustomFieldServiceArgs() { ObjectTableName = "CustomsShipper", Tenant = entityPM.Tenant, Type = "PM", Entities = new List<CustomsShipperPM> { entityPM }.Cast<object>().ToList() }).Set();
-		 		}
-		public void PMToOldPM(CustomsShipperPM entityPM, CustomsShipperPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CustomsShipperCode))
-            {
-                oldEntityPM.CustomsShipperCode = entityPM.CustomsShipperCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidDepositionNumber))
-            {
-                oldEntityPM.ValidDepositionNumber = entityPM.ValidDepositionNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidityStartDate))
-            {
-                oldEntityPM.ValidityStartDate = entityPM.ValidityStartDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValidityEndDate))
-            {
-                oldEntityPM.ValidityEndDate = entityPM.ValidityEndDate;
-            }
-					}
-		public void POCOToList(POCO.CustomsShipper entityPOCO, CustomsShipperList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomsShipperList> GetIqueryableList(IQueryable<POCO.CustomsShipper> iQueryable)
-		{
-			IQueryable<CustomsShipperList> query = (from a in iQueryable
-                                            select new CustomsShipperList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CustomsShipperPM entityPM)
+    public partial class CustomsShipperDataMapping: BaseMappingProfile<CustomsShipperPM, POCO.CustomsShipper>, IMapping<CustomsShipperPM, POCO.CustomsShipper, CustomsShipperList >,IMappingEncodeBase64NVARCHARFields<CustomsShipperPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CustomsShipperPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -140,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(CustomsShipperPM entityPM, POCO.CustomsShipper entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

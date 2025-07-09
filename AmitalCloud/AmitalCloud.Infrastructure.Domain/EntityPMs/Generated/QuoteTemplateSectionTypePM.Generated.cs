@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTemplateSectionTypePM : BaseEntityPM   {
    #region Constructors
    public QuoteTemplateSectionTypePM() : base() {} 
-   public QuoteTemplateSectionTypePM(POCO.QuoteTemplateSectionType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

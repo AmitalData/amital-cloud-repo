@@ -26,32 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class APILogsPM : BaseEntityPM   {
    #region Constructors
    public APILogsPM() : base() {} 
-   public APILogsPM(POCO.APILogs entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_batchNumber = entity.BatchNumber;
-		_queueType = entity.QueueType;
-		_queueMessage = entity.QueueMessage;
-		_queueMessageMoreDetailsId = entity.QueueMessageMoreDetailsId;
-		_customerId = entity.CustomerId;
-		_createDate = entity.CreateDate;
-		_createDateUTC = entity.CreateDateUTC;
-		_lastUpdateDate = entity.LastUpdateDate;
-		_lastUpdateDateUTC = entity.LastUpdateDateUTC;
-		_id = entity.Id;
-		_direction = entity.Direction;
-		_status = entity.Status;
-		_numberOfRetries = entity.NumberOfRetries;
-		_expirationDate = entity.ExpirationDate;
-		_subject = entity.Subject;
-		_entityId = entity.EntityId;
-		_objectTableId = entity.ObjectTableId;
-		_partnerName = entity.PartnerName;
-		_refrence = entity.Refrence;
-		_searchFields = entity.SearchFields;
-		_lastExceptionMessage = entity.LastExceptionMessage;
-		_correlationId = entity.CorrelationId;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

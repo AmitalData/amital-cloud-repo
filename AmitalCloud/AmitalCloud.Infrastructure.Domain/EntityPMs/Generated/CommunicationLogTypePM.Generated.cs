@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CommunicationLogTypePM : BaseEntityPM   {
    #region Constructors
    public CommunicationLogTypePM() : base() {} 
-   public CommunicationLogTypePM(POCO.CommunicationLogType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

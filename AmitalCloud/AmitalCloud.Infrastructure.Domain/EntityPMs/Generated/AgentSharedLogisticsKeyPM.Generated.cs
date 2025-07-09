@@ -26,24 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AgentSharedLogisticsKeyPM : BaseEntityPM   {
    #region Constructors
    public AgentSharedLogisticsKeyPM() : base() {} 
-   public AgentSharedLogisticsKeyPM(POCO.AgentSharedLogisticsKey entity) : base()
-   {
-		_cdropSharedkey = entity.CdropSharedkey;
-		_agent1Tenant = entity.Agent1Tenant;
-		_agent2Tenant = entity.Agent2Tenant;
-		_createDate = entity.CreateDate;
-		_cdropCreatedbyuseremail = entity.CdropCreatedbyuseremail;
-		_cdropApprovedbyuseremail = entity.CdropApprovedbyuseremail;
-		_approveDate = entity.ApproveDate;
-		_inactiveDate = entity.InactiveDate;
-		_cdropInactivebyuseremail = entity.CdropInactivebyuseremail;
-		_cdropStatuscode = entity.CdropStatuscode;
-		_sharedKey = entity.SharedKey;
-		_createdByUserEmail = entity.CreatedByUserEmail;
-		_approvedByUserEmail = entity.ApprovedByUserEmail;
-		_inactiveByUserEmail = entity.InactiveByUserEmail;
-		_statusCode = entity.StatusCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _cdropSharedkey ;

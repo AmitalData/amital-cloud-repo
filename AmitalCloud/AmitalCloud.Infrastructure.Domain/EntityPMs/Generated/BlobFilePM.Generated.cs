@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BlobFilePM : BaseEntityPM   {
    #region Constructors
    public BlobFilePM() : base() {} 
-   public BlobFilePM(POCO.BlobFile entity) : base()
-   {
-		_id = entity.Id;
-		_blob = entity.Blob;
-		_isCompressed = entity.IsCompressed;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

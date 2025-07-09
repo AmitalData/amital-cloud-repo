@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ProductTypePM : BaseEntityPM   {
    #region Constructors
    public ProductTypePM() : base() {} 
-   public ProductTypePM(POCO.ProductType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_quotationDefaultTemplateId = entity.QuotationDefaultTemplateId;
-		_quotetemplate = entity.QuoteTemplate !=null ? new QuoteTemplatePM(entity.QuoteTemplate) : null;
-			_routingRQuoteDefaultTemplateId = entity.RoutingRQuoteDefaultTemplateId;
-		_routingrquotedefaulttemplate = entity.RoutingRQuoteDefaultTemplate !=null ? new QuoteTemplatePM(entity.RoutingRQuoteDefaultTemplate) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

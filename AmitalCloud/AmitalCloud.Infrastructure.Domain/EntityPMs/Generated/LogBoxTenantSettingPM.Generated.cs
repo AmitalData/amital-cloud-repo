@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LogBoxTenantSettingPM : BaseEntityPM   {
    #region Constructors
    public LogBoxTenantSettingPM() : base() {} 
-   public LogBoxTenantSettingPM(POCO.LogBoxTenantSetting entity) : base()
-   {
-		_id = entity.Id;
-		_isDocumentsArchive = entity.IsDocumentsArchive;
-		_customerTenantShareImportFile = entity.CustomerTenantShareImportFile;
-		_logBoxAdminUserId = entity.LogBoxAdminUserId;
-		_documentShareAsDefault = entity.DocumentShareAsDefault;
-		_stockTypeCode = entity.StockTypeCode;
-		_autoArchiveOnInvoice = entity.AutoArchiveOnInvoice;
-		_showTaxAmountWarning = entity.ShowTaxAmountWarning;
-		_autoArchiveOnPODExport = entity.AutoArchiveOnPODExport;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

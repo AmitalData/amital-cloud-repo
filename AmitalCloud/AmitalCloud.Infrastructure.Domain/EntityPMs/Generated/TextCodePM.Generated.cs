@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TextCodePM : BaseEntityPM   {
    #region Constructors
    public TextCodePM() : base() {} 
-   public TextCodePM(POCO.TextCode entity) : base()
-   {
-		_code = entity.Code;
-		_objectTableId = entity.ObjectTableId;
-		_textCodeTypeCode = entity.TextCodeTypeCode;
-		_textcodetype = entity.TextCodeType !=null ? new TextCodeTypePM(entity.TextCodeType) : null;
-			_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isSpellChecked = entity.IsSpellChecked;
-		_spellCheckDate = entity.SpellCheckDate;
-		_spellCheckedByUserId = entity.SpellCheckedByUserId;
-		_spellcheckedbyuser = entity.SpellCheckedByUser !=null ? new UserPM(entity.SpellCheckedByUser) : null;
-			_inActive = entity.InActive;
-		_defaultText = entity.DefaultText;
-		_defaultTextPlural = entity.DefaultTextPlural;
-		_localDefaultText = entity.LocalDefaultText;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -3,6 +3,8 @@ using AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System.Linq;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -20,14 +22,12 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         }
         public ContactTenantPM GetContactTenantForUser(string contactId, int tenant)
         {
-            return (from a in repository.GetMulti(a => a.ContactId == contactId && a.TenantId == tenant)
-                    select new ContactTenantPM(a)).FirstOrDefault();
+            var entity = (from a in repository.GetMulti(a => a.ContactId == contactId && a.TenantId == tenant)
+                    select a).FirstOrDefault();
 
-        }
-        public ContactTenantPM GetSinglePM(string id, int tenant)
-        {
-            return (from a in repository.GetMulti(a => a.Id == id && a.TenantId == tenant)
-                    select new ContactTenantPM(a)).FirstOrDefault();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactTenantDataMapping()));
+            var mapper = config.CreateMapper();
+            return mapper.Map<ContactTenantPM>(entity);
         }
     }
 }

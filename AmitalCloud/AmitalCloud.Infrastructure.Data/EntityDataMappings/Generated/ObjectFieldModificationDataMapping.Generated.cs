@@ -5,139 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ObjectFieldModificationDataMapping: IMapping<ObjectFieldModificationPM, POCO.ObjectFieldModification  ,ObjectFieldModificationList >,IMappingEncodeBase64NVARCHARFields<ObjectFieldModificationPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         MaxLength, 
-	         MinLength, 
-	         IsRequired, 
-	         ObjectFieldId, 
-	         UpdateDateGMT, 
-	         ObjectFieldCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         MaxLength, 
-	         MinLength, 
-	         IsRequired, 
-	         ObjectFieldId, 
-	         UpdateDateGMT, 
-	         ObjectFieldCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ObjectFieldModificationPM entityPM, POCO.ObjectFieldModification entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MaxLength)) { entityPOCO.MaxLength = entityPM.MaxLength;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MinLength)) { entityPOCO.MinLength = entityPM.MinLength;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequired)) { entityPOCO.IsRequired = entityPM.IsRequired;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId)) { entityPOCO.ObjectFieldId = entityPM.ObjectFieldId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDateGMT)) { entityPOCO.UpdateDateGMT = entityPM.UpdateDateGMT;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode)) { entityPOCO.ObjectFieldCode = entityPM.ObjectFieldCode;}
-					}
-		public void POCOToPM(ObjectFieldModificationPM entityPM, POCO.ObjectFieldModification entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MaxLength))
-            {
-					entityPM.MaxLength = entityPOCO.MaxLength;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MinLength))
-            {
-					entityPM.MinLength = entityPOCO.MinLength;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsRequired))
-            {
-					entityPM.IsRequired = entityPOCO.IsRequired;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldId))
-            {
-					entityPM.ObjectFieldId = entityPOCO.ObjectFieldId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDateGMT))
-            {
-					entityPM.UpdateDateGMT = entityPOCO.UpdateDateGMT;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldCode))
-            {
-					entityPM.ObjectFieldCode = entityPOCO.ObjectFieldCode;
-            }
-		}
-		public void PMToOldPM(ObjectFieldModificationPM entityPM, ObjectFieldModificationPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MaxLength))
-            {
-                oldEntityPM.MaxLength = entityPM.MaxLength;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MinLength))
-            {
-                oldEntityPM.MinLength = entityPM.MinLength;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsRequired))
-            {
-                oldEntityPM.IsRequired = entityPM.IsRequired;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId))
-            {
-                oldEntityPM.ObjectFieldId = entityPM.ObjectFieldId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDateGMT))
-            {
-                oldEntityPM.UpdateDateGMT = entityPM.UpdateDateGMT;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode))
-            {
-                oldEntityPM.ObjectFieldCode = entityPM.ObjectFieldCode;
-            }
-					}
-		public void POCOToList(POCO.ObjectFieldModification entityPOCO, ObjectFieldModificationList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ObjectFieldModificationList> GetIqueryableList(IQueryable<POCO.ObjectFieldModification> iQueryable)
-		{
-			IQueryable<ObjectFieldModificationList> query = (from a in iQueryable
-                                            select new ObjectFieldModificationList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ObjectFieldModificationPM entityPM)
+    public partial class ObjectFieldModificationDataMapping: BaseMappingProfile<ObjectFieldModificationPM, POCO.ObjectFieldModification>, IMapping<ObjectFieldModificationPM, POCO.ObjectFieldModification, ObjectFieldModificationList >,IMappingEncodeBase64NVARCHARFields<ObjectFieldModificationPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ObjectFieldModificationPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -145,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

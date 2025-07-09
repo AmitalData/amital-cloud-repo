@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ColorIndexPM : BaseEntityPM   {
    #region Constructors
    public ColorIndexPM() : base() {} 
-   public ColorIndexPM(POCO.ColorIndex entity) : base()
-   {
-		_indexNumber = entity.IndexNumber;
-		_color = entity.Color;
-   }
    #endregion Constructors
    #region Properties
    	  private int _indexNumber ;
@@ -63,6 +58,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Color",OldValue=_color,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _color=value;
+		   }
+		 }
+	   }
+	  private string _rowid ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string Rowid  
+	   {
+	     get { return _rowid; }
+		 set
+		 {
+		   if(_rowid != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _rowid=value;
 		   }
 		 }
 	   }

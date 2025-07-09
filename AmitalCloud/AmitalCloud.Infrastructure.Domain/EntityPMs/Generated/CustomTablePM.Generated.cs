@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomTablePM : BaseEntityPM   {
    #region Constructors
    public CustomTablePM() : base() {} 
-   public CustomTablePM(POCO.CustomTable entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_field1 = entity.Field1;
-		_field2 = entity.Field2;
-		_field3 = entity.Field3;
-		_field4 = entity.Field4;
-		_field5 = entity.Field5;
-		_field6 = entity.Field6;
-		_field7 = entity.Field7;
-		_field8 = entity.Field8;
-		_field9 = entity.Field9;
-		_field10 = entity.Field10;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

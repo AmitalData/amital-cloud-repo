@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ComputingPartnerTablePM : BaseEntityPM   {
    #region Constructors
    public ComputingPartnerTablePM() : base() {} 
-   public ComputingPartnerTablePM(POCO.ComputingPartnerTable entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_hasPartnerList = entity.HasPartnerList;
-		_mustUsePartnerList = entity.MustUsePartnerList;
-		_transalationRequired = entity.TransalationRequired;
-		_tenantLevelTranslationBlocked = entity.TenantLevelTranslationBlocked;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_objectTableId = entity.ObjectTableId;
-		_computingPartnerId = entity.ComputingPartnerId;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

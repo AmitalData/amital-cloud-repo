@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PostalCodePM : BaseEntityPM   {
    #region Constructors
    public PostalCodePM() : base() {} 
-   public PostalCodePM(POCO.PostalCode entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_countryCode = entity.CountryCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

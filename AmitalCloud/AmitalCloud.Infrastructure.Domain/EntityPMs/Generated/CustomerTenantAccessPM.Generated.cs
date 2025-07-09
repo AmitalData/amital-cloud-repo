@@ -26,27 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomerTenantAccessPM : BaseEntityPM   {
    #region Constructors
    public CustomerTenantAccessPM() : base() {} 
-   public CustomerTenantAccessPM(POCO.CustomerTenantAccess entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_customerTenant = entity.CustomerTenant;
-		_contactName = entity.ContactName;
-		_companyVat = entity.CompanyVat;
-		_companyName = entity.CompanyName;
-		_companyEmail = entity.CompanyEmail;
-		_contactMobile = entity.ContactMobile;
-		_contactPhone = entity.ContactPhone;
-		_requestDateTime = entity.RequestDateTime;
-		_status = entity.Status;
-		_statuscode = entity.StatusCode !=null ? new CustomerTenantAccessStatusTypePM(entity.StatusCode) : null;
-			_updatedByUserId = entity.UpdatedByUserId;
-		_lastUpdateDate = entity.LastUpdateDate;
-		_searchFields = entity.SearchFields;
-		_lastShipmentDate = entity.LastShipmentDate;
-		_stockTypeCode = entity.StockTypeCode;
-		_isPrivateLabelCustomer = entity.IsPrivateLabelCustomer;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

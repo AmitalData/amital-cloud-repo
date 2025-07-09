@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TarrifFromToPM : BaseEntityPM   {
    #region Constructors
    public TarrifFromToPM() : base() {} 
-   public TarrifFromToPM(POCO.TarrifFromTo entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_tarrifHeaderId = entity.TarrifHeaderId;
-		_tarrifheader = entity.TarrifHeader !=null ? new TarrifHeaderPM(entity.TarrifHeader) : null;
-			_tarrifFromToTypeCode = entity.TarrifFromToTypeCode;
-		_tarriffromtotype = entity.TarrifFromToType !=null ? new TarrifFromToTypePM(entity.TarrifFromToType) : null;
-			_portId = entity.PortId;
-		_countryId = entity.CountryId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

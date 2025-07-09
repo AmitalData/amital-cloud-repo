@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTemplateTableDesignPM : BaseEntityPM   {
    #region Constructors
    public QuoteTemplateTableDesignPM() : base() {} 
-   public QuoteTemplateTableDesignPM(POCO.QuoteTemplateTableDesign entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_borderTypeCode = entity.BorderTypeCode;
-		_bordertype = entity.BorderType !=null ? new BorderTypePM(entity.BorderType) : null;
-			_borderColor = entity.BorderColor;
-		_borderThickness = entity.BorderThickness;
-		_headerDesignId = entity.HeaderDesignId;
-		_headerdesign = entity.HeaderDesign !=null ? new QuoteTemplateTextDesignPM(entity.HeaderDesign) : null;
-			_linesDesignId = entity.LinesDesignId;
-		_linesdesign = entity.LinesDesign !=null ? new QuoteTemplateTextDesignPM(entity.LinesDesign) : null;
-			_groupByDesignId = entity.GroupByDesignId;
-		_groupdesign = entity.GroupDesign !=null ? new QuoteTemplateTextDesignPM(entity.GroupDesign) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

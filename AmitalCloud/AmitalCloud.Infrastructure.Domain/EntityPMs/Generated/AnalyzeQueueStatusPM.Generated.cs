@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AnalyzeQueueStatusPM : BaseEntityPM   {
    #region Constructors
    public AnalyzeQueueStatusPM() : base() {} 
-   public AnalyzeQueueStatusPM(POCO.AnalyzeQueueStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		analyzeQueues = entity.AnalyzeQueues != null ? entity.AnalyzeQueues.Select(a=>new AnalyzeQueuePM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

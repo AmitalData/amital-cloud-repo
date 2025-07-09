@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -58,11 +60,16 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
             var repository = new DocumentsFilingMetaDataValueRepository(context);
             var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
-            var mydocumentsFilingMetaDataVERValueList = documentsFilingMetaDataValueQuery
+            var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
                 .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
                 //.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
                 .Where(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId)
                 .ToList();
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()));
+            var mapper = config.CreateMapper();
+            var mydocumentsFilingMetaDataVERValueList = mapper.Map<List<DocumentsFilingMetaDataValuePM>>(mydocumentsFilingMetaDataVERValue);
+
             DocumentsFilingMetaDataValuePM mydocumentsFilingMetaDataVERValuePM = null;
             if (mydocumentsFilingMetaDataVERValueList.Count() > 1)
             {
@@ -137,9 +144,14 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
 
             var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
-            var mydocumentsFilingMetaDataVERValuePM = documentsFilingMetaDataValueQuery
+            var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
                 .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
                 .FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
+
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()));
+            var mapper = config.CreateMapper();
+            var mydocumentsFilingMetaDataVERValuePM = mapper.Map<DocumentsFilingMetaDataValuePM>(mydocumentsFilingMetaDataVERValue);
+
             if (mydocumentsFilingMetaDataVERValuePM != null)
             {
                 if (mydocumentsFilingMetaDataVERValuePM.MetaDataValue == MetaDataTypeValue)
@@ -202,10 +214,10 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             };
         }
 
-        public IQueryable<DocumentsFilingMetaDataValuePM> GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(string documentsFilingId, int tenant)
+        public IQueryable<DocumentsFilingMetaDataValue> GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(string documentsFilingId, int tenant)
         => from a in repository.context.DocumentsFilingMetaDataValues.Include("DocumentsMetaDataTypes")
            where a.Tenant == tenant && a.DocumentsFilingId == documentsFilingId
-           select new DocumentsFilingMetaDataValuePM(a);
+           select a;
 
 
         public IQueryable<DocumentsFilingMetaDataValuePM> GetDocumentsFilingMetaDataValuePMsByTenant1(int tenant)
@@ -238,10 +250,6 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             return documents;
         }
 
-        public DocumentsFilingMetaDataValuePM GetDocumentsFilingMetaDataValuePMsByDocumentIdTypeTenant(string documentsFilingId, string Type, int tenant)
-        => (from a in repository.context.DocumentsFilingMetaDataValues.Include("DocumentsMetaDataTypes")
-            where a.Tenant == tenant && a.DocumentsFilingId == documentsFilingId && a.DocumentsMetaDataTypeId == Type
-            select new DocumentsFilingMetaDataValuePM(a)).FirstOrDefault();
         public List<string> GetDocumentsFilingMetaDataValuesPMsByTenantMetaDataValueDocumentsMetaDataTypeId(int tenant, string CARFI, string courierhawb, string INTGR_R, string integratorCode)
         {
             var documents = (from a in repository.context.DocumentsFilingMetaDataValues.Include("DocumentsMetaDataTypes")

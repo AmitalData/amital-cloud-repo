@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FilingInboxAttachmentPM : BaseEntityPM   {
    #region Constructors
    public FilingInboxAttachmentPM() : base() {} 
-   public FilingInboxAttachmentPM(POCO.FilingInboxAttachment entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_fileName = entity.FileName;
-		_documentId = entity.DocumentId;
-		_filingInboxId = entity.FilingInboxId;
-		_filinginbox = entity.FilingInbox !=null ? new FilingInboxPM(entity.FilingInbox) : null;
-			attachLogs = entity.AttachLogs != null ? entity.AttachLogs.Select(a=>new FilingInboxAttachmentLogPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

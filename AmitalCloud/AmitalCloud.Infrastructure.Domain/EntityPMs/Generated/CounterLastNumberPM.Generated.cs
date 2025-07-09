@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CounterLastNumberPM : BaseEntityPM   {
    #region Constructors
    public CounterLastNumberPM() : base() {} 
-   public CounterLastNumberPM(POCO.CounterLastNumber entity) : base()
-   {
-		_id = entity.Id;
-		_tableName = entity.TableName;
-		_tenant = entity.Tenant;
-		_lastNumber = entity.LastNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;
@@ -97,6 +90,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LastNumber",OldValue=_lastNumber,NewValue=value,PropertyType="int"};
 		    NotifyPropertyChanged(values);
 		   _lastNumber=value;
+		   }
+		 }
+	   }
+	  private string _dropRowid ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DropRowid  
+	   {
+	     get { return _dropRowid; }
+		 set
+		 {
+		   if(_dropRowid != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropRowid",OldValue=_dropRowid,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _dropRowid=value;
 		   }
 		 }
 	   }

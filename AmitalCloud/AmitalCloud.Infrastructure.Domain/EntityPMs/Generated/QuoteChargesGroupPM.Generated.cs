@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteChargesGroupPM : BaseEntityPM   {
    #region Constructors
    public QuoteChargesGroupPM() : base() {} 
-   public QuoteChargesGroupPM(POCO.QuoteChargesGroup entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-		_viewOrder = entity.ViewOrder;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

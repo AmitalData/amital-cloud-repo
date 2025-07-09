@@ -12,6 +12,8 @@ using System.Linq.Expressions;
 using System.Transactions;
 using System.Web;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AutoMapper;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class ContactQuery
@@ -50,17 +52,6 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
             return entity;
         }
-        private IQueryable<ContactPM> GetContactPMQuery()
-        => (from a in context.Contacts
-            where a.UserType == "R"
-            let contact = new ContactPM(a)
-            {
-                //ComputedLocalName = string.IsNullOrEmpty(a.LocalName) ? a.EnglishName : a.LocalName,
-                //DontShowLocal = a.DontShowLocalLabels,
-                ContactDoneMethodCode = a.ContactDoneMethod != null ? a.ContactDoneMethod.Code : null,
-                //ContactDoneMethodName = a.ContactDoneMethod != null ? a.ContactDoneMethod.Name : null,
-            }
-            select contact);
         private void GetContactPassword(ContactPM instance)
         {
             using (TransactionScope scope = TransactionFactory.GetNewTransaction())
@@ -87,7 +78,9 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             Contact entity = context.Contacts.Where(predicate).FirstOrDefault();
             if (entity != null)
             {
-                ContactPM contactPM = new ContactPM(entity);
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactDataMapping()));
+                var mapper = config.CreateMapper();
+                ContactPM contactPM = mapper.Map<ContactPM>(entity);
                 GetContactPassword(contactPM);
                 return contactPM;
             }

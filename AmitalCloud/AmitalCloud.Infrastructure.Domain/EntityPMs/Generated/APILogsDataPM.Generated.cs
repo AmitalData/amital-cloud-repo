@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class APILogsDataPM : BaseEntityPM   {
    #region Constructors
    public APILogsDataPM() : base() {} 
-   public APILogsDataPM(POCO.APILogsData entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_diagnosticLog = entity.DiagnosticLog;
-		_exceptionsMessage = entity.ExceptionsMessage;
-		_id = entity.Id;
-		_apilogs = entity.APILogs !=null ? new APILogsPM(entity.APILogs) : null;
-			_requestData = entity.RequestData;
-		_responseData = entity.ResponseData;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

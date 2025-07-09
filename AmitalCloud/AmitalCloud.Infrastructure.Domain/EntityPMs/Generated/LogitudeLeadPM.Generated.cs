@@ -26,42 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LogitudeLeadPM : BaseEntityPM   {
    #region Constructors
    public LogitudeLeadPM() : base() {} 
-   public LogitudeLeadPM(POCO.LogitudeLead entity) : base()
-   {
-		_id = entity.Id;
-		_searchFields = entity.SearchFields;
-		_vatNumber = entity.VatNumber;
-		_isUserEmailSent = entity.IsUserEmailSent;
-		_contactName = entity.ContactName;
-		_companyName = entity.CompanyName;
-		_phoneNumber = entity.PhoneNumber;
-		_country = entity.Country;
-		_email = entity.Email;
-		_comments = entity.Comments;
-		_requestType = entity.RequestType;
-		_zipCode = entity.ZipCode;
-		_city = entity.City;
-		_state = entity.State;
-		_opportunityId = entity.OpportunityId;
-		_customerId = entity.CustomerId;
-		_packageCode = entity.PackageCode;
-		_leadSource = entity.LeadSource;
-		_cASSCode = entity.CASSCode;
-		_iATACode = entity.IATACode;
-		_numberOfBranches = entity.NumberOfBranches;
-		_lastUpdateDate = entity.LastUpdateDate;
-		_createDate = entity.CreateDate;
-		_isEmailVerified = entity.IsEmailVerified;
-		_isSentToCustomer = entity.IsSentToCustomer;
-		_statusCode = entity.StatusCode;
-		_street = entity.Street;
-		_isUserOpened = entity.IsUserOpened;
-		_tenantNumber = entity.TenantNumber;
-		_numberOfUsers = entity.NumberOfUsers;
-		_clientId = entity.ClientId;
-		_leadOrigin = entity.LeadOrigin;
-		_campaign = entity.Campaign;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

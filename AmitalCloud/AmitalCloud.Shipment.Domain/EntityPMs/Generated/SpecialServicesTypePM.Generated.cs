@@ -26,16 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class SpecialServicesTypePM : BaseEntityPM   {
    #region Constructors
    public SpecialServicesTypePM() : base() {} 
-   public SpecialServicesTypePM(POCO.SpecialServicesType entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_searchFields = entity.SearchFields;
-		_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

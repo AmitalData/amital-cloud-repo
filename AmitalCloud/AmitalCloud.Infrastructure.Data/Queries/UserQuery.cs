@@ -136,16 +136,6 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
             return entity;
         }
-        private UserPM GetSinglePMFromDBLite(Expression<Func<UserPM, bool>> predicate)
-        {
-            return (from a in context.Users.Include("Contact")
-                    select new UserPM(a)
-                    {
-                        //DontShowLocalLabels = a.Contact.DontShowLocalLabels,
-                        //Email = a.Contact.Email,
-                        //EnglishName = a.Contact.EnglishName,
-                    }).Where(predicate).FirstOrDefault();
-        }
         private int ComputeDaysLeft(DateTime? date)
         {
             DateTime? startDate = DateTime.Now.Date;

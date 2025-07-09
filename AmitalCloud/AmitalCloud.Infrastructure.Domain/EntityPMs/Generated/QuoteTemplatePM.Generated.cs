@@ -26,33 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QuoteTemplatePM : BaseEntityPM   {
    #region Constructors
    public QuoteTemplatePM() : base() {} 
-   public QuoteTemplatePM(POCO.QuoteTemplate entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_headerDocId = entity.HeaderDocId;
-		_headerdoc = entity.HeaderDoc !=null ? new DocumentPM(entity.HeaderDoc) : null;
-			_footerDocId = entity.FooterDocId;
-		_footerdoc = entity.FooterDoc !=null ? new DocumentPM(entity.FooterDoc) : null;
-			_quoteTemplateSettingId = entity.QuoteTemplateSettingId;
-		_quotetemplatesetting = entity.QuoteTemplateSetting !=null ? new QuoteTemplateSettingPM(entity.QuoteTemplateSetting) : null;
-			_name = entity.Name;
-		_isTemplate = entity.IsTemplate;
-		_originalQuoteTemplateId = entity.OriginalQuoteTemplateId;
-		_originalquotetemplate = entity.OriginalQuoteTemplate !=null ? new QuoteTemplatePM(entity.OriginalQuoteTemplate) : null;
-			_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_templateTypeCode = entity.TemplateTypeCode;
-		_quotetype = entity.QuoteType !=null ? new QuoteTypePM(entity.QuoteType) : null;
-			_isDefault = entity.IsDefault;
-		_inActive = entity.InActive;
-		templateSections = entity.TemplateSections != null ? entity.TemplateSections.Select(a=>new QuoteTemplateSectionPM(a)).ToList() : null;
-		_isCopiedAtSignup = entity.IsCopiedAtSignup;
-		_isEnabledForCustomers = entity.IsEnabledForCustomers;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

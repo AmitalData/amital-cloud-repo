@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class HybridPartnersPermissionPM : BaseEntityPM   {
    #region Constructors
    public HybridPartnersPermissionPM() : base() {} 
-   public HybridPartnersPermissionPM(POCO.HybridPartnersPermission entity) : base()
-   {
-		_hybridPartnerId = entity.HybridPartnerId;
-		_allowedByHybridPartnerId = entity.AllowedByHybridPartnerId;
-		_hybridpartner = entity.HybridPartner !=null ? new HybridPartnerPM(entity.HybridPartner) : null;
-			_inActive = entity.InActive;
-   }
    #endregion Constructors
    #region Properties
    	  private string _hybridPartnerId ;

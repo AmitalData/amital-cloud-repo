@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QueryColumnPM : BaseEntityPM   {
    #region Constructors
    public QueryColumnPM() : base() {} 
-   public QueryColumnPM(POCO.QueryColumn entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_queryId = entity.QueryId;
-		_objectFieldId = entity.ObjectFieldId;
-		_indexOrder = entity.IndexOrder;
-		_columnWidth = entity.ColumnWidth;
-		_userId = entity.UserId;
-		_objectFieldCode = entity.ObjectFieldCode;
-		_queryCode = entity.QueryCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

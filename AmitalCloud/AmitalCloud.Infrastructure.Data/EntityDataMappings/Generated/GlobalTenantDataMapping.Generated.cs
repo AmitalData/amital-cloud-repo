@@ -5,139 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class GlobalTenantDataMapping: IMapping<GlobalTenantPM, POCO.GlobalTenant  ,GlobalTenantList >,IMappingEncodeBase64NVARCHARFields<GlobalTenantPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         GlobalDBId, 
-	         CompanyName, 
-	         Version, 
-	         IsActive, 
-	         TTY, 
-	         PrivateLabelId, 
-	         LastUpdateDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         GlobalDBId, 
-	         CompanyName, 
-	         Version, 
-	         IsActive, 
-	         TTY, 
-	         PrivateLabelId, 
-	         LastUpdateDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(GlobalTenantPM entityPM, POCO.GlobalTenant entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalDBId)) { entityPOCO.GlobalDBId = entityPM.GlobalDBId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CompanyName)) { entityPOCO.CompanyName = entityPM.CompanyName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Version)) { entityPOCO.Version = entityPM.Version;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive)) { entityPOCO.IsActive = entityPM.IsActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TTY)) { entityPOCO.TTY = entityPM.TTY;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrivateLabelId)) { entityPOCO.PrivateLabelId = entityPM.PrivateLabelId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDate)) { entityPOCO.LastUpdateDate = entityPM.LastUpdateDate;}
-					}
-		public void POCOToPM(GlobalTenantPM entityPM, POCO.GlobalTenant entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GlobalDBId))
-            {
-					entityPM.GlobalDBId = entityPOCO.GlobalDBId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CompanyName))
-            {
-					entityPM.CompanyName = entityPOCO.CompanyName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Version))
-            {
-					entityPM.Version = entityPOCO.Version;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsActive))
-            {
-					entityPM.IsActive = entityPOCO.IsActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TTY))
-            {
-					entityPM.TTY = entityPOCO.TTY;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PrivateLabelId))
-            {
-					entityPM.PrivateLabelId = entityPOCO.PrivateLabelId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastUpdateDate))
-            {
-					entityPM.LastUpdateDate = entityPOCO.LastUpdateDate;
-            }
-		}
-		public void PMToOldPM(GlobalTenantPM entityPM, GlobalTenantPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalDBId))
-            {
-                oldEntityPM.GlobalDBId = entityPM.GlobalDBId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CompanyName))
-            {
-                oldEntityPM.CompanyName = entityPM.CompanyName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Version))
-            {
-                oldEntityPM.Version = entityPM.Version;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsActive))
-            {
-                oldEntityPM.IsActive = entityPM.IsActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TTY))
-            {
-                oldEntityPM.TTY = entityPM.TTY;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrivateLabelId))
-            {
-                oldEntityPM.PrivateLabelId = entityPM.PrivateLabelId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDate))
-            {
-                oldEntityPM.LastUpdateDate = entityPM.LastUpdateDate;
-            }
-					}
-		public void POCOToList(POCO.GlobalTenant entityPOCO, GlobalTenantList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<GlobalTenantList> GetIqueryableList(IQueryable<POCO.GlobalTenant> iQueryable)
-		{
-			IQueryable<GlobalTenantList> query = (from a in iQueryable
-                                            select new GlobalTenantList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(GlobalTenantPM entityPM)
+    public partial class GlobalTenantDataMapping: BaseMappingProfile<GlobalTenantPM, POCO.GlobalTenant>, IMapping<GlobalTenantPM, POCO.GlobalTenant, GlobalTenantList >,IMappingEncodeBase64NVARCHARFields<GlobalTenantPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(GlobalTenantPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -153,14 +33,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

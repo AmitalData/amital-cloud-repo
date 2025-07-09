@@ -5,128 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TarrifStepDataMapping: IMapping<TarrifStepPM, POCO.TarrifStep  ,TarrifStepList >,IMappingEncodeBase64NVARCHARFields<TarrifStepPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TarrifHeaderId, 
-	         MinPrice, 
-	         MaxPrice, 
-	         UnitPrice, 
-	         Step,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         TarrifHeaderId, 
-	         MinPrice, 
-	         MaxPrice, 
-	         UnitPrice, 
-	         Step,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TarrifStepPM entityPM, POCO.TarrifStep entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifHeaderId)) { entityPOCO.TarrifHeaderId = entityPM.TarrifHeaderId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MinPrice)) { entityPOCO.MinPrice = entityPM.MinPrice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MaxPrice)) { entityPOCO.MaxPrice = entityPM.MaxPrice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UnitPrice)) { entityPOCO.UnitPrice = entityPM.UnitPrice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Step)) { entityPOCO.Step = entityPM.Step;}
-					}
-		public void POCOToPM(TarrifStepPM entityPM, POCO.TarrifStep entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TarrifHeaderId))
-            {
-					entityPM.TarrifHeaderId = entityPOCO.TarrifHeaderId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MinPrice))
-            {
-					entityPM.MinPrice = entityPOCO.MinPrice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MaxPrice))
-            {
-					entityPM.MaxPrice = entityPOCO.MaxPrice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UnitPrice))
-            {
-					entityPM.UnitPrice = entityPOCO.UnitPrice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Step))
-            {
-					entityPM.Step = entityPOCO.Step;
-            }
-		}
-		public void PMToOldPM(TarrifStepPM entityPM, TarrifStepPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TarrifHeaderId))
-            {
-                oldEntityPM.TarrifHeaderId = entityPM.TarrifHeaderId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MinPrice))
-            {
-                oldEntityPM.MinPrice = entityPM.MinPrice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MaxPrice))
-            {
-                oldEntityPM.MaxPrice = entityPM.MaxPrice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UnitPrice))
-            {
-                oldEntityPM.UnitPrice = entityPM.UnitPrice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Step))
-            {
-                oldEntityPM.Step = entityPM.Step;
-            }
-					}
-		public void POCOToList(POCO.TarrifStep entityPOCO, TarrifStepList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TarrifStepList> GetIqueryableList(IQueryable<POCO.TarrifStep> iQueryable)
-		{
-			IQueryable<TarrifStepList> query = (from a in iQueryable
-                                            select new TarrifStepList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(TarrifStepPM entityPM)
+    public partial class TarrifStepDataMapping: BaseMappingProfile<TarrifStepPM, POCO.TarrifStep>, IMapping<TarrifStepPM, POCO.TarrifStep, TarrifStepList >,IMappingEncodeBase64NVARCHARFields<TarrifStepPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(TarrifStepPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -134,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

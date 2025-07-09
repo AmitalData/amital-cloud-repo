@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class INTTRABranchRegisteredCarrierPM : BaseEntityPM   {
    #region Constructors
    public INTTRABranchRegisteredCarrierPM() : base() {} 
-   public INTTRABranchRegisteredCarrierPM(POCO.INTTRABranchRegisteredCarrier entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_shippingLineId = entity.ShippingLineId;
-		_shippingline = entity.ShippingLine !=null ? new ShippingLinePM(entity.ShippingLine) : null;
-			_branchId = entity.BranchId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

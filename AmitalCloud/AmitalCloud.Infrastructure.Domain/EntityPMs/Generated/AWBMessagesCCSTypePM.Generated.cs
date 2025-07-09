@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AWBMessagesCCSTypePM : BaseEntityPM   {
    #region Constructors
    public AWBMessagesCCSTypePM() : base() {} 
-   public AWBMessagesCCSTypePM(POCO.AWBMessagesCCSType entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

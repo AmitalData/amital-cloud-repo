@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LBPTeamMemberPM : BaseEntityPM   {
    #region Constructors
    public LBPTeamMemberPM() : base() {} 
-   public LBPTeamMemberPM(POCO.LBPTeamMember entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_memberUserId = entity.MemberUserId;
-		_memberuser = entity.MemberUser !=null ? new UserPM(entity.MemberUser) : null;
-			_teamId = entity.TeamId;
-		_team = entity.Team !=null ? new TeamPM(entity.Team) : null;
-			_addDate = entity.AddDate;
-		_addedByUserId = entity.AddedByUserId;
-		_memberTeamId = entity.MemberTeamId;
-		_memberteam = entity.MemberTeam !=null ? new TeamPM(entity.MemberTeam) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWQueryFilterPM : BaseEntityPM   {
    #region Constructors
    public DWQueryFilterPM() : base() {} 
-   public DWQueryFilterPM(POCO.DWQueryFilter entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_dWQueryId = entity.DWQueryId;
-		_dWObjectFieldId = entity.DWObjectFieldId;
-		_isPredefined = entity.IsPredefined;
-		_predefinedValue = entity.PredefinedValue;
-		_predefinedValue2 = entity.PredefinedValue2;
-		_operator = entity.Operator;
-		_indexOrder = entity.IndexOrder;
-		_userId = entity.UserId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

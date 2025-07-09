@@ -26,48 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QueryPM : BaseEntityPM   {
    #region Constructors
    public QueryPM() : base() {} 
-   public QueryPM(POCO.Query entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_userId = entity.UserId;
-		_objectTableId = entity.ObjectTableId;
-		_systemLevel = entity.SystemLevel;
-		_tenantLevel = entity.TenantLevel;
-		_originalQueryId = entity.OriginalQueryId;
-		_querySection = entity.QuerySection;
-		_indexOrder = entity.IndexOrder;
-		_displayCount = entity.DisplayCount;
-		_isAddNewEntityEnabled = entity.IsAddNewEntityEnabled;
-		_queryGroupCode = entity.QueryGroupCode;
-		//_querygroup = entity.QueryGroup !=null ? new QueryGroupPM(entity.QueryGroup) : null;
-			_nameTextCodeId = entity.NameTextCodeId;
-		_nametextcode = entity.NameTextCode !=null ? new TextCodePM(entity.NameTextCode) : null;
-			_defaultSortDirection = entity.DefaultSortDirection;
-		_defaultSortColumn = entity.DefaultSortColumn;
-		_spotlightDataTemplate = entity.SpotlightDataTemplate;
-		_internal = entity.Internal;
-		_customer = entity.Customer;
-		_agent = entity.Agent;
-		_featureId = entity.FeatureId;
-		_editWizardName = entity.EditWizardName;
-		_perspective = entity.Perspective;
-		_isHiddenFromView = entity.IsHiddenFromView;
-		_isNewFromTenantZeroOnly = entity.IsNewFromTenantZeroOnly;
-		_editWizardComponentPath = entity.EditWizardComponentPath;
-		_sharedWithAll = entity.SharedWithAll;
-		_sharedWithSpecificUsers = entity.SharedWithSpecificUsers;
-		_sharedByUserId = entity.SharedByUserId;
-		_sharedbyuseriduser = entity.SharedByUserIdUser !=null ? new UserPM(entity.SharedByUserIdUser) : null;
-			_spotlightModeActivated = entity.SpotlightModeActivated;
-		_uniqueCode = entity.UniqueCode;
-		_originalQueryCode = entity.OriginalQueryCode;
-		_nameTextCodeCode = entity.NameTextCodeCode;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-		_isViewOnly = entity.IsViewOnly;
-		_isDefault = entity.IsDefault;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

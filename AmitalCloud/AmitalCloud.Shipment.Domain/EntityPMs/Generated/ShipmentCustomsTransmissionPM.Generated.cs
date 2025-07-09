@@ -26,21 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentCustomsTransmissionPM : BaseEntityPM   {
    #region Constructors
    public ShipmentCustomsTransmissionPM() : base() {} 
-   public ShipmentCustomsTransmissionPM(POCO.ShipmentCustomsTransmission entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_sentByUserId = entity.SentByUserId;
-		_sendbyuser = entity.SendByUser !=null ? new UserPM(entity.SendByUser) : null;
-			_communicationLogId = entity.CommunicationLogId;
-		_communicationlog = entity.CommunicationLog !=null ? new CommunicationLogPM(entity.CommunicationLog) : null;
-			_lastSendDate = entity.LastSendDate;
-		_error = entity.Error;
-		_messageCode = entity.MessageCode;
-		_shipmentcustomsmessagetype = entity.ShipmentCustomsMessageType !=null ? new ShipmentCustomsMessageTypePM(entity.ShipmentCustomsMessageType) : null;
-			_status = entity.Status;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

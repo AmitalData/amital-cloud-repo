@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class FeatureChangePM : BaseEntityPM   {
    #region Constructors
    public FeatureChangePM() : base() {} 
-   public FeatureChangePM(POCO.FeatureChange entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_eventDateTime = entity.EventDateTime;
-		_userId = entity.UserId;
-		_roleId = entity.RoleId;
-		_packageCode = entity.PackageCode;
-		_package = entity.Package !=null ? new PackagePM(entity.Package) : null;
-			_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

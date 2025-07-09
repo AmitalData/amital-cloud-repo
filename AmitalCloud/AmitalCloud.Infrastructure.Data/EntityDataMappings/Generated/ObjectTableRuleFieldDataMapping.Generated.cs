@@ -5,142 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ObjectTableRuleFieldDataMapping: IMapping<ObjectTableRuleFieldPM, POCO.ObjectTableRuleField  ,ObjectTableRuleFieldList >,IMappingEncodeBase64NVARCHARFields<ObjectTableRuleFieldPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SystemLevel, 
-	         ObjectFieldId, 
-	         ObjectTableRuleId, 
-	         Expression, 
-	         RuleNotificationTypeCode, 
-	         ObjectFieldCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SystemLevel, 
-	         ObjectFieldId, 
-	         ObjectTableRuleId, 
-	         Expression, 
-	         RuleNotificationTypeCode, 
-	         ObjectFieldCode, 
-	         ObjectFieldName, 
-	         ObjectTableRuleCode, 
-	         ObjectTableRuleTypeCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ObjectTableRuleFieldPM entityPM, POCO.ObjectTableRuleField entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SystemLevel)) { entityPOCO.SystemLevel = entityPM.SystemLevel;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId)) { entityPOCO.ObjectFieldId = entityPM.ObjectFieldId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableRuleId)) { entityPOCO.ObjectTableRuleId = entityPM.ObjectTableRuleId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Expression)) { entityPOCO.Expression = entityPM.Expression;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RuleNotificationTypeCode)) { entityPOCO.RuleNotificationTypeCode = entityPM.RuleNotificationTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode)) { entityPOCO.ObjectFieldCode = entityPM.ObjectFieldCode;}
-					}
-		public void POCOToPM(ObjectTableRuleFieldPM entityPM, POCO.ObjectTableRuleField entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SystemLevel))
-            {
-					entityPM.SystemLevel = entityPOCO.SystemLevel;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldId))
-            {
-					entityPM.ObjectFieldId = entityPOCO.ObjectFieldId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableRuleId))
-            {
-					entityPM.ObjectTableRuleId = entityPOCO.ObjectTableRuleId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Expression))
-            {
-					entityPM.Expression = entityPOCO.Expression;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.RuleNotificationTypeCode))
-            {
-					entityPM.RuleNotificationTypeCode = entityPOCO.RuleNotificationTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectFieldCode))
-            {
-					entityPM.ObjectFieldCode = entityPOCO.ObjectFieldCode;
-            }
-		}
-		public void PMToOldPM(ObjectTableRuleFieldPM entityPM, ObjectTableRuleFieldPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SystemLevel))
-            {
-                oldEntityPM.SystemLevel = entityPM.SystemLevel;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldId))
-            {
-                oldEntityPM.ObjectFieldId = entityPM.ObjectFieldId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableRuleId))
-            {
-                oldEntityPM.ObjectTableRuleId = entityPM.ObjectTableRuleId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Expression))
-            {
-                oldEntityPM.Expression = entityPM.Expression;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.RuleNotificationTypeCode))
-            {
-                oldEntityPM.RuleNotificationTypeCode = entityPM.RuleNotificationTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectFieldCode))
-            {
-                oldEntityPM.ObjectFieldCode = entityPM.ObjectFieldCode;
-            }
-					}
-		public void POCOToList(POCO.ObjectTableRuleField entityPOCO, ObjectTableRuleFieldList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ObjectTableRuleFieldList> GetIqueryableList(IQueryable<POCO.ObjectTableRuleField> iQueryable)
-		{
-			IQueryable<ObjectTableRuleFieldList> query = (from a in iQueryable
-                                            select new ObjectTableRuleFieldList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ObjectTableRuleFieldPM entityPM)
+    public partial class ObjectTableRuleFieldDataMapping: BaseMappingProfile<ObjectTableRuleFieldPM, POCO.ObjectTableRuleField>, IMapping<ObjectTableRuleFieldPM, POCO.ObjectTableRuleField, ObjectTableRuleFieldList >,IMappingEncodeBase64NVARCHARFields<ObjectTableRuleFieldPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ObjectTableRuleFieldPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -148,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

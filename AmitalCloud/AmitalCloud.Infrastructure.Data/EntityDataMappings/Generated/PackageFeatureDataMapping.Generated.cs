@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class PackageFeatureDataMapping: IMapping<PackageFeaturePM, POCO.PackageFeature  ,PackageFeatureList >,IMappingEncodeBase64NVARCHARFields<PackageFeaturePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageCode, 
-	         FeatureId, 
-	         FeatureUniqeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PackageCode, 
-	         FeatureId, 
-	         FeatureUniqeCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(PackageFeaturePM entityPM, POCO.PackageFeature entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode)) { entityPOCO.PackageCode = entityPM.PackageCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId)) { entityPOCO.FeatureId = entityPM.FeatureId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode)) { entityPOCO.FeatureUniqeCode = entityPM.FeatureUniqeCode;}
-					}
-		public void POCOToPM(PackageFeaturePM entityPM, POCO.PackageFeature entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PackageCode))
-            {
-					entityPM.PackageCode = entityPOCO.PackageCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureId))
-            {
-					entityPM.FeatureId = entityPOCO.FeatureId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FeatureUniqeCode))
-            {
-					entityPM.FeatureUniqeCode = entityPOCO.FeatureUniqeCode;
-            }
-		}
-		public void PMToOldPM(PackageFeaturePM entityPM, PackageFeaturePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode))
-            {
-                oldEntityPM.PackageCode = entityPM.PackageCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureId))
-            {
-                oldEntityPM.FeatureId = entityPM.FeatureId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FeatureUniqeCode))
-            {
-                oldEntityPM.FeatureUniqeCode = entityPM.FeatureUniqeCode;
-            }
-					}
-		public void POCOToList(POCO.PackageFeature entityPOCO, PackageFeatureList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<PackageFeatureList> GetIqueryableList(IQueryable<POCO.PackageFeature> iQueryable)
-		{
-			IQueryable<PackageFeatureList> query = (from a in iQueryable
-                                            select new PackageFeatureList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(PackageFeaturePM entityPM)
+    public partial class PackageFeatureDataMapping: BaseMappingProfile<PackageFeaturePM, POCO.PackageFeature>, IMapping<PackageFeaturePM, POCO.PackageFeature, PackageFeatureList >,IMappingEncodeBase64NVARCHARFields<PackageFeaturePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(PackageFeaturePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -112,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -5,64 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ShipmentCustomsMessageTypeDataMapping: IMapping<ShipmentCustomsMessageTypePM, POCO.ShipmentCustomsMessageType  ,ShipmentCustomsMessageTypeList >,IMappingEncodeBase64NVARCHARFields<ShipmentCustomsMessageTypePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ShipmentCustomsMessageTypePM entityPM, POCO.ShipmentCustomsMessageType entityPOCO)
-        {
-			 }
-		public void POCOToPM(ShipmentCustomsMessageTypePM entityPM, POCO.ShipmentCustomsMessageType entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-		}
-		public void PMToOldPM(ShipmentCustomsMessageTypePM entityPM, ShipmentCustomsMessageTypePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.ShipmentCustomsMessageType entityPOCO, ShipmentCustomsMessageTypeList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ShipmentCustomsMessageTypeList> GetIqueryableList(IQueryable<POCO.ShipmentCustomsMessageType> iQueryable)
-		{
-			IQueryable<ShipmentCustomsMessageTypeList> query = (from a in iQueryable
-                                            select new ShipmentCustomsMessageTypeList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ShipmentCustomsMessageTypePM entityPM)
+    public partial class ShipmentCustomsMessageTypeDataMapping: BaseMappingProfile<ShipmentCustomsMessageTypePM, POCO.ShipmentCustomsMessageType>, IMapping<ShipmentCustomsMessageTypePM, POCO.ShipmentCustomsMessageType, ShipmentCustomsMessageTypeList >,IMappingEncodeBase64NVARCHARFields<ShipmentCustomsMessageTypePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ShipmentCustomsMessageTypePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -70,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

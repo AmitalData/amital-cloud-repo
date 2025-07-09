@@ -27,34 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class WarehousePM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public WarehousePM() : base() {} 
-   public WarehousePM(POCO.Warehouse entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_addedManually = entity.AddedManually;
-		addresses = entity.Addresses != null ? entity.Addresses.Select(a=>new AddressPM(a)).ToList() : null;
-		_firmCode = entity.FirmCode;
-		_typeCode = entity.TypeCode;
-		_warehousetype = entity.WarehouseType !=null ? new WarehouseTypePM(entity.WarehouseType) : null;
-			_myWarehouse = entity.MyWarehouse;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-		_chargeStorage = entity.ChargeStorage;
-		_currencyId = entity.CurrencyId;
-		_airWeightMeasurementCode = entity.AirWeightMeasurementCode;
-		_airweightmeasurement = entity.AirWeightMeasurement !=null ? new WarehouseWeightMeasurementPM(entity.AirWeightMeasurement) : null;
-			_oceanWeightMeasurementCode = entity.OceanWeightMeasurementCode;
-		_oceanweightmeasurement = entity.OceanWeightMeasurement !=null ? new WarehouseWeightMeasurementPM(entity.OceanWeightMeasurement) : null;
-			_inlandWeightMeasurementCode = entity.InlandWeightMeasurementCode;
-		_inlandweightmeasurement = entity.InlandWeightMeasurement !=null ? new WarehouseWeightMeasurementPM(entity.InlandWeightMeasurement) : null;
-			_airWeightRoundingCode = entity.AirWeightRoundingCode;
-		_airweightrounding = entity.AirWeightRounding !=null ? new WarehouseWeightRoundingPM(entity.AirWeightRounding) : null;
-			_oceanWeightRoundingCode = entity.OceanWeightRoundingCode;
-		_oceanweightrounding = entity.OceanWeightRounding !=null ? new WarehouseWeightRoundingPM(entity.OceanWeightRounding) : null;
-			_inlandWeightRoundingCode = entity.InlandWeightRoundingCode;
-		_inlandweightrounding = entity.InlandWeightRounding !=null ? new WarehouseWeightRoundingPM(entity.InlandWeightRounding) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

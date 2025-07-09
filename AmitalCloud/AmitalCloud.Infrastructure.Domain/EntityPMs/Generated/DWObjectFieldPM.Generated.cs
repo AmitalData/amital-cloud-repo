@@ -26,38 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DWObjectFieldPM : BaseEntityPM   {
    #region Constructors
    public DWObjectFieldPM() : base() {} 
-   public DWObjectFieldPM(POCO.DWObjectField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_code = entity.Code;
-		_dWObjectTableCode = entity.DWObjectTableCode;
-		_dwobjecttable = entity.DWObjectTable !=null ? new DWObjectTablePM(entity.DWObjectTable) : null;
-			_dataTypeCode = entity.DataTypeCode;
-		_dimensionTableCode = entity.DimensionTableCode;
-		_dimensiontable = entity.DimensionTable !=null ? new DWObjectTablePM(entity.DimensionTable) : null;
-			_minLength = entity.MinLength;
-		_maxLength = entity.MaxLength;
-		_isPrimaryKey = entity.IsPrimaryKey;
-		_isMeasurement = entity.IsMeasurement;
-		_aggregationTypeCode = entity.AggregationTypeCode;
-		_displayInQueryBuilder = entity.DisplayInQueryBuilder;
-		_category1 = entity.Category1;
-		_category2 = entity.Category2;
-		_hideTree = entity.HideTree;
-		_helpText = entity.HelpText;
-		_cannotFilter = entity.CannotFilter;
-		_lOVAdditionalColumns = entity.LOVAdditionalColumns;
-		_isCustom = entity.IsCustom;
-		_originalObjectFieldCode = entity.OriginalObjectFieldCode;
-		_viewFieldDisplayName = entity.ViewFieldDisplayName;
-		_dontDisplayInView = entity.DontDisplayInView;
-		_dimensionDataViewName = entity.DimensionDataViewName;
-		_isMultipleSelection = entity.IsMultipleSelection;
-		_recordType = entity.RecordType;
-		_useUnitSelection = entity.UseUnitSelection;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

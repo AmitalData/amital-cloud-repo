@@ -5,163 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class SatisfactionSurveyDataMapping: IMapping<SatisfactionSurveyPM, POCO.SatisfactionSurvey  ,SatisfactionSurveyList >,IMappingEncodeBase64NVARCHARFields<SatisfactionSurveyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         CreateDate, 
-	         UpdateDate, 
-	         SearchFields, 
-	         Rating, 
-	         Comments, 
-	         Tenant, 
-	         IsSync, 
-	         LockedBy, 
-	         SyncDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         CreateDate, 
-	         UpdateDate, 
-	         SearchFields, 
-	         Rating, 
-	         Comments, 
-	         Tenant, 
-	         Hash, 
-	         IsSync, 
-	         LockedBy, 
-	         SyncDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(SatisfactionSurveyPM entityPM, POCO.SatisfactionSurvey entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rating)) { entityPOCO.Rating = entityPM.Rating;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Comments)) { entityPOCO.Comments = entityPM.Comments;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSync)) { entityPOCO.IsSync = entityPM.IsSync;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LockedBy)) { entityPOCO.LockedBy = entityPM.LockedBy;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SyncDate)) { entityPOCO.SyncDate = entityPM.SyncDate;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(SatisfactionSurveyPM entityPM, POCO.SatisfactionSurvey entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Rating))
-            {
-					entityPM.Rating = entityPOCO.Rating;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Comments))
-            {
-					entityPM.Comments = entityPOCO.Comments;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsSync))
-            {
-					entityPM.IsSync = entityPOCO.IsSync;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LockedBy))
-            {
-					entityPM.LockedBy = entityPOCO.LockedBy;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SyncDate))
-            {
-					entityPM.SyncDate = entityPOCO.SyncDate;
-            }
-		}
-		public void PMToOldPM(SatisfactionSurveyPM entityPM, SatisfactionSurveyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Rating))
-            {
-                oldEntityPM.Rating = entityPM.Rating;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Comments))
-            {
-                oldEntityPM.Comments = entityPM.Comments;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsSync))
-            {
-                oldEntityPM.IsSync = entityPM.IsSync;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LockedBy))
-            {
-                oldEntityPM.LockedBy = entityPM.LockedBy;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SyncDate))
-            {
-                oldEntityPM.SyncDate = entityPM.SyncDate;
-            }
-					}
-		public void POCOToList(POCO.SatisfactionSurvey entityPOCO, SatisfactionSurveyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<SatisfactionSurveyList> GetIqueryableList(IQueryable<POCO.SatisfactionSurvey> iQueryable)
-		{
-			IQueryable<SatisfactionSurveyList> query = (from a in iQueryable
-                                            select new SatisfactionSurveyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(SatisfactionSurveyPM entityPM)
+    public partial class SatisfactionSurveyDataMapping: BaseMappingProfile<SatisfactionSurveyPM, POCO.SatisfactionSurvey>, IMapping<SatisfactionSurveyPM, POCO.SatisfactionSurvey, SatisfactionSurveyList >,IMappingEncodeBase64NVARCHARFields<SatisfactionSurveyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(SatisfactionSurveyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -185,20 +41,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(SatisfactionSurveyPM entityPM, POCO.SatisfactionSurvey entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BIReportsExecutionLogPM : BaseEntityPM   {
    #region Constructors
    public BIReportsExecutionLogPM() : base() {} 
-   public BIReportsExecutionLogPM(POCO.BIReportsExecutionLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_statusCode = entity.StatusCode;
-		_communicationstatustype = entity.CommunicationStatusType !=null ? new CommunicationStatusTypePM(entity.CommunicationStatusType) : null;
-			_exceptionMessage = entity.ExceptionMessage;
-		_doneDate = entity.DoneDate;
-		_reportFilterXML = entity.ReportFilterXML;
-		_bIReportId = entity.BIReportId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,10 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class INTTRADocumentTypePM : BaseEntityPM   {
    #region Constructors
    public INTTRADocumentTypePM() : base() {} 
-   public INTTRADocumentTypePM(POCO.INTTRADocumentType entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

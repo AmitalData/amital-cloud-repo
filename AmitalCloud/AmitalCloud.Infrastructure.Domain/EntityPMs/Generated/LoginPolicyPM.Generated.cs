@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LoginPolicyPM : BaseEntityPM   {
    #region Constructors
    public LoginPolicyPM() : base() {} 
-   public LoginPolicyPM(POCO.LoginPolicy entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

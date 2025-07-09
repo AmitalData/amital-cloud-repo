@@ -5,139 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class QuoteTemplateTableDesignDataMapping: IMapping<QuoteTemplateTableDesignPM, POCO.QuoteTemplateTableDesign  ,QuoteTemplateTableDesignList >,IMappingEncodeBase64NVARCHARFields<QuoteTemplateTableDesignPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         BorderTypeCode, 
-	         BorderColor, 
-	         BorderThickness, 
-	         HeaderDesignId, 
-	         LinesDesignId, 
-	         GroupByDesignId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         BorderTypeCode, 
-	         BorderColor, 
-	         BorderThickness, 
-	         HeaderDesignId, 
-	         LinesDesignId, 
-	         GroupByDesignId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(QuoteTemplateTableDesignPM entityPM, POCO.QuoteTemplateTableDesign entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderTypeCode)) { entityPOCO.BorderTypeCode = entityPM.BorderTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderColor)) { entityPOCO.BorderColor = entityPM.BorderColor;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderThickness)) { entityPOCO.BorderThickness = entityPM.BorderThickness;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HeaderDesignId)) { entityPOCO.HeaderDesignId = entityPM.HeaderDesignId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LinesDesignId)) { entityPOCO.LinesDesignId = entityPM.LinesDesignId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GroupByDesignId)) { entityPOCO.GroupByDesignId = entityPM.GroupByDesignId;}
-					}
-		public void POCOToPM(QuoteTemplateTableDesignPM entityPM, POCO.QuoteTemplateTableDesign entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BorderTypeCode))
-            {
-					entityPM.BorderTypeCode = entityPOCO.BorderTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BorderColor))
-            {
-					entityPM.BorderColor = entityPOCO.BorderColor;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BorderThickness))
-            {
-					entityPM.BorderThickness = entityPOCO.BorderThickness;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HeaderDesignId))
-            {
-					entityPM.HeaderDesignId = entityPOCO.HeaderDesignId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LinesDesignId))
-            {
-					entityPM.LinesDesignId = entityPOCO.LinesDesignId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GroupByDesignId))
-            {
-					entityPM.GroupByDesignId = entityPOCO.GroupByDesignId;
-            }
-		}
-		public void PMToOldPM(QuoteTemplateTableDesignPM entityPM, QuoteTemplateTableDesignPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderTypeCode))
-            {
-                oldEntityPM.BorderTypeCode = entityPM.BorderTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderColor))
-            {
-                oldEntityPM.BorderColor = entityPM.BorderColor;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BorderThickness))
-            {
-                oldEntityPM.BorderThickness = entityPM.BorderThickness;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HeaderDesignId))
-            {
-                oldEntityPM.HeaderDesignId = entityPM.HeaderDesignId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LinesDesignId))
-            {
-                oldEntityPM.LinesDesignId = entityPM.LinesDesignId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GroupByDesignId))
-            {
-                oldEntityPM.GroupByDesignId = entityPM.GroupByDesignId;
-            }
-					}
-		public void POCOToList(POCO.QuoteTemplateTableDesign entityPOCO, QuoteTemplateTableDesignList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<QuoteTemplateTableDesignList> GetIqueryableList(IQueryable<POCO.QuoteTemplateTableDesign> iQueryable)
-		{
-			IQueryable<QuoteTemplateTableDesignList> query = (from a in iQueryable
-                                            select new QuoteTemplateTableDesignList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(QuoteTemplateTableDesignPM entityPM)
+    public partial class QuoteTemplateTableDesignDataMapping: BaseMappingProfile<QuoteTemplateTableDesignPM, POCO.QuoteTemplateTableDesign>, IMapping<QuoteTemplateTableDesignPM, POCO.QuoteTemplateTableDesign, QuoteTemplateTableDesignList >,IMappingEncodeBase64NVARCHARFields<QuoteTemplateTableDesignPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(QuoteTemplateTableDesignPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -145,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

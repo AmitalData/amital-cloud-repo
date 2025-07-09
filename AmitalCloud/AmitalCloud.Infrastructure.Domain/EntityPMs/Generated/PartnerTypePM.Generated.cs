@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class PartnerTypePM : BaseEntityPM   {
    #region Constructors
    public PartnerTypePM() : base() {} 
-   public PartnerTypePM(POCO.PartnerType entity) : base()
-   {
-		_id = entity.Id;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

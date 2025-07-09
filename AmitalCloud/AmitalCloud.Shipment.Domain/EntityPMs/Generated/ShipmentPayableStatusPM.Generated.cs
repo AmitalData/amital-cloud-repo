@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentPayableStatusPM : BaseEntityPM   {
    #region Constructors
    public ShipmentPayableStatusPM() : base() {} 
-   public ShipmentPayableStatusPM(POCO.ShipmentPayableStatus entity) : base()
-   {
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _searchFields ;

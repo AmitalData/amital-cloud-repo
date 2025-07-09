@@ -5,129 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class PortTimeZoneDataMapping: IMapping<PortTimeZonePM, POCO.PortTimeZone  ,PortTimeZoneList >,IMappingEncodeBase64NVARCHARFields<PortTimeZonePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         Notes, 
-	         UTCOffset, 
-	         UTCDSTOffset, 
-	         Inactive,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields, 
-	         Notes, 
-	         UTCOffset, 
-	         UTCDSTOffset, 
-	         Inactive,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(PortTimeZonePM entityPM, POCO.PortTimeZone entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes)) { entityPOCO.Notes = entityPM.Notes;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UTCOffset)) { entityPOCO.UTCOffset = entityPM.UTCOffset;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UTCDSTOffset)) { entityPOCO.UTCDSTOffset = entityPM.UTCDSTOffset;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Inactive)) { entityPOCO.Inactive = entityPM.Inactive;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(PortTimeZonePM entityPM, POCO.PortTimeZone entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Notes))
-            {
-					entityPM.Notes = entityPOCO.Notes;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UTCOffset))
-            {
-					entityPM.UTCOffset = entityPOCO.UTCOffset;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UTCDSTOffset))
-            {
-					entityPM.UTCDSTOffset = entityPOCO.UTCDSTOffset;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Inactive))
-            {
-					entityPM.Inactive = entityPOCO.Inactive;
-            }
-		}
-		public void PMToOldPM(PortTimeZonePM entityPM, PortTimeZonePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Notes))
-            {
-                oldEntityPM.Notes = entityPM.Notes;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UTCOffset))
-            {
-                oldEntityPM.UTCOffset = entityPM.UTCOffset;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UTCDSTOffset))
-            {
-                oldEntityPM.UTCDSTOffset = entityPM.UTCDSTOffset;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Inactive))
-            {
-                oldEntityPM.Inactive = entityPM.Inactive;
-            }
-					}
-		public void POCOToList(POCO.PortTimeZone entityPOCO, PortTimeZoneList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<PortTimeZoneList> GetIqueryableList(IQueryable<POCO.PortTimeZone> iQueryable)
-		{
-			IQueryable<PortTimeZoneList> query = (from a in iQueryable
-                                            select new PortTimeZoneList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(PortTimeZonePM entityPM)
+    public partial class PortTimeZoneDataMapping: BaseMappingProfile<PortTimeZonePM, POCO.PortTimeZone>, IMapping<PortTimeZonePM, POCO.PortTimeZone, PortTimeZoneList >,IMappingEncodeBase64NVARCHARFields<PortTimeZonePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(PortTimeZonePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -143,20 +33,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(PortTimeZonePM entityPM, POCO.PortTimeZone entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

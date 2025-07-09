@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TipsVisibilityDataMapping: IMapping<TipsVisibilityPM, POCO.TipsVisibility  ,TipsVisibilityList >,IMappingEncodeBase64NVARCHARFields<TipsVisibilityPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         UserId, 
-	         TipCode, 
-	         IsVisible,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         UserId, 
-	         TipCode, 
-	         IsVisible,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TipsVisibilityPM entityPM, POCO.TipsVisibility entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId)) { entityPOCO.UserId = entityPM.UserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TipCode)) { entityPOCO.TipCode = entityPM.TipCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsVisible)) { entityPOCO.IsVisible = entityPM.IsVisible;}
-					}
-		public void POCOToPM(TipsVisibilityPM entityPM, POCO.TipsVisibility entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UserId))
-            {
-					entityPM.UserId = entityPOCO.UserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TipCode))
-            {
-					entityPM.TipCode = entityPOCO.TipCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsVisible))
-            {
-					entityPM.IsVisible = entityPOCO.IsVisible;
-            }
-		}
-		public void PMToOldPM(TipsVisibilityPM entityPM, TipsVisibilityPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UserId))
-            {
-                oldEntityPM.UserId = entityPM.UserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TipCode))
-            {
-                oldEntityPM.TipCode = entityPM.TipCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsVisible))
-            {
-                oldEntityPM.IsVisible = entityPM.IsVisible;
-            }
-					}
-		public void POCOToList(POCO.TipsVisibility entityPOCO, TipsVisibilityList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TipsVisibilityList> GetIqueryableList(IQueryable<POCO.TipsVisibility> iQueryable)
-		{
-			IQueryable<TipsVisibilityList> query = (from a in iQueryable
-                                            select new TipsVisibilityList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(TipsVisibilityPM entityPM)
+    public partial class TipsVisibilityDataMapping: BaseMappingProfile<TipsVisibilityPM, POCO.TipsVisibility>, IMapping<TipsVisibilityPM, POCO.TipsVisibility, TipsVisibilityList >,IMappingEncodeBase64NVARCHARFields<TipsVisibilityPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(TipsVisibilityPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -112,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

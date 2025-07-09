@@ -26,10 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class PickUpDeliveryTransportModePM : BaseEntityPM   {
    #region Constructors
    public PickUpDeliveryTransportModePM() : base() {} 
-   public PickUpDeliveryTransportModePM(POCO.PickUpDeliveryTransportMode entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

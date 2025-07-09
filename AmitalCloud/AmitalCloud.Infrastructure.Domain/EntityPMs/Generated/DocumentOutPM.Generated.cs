@@ -26,24 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentOutPM : BaseEntityPM   {
    #region Constructors
    public DocumentOutPM() : base() {} 
-   public DocumentOutPM(POCO.DocumentOut entity) : base()
-   {
-		_id = entity.Id;
-		_documentsfiling = entity.DocumentsFiling !=null ? new DocumentsFilingPM(entity.DocumentsFiling) : null;
-			_tenant = entity.Tenant;
-		_issued = entity.Issued;
-		_editableFields = entity.EditableFields;
-		_documentTemplateId = entity.DocumentTemplateId;
-		_emailTemplateId = entity.EmailTemplateId;
-		_xamlDocumentId = entity.XamlDocumentId;
-		_needsRebuild = entity.NeedsRebuild;
-		_isBlobExist = entity.IsBlobExist;
-		_issuedDate = entity.IssuedDate;
-		_issuedByUserId = entity.IssuedByUserId;
-		communicationLogs = entity.CommunicationLogs != null ? entity.CommunicationLogs.Select(a=>new CommunicationLogPM(a)).ToList() : null;
-		documentOutCopys = entity.DocumentOutCopys != null ? entity.DocumentOutCopys.Select(a=>new DocumentOutCopyPM(a)).ToList() : null;
-		followUps = entity.FollowUps != null ? entity.FollowUps.Select(a=>new FollowUpPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

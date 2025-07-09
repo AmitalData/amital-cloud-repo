@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantLoginPolicyPM : BaseEntityPM   {
    #region Constructors
    public TenantLoginPolicyPM() : base() {} 
-   public TenantLoginPolicyPM(POCO.TenantLoginPolicy entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_loginPolicyCode = entity.LoginPolicyCode;
-		_loginpolicy = entity.LoginPolicy !=null ? new LoginPolicyPM(entity.LoginPolicy) : null;
-			_isEnabledForSpecificUsers = entity.IsEnabledForSpecificUsers;
-		_twoFactorInternalIPs = entity.TwoFactorInternalIPs;
-		_keepUserLoggedIn = entity.KeepUserLoggedIn;
-		_excludeInternalIPs = entity.ExcludeInternalIPs;
-		_allowedIPs = entity.AllowedIPs;
-		_sessionTimeout = entity.SessionTimeout;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

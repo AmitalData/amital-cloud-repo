@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DigitalContactLastSettingPM : BaseEntityPM   {
    #region Constructors
    public DigitalContactLastSettingPM() : base() {} 
-   public DigitalContactLastSettingPM(POCO.DigitalContactLastSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_contactId = entity.ContactId;
-		_objectTableId = entity.ObjectTableId;
-		_filterName = entity.FilterName;
-		_filterCode = entity.FilterCode;
-		_isChecked = entity.IsChecked;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

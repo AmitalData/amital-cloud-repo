@@ -26,26 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomsInterfaceSettingPM : BaseEntityPM   {
    #region Constructors
    public CustomsInterfaceSettingPM() : base() {} 
-   public CustomsInterfaceSettingPM(POCO.CustomsInterfaceSetting entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_activateCustomsManagementInShipments = entity.ActivateCustomsManagementInShipments;
-		_localCustomsInterfaceCode = entity.LocalCustomsInterfaceCode;
-		_localcustomsinterface = entity.LocalCustomsInterface !=null ? new CustomsInterfacePM(entity.LocalCustomsInterface) : null;
-			_importToUSAInterfaceCode = entity.ImportToUSAInterfaceCode;
-		_importtousainterface = entity.ImportToUSAInterface !=null ? new CustomsInterfacePM(entity.ImportToUSAInterface) : null;
-			_exportFromUSAInterfaceCode = entity.ExportFromUSAInterfaceCode;
-		_exportfromusainterface = entity.ExportFromUSAInterface !=null ? new CustomsInterfacePM(entity.ExportFromUSAInterface) : null;
-			_localCompanyId = entity.LocalCompanyId;
-		_localUserId = entity.LocalUserId;
-		_localPassword = entity.LocalPassword;
-		_artemusOutSettingsId = entity.ArtemusOutSettingsId;
-		_artemusoutsettings = entity.ArtemusOutSettings !=null ? new FTPDetailPM(entity.ArtemusOutSettings) : null;
-			_artemusInSettingsId = entity.ArtemusInSettingsId;
-		_artemusinsettings = entity.ArtemusInSettings !=null ? new FTPDetailPM(entity.ArtemusInSettings) : null;
-			_aMCAirStartDate = entity.AMCAirStartDate;
-		_aMCOceanStartDate = entity.AMCOceanStartDate;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

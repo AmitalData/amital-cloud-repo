@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class SystemDataPM : BaseEntityPM   {
    #region Constructors
    public SystemDataPM() : base() {} 
-   public SystemDataPM(POCO.SystemData entity) : base()
-   {
-		_userName = entity.UserName;
-		_date = entity.Date;
-		_userId = entity.UserId;
-		_signature = entity.Signature;
-		_localCurrencyId = entity.LocalCurrencyId;
-		_company = entity.Company;
-		_email = entity.Email;
-		_website = entity.Website;
-		_iATA = entity.IATA;
-		_vatNumber = entity.VatNumber;
-		_addressId = entity.AddressId;
-		_contactId = entity.ContactId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _userName ;

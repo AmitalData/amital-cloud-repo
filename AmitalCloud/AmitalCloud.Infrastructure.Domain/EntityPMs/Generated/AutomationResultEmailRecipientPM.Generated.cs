@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AutomationResultEmailRecipientPM : BaseEntityPM   {
    #region Constructors
    public AutomationResultEmailRecipientPM() : base() {} 
-   public AutomationResultEmailRecipientPM(POCO.AutomationResultEmailRecipient entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_automationsId = entity.AutomationsId;
-		_automation = entity.Automation !=null ? new AutomationPM(entity.Automation) : null;
-			_recipientType = entity.RecipientType;
-		_recipientValue = entity.RecipientValue;
-		_partnerObjectFieldCode = entity.PartnerObjectFieldCode;
-		_isNotifyBack = entity.IsNotifyBack;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TransportModePM : BaseEntityPM   {
    #region Constructors
    public TransportModePM() : base() {} 
-   public TransportModePM(POCO.TransportMode entity) : base()
-   {
-		_id = entity.Id;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

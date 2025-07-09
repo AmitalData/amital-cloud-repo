@@ -5,64 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class CustomsTransmissionsStatusDataMapping: IMapping<CustomsTransmissionsStatusPM, POCO.CustomsTransmissionsStatus  ,CustomsTransmissionsStatusList >,IMappingEncodeBase64NVARCHARFields<CustomsTransmissionsStatusPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CustomsTransmissionsStatusPM entityPM, POCO.CustomsTransmissionsStatus entityPOCO)
-        {
-			 }
-		public void POCOToPM(CustomsTransmissionsStatusPM entityPM, POCO.CustomsTransmissionsStatus entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-		}
-		public void PMToOldPM(CustomsTransmissionsStatusPM entityPM, CustomsTransmissionsStatusPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.CustomsTransmissionsStatus entityPOCO, CustomsTransmissionsStatusList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CustomsTransmissionsStatusList> GetIqueryableList(IQueryable<POCO.CustomsTransmissionsStatus> iQueryable)
-		{
-			IQueryable<CustomsTransmissionsStatusList> query = (from a in iQueryable
-                                            select new CustomsTransmissionsStatusList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CustomsTransmissionsStatusPM entityPM)
+    public partial class CustomsTransmissionsStatusDataMapping: BaseMappingProfile<CustomsTransmissionsStatusPM, POCO.CustomsTransmissionsStatus>, IMapping<CustomsTransmissionsStatusPM, POCO.CustomsTransmissionsStatus, CustomsTransmissionsStatusList >,IMappingEncodeBase64NVARCHARFields<CustomsTransmissionsStatusPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CustomsTransmissionsStatusPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -70,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

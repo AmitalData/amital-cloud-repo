@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CustomPickListPM : BaseEntityPM   {
    #region Constructors
    public CustomPickListPM() : base() {} 
-   public CustomPickListPM(POCO.CustomPickList entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_value = entity.Value;
-		_isMultipleChoice = entity.IsMultipleChoice;
-		_automaticlastupdatedate = entity.Automaticlastupdatedate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

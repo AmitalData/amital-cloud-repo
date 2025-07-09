@@ -26,38 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class LogitudeMessagesTransmissionLogPM : BaseEntityPM   {
    #region Constructors
    public LogitudeMessagesTransmissionLogPM() : base() {} 
-   public LogitudeMessagesTransmissionLogPM(POCO.LogitudeMessagesTransmissionLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_sourceTenant = entity.SourceTenant;
-		_hAWB = entity.HAWB;
-		_participantId = entity.ParticipantId;
-		_cCS = entity.CCS;
-		_airlineCode = entity.AirlineCode;
-		_messageTypeCode = entity.MessageTypeCode;
-		_prefix = entity.Prefix;
-		_aWBNumber = entity.AWBNumber;
-		_sentDate = entity.SentDate;
-		_participant = entity.Participant;
-		_iATACode = entity.IATACode;
-		_cASSCode = entity.CASSCode;
-		_userName = entity.UserName;
-		_origin = entity.Origin;
-		_destination = entity.Destination;
-		_pieces = entity.Pieces;
-		_grossWeight = entity.GrossWeight;
-		_grossWeightUnitCode = entity.GrossWeightUnitCode;
-		_chargeableWeight = entity.ChargeableWeight;
-		_chargeableWeightUnitCode = entity.ChargeableWeightUnitCode;
-		_volume = entity.Volume;
-		_volumeUnitCode = entity.VolumeUnitCode;
-		_descriptionOfGoods = entity.DescriptionOfGoods;
-		_directParticipant = entity.DirectParticipant;
-		_isUpdatedinAirlineTenant = entity.IsUpdatedinAirlineTenant;
-		_userEmail = entity.UserEmail;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

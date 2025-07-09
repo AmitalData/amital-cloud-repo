@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectTableHelperControlPM : BaseEntityPM   {
    #region Constructors
    public ObjectTableHelperControlPM() : base() {} 
-   public ObjectTableHelperControlPM(POCO.ObjectTableHelperControl entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_controlPath = entity.ControlPath;
-		_code = entity.Code;
-		_objectTableId = entity.ObjectTableId;
-		_featureId = entity.FeatureId;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
@@ -135,6 +125,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private FeaturePM _feature;
+		
+        [DataMember]
+        public virtual FeaturePM Feature 
+		{ 
+		get { return _feature; } 
+		set { _feature = value; }
+		}
 	  private string _featureUniqeCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

@@ -1,7 +1,9 @@
 ﻿using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,11 +20,10 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         }
         public List<ScreenFieldPM> GetScreenFieldPMsByTenant()
         {
-            List<ScreenFieldPM> screenFieldPMs = repository.GetMultiFromCache($"GetScreenFieldPMsByTenant{tenant}", a => a.Tenant == tenant || a.Tenant == 0, "ObjectField,ObjectField.ObjectTable", a => new ScreenFieldPM(a)
-            {
-                ObjectFieldName = a.ObjectField != null ? a.ObjectField.FieldName : null,
-                ObjectFieldObjectTableName = a.ObjectField != null && a.ObjectField.ObjectTable != null ? a.ObjectField.ObjectTable.Name : string.Empty,
-            });
+            List<ScreenField> screenFields = repository.GetMultiFromCache($"GetScreenFieldPMsByTenant{tenant}", a => a.Tenant == tenant || a.Tenant == 0, "ObjectField,ObjectField.ObjectTable", a => a);
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenFieldDataMapping()));
+            var mapper = config.CreateMapper();
+            List<ScreenFieldPM> screenFieldPMs = mapper.Map<List<ScreenFieldPM>>(screenFields);
 
             List<ScreenFieldPM> selectedScreenFields = new List<ScreenFieldPM>();
             foreach (ScreenFieldPM field in screenFieldPMs)

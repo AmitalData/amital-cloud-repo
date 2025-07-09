@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class AWBCustomsInformationPM : BaseEntityPM   {
    #region Constructors
    public AWBCustomsInformationPM() : base() {} 
-   public AWBCustomsInformationPM(POCO.AWBCustomsInformation entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

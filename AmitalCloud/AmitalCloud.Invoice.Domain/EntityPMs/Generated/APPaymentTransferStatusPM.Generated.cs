@@ -26,12 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class APPaymentTransferStatusPM : BaseEntityPM   {
    #region Constructors
    public APPaymentTransferStatusPM() : base() {} 
-   public APPaymentTransferStatusPM(POCO.APPaymentTransferStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

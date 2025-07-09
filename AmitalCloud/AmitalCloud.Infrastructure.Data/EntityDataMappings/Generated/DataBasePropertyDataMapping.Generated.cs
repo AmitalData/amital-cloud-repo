@@ -5,73 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DataBasePropertyDataMapping: IMapping<DataBasePropertyPM, POCO.DataBaseProperty  ,DataBasePropertyList >,IMappingEncodeBase64NVARCHARFields<DataBasePropertyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         DataBaseNumber, 
-	         LastBackupDate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         DataBaseNumber, 
-	         LastBackupDate,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DataBasePropertyPM entityPM, POCO.DataBaseProperty entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastBackupDate)) { entityPOCO.LastBackupDate = entityPM.LastBackupDate;}
-					}
-		public void POCOToPM(DataBasePropertyPM entityPM, POCO.DataBaseProperty entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DataBaseNumber))
-            {
-					entityPM.DataBaseNumber = entityPOCO.DataBaseNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastBackupDate))
-            {
-					entityPM.LastBackupDate = entityPOCO.LastBackupDate;
-            }
-		}
-		public void PMToOldPM(DataBasePropertyPM entityPM, DataBasePropertyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastBackupDate))
-            {
-                oldEntityPM.LastBackupDate = entityPM.LastBackupDate;
-            }
-					}
-		public void POCOToList(POCO.DataBaseProperty entityPOCO, DataBasePropertyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DataBasePropertyList> GetIqueryableList(IQueryable<POCO.DataBaseProperty> iQueryable)
-		{
-			IQueryable<DataBasePropertyList> query = (from a in iQueryable
-                                            select new DataBasePropertyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(DataBasePropertyPM entityPM)
+    public partial class DataBasePropertyDataMapping: BaseMappingProfile<DataBasePropertyPM, POCO.DataBaseProperty>, IMapping<DataBasePropertyPM, POCO.DataBaseProperty, DataBasePropertyList >,IMappingEncodeBase64NVARCHARFields<DataBasePropertyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(DataBasePropertyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -79,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

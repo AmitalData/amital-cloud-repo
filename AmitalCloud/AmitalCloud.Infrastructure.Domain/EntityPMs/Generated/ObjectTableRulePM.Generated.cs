@@ -26,32 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectTableRulePM : BaseEntityPM   {
    #region Constructors
    public ObjectTableRulePM() : base() {} 
-   public ObjectTableRulePM(POCO.ObjectTableRule entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_condition = entity.Condition;
-		_systemLevel = entity.SystemLevel;
-		_ruleCode = entity.RuleCode;
-		_outputMessage = entity.OutputMessage;
-		_name = entity.Name;
-		_inActive = entity.InActive;
-		_ruleTypeCode = entity.RuleTypeCode;
-		_ruletype = entity.RuleType !=null ? new RuleTypePM(entity.RuleType) : null;
-			_objectTableId = entity.ObjectTableId;
-		_triggerTypeCode = entity.TriggerTypeCode;
-		_triggertype = entity.TriggerType !=null ? new TriggerTypePM(entity.TriggerType) : null;
-			_ruleNotificationTypeCode = entity.RuleNotificationTypeCode;
-		_rulenotificationtype = entity.RuleNotificationType !=null ? new RuleNotificationTypePM(entity.RuleNotificationType) : null;
-			_triggerFieldId = entity.TriggerFieldId;
-		_activeForNew = entity.ActiveForNew;
-		_activeForUpdate = entity.ActiveForUpdate;
-		_internal = entity.Internal;
-		_advancedCondition = entity.AdvancedCondition;
-		_triggerFieldCode = entity.TriggerFieldCode;
-		//objectTableRuleFields = entity.ObjectTableRuleFields != null ? entity.ObjectTableRuleFields.Select(a=>new ObjectTableRuleFieldPM(a)).ToList() : null;
-		ruleConditionFields = entity.RuleConditionFields != null ? entity.RuleConditionFields.Select(a=>new RuleConditionFieldPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

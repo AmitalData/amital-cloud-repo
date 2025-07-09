@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class RestrictionPM : BaseEntityPM   {
    #region Constructors
    public RestrictionPM() : base() {} 
-   public RestrictionPM(POCO.Restriction entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_value = entity.Value;
-		_contactTenantId = entity.ContactTenantId;
-		_contacttenant = entity.ContactTenant !=null ? new ContactTenantPM(entity.ContactTenant) : null;
-			_objectTableId = entity.ObjectTableId;
-		_objectFieldId = entity.ObjectFieldId;
-		_objectFieldCode = entity.ObjectFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

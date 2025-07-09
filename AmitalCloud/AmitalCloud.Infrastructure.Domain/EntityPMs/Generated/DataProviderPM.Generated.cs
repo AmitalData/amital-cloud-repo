@@ -26,11 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DataProviderPM : BaseEntityPM   {
    #region Constructors
    public DataProviderPM() : base() {} 
-   public DataProviderPM(POCO.DataProvider entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

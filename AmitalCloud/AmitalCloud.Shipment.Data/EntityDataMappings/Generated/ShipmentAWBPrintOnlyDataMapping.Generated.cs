@@ -5,187 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ShipmentAWBPrintOnlyDataMapping: IMapping<ShipmentAWBPrintOnlyPM, POCO.ShipmentAWBPrintOnly  ,ShipmentAWBPrintOnlyList >,IMappingEncodeBase64NVARCHARFields<ShipmentAWBPrintOnlyPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ExchangeRate, 
-	         MeasurementId, 
-	         IATACodeId, 
-	         CurrencyId, 
-	         DueTypeCode, 
-	         PrepaidCollectId, 
-	         ShipmentId, 
-	         Quantity, 
-	         UnitPrice, 
-	         Amount,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ExchangeRate, 
-	         MeasurementId, 
-	         IATACodeId, 
-	         CurrencyId, 
-	         DueTypeCode, 
-	         PrepaidCollectId, 
-	         ShipmentId, 
-	         Quantity, 
-	         UnitPrice, 
-	         Amount, 
-	         CurrencyCode, 
-	         DueTypeName, 
-	         MeasurementCode, 
-	         IATACodeName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ShipmentAWBPrintOnlyPM entityPM, POCO.ShipmentAWBPrintOnly entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExchangeRate)) { entityPOCO.ExchangeRate = entityPM.ExchangeRate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MeasurementId)) { entityPOCO.MeasurementId = entityPM.MeasurementId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IATACodeId)) { entityPOCO.IATACodeId = entityPM.IATACodeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId)) { entityPOCO.CurrencyId = entityPM.CurrencyId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DueTypeCode)) { entityPOCO.DueTypeCode = entityPM.DueTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrepaidCollectId)) { entityPOCO.PrepaidCollectId = entityPM.PrepaidCollectId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId)) { entityPOCO.ShipmentId = entityPM.ShipmentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Quantity)) { entityPOCO.Quantity = entityPM.Quantity;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UnitPrice)) { entityPOCO.UnitPrice = entityPM.UnitPrice;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Amount)) { entityPOCO.Amount = entityPM.Amount;}
-					}
-		public void POCOToPM(ShipmentAWBPrintOnlyPM entityPM, POCO.ShipmentAWBPrintOnly entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExchangeRate))
-            {
-					entityPM.ExchangeRate = entityPOCO.ExchangeRate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MeasurementId))
-            {
-					entityPM.MeasurementId = entityPOCO.MeasurementId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IATACodeId))
-            {
-					entityPM.IATACodeId = entityPOCO.IATACodeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CurrencyId))
-            {
-					entityPM.CurrencyId = entityPOCO.CurrencyId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DueTypeCode))
-            {
-					entityPM.DueTypeCode = entityPOCO.DueTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PrepaidCollectId))
-            {
-					entityPM.PrepaidCollectId = entityPOCO.PrepaidCollectId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShipmentId))
-            {
-					entityPM.ShipmentId = entityPOCO.ShipmentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Quantity))
-            {
-					entityPM.Quantity = entityPOCO.Quantity;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UnitPrice))
-            {
-					entityPM.UnitPrice = entityPOCO.UnitPrice;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Amount))
-            {
-					entityPM.Amount = entityPOCO.Amount;
-            }
-		}
-		public void PMToOldPM(ShipmentAWBPrintOnlyPM entityPM, ShipmentAWBPrintOnlyPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExchangeRate))
-            {
-                oldEntityPM.ExchangeRate = entityPM.ExchangeRate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MeasurementId))
-            {
-                oldEntityPM.MeasurementId = entityPM.MeasurementId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IATACodeId))
-            {
-                oldEntityPM.IATACodeId = entityPM.IATACodeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId))
-            {
-                oldEntityPM.CurrencyId = entityPM.CurrencyId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DueTypeCode))
-            {
-                oldEntityPM.DueTypeCode = entityPM.DueTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PrepaidCollectId))
-            {
-                oldEntityPM.PrepaidCollectId = entityPM.PrepaidCollectId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId))
-            {
-                oldEntityPM.ShipmentId = entityPM.ShipmentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Quantity))
-            {
-                oldEntityPM.Quantity = entityPM.Quantity;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UnitPrice))
-            {
-                oldEntityPM.UnitPrice = entityPM.UnitPrice;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Amount))
-            {
-                oldEntityPM.Amount = entityPM.Amount;
-            }
-					}
-		public void POCOToList(POCO.ShipmentAWBPrintOnly entityPOCO, ShipmentAWBPrintOnlyList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ShipmentAWBPrintOnlyList> GetIqueryableList(IQueryable<POCO.ShipmentAWBPrintOnly> iQueryable)
-		{
-			IQueryable<ShipmentAWBPrintOnlyList> query = (from a in iQueryable
-                                            select new ShipmentAWBPrintOnlyList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ShipmentAWBPrintOnlyPM entityPM)
+    public partial class ShipmentAWBPrintOnlyDataMapping: BaseMappingProfile<ShipmentAWBPrintOnlyPM, POCO.ShipmentAWBPrintOnly>, IMapping<ShipmentAWBPrintOnlyPM, POCO.ShipmentAWBPrintOnly, ShipmentAWBPrintOnlyList >,IMappingEncodeBase64NVARCHARFields<ShipmentAWBPrintOnlyPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ShipmentAWBPrintOnlyPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -193,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

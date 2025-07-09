@@ -26,27 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectTableTabPM : BaseEntityPM   {
    #region Constructors
    public ObjectTableTabPM() : base() {} 
-   public ObjectTableTabPM(POCO.ObjectTableTab entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_controlPath = entity.ControlPath;
-		_tabNameTextCodeId = entity.TabNameTextCodeId;
-		_tabnametextcode = entity.TabNameTextCode !=null ? new TextCodePM(entity.TabNameTextCode) : null;
-			_indexOrder = entity.IndexOrder;
-		_code = entity.Code;
-		_featureId = entity.FeatureId;
-		_htmlComponentName = entity.HtmlComponentName;
-		_htmlComponentUrl = entity.HtmlComponentUrl;
-		_tabNameTextCodeCode = entity.TabNameTextCodeCode;
-		_featureUniqeCode = entity.FeatureUniqeCode;
-		_type = entity.Type;
-		_screenCode = entity.ScreenCode;
-		_originalTabCode = entity.OriginalTabCode;
-		_hideTabNameInScreen = entity.HideTabNameInScreen;
-		_isLocked = entity.IsLocked;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

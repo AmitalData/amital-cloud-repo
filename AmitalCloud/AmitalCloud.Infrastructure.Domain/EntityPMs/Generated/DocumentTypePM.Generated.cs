@@ -26,64 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentTypePM : BaseEntityPM   {
    #region Constructors
    public DocumentTypePM() : base() {} 
-   public DocumentTypePM(POCO.DocumentType entity) : base()
-   {
-		_id = entity.Id;
-		_notes = entity.Notes;
-		_subject = entity.Subject;
-		_documentTypeDefaultReportTemplateId = entity.DocumentTypeDefaultReportTemplateId;
-		_documentTypeDefaultHTMLTemplateId = entity.DocumentTypeDefaultHTMLTemplateId;
-		_documentTypeDefaultEditorTool = entity.DocumentTypeDefaultEditorTool;
-		_customControl = entity.CustomControl;
-		_customerRoleId = entity.CustomerRoleId;
-		_customerrole = entity.CustomerRole !=null ? new RolePM(entity.CustomerRole) : null;
-			_agentRoleId = entity.AgentRoleId;
-		_agentrole = entity.AgentRole !=null ? new RolePM(entity.AgentRole) : null;
-			_sharedDocumentTypeCopyId = entity.SharedDocumentTypeCopyId;
-		_isAirDigitalSignRequired = entity.IsAirDigitalSignRequired;
-		_isOceanDigitalSignRequired = entity.IsOceanDigitalSignRequired;
-		_isInlandDigitalSignRequired = entity.IsInlandDigitalSignRequired;
-		_isReadOnly = entity.IsReadOnly;
-		_isMaster = entity.IsMaster;
-		_isDirect = entity.IsDirect;
-		_isHouse = entity.IsHouse;
-		_searchFields = entity.SearchFields;
-		_isAgentSharedInHouse = entity.IsAgentSharedInHouse;
-		_isAgentSharedInDirect = entity.IsAgentSharedInDirect;
-		_isAgentSharedInMaster = entity.IsAgentSharedInMaster;
-		_isCustomerView = entity.IsCustomerView;
-		_fileName = entity.FileName;
-		_isAgentView = entity.IsAgentView;
-		_orderBy = entity.OrderBy;
-		_isCopiedAtSignup = entity.IsCopiedAtSignup;
-		_inActive = entity.InActive;
-		_printingFieldsScreenCode = entity.PrintingFieldsScreenCode;
-		_isSystemAdditionalPrintingFields = entity.IsSystemAdditionalPrintingFields;
-		_isEnabledForCustomers = entity.IsEnabledForCustomers;
-		_countryCode = entity.CountryCode;
-		_isDocumentOneTimePrintLimited = entity.IsDocumentOneTimePrintLimited;
-		_isOcean = entity.IsOcean;
-		_isAir = entity.IsAir;
-		_name = entity.Name;
-		_code = entity.Code;
-		_documentTypeCategoryCode = entity.DocumentTypeCategoryCode;
-		_documenttypecategory = entity.DocumentTypeCategory !=null ? new DocumentTypeCategoryPM(entity.DocumentTypeCategory) : null;
-			_templateFormatCode = entity.TemplateFormatCode;
-		_templateformat = entity.TemplateFormat !=null ? new TemplateFormatPM(entity.TemplateFormat) : null;
-			_objectTableId = entity.ObjectTableId;
-		_limitedPrintCopyId = entity.LimitedPrintCopyId;
-		_tenant = entity.Tenant;
-		_isDocOut = entity.IsDocOut;
-		_isDocIn = entity.IsDocIn;
-		_isInland = entity.IsInland;
-		documentTypeCustomFields = entity.DocumentTypeCustomFields != null ? entity.DocumentTypeCustomFields.Select(a=>new DocumentTypeCustomFieldPM(a)).ToList() : null;
-		documentTypeTemplates = entity.DocumentTypeTemplates != null ? entity.DocumentTypeTemplates.Select(a=>new DocumentTypeTemplatePM(a)).ToList() : null;
-		_addedManually = entity.AddedManually;
-		_onSendPopulateDateFieldName = entity.OnSendPopulateDateFieldName;
-		_onUploadPopulateDateFieldName = entity.OnUploadPopulateDateFieldName;
-		_onPrintPopulateDateFieldName = entity.OnPrintPopulateDateFieldName;
-		_isCustomerUploadPermission = entity.IsCustomerUploadPermission;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

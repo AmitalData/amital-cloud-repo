@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DBIdCounterPM : BaseEntityPM   {
    #region Constructors
    public DBIdCounterPM() : base() {} 
-   public DBIdCounterPM(POCO.DBIdCounter entity) : base()
-   {
-		_id = entity.Id;
-		_tableName = entity.TableName;
-		_lastIdNumber = entity.LastIdNumber;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;
@@ -80,6 +74,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="LastIdNumber",OldValue=_lastIdNumber,NewValue=value,PropertyType="int"};
 		    NotifyPropertyChanged(values);
 		   _lastIdNumber=value;
+		   }
+		 }
+	   }
+	  private string _rowid ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string Rowid  
+	   {
+	     get { return _rowid; }
+		 set
+		 {
+		   if(_rowid != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _rowid=value;
 		   }
 		 }
 	   }

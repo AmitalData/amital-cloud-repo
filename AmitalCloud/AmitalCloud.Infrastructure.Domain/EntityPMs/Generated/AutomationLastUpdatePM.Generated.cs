@@ -26,13 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AutomationLastUpdatePM : BaseEntityPM   {
    #region Constructors
    public AutomationLastUpdatePM() : base() {} 
-   public AutomationLastUpdatePM(POCO.AutomationLastUpdate entity) : base()
-   {
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_lastUpdateDate = entity.LastUpdateDate;
-		_hasAutomation = entity.HasAutomation;
-   }
    #endregion Constructors
    #region Properties
    	  private int _tenant ;

@@ -5,139 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TenantAdditionalDataDataMapping: IMapping<TenantAdditionalDataPM, POCO.TenantAdditionalData  ,TenantAdditionalDataList >,IMappingEncodeBase64NVARCHARFields<TenantAdditionalDataPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DropBoxAccessToken, 
-	         DropBoxState, 
-	         DropBoxUID, 
-	         DropBoxUEmail, 
-	         PaymentGatewayPartnerCode, 
-	         PaymentGatewayConnectionString,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DropBoxAccessToken, 
-	         DropBoxState, 
-	         DropBoxUID, 
-	         DropBoxUEmail, 
-	         PaymentGatewayPartnerCode, 
-	         PaymentGatewayConnectionString,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TenantAdditionalDataPM entityPM, POCO.TenantAdditionalData entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxAccessToken)) { entityPOCO.DropBoxAccessToken = entityPM.DropBoxAccessToken;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxState)) { entityPOCO.DropBoxState = entityPM.DropBoxState;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxUID)) { entityPOCO.DropBoxUID = entityPM.DropBoxUID;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxUEmail)) { entityPOCO.DropBoxUEmail = entityPM.DropBoxUEmail;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentGatewayPartnerCode)) { entityPOCO.PaymentGatewayPartnerCode = entityPM.PaymentGatewayPartnerCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentGatewayConnectionString)) { entityPOCO.PaymentGatewayConnectionString = entityPM.PaymentGatewayConnectionString;}
-					}
-		public void POCOToPM(TenantAdditionalDataPM entityPM, POCO.TenantAdditionalData entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropBoxAccessToken))
-            {
-					entityPM.DropBoxAccessToken = entityPOCO.DropBoxAccessToken;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropBoxState))
-            {
-					entityPM.DropBoxState = entityPOCO.DropBoxState;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropBoxUID))
-            {
-					entityPM.DropBoxUID = entityPOCO.DropBoxUID;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DropBoxUEmail))
-            {
-					entityPM.DropBoxUEmail = entityPOCO.DropBoxUEmail;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PaymentGatewayPartnerCode))
-            {
-					entityPM.PaymentGatewayPartnerCode = entityPOCO.PaymentGatewayPartnerCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PaymentGatewayConnectionString))
-            {
-					entityPM.PaymentGatewayConnectionString = entityPOCO.PaymentGatewayConnectionString;
-            }
-		}
-		public void PMToOldPM(TenantAdditionalDataPM entityPM, TenantAdditionalDataPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxAccessToken))
-            {
-                oldEntityPM.DropBoxAccessToken = entityPM.DropBoxAccessToken;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxState))
-            {
-                oldEntityPM.DropBoxState = entityPM.DropBoxState;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxUID))
-            {
-                oldEntityPM.DropBoxUID = entityPM.DropBoxUID;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DropBoxUEmail))
-            {
-                oldEntityPM.DropBoxUEmail = entityPM.DropBoxUEmail;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentGatewayPartnerCode))
-            {
-                oldEntityPM.PaymentGatewayPartnerCode = entityPM.PaymentGatewayPartnerCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentGatewayConnectionString))
-            {
-                oldEntityPM.PaymentGatewayConnectionString = entityPM.PaymentGatewayConnectionString;
-            }
-					}
-		public void POCOToList(POCO.TenantAdditionalData entityPOCO, TenantAdditionalDataList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TenantAdditionalDataList> GetIqueryableList(IQueryable<POCO.TenantAdditionalData> iQueryable)
-		{
-			IQueryable<TenantAdditionalDataList> query = (from a in iQueryable
-                                            select new TenantAdditionalDataList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(TenantAdditionalDataPM entityPM)
+    public partial class TenantAdditionalDataDataMapping: BaseMappingProfile<TenantAdditionalDataPM, POCO.TenantAdditionalData>, IMapping<TenantAdditionalDataPM, POCO.TenantAdditionalData, TenantAdditionalDataList >,IMappingEncodeBase64NVARCHARFields<TenantAdditionalDataPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(TenantAdditionalDataPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -145,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

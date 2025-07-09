@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AWBDescriptionOfGoodsPM : BaseEntityPM   {
    #region Constructors
    public AWBDescriptionOfGoodsPM() : base() {} 
-   public AWBDescriptionOfGoodsPM(POCO.AWBDescriptionOfGoods entity) : base()
-   {
-		_id = entity.Id;
-		_service = entity.Service;
-		_isTemperatureSensitive = entity.IsTemperatureSensitive;
-		_name = entity.Name;
-		_shortDescriptionOfGoods = entity.ShortDescriptionOfGoods;
-		_searchFields = entity.SearchFields;
-		_airlineCode = entity.AirlineCode;
-		_productCode = entity.ProductCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

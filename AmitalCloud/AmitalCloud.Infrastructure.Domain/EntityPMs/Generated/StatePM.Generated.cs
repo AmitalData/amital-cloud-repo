@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class StatePM : BaseEntityPM   {
    #region Constructors
    public StatePM() : base() {} 
-   public StatePM(POCO.State entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_code = entity.Code;
-		_englishName = entity.EnglishName;
-		_localName = entity.LocalName;
-		_countryId = entity.CountryId;
-		_inActive = entity.InActive;
-		_addedManually = entity.AddedManually;
-		_notes = entity.Notes;
-		_searchFields = entity.SearchFields;
-		_qBOTransactionLocationCode = entity.QBOTransactionLocationCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

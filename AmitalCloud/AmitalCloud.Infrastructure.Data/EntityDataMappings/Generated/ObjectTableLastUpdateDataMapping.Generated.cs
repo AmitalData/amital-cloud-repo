@@ -5,107 +5,24 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ObjectTableLastUpdateDataMapping: IMapping<ObjectTableLastUpdatePM, POCO.ObjectTableLastUpdate  ,ObjectTableLastUpdateList >,IMappingEncodeBase64NVARCHARFields<ObjectTableLastUpdatePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LastUpdateDate, 
-	         UpdatedByUserId, 
-	         ObjectTableId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         LastUpdateDate, 
-	         UpdatedByUserId, 
-	         ObjectTableId, 
-	         ObjectTableName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ObjectTableLastUpdatePM entityPM, POCO.ObjectTableLastUpdate entityPOCO)
+    public partial class ObjectTableLastUpdateDataMapping: BaseMappingProfile<ObjectTableLastUpdatePM, POCO.ObjectTableLastUpdate>, IMapping<ObjectTableLastUpdatePM, POCO.ObjectTableLastUpdate, ObjectTableLastUpdateList >,IMappingEncodeBase64NVARCHARFields<ObjectTableLastUpdatePM>
+    {
+        protected override void ApplyGeneratedMapping(IMappingExpression<POCO.ObjectTableLastUpdate, ObjectTableLastUpdatePM> map)
         {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDate)) { entityPOCO.LastUpdateDate = entityPM.LastUpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId)) { entityPOCO.ObjectTableId = entityPM.ObjectTableId;}
-					}
-		public void POCOToPM(ObjectTableLastUpdatePM entityPM, POCO.ObjectTableLastUpdate entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastUpdateDate))
-            {
-					entityPM.LastUpdateDate = entityPOCO.LastUpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-		}
-		public void PMToOldPM(ObjectTableLastUpdatePM entityPM, ObjectTableLastUpdatePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdateDate))
-            {
-                oldEntityPM.LastUpdateDate = entityPM.LastUpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId))
-            {
-                oldEntityPM.ObjectTableId = entityPM.ObjectTableId;
-            }
-					}
-		public void POCOToList(POCO.ObjectTableLastUpdate entityPOCO, ObjectTableLastUpdateList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
+            map.ForMember(dest => dest.ObjectTableName, opt => opt.MapFrom(src => src.ObjectTable.Name));
         }
-		public IQueryable<ObjectTableLastUpdateList> GetIqueryableList(IQueryable<POCO.ObjectTableLastUpdate> iQueryable)
-		{
-			IQueryable<ObjectTableLastUpdateList> query = (from a in iQueryable
-                                            select new ObjectTableLastUpdateList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ObjectTableLastUpdatePM entityPM)
+
+    	    public void EncodeBase64NVARCHARFields(ObjectTableLastUpdatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -113,14 +30,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

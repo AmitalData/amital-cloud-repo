@@ -26,19 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class ARInvoicePaymentPM : BaseEntityPM   {
    #region Constructors
    public ARInvoicePaymentPM() : base() {} 
-   public ARInvoicePaymentPM(POCO.ARInvoicePayment entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_localAmount = entity.LocalAmount;
-		_foreignAmount = entity.ForeignAmount;
-		_aRPaymentId = entity.ARPaymentId;
-		_arpayment = entity.ARPayment !=null ? new ARPaymentPM(entity.ARPayment) : null;
-			_aRInvoiceId = entity.ARInvoiceId;
-		_foreignCurrencyId = entity.ForeignCurrencyId;
-		_exchangeRate = entity.ExchangeRate;
-		_paymentAmount = entity.PaymentAmount;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

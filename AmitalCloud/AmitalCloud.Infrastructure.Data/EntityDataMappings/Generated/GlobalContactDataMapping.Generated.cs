@@ -5,117 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class GlobalContactDataMapping: IMapping<GlobalContactPM, POCO.GlobalContact  ,GlobalContactList >,IMappingEncodeBase64NVARCHARFields<GlobalContactPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         GlobalTenantId, 
-	         Email, 
-	         InActive, 
-	         IsUser, 
-	         InternetAccess,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         GlobalTenantId, 
-	         Email, 
-	         InActive, 
-	         IsUser, 
-	         InternetAccess,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(GlobalContactPM entityPM, POCO.GlobalContact entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalTenantId)) { entityPOCO.GlobalTenantId = entityPM.GlobalTenantId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email)) { entityPOCO.Email = entityPM.Email;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive)) { entityPOCO.InActive = entityPM.InActive;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUser)) { entityPOCO.IsUser = entityPM.IsUser;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InternetAccess)) { entityPOCO.InternetAccess = entityPM.InternetAccess;}
-					}
-		public void POCOToPM(GlobalContactPM entityPM, POCO.GlobalContact entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.GlobalTenantId))
-            {
-					entityPM.GlobalTenantId = entityPOCO.GlobalTenantId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Email))
-            {
-					entityPM.Email = entityPOCO.Email;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InActive))
-            {
-					entityPM.InActive = entityPOCO.InActive;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.IsUser))
-            {
-					entityPM.IsUser = entityPOCO.IsUser;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.InternetAccess))
-            {
-					entityPM.InternetAccess = entityPOCO.InternetAccess;
-            }
-		}
-		public void PMToOldPM(GlobalContactPM entityPM, GlobalContactPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.GlobalTenantId))
-            {
-                oldEntityPM.GlobalTenantId = entityPM.GlobalTenantId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Email))
-            {
-                oldEntityPM.Email = entityPM.Email;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InActive))
-            {
-                oldEntityPM.InActive = entityPM.InActive;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.IsUser))
-            {
-                oldEntityPM.IsUser = entityPM.IsUser;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.InternetAccess))
-            {
-                oldEntityPM.InternetAccess = entityPM.InternetAccess;
-            }
-					}
-		public void POCOToList(POCO.GlobalContact entityPOCO, GlobalContactList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<GlobalContactList> GetIqueryableList(IQueryable<POCO.GlobalContact> iQueryable)
-		{
-			IQueryable<GlobalContactList> query = (from a in iQueryable
-                                            select new GlobalContactList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(GlobalContactPM entityPM)
+    public partial class GlobalContactDataMapping: BaseMappingProfile<GlobalContactPM, POCO.GlobalContact>, IMapping<GlobalContactPM, POCO.GlobalContact, GlobalContactList >,IMappingEncodeBase64NVARCHARFields<GlobalContactPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(GlobalContactPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -123,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

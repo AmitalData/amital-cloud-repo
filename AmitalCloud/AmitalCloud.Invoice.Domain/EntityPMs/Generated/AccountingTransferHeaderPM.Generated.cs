@@ -26,20 +26,6 @@ namespace AmitalCloud.Invoice.Domain.EntityPMs
    public partial class AccountingTransferHeaderPM : BaseEntityPM   {
    #region Constructors
    public AccountingTransferHeaderPM() : base() {} 
-   public AccountingTransferHeaderPM(POCO.AccountingTransferHeader entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_transferNumber = entity.TransferNumber;
-		_transferDate = entity.TransferDate;
-		_fileName = entity.FileName;
-		_userId = entity.UserId;
-		_user = entity.User !=null ? new UserPM(entity.User) : null;
-			_accountingTransferTypeCode = entity.AccountingTransferTypeCode;
-		_transfertype = entity.TransferType !=null ? new AccountingTransferTypePM(entity.TransferType) : null;
-			_searchFields = entity.SearchFields;
-		_notes = entity.Notes;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

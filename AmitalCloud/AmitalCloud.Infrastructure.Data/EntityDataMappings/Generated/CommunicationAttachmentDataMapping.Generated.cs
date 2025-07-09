@@ -5,95 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CommunicationAttachmentDataMapping: IMapping<CommunicationAttachmentPM, POCO.CommunicationAttachment  ,CommunicationAttachmentList >,IMappingEncodeBase64NVARCHARFields<CommunicationAttachmentPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CommunicationLogId, 
-	         DocumentId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         CommunicationLogId, 
-	         DocumentId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CommunicationAttachmentPM entityPM, POCO.CommunicationAttachment entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommunicationLogId)) { entityPOCO.CommunicationLogId = entityPM.CommunicationLogId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentId)) { entityPOCO.DocumentId = entityPM.DocumentId;}
-					}
-		public void POCOToPM(CommunicationAttachmentPM entityPM, POCO.CommunicationAttachment entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CommunicationLogId))
-            {
-					entityPM.CommunicationLogId = entityPOCO.CommunicationLogId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentId))
-            {
-					entityPM.DocumentId = entityPOCO.DocumentId;
-            }
-		}
-		public void PMToOldPM(CommunicationAttachmentPM entityPM, CommunicationAttachmentPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CommunicationLogId))
-            {
-                oldEntityPM.CommunicationLogId = entityPM.CommunicationLogId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentId))
-            {
-                oldEntityPM.DocumentId = entityPM.DocumentId;
-            }
-					}
-		public void POCOToList(POCO.CommunicationAttachment entityPOCO, CommunicationAttachmentList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CommunicationAttachmentList> GetIqueryableList(IQueryable<POCO.CommunicationAttachment> iQueryable)
-		{
-			IQueryable<CommunicationAttachmentList> query = (from a in iQueryable
-                                            select new CommunicationAttachmentList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CommunicationAttachmentPM entityPM)
+    public partial class CommunicationAttachmentDataMapping: BaseMappingProfile<CommunicationAttachmentPM, POCO.CommunicationAttachment>, IMapping<CommunicationAttachmentPM, POCO.CommunicationAttachment, CommunicationAttachmentList >,IMappingEncodeBase64NVARCHARFields<CommunicationAttachmentPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CommunicationAttachmentPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -101,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

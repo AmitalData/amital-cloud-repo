@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DirectionPM : BaseEntityPM   {
    #region Constructors
    public DirectionPM() : base() {} 
-   public DirectionPM(POCO.Direction entity) : base()
-   {
-		_id = entity.Id;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

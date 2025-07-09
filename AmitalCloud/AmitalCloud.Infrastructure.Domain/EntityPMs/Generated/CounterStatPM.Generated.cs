@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CounterStatPM : BaseEntityPM   {
    #region Constructors
    public CounterStatPM() : base() {} 
-   public CounterStatPM(POCO.CounterStat entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_prefix = entity.Prefix;
-		_lastValue = entity.LastValue;
-		_counterId = entity.CounterId;
-		_counter = entity.Counter !=null ? new CounterPM(entity.Counter) : null;
-			_branchCounterCode = entity.BranchCounterCode;
-   }
    #endregion Constructors
    #region Properties
    	  private int _id ;

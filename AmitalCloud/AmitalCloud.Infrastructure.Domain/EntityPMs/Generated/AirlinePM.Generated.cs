@@ -27,52 +27,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AirlinePM :  ChildEntitiesCustomFieldPM   {
    #region Constructors
    public AirlinePM() : base() {} 
-   public AirlinePM(POCO.Airline entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_registrationUpdatedBy = entity.RegistrationUpdatedBy;
-		_checkDigit = entity.CheckDigit;
-		_limitedLength = entity.LimitedLength;
-		_tTY = entity.TTY;
-		_accountNumber = entity.AccountNumber;
-		_gLSHKPIMA = entity.GLSHKPIMA;
-		_isGLSHKRegistered = entity.IsGLSHKRegistered;
-		_gLSHKNeedsRegistration = entity.GLSHKNeedsRegistration;
-		_champNeedsRegistration = entity.ChampNeedsRegistration;
-		_isChampRegistered = entity.IsChampRegistered;
-		_champFWB = entity.ChampFWB;
-		_champFHL = entity.ChampFHL;
-		_champFSU = entity.ChampFSU;
-		_champFSRFSA = entity.ChampFSRFSA;
-		_champFVRFVA = entity.ChampFVRFVA;
-		_champFFRFFA = entity.ChampFFRFFA;
-		_gLSHKFWB = entity.GLSHKFWB;
-		_gLSHKFHL = entity.GLSHKFHL;
-		_gLSHKFSU = entity.GLSHKFSU;
-		_gLSHKFSRFSA = entity.GLSHKFSRFSA;
-		_gLSHKFVRFVA = entity.GLSHKFVRFVA;
-		_gLSHKFFRFFA = entity.GLSHKFFRFFA;
-		_isAllowedInAirlinesRestriction = entity.IsAllowedInAirlinesRestriction;
-		_registrationNotes = entity.RegistrationNotes;
-		_champRegistrationRequested = entity.ChampRegistrationRequested;
-		_gLSHKRegistrationRequested = entity.GLSHKRegistrationRequested;
-		_hasAdaptations = entity.HasAdaptations;
-		_iCAO = entity.ICAO;
-		_isManagingProduct = entity.IsManagingProduct;
-		_isProductMandatory = entity.IsProductMandatory;
-		_isDescriptionOfGoodsFromList = entity.IsDescriptionOfGoodsFromList;
-		_scheduleDays = entity.ScheduleDays;
-		_noAvailabilityInFVAMessages = entity.NoAvailabilityInFVAMessages;
-		_prefix = entity.Prefix;
-		_addedManually = entity.AddedManually;
-		_aWBAccount = entity.AWBAccount;
-		_isDeclined = entity.IsDeclined;
-		_declineNotes = entity.DeclineNotes;
-		_primaryContactName = entity.PrimaryContactName;
-		_primaryContactEmail = entity.PrimaryContactEmail;
-		_primaryContactPhone = entity.PrimaryContactPhone;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

@@ -5,95 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class CounterLastNumberDataMapping: IMapping<CounterLastNumberPM, POCO.CounterLastNumber  ,CounterLastNumberList >,IMappingEncodeBase64NVARCHARFields<CounterLastNumberPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TableName, 
-	         Tenant, 
-	         LastNumber,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         TableName, 
-	         Tenant, 
-	         LastNumber,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(CounterLastNumberPM entityPM, POCO.CounterLastNumber entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TableName)) { entityPOCO.TableName = entityPM.TableName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastNumber)) { entityPOCO.LastNumber = entityPM.LastNumber;}
-					}
-		public void POCOToPM(CounterLastNumberPM entityPM, POCO.CounterLastNumber entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TableName))
-            {
-					entityPM.TableName = entityPOCO.TableName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastNumber))
-            {
-					entityPM.LastNumber = entityPOCO.LastNumber;
-            }
-		}
-		public void PMToOldPM(CounterLastNumberPM entityPM, CounterLastNumberPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TableName))
-            {
-                oldEntityPM.TableName = entityPM.TableName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastNumber))
-            {
-                oldEntityPM.LastNumber = entityPM.LastNumber;
-            }
-					}
-		public void POCOToList(POCO.CounterLastNumber entityPOCO, CounterLastNumberList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<CounterLastNumberList> GetIqueryableList(IQueryable<POCO.CounterLastNumber> iQueryable)
-		{
-			IQueryable<CounterLastNumberList> query = (from a in iQueryable
-                                            select new CounterLastNumberList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(CounterLastNumberPM entityPM)
+    public partial class CounterLastNumberDataMapping: BaseMappingProfile<CounterLastNumberPM, POCO.CounterLastNumber>, IMapping<CounterLastNumberPM, POCO.CounterLastNumber, CounterLastNumberList >,IMappingEncodeBase64NVARCHARFields<CounterLastNumberPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(CounterLastNumberPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -105,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

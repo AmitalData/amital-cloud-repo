@@ -5,118 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class MonitorServiceLastUpdateDataMapping: IMapping<MonitorServiceLastUpdatePM, POCO.MonitorServiceLastUpdate  ,MonitorServiceLastUpdateList >,IMappingEncodeBase64NVARCHARFields<MonitorServiceLastUpdatePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         CdropName, 
-	         LastUpdate, 
-	         CdropSearchfields, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         CdropName, 
-	         LastUpdate, 
-	         CdropSearchfields, 
-	         Name, 
-	         SearchFields,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(MonitorServiceLastUpdatePM entityPM, POCO.MonitorServiceLastUpdate entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropName)) { entityPOCO.CdropName = entityPM.CdropName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdate)) { entityPOCO.LastUpdate = entityPM.LastUpdate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropSearchfields)) { entityPOCO.CdropSearchfields = entityPM.CdropSearchfields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(MonitorServiceLastUpdatePM entityPM, POCO.MonitorServiceLastUpdate entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropName))
-            {
-					entityPM.CdropName = entityPOCO.CdropName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LastUpdate))
-            {
-					entityPM.LastUpdate = entityPOCO.LastUpdate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CdropSearchfields))
-            {
-					entityPM.CdropSearchfields = entityPOCO.CdropSearchfields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-		}
-		public void PMToOldPM(MonitorServiceLastUpdatePM entityPM, MonitorServiceLastUpdatePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropName))
-            {
-                oldEntityPM.CdropName = entityPM.CdropName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LastUpdate))
-            {
-                oldEntityPM.LastUpdate = entityPM.LastUpdate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CdropSearchfields))
-            {
-                oldEntityPM.CdropSearchfields = entityPM.CdropSearchfields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-					}
-		public void POCOToList(POCO.MonitorServiceLastUpdate entityPOCO, MonitorServiceLastUpdateList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<MonitorServiceLastUpdateList> GetIqueryableList(IQueryable<POCO.MonitorServiceLastUpdate> iQueryable)
-		{
-			IQueryable<MonitorServiceLastUpdateList> query = (from a in iQueryable
-                                            select new MonitorServiceLastUpdateList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(MonitorServiceLastUpdatePM entityPM)
+    public partial class MonitorServiceLastUpdateDataMapping: BaseMappingProfile<MonitorServiceLastUpdatePM, POCO.MonitorServiceLastUpdate>, IMapping<MonitorServiceLastUpdatePM, POCO.MonitorServiceLastUpdate, MonitorServiceLastUpdateList >,IMappingEncodeBase64NVARCHARFields<MonitorServiceLastUpdatePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(MonitorServiceLastUpdatePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -136,20 +37,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(MonitorServiceLastUpdatePM entityPM, POCO.MonitorServiceLastUpdate entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

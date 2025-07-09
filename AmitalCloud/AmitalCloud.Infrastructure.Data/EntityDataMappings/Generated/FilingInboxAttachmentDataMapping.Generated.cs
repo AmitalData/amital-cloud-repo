@@ -5,106 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class FilingInboxAttachmentDataMapping: IMapping<FilingInboxAttachmentPM, POCO.FilingInboxAttachment  ,FilingInboxAttachmentList >,IMappingEncodeBase64NVARCHARFields<FilingInboxAttachmentPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         FileName, 
-	         DocumentId, 
-	         FilingInboxId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         FileName, 
-	         DocumentId, 
-	         FilingInboxId,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(FilingInboxAttachmentPM entityPM, POCO.FilingInboxAttachment entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName)) { entityPOCO.FileName = entityPM.FileName;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentId)) { entityPOCO.DocumentId = entityPM.DocumentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FilingInboxId)) { entityPOCO.FilingInboxId = entityPM.FilingInboxId;}
-					}
-		public void POCOToPM(FilingInboxAttachmentPM entityPM, POCO.FilingInboxAttachment entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FileName))
-            {
-					entityPM.FileName = entityPOCO.FileName;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DocumentId))
-            {
-					entityPM.DocumentId = entityPOCO.DocumentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FilingInboxId))
-            {
-					entityPM.FilingInboxId = entityPOCO.FilingInboxId;
-            }
-		}
-		public void PMToOldPM(FilingInboxAttachmentPM entityPM, FilingInboxAttachmentPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FileName))
-            {
-                oldEntityPM.FileName = entityPM.FileName;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DocumentId))
-            {
-                oldEntityPM.DocumentId = entityPM.DocumentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FilingInboxId))
-            {
-                oldEntityPM.FilingInboxId = entityPM.FilingInboxId;
-            }
-					}
-		public void POCOToList(POCO.FilingInboxAttachment entityPOCO, FilingInboxAttachmentList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<FilingInboxAttachmentList> GetIqueryableList(IQueryable<POCO.FilingInboxAttachment> iQueryable)
-		{
-			IQueryable<FilingInboxAttachmentList> query = (from a in iQueryable
-                                            select new FilingInboxAttachmentList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(FilingInboxAttachmentPM entityPM)
+    public partial class FilingInboxAttachmentDataMapping: BaseMappingProfile<FilingInboxAttachmentPM, POCO.FilingInboxAttachment>, IMapping<FilingInboxAttachmentPM, POCO.FilingInboxAttachment, FilingInboxAttachmentList >,IMappingEncodeBase64NVARCHARFields<FilingInboxAttachmentPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(FilingInboxAttachmentPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -116,14 +29,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

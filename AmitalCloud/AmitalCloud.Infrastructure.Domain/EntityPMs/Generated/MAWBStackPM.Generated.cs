@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MAWBStackPM : BaseEntityPM   {
    #region Constructors
    public MAWBStackPM() : base() {} 
-   public MAWBStackPM(POCO.MAWBStack entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_isUsed = entity.IsUsed;
-		_number = entity.Number;
-		_insertionDate = entity.InsertionDate;
-		_airlineId = entity.AirlineId;
-		_notes = entity.Notes;
-		_assignedToId = entity.AssignedToId;
-		_assignedtocard = entity.AssignedToCard !=null ? new CardPM(entity.AssignedToCard) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

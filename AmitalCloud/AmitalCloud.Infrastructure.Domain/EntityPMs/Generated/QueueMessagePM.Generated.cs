@@ -26,31 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class QueueMessagePM : BaseEntityPM   {
    #region Constructors
    public QueueMessagePM() : base() {} 
-   public QueueMessagePM(POCO.QueueMessage entity) : base()
-   {
-		_id = entity.Id;
-		_queueDefinitionCode = entity.QueueDefinitionCode;
-		_queuedefinition = entity.QueueDefinition !=null ? new QueueDefinitionPM(entity.QueueDefinition) : null;
-			_createDateTime = entity.CreateDateTime;
-		_status = entity.Status;
-		_messageBody = entity.MessageBody;
-		_nextRunDateTime = entity.NextRunDateTime;
-		_processingDateTime = entity.ProcessingDateTime;
-		_completeDateTime = entity.CompleteDateTime;
-		_retryNumber = entity.RetryNumber;
-		_tenant = entity.Tenant;
-		_hashCode = entity.HashCode;
-		_tenantPriority = entity.TenantPriority;
-		_interfaceTypeCode = entity.InterfaceTypeCode;
-		_queueCodeRabbit = entity.QueueCodeRabbit;
-		_useRabbitMQ = entity.UseRabbitMQ;
-		_haveRabbitMQ = entity.HaveRabbitMQ;
-		_rabbitMQCreateDate = entity.RabbitMQCreateDate;
-		_rabbitMQRetryNumber = entity.RabbitMQRetryNumber;
-		_rabbitMQErrMess = entity.RabbitMQErrMess;
-		_entityCode = entity.EntityCode;
-		_entityId = entity.EntityId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
@@ -395,6 +370,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="EntityId",OldValue=_entityId,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _entityId=value;
+		   }
+		 }
+	   }
+	  private string _dropRowid ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string DropRowid  
+	   {
+	     get { return _dropRowid; }
+		 set
+		 {
+		   if(_dropRowid != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropRowid",OldValue=_dropRowid,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _dropRowid=value;
 		   }
 		 }
 	   }

@@ -26,30 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AccountingSystemPM : BaseEntityPM   {
    #region Constructors
    public AccountingSystemPM() : base() {} 
-   public AccountingSystemPM(POCO.AccountingSystem entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-		_isExternalCodesFromTable = entity.IsExternalCodesFromTable;
-		_isExternalCodesSyncEnabled = entity.IsExternalCodesSyncEnabled;
-		_isSingleTaxPerInvoice = entity.IsSingleTaxPerInvoice;
-		_isSingleCurrencyAccount = entity.IsSingleCurrencyAccount;
-		_allowManuallyDueDate = entity.AllowManuallyDueDate;
-		_isJournalMode = entity.IsJournalMode;
-		_isTaxItemManaged = entity.IsTaxItemManaged;
-		_allowMinusInvoiceLines = entity.AllowMinusInvoiceLines;
-		_showDownloadScreen = entity.ShowDownloadScreen;
-		_allowARInvoicesTransfer = entity.AllowARInvoicesTransfer;
-		_allowAPInvoicesTransfer = entity.AllowAPInvoicesTransfer;
-		_allowPositiveAmountsInTheCreditNote = entity.AllowPositiveAmountsInTheCreditNote;
-		_inActive = entity.InActive;
-		_isExternalCodesFromAPI = entity.IsExternalCodesFromAPI;
-		_allowARPaymentsTransfer = entity.AllowARPaymentsTransfer;
-		_canTransferToDropbox = entity.CanTransferToDropbox;
-		_allowAPPaymentsTransfer = entity.AllowAPPaymentsTransfer;
-		_canTransferToFTP = entity.CanTransferToFTP;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

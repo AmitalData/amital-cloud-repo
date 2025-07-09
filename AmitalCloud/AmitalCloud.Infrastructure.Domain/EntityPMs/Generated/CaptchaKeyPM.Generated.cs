@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CaptchaKeyPM : BaseEntityPM   {
    #region Constructors
    public CaptchaKeyPM() : base() {} 
-   public CaptchaKeyPM(POCO.CaptchaKey entity) : base()
-   {
-		_id = entity.Id;
-		_code = entity.Code;
-		_createDate = entity.CreateDate;
-		_email = entity.Email;
-		_iP = entity.IP;
-		_activity = entity.Activity;
-		_isUsed = entity.IsUsed;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

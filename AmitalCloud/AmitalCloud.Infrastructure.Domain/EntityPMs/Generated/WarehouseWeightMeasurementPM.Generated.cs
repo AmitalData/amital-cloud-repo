@@ -26,10 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class WarehouseWeightMeasurementPM : BaseEntityPM   {
    #region Constructors
    public WarehouseWeightMeasurementPM() : base() {} 
-   public WarehouseWeightMeasurementPM(POCO.WarehouseWeightMeasurement entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

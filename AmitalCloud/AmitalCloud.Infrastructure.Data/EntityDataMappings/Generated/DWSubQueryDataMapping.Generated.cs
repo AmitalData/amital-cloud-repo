@@ -5,128 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class DWSubQueryDataMapping: IMapping<DWSubQueryPM, POCO.DWSubQuery  ,DWSubQueryList >,IMappingEncodeBase64NVARCHARFields<DWSubQueryPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DWFactTableCode, 
-	         DWQueryId, 
-	         SQLString, 
-	         FiltersXML, 
-	         ColumnsXML,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         DWFactTableCode, 
-	         DWQueryId, 
-	         SQLString, 
-	         FiltersXML, 
-	         ColumnsXML,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(DWSubQueryPM entityPM, POCO.DWSubQuery entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWFactTableCode)) { entityPOCO.DWFactTableCode = entityPM.DWFactTableCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWQueryId)) { entityPOCO.DWQueryId = entityPM.DWQueryId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SQLString)) { entityPOCO.SQLString = entityPM.SQLString;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FiltersXML)) { entityPOCO.FiltersXML = entityPM.FiltersXML;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ColumnsXML)) { entityPOCO.ColumnsXML = entityPM.ColumnsXML;}
-					}
-		public void POCOToPM(DWSubQueryPM entityPM, POCO.DWSubQuery entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DWFactTableCode))
-            {
-					entityPM.DWFactTableCode = entityPOCO.DWFactTableCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.DWQueryId))
-            {
-					entityPM.DWQueryId = entityPOCO.DWQueryId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SQLString))
-            {
-					entityPM.SQLString = entityPOCO.SQLString;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.FiltersXML))
-            {
-					entityPM.FiltersXML = entityPOCO.FiltersXML;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ColumnsXML))
-            {
-					entityPM.ColumnsXML = entityPOCO.ColumnsXML;
-            }
-		}
-		public void PMToOldPM(DWSubQueryPM entityPM, DWSubQueryPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWFactTableCode))
-            {
-                oldEntityPM.DWFactTableCode = entityPM.DWFactTableCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.DWQueryId))
-            {
-                oldEntityPM.DWQueryId = entityPM.DWQueryId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SQLString))
-            {
-                oldEntityPM.SQLString = entityPM.SQLString;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.FiltersXML))
-            {
-                oldEntityPM.FiltersXML = entityPM.FiltersXML;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ColumnsXML))
-            {
-                oldEntityPM.ColumnsXML = entityPM.ColumnsXML;
-            }
-					}
-		public void POCOToList(POCO.DWSubQuery entityPOCO, DWSubQueryList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<DWSubQueryList> GetIqueryableList(IQueryable<POCO.DWSubQuery> iQueryable)
-		{
-			IQueryable<DWSubQueryList> query = (from a in iQueryable
-                                            select new DWSubQueryList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(DWSubQueryPM entityPM)
+    public partial class DWSubQueryDataMapping: BaseMappingProfile<DWSubQueryPM, POCO.DWSubQuery>, IMapping<DWSubQueryPM, POCO.DWSubQuery, DWSubQueryList >,IMappingEncodeBase64NVARCHARFields<DWSubQueryPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(DWSubQueryPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -146,14 +37,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

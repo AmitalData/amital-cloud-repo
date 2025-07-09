@@ -5,178 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ComputingPartnerTableDataMapping: IMapping<ComputingPartnerTablePM, POCO.ComputingPartnerTable  ,ComputingPartnerTableList >,IMappingEncodeBase64NVARCHARFields<ComputingPartnerTablePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         Name, 
-	         HasPartnerList, 
-	         MustUsePartnerList, 
-	         TransalationRequired, 
-	         TenantLevelTranslationBlocked, 
-	         CreateDate, 
-	         UpdateDate, 
-	         CreatedByUserId, 
-	         UpdatedByUserId, 
-	         ObjectTableId, 
-	         ComputingPartnerId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Tenant, 
-	         Name, 
-	         HasPartnerList, 
-	         MustUsePartnerList, 
-	         TransalationRequired, 
-	         TenantLevelTranslationBlocked, 
-	         CreateDate, 
-	         UpdateDate, 
-	         CreatedByUserId, 
-	         UpdatedByUserId, 
-	         ObjectTableId, 
-	         ComputingPartnerId, 
-	         ObjectTableName, 
-	         CreatedByUserName, 
-	         UpdatedByUserName, 
-	         ComputingPartnerName, 
-	         ChangeSetOp,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ComputingPartnerTablePM entityPM, POCO.ComputingPartnerTable entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasPartnerList)) { entityPOCO.HasPartnerList = entityPM.HasPartnerList;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MustUsePartnerList)) { entityPOCO.MustUsePartnerList = entityPM.MustUsePartnerList;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransalationRequired)) { entityPOCO.TransalationRequired = entityPM.TransalationRequired;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantLevelTranslationBlocked)) { entityPOCO.TenantLevelTranslationBlocked = entityPM.TenantLevelTranslationBlocked;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate)) { entityPOCO.CreateDate = entityPM.CreateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId)) { entityPOCO.CreatedByUserId = entityPM.CreatedByUserId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-					}
-		public void POCOToPM(ComputingPartnerTablePM entityPM, POCO.ComputingPartnerTable entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.HasPartnerList))
-            {
-					entityPM.HasPartnerList = entityPOCO.HasPartnerList;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.MustUsePartnerList))
-            {
-					entityPM.MustUsePartnerList = entityPOCO.MustUsePartnerList;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TransalationRequired))
-            {
-					entityPM.TransalationRequired = entityPOCO.TransalationRequired;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.TenantLevelTranslationBlocked))
-            {
-					entityPM.TenantLevelTranslationBlocked = entityPOCO.TenantLevelTranslationBlocked;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreateDate))
-            {
-					entityPM.CreateDate = entityPOCO.CreateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CreatedByUserId))
-            {
-					entityPM.CreatedByUserId = entityPOCO.CreatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ComputingPartnerId))
-            {
-					entityPM.ComputingPartnerId = entityPOCO.ComputingPartnerId;
-            }
-		}
-		public void PMToOldPM(ComputingPartnerTablePM entityPM, ComputingPartnerTablePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.HasPartnerList))
-            {
-                oldEntityPM.HasPartnerList = entityPM.HasPartnerList;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.MustUsePartnerList))
-            {
-                oldEntityPM.MustUsePartnerList = entityPM.MustUsePartnerList;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TransalationRequired))
-            {
-                oldEntityPM.TransalationRequired = entityPM.TransalationRequired;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.TenantLevelTranslationBlocked))
-            {
-                oldEntityPM.TenantLevelTranslationBlocked = entityPM.TenantLevelTranslationBlocked;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreateDate))
-            {
-                oldEntityPM.CreateDate = entityPM.CreateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CreatedByUserId))
-            {
-                oldEntityPM.CreatedByUserId = entityPM.CreatedByUserId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-					}
-		public void POCOToList(POCO.ComputingPartnerTable entityPOCO, ComputingPartnerTableList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ComputingPartnerTableList> GetIqueryableList(IQueryable<POCO.ComputingPartnerTable> iQueryable)
-		{
-			IQueryable<ComputingPartnerTableList> query = (from a in iQueryable
-                                            select new ComputingPartnerTableList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ComputingPartnerTablePM entityPM)
+    public partial class ComputingPartnerTableDataMapping: BaseMappingProfile<ComputingPartnerTablePM, POCO.ComputingPartnerTable>, IMapping<ComputingPartnerTablePM, POCO.ComputingPartnerTable, ComputingPartnerTableList >,IMappingEncodeBase64NVARCHARFields<ComputingPartnerTablePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ComputingPartnerTablePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -184,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

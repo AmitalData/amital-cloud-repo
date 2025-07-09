@@ -5,223 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class ARPaymentChequeReplicaDataMapping: IMapping<ARPaymentChequeReplicaPM, POCO.ARPaymentChequeReplica  ,ARPaymentChequeReplicaList >,IMappingEncodeBase64NVARCHARFields<ARPaymentChequeReplicaPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         PaymentId, 
-	         LineNumber, 
-	         ChequeNumber, 
-	         ValueDate, 
-	         CurrencyId, 
-	         LocalAmount, 
-	         ForeignAmount, 
-	         BankId, 
-	         BankBranch, 
-	         BankAccount, 
-	         StatusCode, 
-	         ExchangeRate,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         SearchFields, 
-	         PaymentId, 
-	         PaymentNumber, 
-	         LineNumber, 
-	         ChequeNumber, 
-	         ValueDate, 
-	         CurrencyId, 
-	         CurrencyCode, 
-	         CurrencyName, 
-	         LocalAmount, 
-	         ForeignAmount, 
-	         BankId, 
-	         BankNumber, 
-	         BankName, 
-	         BankBranch, 
-	         BankAccount, 
-	         StatusCode, 
-	         ExchangeRate, 
-	         StatusName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ARPaymentChequeReplicaPM entityPM, POCO.ARPaymentChequeReplica entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentId)) { entityPOCO.PaymentId = entityPM.PaymentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LineNumber)) { entityPOCO.LineNumber = entityPM.LineNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ChequeNumber)) { entityPOCO.ChequeNumber = entityPM.ChequeNumber;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValueDate)) { entityPOCO.ValueDate = entityPM.ValueDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId)) { entityPOCO.CurrencyId = entityPM.CurrencyId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalAmount)) { entityPOCO.LocalAmount = entityPM.LocalAmount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ForeignAmount)) { entityPOCO.ForeignAmount = entityPM.ForeignAmount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankId)) { entityPOCO.BankId = entityPM.BankId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankBranch)) { entityPOCO.BankBranch = entityPM.BankBranch;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankAccount)) { entityPOCO.BankAccount = entityPM.BankAccount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode)) { entityPOCO.StatusCode = entityPM.StatusCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExchangeRate)) { entityPOCO.ExchangeRate = entityPM.ExchangeRate;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ARPaymentChequeReplicaPM entityPM, POCO.ARPaymentChequeReplica entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PaymentId))
-            {
-					entityPM.PaymentId = entityPOCO.PaymentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LineNumber))
-            {
-					entityPM.LineNumber = entityPOCO.LineNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ChequeNumber))
-            {
-					entityPM.ChequeNumber = entityPOCO.ChequeNumber;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ValueDate))
-            {
-					entityPM.ValueDate = entityPOCO.ValueDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CurrencyId))
-            {
-					entityPM.CurrencyId = entityPOCO.CurrencyId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LocalAmount))
-            {
-					entityPM.LocalAmount = entityPOCO.LocalAmount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ForeignAmount))
-            {
-					entityPM.ForeignAmount = entityPOCO.ForeignAmount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BankId))
-            {
-					entityPM.BankId = entityPOCO.BankId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BankBranch))
-            {
-					entityPM.BankBranch = entityPOCO.BankBranch;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.BankAccount))
-            {
-					entityPM.BankAccount = entityPOCO.BankAccount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.StatusCode))
-            {
-					entityPM.StatusCode = entityPOCO.StatusCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ExchangeRate))
-            {
-					entityPM.ExchangeRate = entityPOCO.ExchangeRate;
-            }
-		}
-		public void PMToOldPM(ARPaymentChequeReplicaPM entityPM, ARPaymentChequeReplicaPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PaymentId))
-            {
-                oldEntityPM.PaymentId = entityPM.PaymentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LineNumber))
-            {
-                oldEntityPM.LineNumber = entityPM.LineNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ChequeNumber))
-            {
-                oldEntityPM.ChequeNumber = entityPM.ChequeNumber;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ValueDate))
-            {
-                oldEntityPM.ValueDate = entityPM.ValueDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CurrencyId))
-            {
-                oldEntityPM.CurrencyId = entityPM.CurrencyId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LocalAmount))
-            {
-                oldEntityPM.LocalAmount = entityPM.LocalAmount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ForeignAmount))
-            {
-                oldEntityPM.ForeignAmount = entityPM.ForeignAmount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankId))
-            {
-                oldEntityPM.BankId = entityPM.BankId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankBranch))
-            {
-                oldEntityPM.BankBranch = entityPM.BankBranch;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.BankAccount))
-            {
-                oldEntityPM.BankAccount = entityPM.BankAccount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.StatusCode))
-            {
-                oldEntityPM.StatusCode = entityPM.StatusCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ExchangeRate))
-            {
-                oldEntityPM.ExchangeRate = entityPM.ExchangeRate;
-            }
-					}
-		public void POCOToList(POCO.ARPaymentChequeReplica entityPOCO, ARPaymentChequeReplicaList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ARPaymentChequeReplicaList> GetIqueryableList(IQueryable<POCO.ARPaymentChequeReplica> iQueryable)
-		{
-			IQueryable<ARPaymentChequeReplicaList> query = (from a in iQueryable
-                                            select new ARPaymentChequeReplicaList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ARPaymentChequeReplicaPM entityPM)
+    public partial class ARPaymentChequeReplicaDataMapping: BaseMappingProfile<ARPaymentChequeReplicaPM, POCO.ARPaymentChequeReplica>, IMapping<ARPaymentChequeReplicaPM, POCO.ARPaymentChequeReplica, ARPaymentChequeReplicaList >,IMappingEncodeBase64NVARCHARFields<ARPaymentChequeReplicaPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ARPaymentChequeReplicaPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -233,20 +29,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ARPaymentChequeReplicaPM entityPM, POCO.ARPaymentChequeReplica entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

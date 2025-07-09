@@ -5,151 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class ContainerTrackingProviderDataMapping: IMapping<ContainerTrackingProviderPM, POCO.ContainerTrackingProvider  ,ContainerTrackingProviderList >,IMappingEncodeBase64NVARCHARFields<ContainerTrackingProviderPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         SourceCode, 
-	         Name, 
-	         SearchFields, 
-	         CallbackURL, 
-	         APIKey, 
-	         ProviderURL, 
-	         LogitudeToken, 
-	         Id, 
-	         Tenant,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         SourceCode, 
-	         Name, 
-	         SearchFields, 
-	         CallbackURL, 
-	         APIKey, 
-	         ProviderURL, 
-	         LogitudeToken, 
-	         Id, 
-	         Tenant,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ContainerTrackingProviderPM entityPM, POCO.ContainerTrackingProvider entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SourceCode)) { entityPOCO.SourceCode = entityPM.SourceCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name)) { entityPOCO.Name = entityPM.Name;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields)) { entityPOCO.SearchFields = entityPM.SearchFields;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CallbackURL)) { entityPOCO.CallbackURL = entityPM.CallbackURL;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APIKey)) { entityPOCO.APIKey = entityPM.APIKey;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProviderURL)) { entityPOCO.ProviderURL = entityPM.ProviderURL;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogitudeToken)) { entityPOCO.LogitudeToken = entityPM.LogitudeToken;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-									BuildSearchFieldsGenerated(entityPM, entityPOCO, entityPM.ChangeSetOp == ChangeSetOperation.Insert);
-		  }
-		public void POCOToPM(ContainerTrackingProviderPM entityPM, POCO.ContainerTrackingProvider entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SourceCode))
-            {
-					entityPM.SourceCode = entityPOCO.SourceCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Name))
-            {
-					entityPM.Name = entityPOCO.Name;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SearchFields))
-            {
-					entityPM.SearchFields = entityPOCO.SearchFields;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CallbackURL))
-            {
-					entityPM.CallbackURL = entityPOCO.CallbackURL;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.APIKey))
-            {
-					entityPM.APIKey = entityPOCO.APIKey;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProviderURL))
-            {
-					entityPM.ProviderURL = entityPOCO.ProviderURL;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.LogitudeToken))
-            {
-					entityPM.LogitudeToken = entityPOCO.LogitudeToken;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-		}
-		public void PMToOldPM(ContainerTrackingProviderPM entityPM, ContainerTrackingProviderPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SourceCode))
-            {
-                oldEntityPM.SourceCode = entityPM.SourceCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Name))
-            {
-                oldEntityPM.Name = entityPM.Name;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SearchFields))
-            {
-                oldEntityPM.SearchFields = entityPM.SearchFields;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CallbackURL))
-            {
-                oldEntityPM.CallbackURL = entityPM.CallbackURL;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.APIKey))
-            {
-                oldEntityPM.APIKey = entityPM.APIKey;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProviderURL))
-            {
-                oldEntityPM.ProviderURL = entityPM.ProviderURL;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.LogitudeToken))
-            {
-                oldEntityPM.LogitudeToken = entityPM.LogitudeToken;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-					}
-		public void POCOToList(POCO.ContainerTrackingProvider entityPOCO, ContainerTrackingProviderList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ContainerTrackingProviderList> GetIqueryableList(IQueryable<POCO.ContainerTrackingProvider> iQueryable)
-		{
-			IQueryable<ContainerTrackingProviderList> query = (from a in iQueryable
-                                            select new ContainerTrackingProviderList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ContainerTrackingProviderPM entityPM)
+    public partial class ContainerTrackingProviderDataMapping: BaseMappingProfile<ContainerTrackingProviderPM, POCO.ContainerTrackingProvider>, IMapping<ContainerTrackingProviderPM, POCO.ContainerTrackingProvider, ContainerTrackingProviderList >,IMappingEncodeBase64NVARCHARFields<ContainerTrackingProviderPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ContainerTrackingProviderPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -173,20 +41,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-				private void BuildSearchFieldsGenerated(ContainerTrackingProviderPM entityPM, POCO.ContainerTrackingProvider entityPOCO, bool isNewEntity)
-        {
-            string mySearchFields = "";
-			            entityPM.SearchFields += mySearchFields;
-            entityPOCO.SearchFields += mySearchFields;
-        }
-		   }
+    }
 }
 	 

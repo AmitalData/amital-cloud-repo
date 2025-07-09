@@ -26,23 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ContainerTrackingRequestPM : BaseEntityPM   {
    #region Constructors
    public ContainerTrackingRequestPM() : base() {} 
-   public ContainerTrackingRequestPM(POCO.ContainerTrackingRequest entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_searchFields = entity.SearchFields;
-		_provider = entity.Provider;
-		_containerNumber = entity.ContainerNumber;
-		_master = entity.Master;
-		_requestId = entity.RequestId;
-		_containerId = entity.ContainerId;
-		_shipmentId = entity.ShipmentId;
-		_carrierCode = entity.CarrierCode;
-		_status = entity.Status;
-		_isSimulate = entity.IsSimulate;
-		_scacCode = entity.ScacCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

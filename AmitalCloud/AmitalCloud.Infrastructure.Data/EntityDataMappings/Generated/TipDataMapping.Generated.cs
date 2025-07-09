@@ -5,117 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class TipDataMapping: IMapping<TipPM, POCO.Tip  ,TipList >,IMappingEncodeBase64NVARCHARFields<TipPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Tenant, 
-	         VisibilityDefaultValue, 
-	         ShortTextCode, 
-	         ObjectTableId, 
-	         ShortTextCodeCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Tenant, 
-	         VisibilityDefaultValue, 
-	         ShortTextCode, 
-	         ObjectTableId, 
-	         ShortTextCodeCode,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(TipPM entityPM, POCO.Tip entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VisibilityDefaultValue)) { entityPOCO.VisibilityDefaultValue = entityPM.VisibilityDefaultValue;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortTextCode)) { entityPOCO.ShortTextCode = entityPM.ShortTextCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId)) { entityPOCO.ObjectTableId = entityPM.ObjectTableId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortTextCodeCode)) { entityPOCO.ShortTextCodeCode = entityPM.ShortTextCodeCode;}
-					}
-		public void POCOToPM(TipPM entityPM, POCO.Tip entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Code))
-            {
-					entityPM.Code = entityPOCO.Code;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.VisibilityDefaultValue))
-            {
-					entityPM.VisibilityDefaultValue = entityPOCO.VisibilityDefaultValue;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShortTextCode))
-            {
-					entityPM.ShortTextCode = entityPOCO.ShortTextCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ObjectTableId))
-            {
-					entityPM.ObjectTableId = entityPOCO.ObjectTableId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShortTextCodeCode))
-            {
-					entityPM.ShortTextCodeCode = entityPOCO.ShortTextCodeCode;
-            }
-		}
-		public void PMToOldPM(TipPM entityPM, TipPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.VisibilityDefaultValue))
-            {
-                oldEntityPM.VisibilityDefaultValue = entityPM.VisibilityDefaultValue;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortTextCode))
-            {
-                oldEntityPM.ShortTextCode = entityPM.ShortTextCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ObjectTableId))
-            {
-                oldEntityPM.ObjectTableId = entityPM.ObjectTableId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShortTextCodeCode))
-            {
-                oldEntityPM.ShortTextCodeCode = entityPM.ShortTextCodeCode;
-            }
-					}
-		public void POCOToList(POCO.Tip entityPOCO, TipList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<TipList> GetIqueryableList(IQueryable<POCO.Tip> iQueryable)
-		{
-			IQueryable<TipList> query = (from a in iQueryable
-                                            select new TipList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(TipPM entityPM)
+    public partial class TipDataMapping: BaseMappingProfile<TipPM, POCO.Tip>, IMapping<TipPM, POCO.Tip, TipList >,IMappingEncodeBase64NVARCHARFields<TipPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(TipPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -123,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

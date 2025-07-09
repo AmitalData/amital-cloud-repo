@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class CarrierAreasPortPM : BaseEntityPM   {
    #region Constructors
    public CarrierAreasPortPM() : base() {} 
-   public CarrierAreasPortPM(POCO.CarrierAreasPort entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_addedDate = entity.AddedDate;
-		_addedByUserId = entity.AddedByUserId;
-		_addedbyuser = entity.AddedByUser !=null ? new UserPM(entity.AddedByUser) : null;
-			_carrierAreaId = entity.CarrierAreaId;
-		_carriersarea = entity.CarriersArea !=null ? new CarrierAreaPM(entity.CarriersArea) : null;
-			_portId = entity.PortId;
-		_port = entity.Port !=null ? new PortPM(entity.Port) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

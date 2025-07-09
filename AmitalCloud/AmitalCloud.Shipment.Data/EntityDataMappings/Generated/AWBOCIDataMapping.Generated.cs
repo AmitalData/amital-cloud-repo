@@ -5,130 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> ShipmentClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Shipment.Domain.EntityPMs ;
 using AmitalCloud.Shipment.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Shipment.Data.EntityDataMappings
 {
-   public partial class AWBOCIDataMapping: IMapping<AWBOCIPM, POCO.AWBOCI  ,AWBOCIList >,IMappingEncodeBase64NVARCHARFields<AWBOCIPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ShipmentId, 
-	         SupplementaryCustomsInfo, 
-	         CountryId, 
-	         AWBCustomsInformationCode, 
-	         AWBInformationCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         ShipmentId, 
-	         SupplementaryCustomsInfo, 
-	         CountryId, 
-	         AWBCustomsInformationCode, 
-	         AWBInformationCode, 
-	         IsAWBWizardDefault, 
-	         ChangeSetOp,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(AWBOCIPM entityPM, POCO.AWBOCI entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId)) { entityPOCO.ShipmentId = entityPM.ShipmentId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SupplementaryCustomsInfo)) { entityPOCO.SupplementaryCustomsInfo = entityPM.SupplementaryCustomsInfo;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CountryId)) { entityPOCO.CountryId = entityPM.CountryId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AWBCustomsInformationCode)) { entityPOCO.AWBCustomsInformationCode = entityPM.AWBCustomsInformationCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AWBInformationCode)) { entityPOCO.AWBInformationCode = entityPM.AWBInformationCode;}
-					}
-		public void POCOToPM(AWBOCIPM entityPM, POCO.AWBOCI entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ShipmentId))
-            {
-					entityPM.ShipmentId = entityPOCO.ShipmentId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.SupplementaryCustomsInfo))
-            {
-					entityPM.SupplementaryCustomsInfo = entityPOCO.SupplementaryCustomsInfo;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.CountryId))
-            {
-					entityPM.CountryId = entityPOCO.CountryId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AWBCustomsInformationCode))
-            {
-					entityPM.AWBCustomsInformationCode = entityPOCO.AWBCustomsInformationCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.AWBInformationCode))
-            {
-					entityPM.AWBInformationCode = entityPOCO.AWBInformationCode;
-            }
-		}
-		public void PMToOldPM(AWBOCIPM entityPM, AWBOCIPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ShipmentId))
-            {
-                oldEntityPM.ShipmentId = entityPM.ShipmentId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.SupplementaryCustomsInfo))
-            {
-                oldEntityPM.SupplementaryCustomsInfo = entityPM.SupplementaryCustomsInfo;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.CountryId))
-            {
-                oldEntityPM.CountryId = entityPM.CountryId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AWBCustomsInformationCode))
-            {
-                oldEntityPM.AWBCustomsInformationCode = entityPM.AWBCustomsInformationCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.AWBInformationCode))
-            {
-                oldEntityPM.AWBInformationCode = entityPM.AWBInformationCode;
-            }
-					}
-		public void POCOToList(POCO.AWBOCI entityPOCO, AWBOCIList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<AWBOCIList> GetIqueryableList(IQueryable<POCO.AWBOCI> iQueryable)
-		{
-			IQueryable<AWBOCIList> query = (from a in iQueryable
-                                            select new AWBOCIList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(AWBOCIPM entityPM)
+    public partial class AWBOCIDataMapping: BaseMappingProfile<AWBOCIPM, POCO.AWBOCI>, IMapping<AWBOCIPM, POCO.AWBOCI, AWBOCIList >,IMappingEncodeBase64NVARCHARFields<AWBOCIPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(AWBOCIPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -136,14 +25,6 @@ namespace AmitalCloud.Shipment.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

@@ -26,30 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class MobileNotificationLogPM : BaseEntityPM   {
    #region Constructors
    public MobileNotificationLogPM() : base() {} 
-   public MobileNotificationLogPM(POCO.MobileNotificationLog entity) : base()
-   {
-		_id = entity.Id;
-		_email = entity.Email;
-		_notificationMessage = entity.NotificationMessage;
-		_entityId = entity.EntityId;
-		_objectTableId = entity.ObjectTableId;
-		_exception = entity.Exception;
-		_log = entity.Log;
-		_iOSStatus = entity.IOSStatus;
-		_androidStatus = entity.AndroidStatus;
-		_numberOfRetriesIOS = entity.NumberOfRetriesIOS;
-		_numberOfRetriesAndroid = entity.NumberOfRetriesAndroid;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_isException = entity.IsException;
-		_isRead = entity.IsRead;
-		_isDelete = entity.IsDelete;
-		_notificationMessageIOS = entity.NotificationMessageIOS;
-		_notificationMessageAndroid = entity.NotificationMessageAndroid;
-		_xML = entity.XML;
-		_doneDate = entity.DoneDate;
-		_sourceEventDate = entity.SourceEventDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

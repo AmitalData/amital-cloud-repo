@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class AuditLogPM : BaseEntityPM   {
    #region Constructors
    public AuditLogPM() : base() {} 
-   public AuditLogPM(POCO.AuditLog entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_updatedbyuser = entity.UpdatedByUser !=null ? new UserPM(entity.UpdatedByUser) : null;
-			_objectTableId = entity.ObjectTableId;
-		_objecttable = entity.ObjectTable !=null ? new ObjectTablePM(entity.ObjectTable) : null;
-			_entityId = entity.EntityId;
-		_changesJson = entity.ChangesJson;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

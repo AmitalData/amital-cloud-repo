@@ -26,17 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ObjectFieldModificationPM : BaseEntityPM   {
    #region Constructors
    public ObjectFieldModificationPM() : base() {} 
-   public ObjectFieldModificationPM(POCO.ObjectFieldModification entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_maxLength = entity.MaxLength;
-		_minLength = entity.MinLength;
-		_isRequired = entity.IsRequired;
-		_objectFieldId = entity.ObjectFieldId;
-		_updateDateGMT = entity.UpdateDateGMT;
-		_objectFieldCode = entity.ObjectFieldCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

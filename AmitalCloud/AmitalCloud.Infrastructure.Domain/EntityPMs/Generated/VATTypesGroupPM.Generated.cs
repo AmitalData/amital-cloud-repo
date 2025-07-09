@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class VATTypesGroupPM : BaseEntityPM   {
    #region Constructors
    public VATTypesGroupPM() : base() {} 
-   public VATTypesGroupPM(POCO.VATTypesGroup entity) : base()
-   {
-		_groupVATTypeId = entity.GroupVATTypeId;
-		_groupvattype = entity.GroupVATType !=null ? new VatTypePM(entity.GroupVATType) : null;
-			_singleVATTypeId = entity.SingleVATTypeId;
-		_singlevattype = entity.SingleVATType !=null ? new VatTypePM(entity.SingleVATType) : null;
-			_tenant = entity.Tenant;
-   }
    #endregion Constructors
    #region Properties
    	  private string _groupVATTypeId ;

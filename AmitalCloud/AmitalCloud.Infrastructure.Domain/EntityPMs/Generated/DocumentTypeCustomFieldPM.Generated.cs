@@ -26,21 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentTypeCustomFieldPM : BaseEntityPM   {
    #region Constructors
    public DocumentTypeCustomFieldPM() : base() {} 
-   public DocumentTypeCustomFieldPM(POCO.DocumentTypeCustomField entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_indexOrder = entity.IndexOrder;
-		_documentTypeId = entity.DocumentTypeId;
-		_fieldCode = entity.FieldCode;
-		_name = entity.Name;
-		_fieldDataTypeCode = entity.FieldDataTypeCode;
-		_fielddatatype = entity.FieldDataType !=null ? new FieldDataTypePM(entity.FieldDataType) : null;
-			_inActive = entity.InActive;
-		_isRequired = entity.IsRequired;
-		_multiLine = entity.MultiLine;
-		_defaultValue = entity.DefaultValue;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

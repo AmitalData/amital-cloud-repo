@@ -26,15 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class BusinessUnitPM : BaseEntityPM   {
    #region Constructors
    public BusinessUnitPM() : base() {} 
-   public BusinessUnitPM(POCO.BusinessUnit entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_name = entity.Name;
-		_parentId = entity.ParentId;
-		_inActive = entity.InActive;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

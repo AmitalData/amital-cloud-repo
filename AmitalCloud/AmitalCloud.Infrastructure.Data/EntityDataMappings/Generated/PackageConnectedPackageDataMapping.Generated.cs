@@ -5,86 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class PackageConnectedPackageDataMapping: IMapping<PackageConnectedPackagePM, POCO.PackageConnectedPackage  ,PackageConnectedPackageList >,IMappingEncodeBase64NVARCHARFields<PackageConnectedPackagePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         PackageCode, 
-	         ConnectedPackageCode,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         PackageCode, 
-	         ConnectedPackageCode, 
-	         ConnectedPackageName, 
-	         ChangeSetOp,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(PackageConnectedPackagePM entityPM, POCO.PackageConnectedPackage entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode)) { entityPOCO.PackageCode = entityPM.PackageCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ConnectedPackageCode)) { entityPOCO.ConnectedPackageCode = entityPM.ConnectedPackageCode;}
-					}
-		public void POCOToPM(PackageConnectedPackagePM entityPM, POCO.PackageConnectedPackage entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PackageCode))
-            {
-					entityPM.PackageCode = entityPOCO.PackageCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ConnectedPackageCode))
-            {
-					entityPM.ConnectedPackageCode = entityPOCO.ConnectedPackageCode;
-            }
-		}
-		public void PMToOldPM(PackageConnectedPackagePM entityPM, PackageConnectedPackagePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PackageCode))
-            {
-                oldEntityPM.PackageCode = entityPM.PackageCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ConnectedPackageCode))
-            {
-                oldEntityPM.ConnectedPackageCode = entityPM.ConnectedPackageCode;
-            }
-					}
-		public void POCOToList(POCO.PackageConnectedPackage entityPOCO, PackageConnectedPackageList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<PackageConnectedPackageList> GetIqueryableList(IQueryable<POCO.PackageConnectedPackage> iQueryable)
-		{
-			IQueryable<PackageConnectedPackageList> query = (from a in iQueryable
-                                            select new PackageConnectedPackageList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(PackageConnectedPackagePM entityPM)
+    public partial class PackageConnectedPackageDataMapping: BaseMappingProfile<PackageConnectedPackagePM, POCO.PackageConnectedPackage>, IMapping<PackageConnectedPackagePM, POCO.PackageConnectedPackage, PackageConnectedPackageList >,IMappingEncodeBase64NVARCHARFields<PackageConnectedPackagePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(PackageConnectedPackagePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -92,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

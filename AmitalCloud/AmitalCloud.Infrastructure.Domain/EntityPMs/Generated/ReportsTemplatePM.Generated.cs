@@ -26,27 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ReportsTemplatePM : BaseEntityPM   {
    #region Constructors
    public ReportsTemplatePM() : base() {} 
-   public ReportsTemplatePM(POCO.ReportsTemplate entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_description = entity.Description;
-		_inActive = entity.InActive;
-		_isSystem = entity.IsSystem;
-		_reportId = entity.ReportId;
-		_createdByUserId = entity.CreatedByUserId;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_createDate = entity.CreateDate;
-		_updateDate = entity.UpdateDate;
-		_currentVersion = entity.CurrentVersion;
-		_templateType = entity.TemplateType;
-		_from = entity.From;
-		_replyTo = entity.ReplyTo;
-		_cC = entity.CC;
-		_subject = entity.Subject;
-		_objectTableId = entity.ObjectTableId;
-		_entityId = entity.EntityId;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

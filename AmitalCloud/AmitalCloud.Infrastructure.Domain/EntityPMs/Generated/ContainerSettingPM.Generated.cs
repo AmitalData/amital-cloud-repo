@@ -26,20 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class ContainerSettingPM : BaseEntityPM   {
    #region Constructors
    public ContainerSettingPM() : base() {} 
-   public ContainerSettingPM(POCO.ContainerSetting entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_emptyReturnClosingDays = entity.EmptyReturnClosingDays;
-		_shipmentATAClosingDays = entity.ShipmentATAClosingDays;
-		_shipmentATADateIndicator = entity.ShipmentATADateIndicator;
-		_isExport = entity.IsExport;
-		_isDomestic = entity.IsDomestic;
-		_isImport = entity.IsImport;
-		_isDrop = entity.IsDrop;
-		_addedManually = entity.AddedManually;
-		_activationDate = entity.ActivationDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

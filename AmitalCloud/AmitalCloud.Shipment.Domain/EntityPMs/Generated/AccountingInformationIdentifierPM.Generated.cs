@@ -26,10 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class AccountingInformationIdentifierPM : BaseEntityPM   {
    #region Constructors
    public AccountingInformationIdentifierPM() : base() {} 
-   public AccountingInformationIdentifierPM(POCO.AccountingInformationIdentifier entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

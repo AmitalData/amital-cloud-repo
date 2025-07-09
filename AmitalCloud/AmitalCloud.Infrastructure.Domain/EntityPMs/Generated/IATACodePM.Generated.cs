@@ -26,19 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class IATACodePM : BaseEntityPM   {
    #region Constructors
    public IATACodePM() : base() {} 
-   public IATACodePM(POCO.IATACode entity) : base()
-   {
-		_id = entity.Id;
-		_code = entity.Code;
-		_name = entity.Name;
-		_measurementCode = entity.MeasurementCode;
-		_dueTypeCode = entity.DueTypeCode;
-		_duetype = entity.DueType !=null ? new DueTypePM(entity.DueType) : null;
-			_isIATA = entity.IsIATA;
-		_inActive = entity.InActive;
-		_airlineId = entity.AirlineId;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

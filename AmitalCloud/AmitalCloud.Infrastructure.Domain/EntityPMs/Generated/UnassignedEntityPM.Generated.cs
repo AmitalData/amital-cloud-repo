@@ -26,14 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class UnassignedEntityPM : BaseEntityPM   {
    #region Constructors
    public UnassignedEntityPM() : base() {} 
-   public UnassignedEntityPM(POCO.UnassignedEntity entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_objectTableId = entity.ObjectTableId;
-		_entityobjecttable = entity.EntityObjectTable !=null ? new ObjectTablePM(entity.EntityObjectTable) : null;
-			_unassignedCode = entity.UnassignedCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

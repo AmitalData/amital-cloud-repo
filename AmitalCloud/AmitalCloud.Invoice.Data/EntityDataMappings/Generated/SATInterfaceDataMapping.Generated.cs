@@ -5,59 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> InvoiceClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Invoice.Domain.EntityPMs ;
 using AmitalCloud.Invoice.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Invoice.Data.EntityDataMappings
 {
-   public partial class SATInterfaceDataMapping: IMapping<SATInterfacePM, POCO.SATInterface  ,SATInterfaceList >,IMappingEncodeBase64NVARCHARFields<SATInterfacePM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Code, 
-	         Name, 
-	         SearchFields,	      }
-	      public enum PMPropertyNames
-          { 
-		     None, 	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(SATInterfacePM entityPM, POCO.SATInterface entityPOCO)
-        {
-			 }
-		public void POCOToPM(SATInterfacePM entityPM, POCO.SATInterface entityPOCO)
-        {
-			 		}
-		public void PMToOldPM(SATInterfacePM entityPM, SATInterfacePM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 		}
-		public void POCOToList(POCO.SATInterface entityPOCO, SATInterfaceList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<SATInterfaceList> GetIqueryableList(IQueryable<POCO.SATInterface> iQueryable)
-		{
-			IQueryable<SATInterfaceList> query = (from a in iQueryable
-                                            select new SATInterfaceList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(SATInterfacePM entityPM)
+    public partial class SATInterfaceDataMapping: BaseMappingProfile<SATInterfacePM, POCO.SATInterface>, IMapping<SATInterfacePM, POCO.SATInterface, SATInterfaceList >,IMappingEncodeBase64NVARCHARFields<SATInterfacePM>
+    {
+    	    public void EncodeBase64NVARCHARFields(SATInterfacePM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -65,14 +25,6 @@ namespace AmitalCloud.Invoice.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

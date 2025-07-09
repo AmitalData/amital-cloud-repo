@@ -26,18 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class DocumentOutCopyPM : BaseEntityPM   {
    #region Constructors
    public DocumentOutCopyPM() : base() {} 
-   public DocumentOutCopyPM(POCO.DocumentOutCopy entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_documentId = entity.DocumentId;
-		_documentOutId = entity.DocumentOutId;
-		_documentout = entity.DocumentOut !=null ? new DocumentOutPM(entity.DocumentOut) : null;
-			_documentTypeCopyId = entity.DocumentTypeCopyId;
-		_documenttypecopy = entity.DocumentTypeCopy !=null ? new DocumentTypeCopyPM(entity.DocumentTypeCopy) : null;
-			_lastPrintedByUserId = entity.LastPrintedByUserId;
-		_lastPrintDate = entity.LastPrintDate;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

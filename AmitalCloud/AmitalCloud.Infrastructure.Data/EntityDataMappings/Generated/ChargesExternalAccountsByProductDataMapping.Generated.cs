@@ -5,163 +5,19 @@
 //     the code is regenerated.
 // </auto-generated> AmitalClassesGenerator.tt
 //---
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
-using AmitalCloud.Infrastructure.Domain.Enums;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs ;
 using AmitalCloud.Infrastructure.Domain.EntityLists ;
+using AmitalCloud.Infrastructure.Data.BaseClasses ;
+using AutoMapper;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-   public partial class ChargesExternalAccountsByProductDataMapping: IMapping<ChargesExternalAccountsByProductPM, POCO.ChargesExternalAccountsByProduct  ,ChargesExternalAccountsByProductList >,IMappingEncodeBase64NVARCHARFields<ChargesExternalAccountsByProductPM>
-   {
-          public enum POCOPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PayablesGLAccount, 
-	         PayablesCostCenter, 
-	         ReceivablesGLAccount, 
-	         ReceivablesCostCenter, 
-	         ChargesTypeId, 
-	         ProductTypeCode, 
-	         UpdateDate, 
-	         UpdatedByUserId,	      }
-	      public enum PMPropertyNames
-          { 
-		     None,  
-	         Id, 
-	         Tenant, 
-	         PayablesGLAccount, 
-	         PayablesCostCenter, 
-	         ReceivablesGLAccount, 
-	         ReceivablesCostCenter, 
-	         ChargesTypeId, 
-	         ProductTypeCode, 
-	         UpdateDate, 
-	         UpdatedByUserId, 
-	         ProductTypeName, 
-	         UpdatedByUserName,	      }
-		List<POCOPropertyNames> CustomMappedPOCOProperties=new List<POCOPropertyNames>();
-        List<PMPropertyNames> CustomMappedPMProperties=new List<PMPropertyNames>();
-	    public void PMToPOCO(ChargesExternalAccountsByProductPM entityPM, POCO.ChargesExternalAccountsByProduct entityPOCO)
-        {
-			 		if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant)) { entityPOCO.Tenant = entityPM.Tenant;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PayablesGLAccount)) { entityPOCO.PayablesGLAccount = entityPM.PayablesGLAccount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PayablesCostCenter)) { entityPOCO.PayablesCostCenter = entityPM.PayablesCostCenter;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceivablesGLAccount)) { entityPOCO.ReceivablesGLAccount = entityPM.ReceivablesGLAccount;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceivablesCostCenter)) { entityPOCO.ReceivablesCostCenter = entityPM.ReceivablesCostCenter;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ChargesTypeId)) { entityPOCO.ChargesTypeId = entityPM.ChargesTypeId;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode)) { entityPOCO.ProductTypeCode = entityPM.ProductTypeCode;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate)) { entityPOCO.UpdateDate = entityPM.UpdateDate;}
-							if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId)) { entityPOCO.UpdatedByUserId = entityPM.UpdatedByUserId;}
-					}
-		public void POCOToPM(ChargesExternalAccountsByProductPM entityPM, POCO.ChargesExternalAccountsByProduct entityPOCO)
-        {
-			 			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Id))
-            {
-					entityPM.Id = entityPOCO.Id;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.Tenant))
-            {
-					entityPM.Tenant = entityPOCO.Tenant;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PayablesGLAccount))
-            {
-					entityPM.PayablesGLAccount = entityPOCO.PayablesGLAccount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.PayablesCostCenter))
-            {
-					entityPM.PayablesCostCenter = entityPOCO.PayablesCostCenter;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ReceivablesGLAccount))
-            {
-					entityPM.ReceivablesGLAccount = entityPOCO.ReceivablesGLAccount;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ReceivablesCostCenter))
-            {
-					entityPM.ReceivablesCostCenter = entityPOCO.ReceivablesCostCenter;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ChargesTypeId))
-            {
-					entityPM.ChargesTypeId = entityPOCO.ChargesTypeId;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.ProductTypeCode))
-            {
-					entityPM.ProductTypeCode = entityPOCO.ProductTypeCode;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdateDate))
-            {
-					entityPM.UpdateDate = entityPOCO.UpdateDate;
-            }
-			if (!CustomMappedPMProperties.Contains(PMPropertyNames.UpdatedByUserId))
-            {
-					entityPM.UpdatedByUserId = entityPOCO.UpdatedByUserId;
-            }
-		}
-		public void PMToOldPM(ChargesExternalAccountsByProductPM entityPM, ChargesExternalAccountsByProductPM oldEntityPM)
-        {
-		     oldEntityPM.ChangedProperties.Clear();
-			 			if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.Tenant))
-            {
-                oldEntityPM.Tenant = entityPM.Tenant;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PayablesGLAccount))
-            {
-                oldEntityPM.PayablesGLAccount = entityPM.PayablesGLAccount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.PayablesCostCenter))
-            {
-                oldEntityPM.PayablesCostCenter = entityPM.PayablesCostCenter;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceivablesGLAccount))
-            {
-                oldEntityPM.ReceivablesGLAccount = entityPM.ReceivablesGLAccount;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ReceivablesCostCenter))
-            {
-                oldEntityPM.ReceivablesCostCenter = entityPM.ReceivablesCostCenter;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ChargesTypeId))
-            {
-                oldEntityPM.ChargesTypeId = entityPM.ChargesTypeId;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.ProductTypeCode))
-            {
-                oldEntityPM.ProductTypeCode = entityPM.ProductTypeCode;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdateDate))
-            {
-                oldEntityPM.UpdateDate = entityPM.UpdateDate;
-            }
-						if (!CustomMappedPOCOProperties.Contains(POCOPropertyNames.UpdatedByUserId))
-            {
-                oldEntityPM.UpdatedByUserId = entityPM.UpdatedByUserId;
-            }
-					}
-		public void POCOToList(POCO.ChargesExternalAccountsByProduct entityPOCO, ChargesExternalAccountsByProductList entityList)
-        {
-            //entityList.Code = entityPOCO.Code;
-            //entityList.Name = entityPOCO.Name;
-            //entityList.SearchFields = entityPOCO.SearchFields;
-        }
-		public IQueryable<ChargesExternalAccountsByProductList> GetIqueryableList(IQueryable<POCO.ChargesExternalAccountsByProduct> iQueryable)
-		{
-			IQueryable<ChargesExternalAccountsByProductList> query = (from a in iQueryable
-                                            select new ChargesExternalAccountsByProductList()
-											{
-					                          //Code = a.Code,
-		                    	            });
-            return query;
-		}
-	    public void EncodeBase64NVARCHARFields(ChargesExternalAccountsByProductPM entityPM)
+    public partial class ChargesExternalAccountsByProductDataMapping: BaseMappingProfile<ChargesExternalAccountsByProductPM, POCO.ChargesExternalAccountsByProduct>, IMapping<ChargesExternalAccountsByProductPM, POCO.ChargesExternalAccountsByProduct, ChargesExternalAccountsByProductList >,IMappingEncodeBase64NVARCHARFields<ChargesExternalAccountsByProductPM>
+    {
+    	    public void EncodeBase64NVARCHARFields(ChargesExternalAccountsByProductPM entityPM)
         {
             if (String.IsNullOrWhiteSpace(entityPM.EncodeBase64NVARCHARFieldsBy)) 
             {
@@ -169,14 +25,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
-	    public void AddPOCOPropertyName(POCOPropertyNames pocoPropertyName)
-        {
-            CustomMappedPOCOProperties.Add(pocoPropertyName);
-        }
-        public void AddPMPropertyName(PMPropertyNames pocoPropertyName)
-        {
-            CustomMappedPMProperties.Add(pocoPropertyName);
-        }
-		   }
+    }
 }
 	 

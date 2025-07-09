@@ -26,23 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TeamPM : BaseEntityPM   {
    #region Constructors
    public TeamPM() : base() {} 
-   public TeamPM(POCO.Team entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_createDate = entity.CreateDate;
-		_createdByUserId = entity.CreatedByUserId;
-		_updateDate = entity.UpdateDate;
-		_updatedByUserId = entity.UpdatedByUserId;
-		_searchFields = entity.SearchFields;
-		_name = entity.Name;
-		_localName = entity.LocalName;
-		_inActive = entity.InActive;
-		_managerUserId = entity.ManagerUserId;
-		_manageruser = entity.ManagerUser !=null ? new UserPM(entity.ManagerUser) : null;
-			_notify = entity.Notify;
-		_notes = entity.Notes;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

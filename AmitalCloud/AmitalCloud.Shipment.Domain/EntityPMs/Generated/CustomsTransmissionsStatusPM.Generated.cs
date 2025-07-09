@@ -26,10 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class CustomsTransmissionsStatusPM : BaseEntityPM   {
    #region Constructors
    public CustomsTransmissionsStatusPM() : base() {} 
-   public CustomsTransmissionsStatusPM(POCO.CustomsTransmissionsStatus entity) : base()
-   {
-		_code = entity.Code;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

@@ -26,12 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantAddOnPM : BaseEntityPM   {
    #region Constructors
    public TenantAddOnPM() : base() {} 
-   public TenantAddOnPM(POCO.TenantAddOn entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_packageCode = entity.PackageCode;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

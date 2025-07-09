@@ -26,16 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TenantManagementLicensePM : BaseEntityPM   {
    #region Constructors
    public TenantManagementLicensePM() : base() {} 
-   public TenantManagementLicensePM(POCO.TenantManagementLicense entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_packageCode = entity.PackageCode;
-		_numberOfUsers = entity.NumberOfUsers;
-		_freeUsers = entity.FreeUsers;
-		_price = entity.Price;
-		_totalPrice = entity.TotalPrice;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

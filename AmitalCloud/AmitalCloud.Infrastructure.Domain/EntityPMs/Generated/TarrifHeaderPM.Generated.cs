@@ -26,22 +26,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
    public partial class TarrifHeaderPM : BaseEntityPM   {
    #region Constructors
    public TarrifHeaderPM() : base() {} 
-   public TarrifHeaderPM(POCO.TarrifHeader entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_cardId = entity.CardId;
-		_tarrifTypeCode = entity.TarrifTypeCode;
-		_tarriftype = entity.TarrifType !=null ? new TarrifTypePM(entity.TarrifType) : null;
-			_fromDate = entity.FromDate;
-		_toDate = entity.ToDate;
-		_createDate = entity.CreateDate;
-		_inActive = entity.InActive;
-		_notes = entity.Notes;
-		_transitTimeNotes = entity.TransitTimeNotes;
-		fromLocationList = entity.FromLocationList != null ? entity.FromLocationList.Select(a=>new TarrifFromToPM(a)).ToList() : null;
-		toLocationList = entity.ToLocationList != null ? entity.ToLocationList.Select(a=>new TarrifFromToPM(a)).ToList() : null;
-   }
    #endregion Constructors
    #region Properties
    	  private string _id ;

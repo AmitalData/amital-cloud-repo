@@ -26,15 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class ShipmentPackageItemPM : BaseEntityPM   {
    #region Constructors
    public ShipmentPackageItemPM() : base() {} 
-   public ShipmentPackageItemPM(POCO.ShipmentPackageItem entity) : base()
-   {
-		_packageId = entity.PackageId;
-		_lineNumber = entity.LineNumber;
-		_tenant = entity.Tenant;
-		_description = entity.Description;
-		_quantity = entity.Quantity;
-		_goodsValue = entity.GoodsValue;
-   }
    #endregion Constructors
    #region Properties
    	  private string _packageId ;

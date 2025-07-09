@@ -26,12 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class INTTRABookingTransStatusPM : BaseEntityPM   {
    #region Constructors
    public INTTRABookingTransStatusPM() : base() {} 
-   public INTTRABookingTransStatusPM(POCO.INTTRABookingTransStatus entity) : base()
-   {
-		_code = entity.Code;
-		_name = entity.Name;
-		_searchFields = entity.SearchFields;
-   }
    #endregion Constructors
    #region Properties
    	  private string _code ;

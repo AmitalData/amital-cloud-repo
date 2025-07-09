@@ -26,20 +26,6 @@ namespace AmitalCloud.Shipment.Domain.EntityPMs
    public partial class AWBOCIPM : BaseEntityPM   {
    #region Constructors
    public AWBOCIPM() : base() {} 
-   public AWBOCIPM(POCO.AWBOCI entity) : base()
-   {
-		_id = entity.Id;
-		_tenant = entity.Tenant;
-		_shipmentId = entity.ShipmentId;
-		_shipment = entity.Shipment !=null ? new ShipmentPM(entity.Shipment) : null;
-			_supplementaryCustomsInfo = entity.SupplementaryCustomsInfo;
-		_countryId = entity.CountryId;
-		_country = entity.Country !=null ? new CountryPM(entity.Country) : null;
-			_aWBCustomsInformationCode = entity.AWBCustomsInformationCode;
-		_awbcustomsinformation = entity.AWBCustomsInformation !=null ? new AWBCustomsInformationPM(entity.AWBCustomsInformation) : null;
-			_aWBInformationCode = entity.AWBInformationCode;
-		_awbinformation = entity.AWBInformation !=null ? new AWBInformationPM(entity.AWBInformation) : null;
-	   }
    #endregion Constructors
    #region Properties
    	  private string _id ;
