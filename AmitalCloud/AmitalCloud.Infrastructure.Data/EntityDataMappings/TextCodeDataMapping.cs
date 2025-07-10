@@ -8,7 +8,7 @@ using AmitalCloud.Infrastructure.Model.EntityClasses;
 
 namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
 {
-    public partial class TextCodeDataMapping : BaseMappingProfile<TextCode, POCO.TextCode>, IMapping<TextCode, POCO.TextCode, TextCodeList>
+    public partial class TextCodeDataMapping : BaseMappingProfile<TextCodePM, POCO.TextCode>, IMapping<TextCodePM, POCO.TextCode, TextCodeList>
     {
         protected override void ApplyCustomMapping(IMappingExpression<POCO.TextCode, TextCodePM> map)
         {
