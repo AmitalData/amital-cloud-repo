@@ -23,9 +23,10 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers
 {
-    public class Authentication
+    public class Authentication : IAuthentication
     {
-        readonly private int tenant;
+		readonly private ITenantProvider _tenantProvider;
+		readonly private int tenant;
         readonly private IGlobalContext globalContext;
         private IAmitalCloudContext amitalCloudContext;
         readonly private GlobalContactQueryService globalContactQueryService;
@@ -34,11 +35,12 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
         readonly private IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _memoryCache;
 
-        public Authentication(int tenant, IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache)
+        public Authentication(ITenantProvider tenantProvider, IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache)
         {
-            this.tenant = tenant;
+            _tenantProvider = tenantProvider;
+            this.tenant = tenantProvider.GetTenantId();
             globalContext = GlobalContext.GetContext();
-            amitalCloudContext = AmitalCloudContext.GetContext(tenant);
+            amitalCloudContext = AmitalCloudContext.GetContext(tenant, _tenantProvider);
             globalContactQueryService = new GlobalContactQueryService(globalContext);
             contactPasswordQueryService = new ContactPasswordQueryService(globalContext);
             tenantManagementQueryService = new TenantManagementQueryService(globalContext);
@@ -1425,7 +1427,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             return browserType;
         }
 
-        public static bool GetIsBlockingFromDB(HttpContext httpContext)
+        public bool GetIsBlockingFromDB(HttpContext httpContext)
         {
             bool hasBlockingDBRecords = new GlobalDBQueryService(0)
                 .GetMulti(_ => true) 

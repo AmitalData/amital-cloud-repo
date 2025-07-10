@@ -24,17 +24,19 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         private bool _isDisposed;
         IUnitOfWork? _unitOfWork;
         protected DbSet<TEntity> DbSet => _dbSet;
-        internal Repository(int tenant)
+        public Repository(int tenant)
         {
             _dbContext = GetContext(tenant);
             _isDisposed = false;
             _dbSet = (_dbContext).Set<TEntity>();
         }
-        internal Repository(IUnitOfWork unitOfWork) : this(unitOfWork.Context)
+
+
+		public Repository(IUnitOfWork unitOfWork) : this(unitOfWork.Context)
         {
             _unitOfWork = unitOfWork;
         }
-        internal Repository(IContext dbContext)
+		public Repository(IContext dbContext)
         {
             Type type = typeof(TEntity);
             var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));

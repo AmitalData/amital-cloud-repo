@@ -2,6 +2,7 @@
 using AmitalCloud.Infrastructure.Application.Helpers;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -15,13 +16,17 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
     {
         private readonly IMemoryCache _memoryCache;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AuthenticationController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache)
+		private readonly ITenantProvider _tenantProvider;
+
+		public AuthenticationController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache, ITenantProvider tenantProvider)
         {
             _memoryCache = memoryCache;
             _httpContextAccessor = httpContextAccessor;
-        }
+			_tenantProvider = tenantProvider;
 
-        [HttpGet]
+		}
+
+		[HttpGet]
         public string? GetSettingsLoginCode(int myDummyInteger, string myDummyString)
         {
             var logoCode = new SettingQueryService(0).GetMulti(a => true, a => a.LogoCode).FirstOrDefault();
@@ -37,7 +42,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         {
             try
             {
-                Authentication authentication = new Authentication(loginParameters.Tenant, _httpContextAccessor, _memoryCache);
+                Authentication authentication = new Authentication(_tenantProvider, _httpContextAccessor, _memoryCache);
                 UserData data = authentication.AuthenticateUser(loginParameters);
                 return Ok(data);
             }
@@ -58,7 +63,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         {
             try
             {
-                Authentication authentication = new Authentication(tenant, _httpContextAccessor, _memoryCache);
+                Authentication authentication = new Authentication(_tenantProvider, _httpContextAccessor, _memoryCache);
                 UserData user = authentication.LoginUser(parameters, tenant, isFromCTool);
                 return Ok(user);
             }

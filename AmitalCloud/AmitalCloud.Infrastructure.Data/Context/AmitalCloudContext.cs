@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using AmitalCloud.Infrastructure.Data.DBHelpers;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 
 
 
@@ -24,26 +25,31 @@ namespace AmitalCloud.Infrastructure.Data.Context
    public partial class AmitalCloudContext: DbContextBase, IAmitalCloudContext
     {
 
+		public readonly  ITenantProvider _tenantProvider;
 
-    	private int _tenant;
-        private AmitalCloudContext()
+		private int _tenant;
+        public AmitalCloudContext()
         {
 			Database.SetCommandTimeout(ApplicationAppInfo.GetDataBaseTimeOut());
         }
-
-        private AmitalCloudContext(DbContextOptions options, int tenant) : base(options)
-        {
-            this.ChangeTracker.LazyLoadingEnabled = false;
+		public AmitalCloudContext(DbContextOptions<AmitalCloudContext> options)
+	    : base(options)
+		{
+		}
+		public AmitalCloudContext(DbContextOptions<AmitalCloudContext> options, ITenantProvider tenantProvider) : base(options)
+		{
+			this.ChangeTracker.LazyLoadingEnabled = false;
 			this.ChangeTracker.AutoDetectChangesEnabled = false;
 			Database.SetCommandTimeout(ApplicationAppInfo.GetDataBaseTimeOut());
-            _tenant = tenant;
-        }
+			_tenantProvider = tenantProvider;
+			_tenant = _tenantProvider.GetTenantId();
+		}
 
-        public static IAmitalCloudContext GetContext(int tenant)
+		public static IAmitalCloudContext GetContext(int tenant ,ITenantProvider tenantProvider = null)
         {
             string dbConnectionInfo = new GlobalDbHelper(ConfigurationHelper.Conf).GetGlobalDB(tenant).DBConnection;
             DbContextOptionsBuilder<AmitalCloudContext> optionsBuilder = new DbContextOptionsBuilder<AmitalCloudContext>();
-            
+
 			if (AmitalCloudSettings.DatabaseManagementSystem == "oracle")
 			{
 				DbConnection connection = DatabaseInitializer.GetConnection(dbConnectionInfo);
@@ -66,11 +72,11 @@ namespace AmitalCloud.Infrastructure.Data.Context
                     .LogTo(message => System.Diagnostics.Debug.WriteLine(message), LogLevel.Debug);
             }
 
-            return new AmitalCloudContext(optionsBuilder.Options, tenant);
-        }
+			return new AmitalCloudContext(optionsBuilder.Options, tenantProvider);
+		}
 		public override AmitalCloudDBSchema AmitalCloudDBSchema
-        {
-            get { return AmitalCloudDBSchema.AMITAL_MAIN; }
+		{
+			get { return AmitalCloudDBSchema.AMITAL_MAIN; }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

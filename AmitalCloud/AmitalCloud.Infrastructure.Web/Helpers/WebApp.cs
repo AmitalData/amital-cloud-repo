@@ -6,6 +6,14 @@ using AmitalCloud.Infrastructure.Web.Middlewares;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Application.Helpers;
 using System.Reflection;
+using AmitalCloud.Infrastructure.Application.EntityQueryServices;
+using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Domain.EntityPMs;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AmitalCloud.Infrastructure.Model.Interfaces;
+using AmitalCloud.Infrastructure.Web.BaseClasses;
+using Microsoft.EntityFrameworkCore;
+using AmitalCloud.Infrastructure.Data.Queries;
 
 namespace AmitalCloud.Infrastructure.Web.Helpers
 {
@@ -62,7 +70,26 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             builder.Services.AddScoped<ITreeFilterQueryService, TreeFilterQuery.TreeFilterQueryService>();
             builder.Services.AddScoped<LoggedContactResolver>();
 
-            var app = builder.Build();
+			builder.Services.AddScoped<ITenantProvider, TenantProvider>();
+			builder.Services.AddDbContext<AmitalCloudContext>(options =>
+	        options.UseSqlServer(builder.Configuration.GetConnectionString("Mainstr")));
+			builder.Services.AddScoped<IAmitalCloudContext, AmitalCloudContext>();
+
+
+			builder.Services.AddDbContext<GlobalContext>(options =>
+		    options.UseSqlServer(builder.Configuration.GetConnectionString("Globalstr1")));
+			builder.Services.AddScoped<IGlobalContext, GlobalContext>();
+
+			builder.Services.AddScoped<ITenantStatusQueryService, TenantStatusQueryService>();
+			builder.Services.AddScoped<IAuthentication, Authentication>();
+
+			builder.Services.AddScoped<IBaseQueryService<UserPM, User,string>, UserQueryService>();
+			builder.Services.AddScoped<IBaseQueryService<TenantManagementPM, TenantManagement, int>,TenantManagementQueryService>();
+			builder.Services.AddScoped<IBaseEntityQueryService<ObjectFieldModificationPM, ObjectFieldModification>, ObjectFieldModificationQueryService>();
+			builder.Services.AddScoped<IBaseEntityQueryService<ObjectTableLastUpdatePM, ObjectTableLastUpdate>, ObjectTableLastUpdateQueryService>();
+			builder.Services.AddScoped<ISystemMetadataLastUpdateQuery, SystemMetadataLastUpdateQuery>();
+
+			var app = builder.Build();
 
             InitializeApp(app, builder.Configuration);
 
@@ -74,7 +101,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
 
 
 
-        private static void InitializeApp(WebApplication app, IConfiguration configuration)
+		private static void InitializeApp(WebApplication app, IConfiguration configuration)
         {
             app.UseRouting();
             app.MapControllers();

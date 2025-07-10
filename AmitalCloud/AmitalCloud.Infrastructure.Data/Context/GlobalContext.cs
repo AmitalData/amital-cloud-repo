@@ -14,12 +14,12 @@ namespace AmitalCloud.Infrastructure.Data.Context
 {
     public class GlobalContext : DbContextBase, IGlobalContext
     {
-        private GlobalContext(DbContextOptions options) : base(options)
+        public GlobalContext(DbContextOptions<GlobalContext> options) : base(options)
         {
             this.ChangeTracker.LazyLoadingEnabled = false;
             this.ChangeTracker.AutoDetectChangesEnabled = false;
         }
-        public void SetAsModified(object entity)
+		public void SetAsModified(object entity)
         {
             this.Entry(entity).State = EntityState.Modified;
         }

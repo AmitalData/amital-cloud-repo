@@ -196,7 +196,7 @@ namespace AmitalCloud.Infrastructure.UnitTest
 
 
 
-		private TenantManagementQueryService CreateService(TenantManagementPM tenantManagementPM, UserPM userPM)
+		private TenantStatusQueryService CreateService(TenantManagementPM tenantManagementPM, UserPM userPM)
 		{
 			var tenantManagementQueryMock = new Mock<IBaseQueryService<TenantManagementPM, TenantManagement, int>>();
 			tenantManagementQueryMock.Setup(r => r.GetSingle(It.IsAny<int>(), true, true)).Returns(tenantManagementPM);
@@ -204,7 +204,7 @@ namespace AmitalCloud.Infrastructure.UnitTest
 			var userQueryMock = new Mock<IBaseQueryService<UserPM, User, string>>();
 			userQueryMock.Setup(r => r.GetSingle(It.IsAny<string>(), true, true)).Returns(userPM);
 
-			return null; //new TenantManagementQueryService(tenantManagementQueryMock.Object, userQueryMock.Object);
+			return new TenantStatusQueryService(tenantManagementQueryMock.Object, userQueryMock.Object);
 		}
 
 

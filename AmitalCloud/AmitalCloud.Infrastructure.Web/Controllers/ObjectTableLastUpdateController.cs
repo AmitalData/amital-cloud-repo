@@ -5,6 +5,8 @@ using AmitalCloud.Infrastructure.Application.EntityQueryServices;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
 
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
@@ -12,17 +14,22 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
     [Route("api/v1/[controller]")]
     public class ObjectTableLastUpdateController : ControllerBase
     {
-        [HttpGet("GetLastUpdatedTables")]
+		private readonly IBaseEntityQueryService<ObjectTableLastUpdatePM, ObjectTableLastUpdate> _objectTableLastUpdateQueryService;
+		public ObjectTableLastUpdateController(IBaseEntityQueryService<ObjectTableLastUpdatePM, ObjectTableLastUpdate> objectTableLastUpdateQueryService)
+		{
+			_objectTableLastUpdateQueryService = objectTableLastUpdateQueryService;
+		}
+		[HttpGet("GetLastUpdatedTables")]
         public IActionResult GetLastUpdatedTables(DateTime sinceDate, string clientEmail)
         {
             try
-            { 
-                int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
-                var poco = new ObjectTableLastUpdateQueryService(tenant).GetMulti(a => a.LastUpdateDate > sinceDate && (a.Tenant == tenant || a.Tenant == 0) && a.ObjectTable.CacheOnClient && !a.ObjectTable.IsClosed, a => a, "ObjectTable").OrderByDescending(d => d.LastUpdateDate).ToList();
-                
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableLastUpdateDataMapping()));
-                var mapper = config.CreateMapper();
-                List<ObjectTableLastUpdatePM> list = mapper.Map<List<ObjectTableLastUpdatePM>>(poco);
+            {
+				int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
+				var poco = _objectTableLastUpdateQueryService.GetMulti(a => a.LastUpdateDate > sinceDate && (a.Tenant == tenant || a.Tenant == 0) && a.ObjectTable.CacheOnClient && !a.ObjectTable.IsClosed, a => a, "ObjectTable").OrderByDescending(d => d.LastUpdateDate).ToList();
+
+				var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableLastUpdateDataMapping()));
+				var mapper = config.CreateMapper();
+				List<ObjectTableLastUpdatePM> list = mapper.Map<List<ObjectTableLastUpdatePM>>(poco);
 
                 return Ok(list);
             }

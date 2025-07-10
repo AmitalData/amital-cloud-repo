@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 using AmitalCloud.Infrastructure.Application.Helpers;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
@@ -10,6 +11,12 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
     [Route("api/v1/[controller]")]
     public class AmitalCloudController : ControllerBase
     {
+        private readonly IAuthentication _authentication;
+        public AmitalCloudController(IAuthentication authentication)
+        {
+            _authentication = authentication;
+
+		}
         [HttpGet]
         [SwaggerOperation(
             Summary = "Check if system is blocking",
@@ -19,7 +26,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         {
             try
             {
-                return Ok(Authentication.GetIsBlockingFromDB(HttpContext));
+                return Ok(_authentication.GetIsBlockingFromDB(HttpContext));
             }
             catch (Exception ex)
             {

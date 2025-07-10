@@ -6,18 +6,19 @@ using System;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
-    public class SystemMetadataLastUpdateQuery
+    public class SystemMetadataLastUpdateQuery: ISystemMetadataLastUpdateQuery
     {
         private readonly int tenant;
         private int SystemMetadataLastUpdateDefaultId = 1;
         private readonly Repository<SystemMetadataLastUpdate> repository;
 
-        public SystemMetadataLastUpdateQuery(int tenant)
+        public SystemMetadataLastUpdateQuery(ITenantProvider tenantProvider)
         {
-            this.tenant = tenant;
+            this.tenant = tenantProvider.GetTenantId();
             repository = new Repository<SystemMetadataLastUpdate>(GlobalContext.GetContext(tenant));
         }
 

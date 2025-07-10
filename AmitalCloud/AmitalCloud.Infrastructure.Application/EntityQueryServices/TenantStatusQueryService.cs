@@ -10,18 +10,18 @@ using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
 
 namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 {
-    public partial class TenantManagementQueryService : BaseEntityQueryService<POCO.TenantManagement, TenantManagementKeys<int>, TenantManagementPM, TenantManagementList, int>
+    public  class TenantStatusQueryService : ITenantStatusQueryService
 	{
 		private readonly IBaseQueryService<TenantManagementPM, TenantManagement, int> _tenantManagementQueryService;
 		private readonly IBaseQueryService<UserPM,User,string> _userQueryService;
 
-		//public TenantManagementQueryService(IBaseQueryService<TenantManagementPM, TenantManagement, int> tenantManagementQueryService, IBaseQueryService<UserPM, User, string> userQueryService)
-  //      {
+		public TenantStatusQueryService(IBaseQueryService<TenantManagementPM, TenantManagement, int> tenantManagementQueryService, IBaseQueryService<UserPM, User, string> userQueryService)
+        {
 
-		//	_tenantManagementQueryService = tenantManagementQueryService;
-		//	_userQueryService = userQueryService;
+			_tenantManagementQueryService = tenantManagementQueryService;
+			_userQueryService = userQueryService;
 
-		//}
+		}
 		public   TenantStatusPM GetTenantStatusPM(int tenant, string userId)
         {
             TenantManagementPM tenantPM = _tenantManagementQueryService.GetSingle(tenant, true, true);
