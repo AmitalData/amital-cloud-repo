@@ -11,7 +11,9 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.0" />
     <PackageReference Include="Marvin.JsonPatch" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.3.2" />
     <PackageReference Include="SkiaSharp" Version="3.119.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.1" />

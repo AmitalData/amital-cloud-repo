@@ -6,6 +6,11 @@ using AmitalCloud.Infrastructure.Web.Middlewares;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Application.Helpers;
 using System.Reflection;
+using Microsoft.AspNetCore.OData;
+using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Domain.EntityLists;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
+
 
 namespace AmitalCloud.Infrastructure.Web.Helpers
 {
@@ -30,7 +35,9 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             {
                 // preserve the original casing of JSON properties
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+            }).AddOData(opt =>
+            opt.Filter().OrderBy().Count().Expand().Select().SetMaxTop(1000));
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
@@ -61,6 +68,64 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             builder.Services.AddScoped<ILoggedContactUtil, AmitalCloud.Infrastructure.Data.Security.LoggedContactUtil>();
             builder.Services.AddScoped<ITreeFilterQueryService, TreeFilterQuery.TreeFilterQueryService>();
             builder.Services.AddScoped<LoggedContactResolver>();
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<Feature, FeatureList>();
+            });
+
+            builder.Services.AddScoped<AmitalCloudContext>(sp =>
+            {
+                var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+
+                var tenantId = int.TryParse(httpContextAccessor.HttpContext?.Request.Headers["X-Tenant-ID"], out var tid) ? tid : 0;
+
+                return (AmitalCloudContext)AmitalCloudContext.GetContext(tenantId);
+            });
+
+
+
+            var assemblies = AppDomain.CurrentDomain
+              .GetAssemblies()
+              .Where(a => !a.IsDynamic && !string.IsNullOrEmpty(a.FullName))
+              .ToList();
+
+            var queryProviderInterfaceType = typeof(IEntityListQueryProvider<,>);
+
+            var queryProviderImplementations = assemblies
+                .SelectMany(a => a.GetTypes())
+                .Where(t => !t.IsAbstract && !t.IsInterface)
+                .SelectMany(t => t.GetInterfaces()
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == queryProviderInterfaceType)
+                    .Select(i => new { Interface = i, Type = t }));
+
+            foreach (var impl in queryProviderImplementations)
+            {
+                Console.WriteLine($"[DI] Registering QueryProvider: {impl.Interface} -> {impl.Type}");
+                builder.Services.AddScoped(impl.Interface, impl.Type);
+            }
+
+            var odataServiceInterfaceType = typeof(IEntityListODataQueryService<,>);
+            var odataServiceImplementationType = typeof(BaseEntityListODataQueryService<,>);
+
+            var registeredOdataServices = queryProviderImplementations
+                .Select(x =>
+                {
+                    var entityType = x.Interface.GenericTypeArguments[0];
+                    var entityListType = x.Interface.GenericTypeArguments[1];
+
+                    var serviceInterface = odataServiceInterfaceType.MakeGenericType(entityType, entityListType);
+                    var serviceImplementation = odataServiceImplementationType.MakeGenericType(entityType, entityListType);
+
+                    return new { serviceInterface, serviceImplementation };
+                });
+
+            foreach (var impl in registeredOdataServices)
+            {
+                Console.WriteLine($"[DI] Registering ODataService: {impl.serviceInterface} -> {impl.serviceImplementation}");
+                builder.Services.AddScoped(impl.serviceInterface, impl.serviceImplementation);
+            }
+
+
 
             var app = builder.Build();
 
