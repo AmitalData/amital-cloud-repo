@@ -6,6 +6,9 @@ using AmitalCloud.Infrastructure.Web.Middlewares;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Application.Helpers;
 using System.Reflection;
+using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.ApplicationInsights.Extensibility;
+using Serilog;
 
 namespace AmitalCloud.Infrastructure.Web.Helpers
 {
@@ -18,10 +21,24 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
 
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+				.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("Properties\\launchSettings.json", optional: true, reloadOnChange: true);
 
-            // add request services
-            builder.Services.AddControllers(options =>
+			// Serilog
+			builder.Host.UseSerilog((context, services, configuration) =>
+			{
+				configuration
+					.ReadFrom.Configuration(context.Configuration)
+					.ReadFrom.Services(services)
+					.Enrich.FromLogContext();
+			});
+
+			//  Application Insights
+			builder.Services.AddApplicationInsightsTelemetry();
+			builder.Services.AddSingleton<ITelemetryInitializer, HttpDependenciesParsingTelemetryInitializer>();
+
+			// add request services
+			builder.Services.AddControllers(options =>
             {
                 // catch exceptions and return http code according to it
                 options.Filters.Add<AuthenticationExceptionFilter>();
@@ -60,28 +77,42 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             ConfigurationHelper.Initialize(builder.Configuration);
             builder.Services.AddScoped<ILoggedContactUtil, AmitalCloud.Infrastructure.Data.Security.LoggedContactUtil>();
             builder.Services.AddScoped<ITreeFilterQueryService, TreeFilterQuery.TreeFilterQueryService>();
-            builder.Services.AddScoped<LoggedContactResolver>();
+			builder.Services.AddScoped<LoggedContactResolver>();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
             InitializeApp(app, builder.Configuration);
 
             // map the default route
             app.MapGet("/", () => MapGetContent(builder.Configuration));
 
-            app.Run();
-        }
+			try
+			{
+				Log.Information("Starting up...");
+				app.Run();
+			}
+			catch (Exception ex)
+			{
+				Log.Fatal(ex, "Application start-up failed");
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
+		}
 
 
 
         private static void InitializeApp(WebApplication app, IConfiguration configuration)
         {
             app.UseRouting();
-            app.MapControllers();
-            app.UseMiddleware<AuthenticationTokenMiddleware>();
-            app.UseMiddleware<HttpContextHelperMiddleware>();
+			app.UseMiddleware<ExceptionMiddleware>();
+			app.UseMiddleware<LoggingMiddleware>();
+			app.UseMiddleware<AuthenticationTokenMiddleware>();
+            app.UseMiddleware<HttpContextHelperMiddleware>();			
+			app.MapControllers();
 
-            if (app.Environment.IsDevelopment())
+			if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
