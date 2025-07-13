@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="MeatadataGeneratorTool.NameForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:local="clr-namespace:MeatadataGeneratorTool.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="180" d:DesignWidth="363">
+    <!--<UserControl.Resources>
+        <local:TrueIfFalseConverter x:Key="TrueIfFalseConverter" />
+    </UserControl.Resources>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                        Margin="0 0 0 5"
+                        Background="#FFF7E3E3"
+                        BorderBrush="#FFDA6F6F"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Visibility="{Binding ErrorsVisibility}">
+            <TextBlock Margin="10"
+                               FontSize="12"
+                               Foreground="#FFB02020"
+                               Text="{Binding ErrorMessages}" />
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Label Visibility="{Binding renameFieldsVisibility}" Grid.Column="0" Grid.Row="0" Content="Select Field:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" />
+            <ComboBox Visibility="{Binding renameFieldsVisibility}" Grid.Column="1" Grid.Row="0"
+                                  Height="22"
+                                  VerticalAlignment="Center"
+                                  ItemsSource="{Binding ObsList}"
+                                  SelectedValue="{Binding SelectedField,
+                                                          Mode=TwoWay}"
+                                  DisplayMemberPath="FieldName"/>
+            <Label Content="Enter Old Name " Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="{Binding OldName}" VerticalAlignment="Top" Width="230"/>
+
+            <Label Visibility="{Binding FieldsVisibility}" Content="Allow Null" HorizontalAlignment="Left" VerticalAlignment="Top" Width="85" Grid.Column="0" Grid.Row="2"/>
+            <CheckBox Visibility="{Binding FieldsVisibility}" x:Name="AllowNull" Grid.Column="1" Grid.Row="2" IsEnabled="False"
+                                  Height="16" 
+                                  VerticalAlignment="Center"
+                                  IsChecked="{Binding IsNullable,
+                                                      Mode=TwoWay}" />
+
+
+            <Label Visibility="{Binding FieldsVisibility}" Content="Default Value" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="88"/>
+            <TextBox Visibility="{Binding FieldsVisibility}" HorizontalAlignment="Left" Height="23" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="{Binding DefaultValue}" IsEnabled="{Binding DefaultValueEnabled}" VerticalAlignment="Top" Width="230"/>
+            <Grid Grid.Column="1" Grid.Row="4" Height="25" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                <Button Content="Ok" Command="{Binding OkBtnCommand}" Grid.Column="0"  Width="75"/>
+                <Button Content="Cancel" Command="{Binding CancelBtnCommand}" Grid.Column="2"   Width="75"/>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>
