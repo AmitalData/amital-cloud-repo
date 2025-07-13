@@ -1,0 +1,14 @@
+﻿<Window x:Class="MeatadataGeneratorTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+           
+            <Button x:Name="addBtn" Width="50" Content="Add" Margin="0 0 0 10" Click="addBtn_Click"/>
+
+            <Button x:Name="editBtn" Width="50" Content="Edit" Click="editBtn_Click"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>
