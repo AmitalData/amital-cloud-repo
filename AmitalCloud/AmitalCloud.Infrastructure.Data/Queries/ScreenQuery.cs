@@ -6,6 +6,7 @@ using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -30,7 +31,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             List<ScreenPM> screens;
             List<ScreenPM> zeroscreens;
             List<ScreenPM> currentscreens;
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
 
             using (TransactionScope scope = TransactionFactory.GetNewTransaction())

@@ -20,6 +20,7 @@ using UAParser;
 using Microsoft.Extensions.Caching.Memory;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers
 {
@@ -450,7 +451,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                             ContactPassword contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(parameters.Email, parameters.Password);
                             if (contactPasswordPOCO != null)
                             {
-                                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()), new NullLoggerFactory());
                                 var mapper = config.CreateMapper();
                                 contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                                 hashedPassword = contactPassword.Password;
@@ -507,7 +508,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
         private void AddAuthenticationToken(AuthenticationToken authentication, AuthenticationTokenUpdateService authenticationUpdateService)
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AuthenticationTokenDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AuthenticationTokenDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             AuthenticationTokenPM authenticationPM = mapper.Map<AuthenticationTokenPM>(authentication);
             authenticationPM.ChangeSetOp = ChangeSetOperation.Insert;
@@ -594,7 +595,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
                     if (contactPasswordPOCO != null)
                     {
-                        var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                        var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()), new NullLoggerFactory());
                         var mapper = config.CreateMapper();
                         contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                         CheckLockedUser(contactPassword, clientType);
@@ -1096,7 +1097,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
             if (contactPasswordPOCO != null)
             {
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()));
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactPasswordDataMapping()), new NullLoggerFactory());
                 var mapper = config.CreateMapper();
                 contactPassword = mapper.Map<ContactPasswordPM>(contactPasswordPOCO);
                 CheckLockedUser(contactPassword, clientType);

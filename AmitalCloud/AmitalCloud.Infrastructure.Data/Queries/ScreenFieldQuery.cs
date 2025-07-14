@@ -4,6 +4,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         public List<ScreenFieldPM> GetScreenFieldPMsByTenant()
         {
             List<ScreenField> screenFields = repository.GetMultiFromCache($"GetScreenFieldPMsByTenant{tenant}", a => a.Tenant == tenant || a.Tenant == 0, "ObjectField,ObjectField.ObjectTable", a => a);
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenFieldDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ScreenFieldDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<ScreenFieldPM> screenFieldPMs = mapper.Map<List<ScreenFieldPM>>(screenFields);
 

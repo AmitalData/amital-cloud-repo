@@ -25,8 +25,8 @@ using AmitalCloud.Infrastructure.Domain.EntityLists;
 
 namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 { 
-   public partial class TenantManagementQueryService: BaseEntityQueryService<POCO.TenantManagement,TenantManagementKeys<int>,TenantManagementPM,TenantManagementList,int>, IBaseQueryService<TenantManagementPM, POCO.TenantManagement,int>
-	{
+   public partial class TenantManagementQueryService: BaseEntityQueryService<POCO.TenantManagement,TenantManagementKeys<int>,TenantManagementPM,TenantManagementList,int>
+   {
         public TenantManagementQueryService(int tenant) : base(new Repository<POCO.TenantManagement>(tenant),new TenantManagementDataMapping()) {}
         public TenantManagementQueryService(IGlobalContext context) : base(new Repository<POCO.TenantManagement>(context),new TenantManagementDataMapping()) {}
 		public  TenantManagementPM GetSingle(int id,bool getComposition, bool getFromCache) => base.GetSingle(new TenantManagementKeys<int>(){ Id = id }, getComposition, getFromCache);

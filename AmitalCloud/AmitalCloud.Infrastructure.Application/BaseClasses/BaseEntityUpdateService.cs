@@ -15,6 +15,7 @@ using System.Transactions;
 using System.Xml;
 using System.Xml.Serialization;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
 {
@@ -171,7 +172,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                             OldEntityPM = new TEntityPM();
                             ChangeTrackingEntityPM = new TEntityPM();
 
-                            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping));
+                            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping), new NullLoggerFactory());
                             var mapper = config.CreateMapper();
                             mapper.Map(EntityPOCO, OldEntityPM);
                             mapper.Map(EntityPOCO, ChangeTrackingEntityPM);
@@ -229,7 +230,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
                         NetCommonHelper.Logger.DevLog.Instance.WriteWarning($"Not found tracked entity");
                     }
 
-                    var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping));
+                    var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)Mapping), new NullLoggerFactory());
                     var mapper = config.CreateMapper();
                     mapper.Map(EntityPM, EntityPOCO);
                 }
