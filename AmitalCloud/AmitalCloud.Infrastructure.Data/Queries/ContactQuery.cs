@@ -14,6 +14,7 @@ using System.Web;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class ContactQuery
@@ -78,7 +79,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             Contact entity = context.Contacts.Where(predicate).FirstOrDefault();
             if (entity != null)
             {
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactDataMapping()));
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactDataMapping()), new NullLoggerFactory());
                 var mapper = config.CreateMapper();
                 ContactPM contactPM = mapper.Map<ContactPM>(entity);
                 GetContactPassword(contactPM);

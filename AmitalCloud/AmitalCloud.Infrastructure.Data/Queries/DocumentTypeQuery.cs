@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -362,7 +363,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
         private void CreateMapper()
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentTypeDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentTypeDataMapping()), new NullLoggerFactory());
             mapper = config.CreateMapper();
         }
     }

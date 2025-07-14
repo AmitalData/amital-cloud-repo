@@ -12,6 +12,7 @@ using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -29,7 +30,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             this.tenant = tenant;
             context = AmitalCloudContext.GetContext(tenant);
             repository = new Repository<DWObjectField>(context);
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DWObjectFieldDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DWObjectFieldDataMapping()), new NullLoggerFactory());
             mapper = config.CreateMapper();
         }
 

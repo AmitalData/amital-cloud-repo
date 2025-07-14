@@ -6,6 +6,7 @@ using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -38,7 +39,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         {
             var tabsPoco = repository.GetMultiFromCache("GetTenantZeroTabs", a => a.Tenant == 0, "TabNameTextCode,ObjectTable", a => a);
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableTabDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableTabDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var tabs = mapper.Map<List<ObjectTableTabPM>>(tabsPoco);
 

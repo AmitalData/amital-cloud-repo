@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -26,7 +27,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         #endregion Get List<AddressList>
         private AddressPM GetNewAddressPM(Address entity)
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AddressDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AddressDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             return mapper.Map<AddressPM>(entity);
         }

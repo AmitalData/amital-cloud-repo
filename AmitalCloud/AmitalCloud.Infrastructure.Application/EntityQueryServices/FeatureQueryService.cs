@@ -5,6 +5,7 @@ using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 
 
 
@@ -63,7 +64,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             var allFeatures = _featureRepo
                 .GetMulti(f => f.Tenant == 0 || f.Tenant == tenant);
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var allFeaturesPM =  mapper.Map<List<FeaturePM>>(allFeatures);
             var allFeaturesDict = allFeaturesPM.ToDictionary(f => f.FeatureUniqeCode, f => f);

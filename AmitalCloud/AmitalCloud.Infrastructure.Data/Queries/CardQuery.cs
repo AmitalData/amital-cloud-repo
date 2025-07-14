@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class CardQuery
@@ -71,7 +72,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         }
         private CardPM GetNewPM(string myMainAddressId, string myBillingAddressId, string myPickupDeliveryAddressId, Card a)
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CardDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CardDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             return mapper.Map<CardPM>(a);
         }

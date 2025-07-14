@@ -8,6 +8,7 @@ using AmitalCloud.Infrastructure.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Web.Controllers
 {
@@ -27,7 +28,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
 			int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
             var advanceQueryFilters = new AdvancedQueryFilterQueryService(tenant).GetMultiFromCache($"GetAdvanceQueryFiltersPMs{tenant}IsPredefined", a => (a.Tenant == tenant || a.Tenant == 0) && a.IsPredefined == true, "ObjectField,Query,Query.ObjectTable");
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AdvancedQueryFilterDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AdvancedQueryFilterDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<AdvancedQueryFilterPM> advanceQueryFiltersPM = mapper.Map<List<AdvancedQueryFilterPM>>(advanceQueryFilters);
 
@@ -67,7 +68,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             }
             var objectFields = new ObjectFieldQueryService(loggedTenant).GetMultiFromCache($"objectFields{loggedTenant}", a => a.Tenant == loggedTenant, "ObjectTable_LookUpTable,FullNameTextCode,ShortNameTextCode,ListTextCode,HelpTextCode,ObjectTable,ObjectTable_MultiTable");
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectFieldDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectFieldDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<ObjectFieldPM> objectFieldsPM = mapper.Map<List<ObjectFieldPM>>(objectFields);
 
@@ -81,7 +82,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
 
             var textCodes = new TextCodeQueryService(tenant).GetMultiFromCache($"textCode{tenant}", a => a.Tenant == tenant, "ObjectTable,SpellCheckedByUser.Contact");
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new TextCodeDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new TextCodeDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<TextCodePM> textCodesPM = mapper.Map<List<TextCodePM>>(textCodes);
 
@@ -144,7 +145,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
             var menuTables = new MenusTableQueryService(tenant).GetMultiFromCache($"GetAllMenusTablesByTenant{tenant}", a => a.Tenant == tenant || a.Tenant == 0, "ObjectTable,Feature");
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new MenusTableDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new MenusTableDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<MenusTablePM> menuTablesPM = mapper.Map<List<MenusTablePM>>(menuTables);
 
@@ -159,7 +160,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
                 int tenant = AmitalCloudSecurityUtility.AuthenticateTenant();
                 var statuses = new EntityStatusQueryService(tenant).GetMultiFromCache($"entityStatus{tenant}-{inActive}", a => a.Tenant == tenant && a.InActive == inActive, "ObjectTable");
 
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new EntityStatusDataMapping()));
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new EntityStatusDataMapping()), new NullLoggerFactory());
                 var mapper = config.CreateMapper();
                 List<EntityStatusPM> statusesPM = mapper.Map<List<EntityStatusPM>>(statuses);
 
@@ -191,7 +192,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             int id = AmitalCloudSecurityUtility.AuthenticateTenant();
             var accountingSettings = new AccountingSettingQueryService(id).GetMulti(a => a.Id == id, a => a, "TransferFTPDetail").FirstOrDefault();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AccountingSettingDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new AccountingSettingDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             AccountingSettingPM accountingSettingsPM = mapper.Map<AccountingSettingPM>(accountingSettings);
 
@@ -204,7 +205,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             int InterfaceId = AmitalCloudSecurityUtility.AuthenticateTenant();
             var customsInterfaceSetting = new CustomsInterfaceSettingQueryService(InterfaceId).GetMulti(a => a.Tenant == InterfaceId, a => a, "ArtemusOutSettings,ArtemusInSettings,LocalCustomsInterface").FirstOrDefault();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CustomsInterfaceSettingDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CustomsInterfaceSettingDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             CustomsInterfaceSettingPM customsInterfaceSettingPM = mapper.Map<CustomsInterfaceSettingPM>(customsInterfaceSetting);
 
@@ -235,7 +236,7 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
             QueryQueryService queryQueryService = new QueryQueryService(tenant);
             List<QueryPM> queriesPoco = queryQueryService.GetMultiFromCache($"GetQueryPMs{tenant}-{UserId}", a => (a.Tenant == tenant && (a.UserId == UserId || a.UserId == null)) || a.Tenant == 0 || a.SharedWithAll || a.SharedWithSpecificUsers, "ObjectTable,QueryGroup,NameTextCode");
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new QueryDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new QueryDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             List<QueryPM> queries = mapper.Map<List<QueryPM>>(queriesPoco);
 

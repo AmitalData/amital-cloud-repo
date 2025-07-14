@@ -9,6 +9,7 @@ using System.Linq;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -34,7 +35,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         {
             List<Role> rolesPoco = repository.GetMulti(a => (a.Tenant == tenant && contactid != null) || a.Tenant == 0).ToList();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new RoleDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new RoleDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var roles = mapper.Map<List<RolePM>>(rolesPoco);
 

@@ -10,6 +10,7 @@ using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -73,11 +74,11 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         private List<ObjectTableRulePM> GetObjectTableRules(int tenant, IRepository<RuleConditionField> ruleConditionFieldRepository)
         {
             List<ObjectTableRule> objectTableRules = repository.GetMultiFromCache($"GetObjectTableRules{tenant}", a => a.Tenant == tenant, "RuleType", a => a);
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableRuleDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableRuleDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var objectTableRulePMs = mapper.Map<List<ObjectTableRulePM>>(objectTableRules);
 
-            var configRuleConditionField = new MapperConfiguration(cfg => cfg.AddProfile(new RuleConditionFieldDataMapping()));
+            var configRuleConditionField = new MapperConfiguration(cfg => cfg.AddProfile(new RuleConditionFieldDataMapping()), new NullLoggerFactory());
             var mapperRuleConditionField = configRuleConditionField.CreateMapper();
 
             foreach (ObjectTableRulePM rule in objectTableRulePMs)
