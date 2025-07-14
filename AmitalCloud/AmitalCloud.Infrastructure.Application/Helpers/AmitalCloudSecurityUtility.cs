@@ -4,7 +4,7 @@ using AmitalCloud.Infrastructure.Data.Queries;
 using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Data.Security;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
-using AmitalCloud.Infrastructure.Model.EntityClasses ;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System.Transactions;
@@ -713,8 +713,8 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                 {
                     throw new AutenticationException("Sorry! this user is not authorized!");
                 }
-                 var url = getLoggedDomain();
-   
+                var url = getLoggedDomain();
+
 
 
                 if (HttpContextHelper.Request != null)
@@ -843,7 +843,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             if (entityTenant != authTokenTenant)
                 throw new AutenticationException("Sorry! you have no permission to do this operation on Tenant:" + entityTenant + ". Please contact your administrator.");
         }
- 
+
         public static string getLoggedDomain()
         {
             var isAppServiceENV = Environment.GetEnvironmentVariable("IsAppService") == "true";

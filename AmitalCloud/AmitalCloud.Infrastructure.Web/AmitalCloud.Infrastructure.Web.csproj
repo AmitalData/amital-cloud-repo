@@ -30,6 +30,7 @@
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Data\AmitalCloud.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Domain\AmitalCloud.Infrastructure.Domain.csproj" />
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Model\AmitalCloud.Infrastructure.Model.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Shared\AmitalCloud.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
