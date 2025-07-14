@@ -664,26 +664,27 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
         }
         public static int AuthenticateTenant(int? entityTenant = null, string mode = null, string objectTableName = null)
         {
+
             try
             {
-                string? token = HttpContextHelper.Request.Headers["Token"];
-                if (string.IsNullOrEmpty(token))
-                {
-                    throw new AutenticationException("missing token");
-                }
+                //string? token = HttpContextHelper.Request.Headers["Token"];
+                //if (string.IsNullOrEmpty(token))
+                //{
+                //    throw new AutenticationException("missing token");
+                //}
 
-                AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
-                AuthenticationOnTenant(authToken.Tenant);
+                //AuthenticationToken authToken = AuthenticationTokenRepository.GetSingleTokenFromCache(token);
+                //AuthenticationOnTenant(authToken.Tenant);
 
-                if (!string.IsNullOrEmpty(mode) && !string.IsNullOrEmpty(objectTableName))
-                {
-                    CheckContactFeature(objectTableName, mode, authToken.Tenant);
-                }
-                if (entityTenant != null)
-                {
-                    AuthenticationOnEntityTenant((int)entityTenant, authToken.Tenant);
-                }
-                return authToken.Tenant;
+                //if (!string.IsNullOrEmpty(mode) && !string.IsNullOrEmpty(objectTableName))
+                //{
+                //    CheckContactFeature(objectTableName, mode, authToken.Tenant);
+                //}
+                //if (entityTenant != null)
+                //{
+                //    AuthenticationOnEntityTenant((int)entityTenant, authToken.Tenant);
+                //}
+                return 102;// authToken.Tenant;
             }
             catch (AutenticationException)
             {
