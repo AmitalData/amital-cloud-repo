@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Text;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class CommunicationLogStepQuery
@@ -68,7 +69,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         => new CommunicationLogStepList(a = a ?? new CommunicationLogStep());
         private CommunicationLogStepPM GetEntityPM(CommunicationLogStep a)
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CommunicationLogStepDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new CommunicationLogStepDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             return mapper.Map<CommunicationLogStepPM>(a);
         }

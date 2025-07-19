@@ -11,6 +11,7 @@ using System.Linq;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -66,7 +67,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 .Where(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId)
                 .ToList();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var mydocumentsFilingMetaDataVERValueList = mapper.Map<List<DocumentsFilingMetaDataValuePM>>(mydocumentsFilingMetaDataVERValue);
 
@@ -148,7 +149,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
                 .FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             var mydocumentsFilingMetaDataVERValuePM = mapper.Map<DocumentsFilingMetaDataValuePM>(mydocumentsFilingMetaDataVERValue);
 

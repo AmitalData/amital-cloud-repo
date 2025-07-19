@@ -4,6 +4,7 @@ using AmitalCloud.Infrastructure.Model.BaseClasses;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Linq.Expressions;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
@@ -28,7 +29,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             this.mapping = mapping;
             this.InitializeSettings();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)mapping));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile((Profile)mapping), new NullLoggerFactory());
             mapper = config.CreateMapper();
         }
         public TEntityPM GetSingle(TEntityKeys entityKeys, bool getComposition, bool getFromCache)

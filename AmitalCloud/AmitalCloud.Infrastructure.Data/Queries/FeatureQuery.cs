@@ -13,6 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Linq.Expressions;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
     public class FeatureQuery
@@ -39,7 +40,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 #region allFeatures
                 var allFeaturesPoco = repository.GetMulti(a => a.Tenant == 0 || a.Tenant == tenant).ToList();
 
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()));
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new FeatureDataMapping()), new NullLoggerFactory());
                 var mapper = config.CreateMapper();
                 allFeatures = mapper.Map<List<FeaturePM>>(allFeaturesPoco);
                 #endregion

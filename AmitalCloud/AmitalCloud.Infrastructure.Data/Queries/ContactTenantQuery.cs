@@ -5,6 +5,7 @@ using AmitalCloud.Infrastructure.Domain.Interfaces;
 using System.Linq;
 using AutoMapper;
 using AmitalCloud.Infrastructure.Data.EntityDataMappings;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AmitalCloud.Infrastructure.Data.Queries
 {
@@ -25,7 +26,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             var entity = (from a in repository.GetMulti(a => a.ContactId == contactId && a.TenantId == tenant)
                     select a).FirstOrDefault();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactTenantDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ContactTenantDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
             return mapper.Map<ContactTenantPM>(entity);
         }

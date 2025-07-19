@@ -5,6 +5,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
         public ObjectTableQuery(int tenant)
         {
             repository = new ObjectTableRepository(tenant);
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()), new NullLoggerFactory());
             mapper = config.CreateMapper();
         }
         public IQueryable<ObjectTablePM> GetObjectPMsByTenant(int tenant)
@@ -88,7 +89,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
                 }
             }
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()));
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()), new NullLoggerFactory());
             var mapper = config.CreateMapper();
 
             if (HttpContextHelper.HttpContext != null)
@@ -139,7 +140,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             {
                 var currentTenantTablesPoco = new ObjectTableRepository(tenant).GetMulti(a => a.Tenant == tenant && a.InActive == false, a => a, "FullNameTextCode").ToList();
 
-                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()));
+                var config = new MapperConfiguration(cfg => cfg.AddProfile(new ObjectTableDataMapping()), new NullLoggerFactory());
                 var mapper = config.CreateMapper();
                 currentTenantTables = mapper.Map<List<ObjectTablePM>>(currentTenantTablesPoco);
 
