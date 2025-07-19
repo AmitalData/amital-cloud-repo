@@ -24,7 +24,7 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             map.ForMember(dest => dest.ObjectTable_LookUpTableName, opt => opt.MapFrom(src => src.ObjectTable_LookUpTable.Name));
             map.ForMember(dest => dest.ObjectTable_MultiTableName, opt => opt.MapFrom(src => src.ObjectTable_MultiTable.Name));
             map.ForMember(dest => dest.ListTextCodeDefaultText, opt => opt.MapFrom(src => src.ListTextCode.DefaultText));
-            map.ForMember(dest => dest.HelpTextCodeDefaultText, opt => opt.MapFrom(src => src.HelpTextCode.DefaultText));
+            map.ForMember(dest => dest.HelpTextCodeDefaultText, opt => opt.MapFrom(src => src.HelpTextCodeFK.DefaultText));
             map.ForMember(dest => dest.ShortNameTextCodeDefaultText, opt => opt.MapFrom(src => src.ShortNameTextCode.DefaultText));
         }
 

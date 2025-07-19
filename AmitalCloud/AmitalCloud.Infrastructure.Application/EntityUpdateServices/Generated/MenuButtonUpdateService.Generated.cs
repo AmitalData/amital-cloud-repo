@@ -35,7 +35,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
             Repository = new Repository<POCO.MenuButton>(tenant);
 		}
         public MenuButtonUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MenuButton,string> GetKeys(MenuButtonPM entityPM) => new MenuButtonKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<POCO.MenuButton,string> GetKeys(MenuButtonPM entityPM) => new MenuButtonKeys<string>() { Id = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(MenuButtonPM entityPM)
 		{
 		}
