@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,13 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.0.0" />
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Data\AmitalCloud.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Domain\AmitalCloud.Infrastructure.Domain.csproj" />
     <ProjectReference Include="..\AmitalCloud.Infrastructure.Model\AmitalCloud.Infrastructure.Model.csproj" />
+    <ProjectReference Include="..\AmitalCloud.Infrastructure.Shared\AmitalCloud.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

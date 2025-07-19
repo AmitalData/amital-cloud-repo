@@ -13,7 +13,8 @@ using Serilog;
 using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
- 
+using AmitalCloud.Infrastructure.Application.EntityQueryServices;
+
 
 namespace AmitalCloud.Infrastructure.Web.Helpers
 {
@@ -141,8 +142,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
                 Console.WriteLine($"[DI] Registering ODataService: {impl.serviceInterface} -> {impl.serviceImplementation}");
                 builder.Services.AddScoped(impl.serviceInterface, impl.serviceImplementation);
             }
-
-
+            builder.Services.AddTransient<IGenericEntityQueryService, GenericEntityQueryService>();
 
 			var app = builder.Build();
 
