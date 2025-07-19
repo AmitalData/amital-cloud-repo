@@ -20,22 +20,7 @@ namespace AmitalCloud.Shipment.Web.Controllers.Generated.ListControllers
             _queryService = provider.GetService(typeof(IGenericEntityQueryService)) as IGenericEntityQueryService
         ?? throw new InvalidOperationException("GenericEntityQueryService not registered");
         }
+         
 
-
-        [HttpGet("getsingle/{entityName}")]
-        public IActionResult GetSingle(string entityName)
-        {
-            var keyParams = Request.Query.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.ToString()
-            );
-
-            if (keyParams.Count == 0)
-                return BadRequest("Missing key parameters");
-
-            var result = _queryService.GetSingle(entityName, keyParams, tenant: 1);
-
-            return result == null ? NotFound() : Ok(result);
-        }
     }
 }

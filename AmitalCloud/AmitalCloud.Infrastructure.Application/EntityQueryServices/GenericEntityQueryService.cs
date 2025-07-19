@@ -4,6 +4,7 @@ using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using AutoMapper.Internal;
+using System.Reflection;
 
 
 namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
@@ -22,12 +23,7 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
 
             var repoType = typeof(Repository<>).MakeGenericType(pocoType);
             Console.WriteLine($"Constructors for {repoType}:");
-            var x = repoType.GetConstructors();
-            var y =repoType.GetDeclaredConstructors();
-            foreach (var ctor in repoType.GetConstructors())
-            {
-                Console.WriteLine(ctor.ToString());
-            }
+      
             var repository = Activator.CreateInstance(repoType, tenant)
                 ?? throw new InvalidOperationException("Failed to create repository.");
 
@@ -50,10 +46,48 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             var initMethod = keysType.GetMethod("Initialize");
             initMethod?.Invoke(keysInstance, new object[] { keyParams });
 
-            var getSingleMethod = repoType.GetMethod("GetSingle");
-            var poco = getSingleMethod?.Invoke(repository, new object[] { keysInstance });
+             var getSingleGenericMethod = repoType
+                .GetMethods()
+                .Where(m => m.Name == "GetSingle" && m.IsGenericMethodDefinition)
+                .Where(m =>
+                {
+                    var parameters = m.GetParameters();
+                    return parameters.Length == 1 &&
+                           parameters[0].ParameterType.IsGenericType &&
+                           parameters[0].ParameterType.GetGenericTypeDefinition() == typeof(IEntityKeyFields<,>);
+                })
+                .SingleOrDefault();
 
-            return poco == null ? null : mapper.Map(poco, pocoType, pmType);
+            if (getSingleGenericMethod == null)
+                throw new Exception("GetSingle method not found");
+
+             var keyInterface = keysInstance.GetType()
+                .GetInterfaces()
+                .FirstOrDefault(i =>
+                    i.IsGenericType &&
+                    i.GetGenericTypeDefinition() == typeof(IEntityKeyFields<,>));
+
+            if (keyInterface == null)
+                throw new Exception("keysInstance does not implement IEntityKeyFields<,>");
+
+            var keyType = keyInterface.GetGenericArguments()[1];
+
+             var closedMethod = getSingleGenericMethod.MakeGenericMethod(keyType);
+             try
+            {
+                var poco = closedMethod.Invoke(repository, new object[] { keysInstance });
+                return poco == null ? null : mapper.Map(poco, pocoType, pmType);
+
+            }
+            catch (TargetInvocationException ex)
+            {
+                Console.WriteLine("Invoke failed!");
+                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine(ex.InnerException?.StackTrace);
+                throw ex;
+            }
+
+
         }
     }
 
