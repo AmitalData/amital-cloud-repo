@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace AmitalCloud.Infrastructure.Application.BaseClasses
 {
-    public abstract class BaseEntityQueryService<TEntityPOCO, TEntityKeys, TEntityPM, TEntityList, TkeyType> : IBaseEntityQueryService<TEntityPM, TEntityPOCO> where TEntityPOCO : BaseEntity, new()
+    public class BaseEntityQueryService<TEntityPOCO, TEntityKeys, TEntityPM, TEntityList, TkeyType> : IBaseEntityQueryService<TEntityPM, TEntityPOCO> where TEntityPOCO : BaseEntity, new()
     where TEntityPM : IEntityPM, new()
     where TEntityKeys : IEntityKeyFields<TEntityPOCO, TkeyType>, new()
     where TEntityList : class, new()
@@ -102,7 +102,7 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         public virtual void GetComposition(IEntityKeyFields<TEntityPOCO, TkeyType> entityKeys, TEntityPM entityPM)
         {
         }
-        protected abstract IEntityKeyFields<TEntityPOCO, TkeyType> GetKeys(TEntityPOCO entityPOCO);
+        protected virtual  IEntityKeyFields<TEntityPOCO, TkeyType> GetKeys(TEntityPOCO entityPOCO) { return null; }
         public virtual void InitializeSettings()
         {
 

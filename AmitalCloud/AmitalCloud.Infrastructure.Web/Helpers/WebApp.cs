@@ -6,14 +6,14 @@ using AmitalCloud.Infrastructure.Web.Middlewares;
 using AmitalCloud.Infrastructure.Domain.Helpers;
 using AmitalCloud.Infrastructure.Application.Helpers;
 using System.Reflection;
- using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.ApplicationInsights.Extensibility;
 using Serilog;
- using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.OData;
 using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
-using AmitalCloud.Infrastructure.Application.EntityQueryServices;
+
 
 
 namespace AmitalCloud.Infrastructure.Web.Helpers
@@ -27,24 +27,24 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
 
             builder.Configuration
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-				.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("Properties\\launchSettings.json", optional: true, reloadOnChange: true);
 
-			// Serilog
-			builder.Host.UseSerilog((context, services, configuration) =>
-			{
-				configuration
-					.ReadFrom.Configuration(context.Configuration)
-					.ReadFrom.Services(services)
-					.Enrich.FromLogContext();
-			});
+            // Serilog
+            builder.Host.UseSerilog((context, services, configuration) =>
+            {
+                configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext();
+            });
 
-			//  Application Insights
-			builder.Services.AddApplicationInsightsTelemetry();
-			builder.Services.AddSingleton<ITelemetryInitializer, HttpDependenciesParsingTelemetryInitializer>();
+            //  Application Insights
+            builder.Services.AddApplicationInsightsTelemetry();
+            builder.Services.AddSingleton<ITelemetryInitializer, HttpDependenciesParsingTelemetryInitializer>();
 
-			// add request services
-			builder.Services.AddControllers(options =>
+            // add request services
+            builder.Services.AddControllers(options =>
             {
                 // catch exceptions and return http code according to it
                 options.Filters.Add<AuthenticationExceptionFilter>();
@@ -62,7 +62,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
-                options.EnableAnnotations();  
+                options.EnableAnnotations();
 
             });
             builder.Services.AddCors(options =>
@@ -85,7 +85,7 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             ConfigurationHelper.Initialize(builder.Configuration);
             builder.Services.AddScoped<ILoggedContactUtil, AmitalCloud.Infrastructure.Data.Security.LoggedContactUtil>();
             builder.Services.AddScoped<ITreeFilterQueryService, TreeFilterQuery.TreeFilterQueryService>();
-			builder.Services.AddScoped<LoggedContactResolver>();
+            builder.Services.AddScoped<LoggedContactResolver>();
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Feature, FeatureList>();
@@ -142,42 +142,47 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
                 Console.WriteLine($"[DI] Registering ODataService: {impl.serviceInterface} -> {impl.serviceImplementation}");
                 builder.Services.AddScoped(impl.serviceInterface, impl.serviceImplementation);
             }
-            builder.Services.AddTransient<IGenericEntityQueryService, GenericEntityQueryService>();
+            builder.Services.AddTransient<IGenericEntityQueryServiceFactory, GenericEntityQueryServiceFactory>();
 
-			var app = builder.Build();
+
+
+            //  builder.Services.AddAllQueryServices(typeof(TenantManagementQueryService).Assembly);
+
+
+            var app = builder.Build();
 
             InitializeApp(app, builder.Configuration);
 
             // map the default route
             app.MapGet("/", () => MapGetContent(builder.Configuration));
 
-			try
-			{
-				Log.Information("Starting up...");
-				app.Run();
-			}
-			catch (Exception ex)
-			{
-				Log.Fatal(ex, "Application start-up failed");
-			}
-			finally
-			{
-				Log.CloseAndFlush();
-			}
-		}
+            try
+            {
+                Log.Information("Starting up...");
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Application start-up failed");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+        }
 
 
 
         private static void InitializeApp(WebApplication app, IConfiguration configuration)
         {
             app.UseRouting();
-			app.UseMiddleware<ExceptionMiddleware>();
-			app.UseMiddleware<LoggingMiddleware>();
-			app.UseMiddleware<AuthenticationTokenMiddleware>();
-            app.UseMiddleware<HttpContextHelperMiddleware>();			
-			app.MapControllers();
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();
+            app.UseMiddleware<AuthenticationTokenMiddleware>();
+            app.UseMiddleware<HttpContextHelperMiddleware>();
+            app.MapControllers();
 
-			if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -204,72 +209,78 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
 
         public static void FillAppSettings()
         {
-            AmitalCloud.Infrastructure.Domain.EntityPMs.SettingPM setting = new AmitalCloud.Infrastructure.Application.EntityQueryServices.SettingQueryService(0)
-                .GetSingle(AmitalCloud.Infrastructure.Data.Queries.SettingQuery.GetDefaultSettingId(), false, true);
+            var settingKeys = new Dictionary<string, string>
+         {                 
+             { "Id", Data.Queries.SettingQuery.GetDefaultSettingId() }
+          };
 
-            AmitalCloudSettings.Id = setting.Id;
-            AmitalCloudSettings.ChampEnv = setting.ChampEnv;
-            AmitalCloudSettings.ChampURL = setting.ChampURL;
-            AmitalCloudSettings.ChampTestAPIURL = setting.ChampTestAPIURL;
-            AmitalCloudSettings.ChampTestAPIPassword = setting.ChampTestAPIPassword;
-            AmitalCloudSettings.ChampProdAPIURL = setting.ChampProdAPIURL;
-            AmitalCloudSettings.ChampProdAPIPassword = setting.ChampProdAPIPassword;
-            AmitalCloudSettings.CustomerCareIP = setting.CustomerCareIP;
-            AmitalCloudSettings.DeploymentStage = setting.DeploymentStage;
-            AmitalCloudSettings.IsLogEnabled = setting.IsLogEnabled;
-            AmitalCloudSettings.AmitalURL = setting.LogitudeURL;
-            AmitalCloudSettings.TotangoServiceId = setting.TotangoServiceId;
-            AmitalCloudSettings.UsingAzure = setting.UsingAzure;
-            AmitalCloudSettings.StorageAccountKey = setting.StorageAccountKey;
-            AmitalCloudSettings.StorageAccountName = setting.StorageAccountName;
-            AmitalCloudSettings.StorageType = setting.StorageType;
-            AmitalCloudSettings.AmitalCRMTenantNumber = setting.LogitudeCRMTenantNumber;
-            AmitalCloudSettings.AutoSignupEmail = setting.AutoSignupEmail;
-            AmitalCloudSettings.AutoSignupPassword = setting.AutoSignupPassword;
-            AmitalCloudSettings.ForceHttps = setting.ForceHttps;
-            AmitalCloudSettings.CheckConnectionURL = setting.CheckConnectionURL;
-            AmitalCloudSettings.AndroidSharedAppMinimumVersion = setting.AndroidSharedAppMinimumVersion;
-            AmitalCloudSettings.IOSSharedAppMinimumVersion = setting.IOSSharedAppMinimumVersion;
-            AmitalCloudSettings.WorkEnvironment = setting.WorkEnvironment;
-            AmitalCloudSettings.LogoCode = setting.LogoCode;
-            AmitalCloudSettings.EnableHybridQueue = setting.EnableHybridQueue;
-            AmitalCloudSettings.EmailAlertSignature = setting.EmailAlertSignature;
-            AmitalCloudSettings.IOSAppLink = setting.IOSAppLink;
-            AmitalCloudSettings.AndroidAppLink = setting.AndroidAppLink;
-            AmitalCloudSettings.AndroidPodAppMinimumVersion = setting.AndroidPodAppMinimumVersion;
-            AmitalCloudSettings.IOSPodAppMinimumVersion = setting.IOSPodAppMinimumVersion;
-            AmitalCloudSettings.MinimumOutlookVersion = setting.MinimumOutlookVersion;
-            AmitalCloudSettings.ABMProductId = setting.ABMProductId;
-            AmitalCloudSettings.AzureFolderName = setting.AzureFolderName;
-            AmitalCloudSettings.SignAppVersion = setting.SignAppVersion;
-            AmitalCloudSettings.ReportsRunUsingWR = setting.ReportsRunUsingWR;
-            AmitalCloudSettings.SMSServiceUserId = setting.SMSServiceUserId;
-            AmitalCloudSettings.SMSServiceAuthToken = setting.SMSServiceAuthToken;
-            AmitalCloudSettings.SMSServicePhoneNumber = setting.SMSServicePhoneNumber;
-            AmitalCloudSettings.GLSHKEnv = setting.GLSHKEnv;
-            AmitalCloudSettings.GLSHKURL = setting.GLSHKURL;
-            AmitalCloudSettings.NotificationHubName = setting.NotificationHubName;
-            AmitalCloudSettings.NotificationHubConnectionString = setting.NotificationHubConnectionString;
-            AmitalCloudSettings.DomainName = setting.DomainName;
-            AmitalCloudSettings.ProductName = setting.ProductName;
-            AmitalCloudSettings.QueueServiceMode = setting.QueueServiceMode;
-            AmitalCloudSettings.StorageServiceMode = setting.StorageServiceMode;
-            AmitalCloudSettings.DropboxAppKey = setting.DropboxAppKey;
-            AmitalCloudSettings.DropboxAppSecret = setting.DropboxAppSecret;
-            AmitalCloudSettings.OceanInsightsToken = setting.OceanInsightsToken;
-            AmitalCloudSettings.CPUIntensiveWebServicesURL = setting.CPUIntensiveWebServicesURL;
-            AmitalCloudSettings.AmitalCloudEnvironmentURL = setting.AmitalCloudEnvironmentURL;
-            AmitalCloudSettings.AmitalCloudAmitalTenantPrimaryKey = setting.AmitalCloudLogitudeTenantPrimaryKey;
-            AmitalCloudSettings.OITenantNumber = setting.OITenantNumber;
-            AmitalCloudSettings.AzurePrincipalSecretKey = setting.AzurePrincipalSecretKey;
-            AmitalCloudSettings.DNSZone = setting.DNSZone;
-            AmitalCloudSettings.DNSIPAddress = setting.DNSIPAddress;
-            AmitalCloudSettings.WorkflowStorageAccountName = setting.WorkflowStorageAccountName;
-            AmitalCloudSettings.WorkflowStorageAccountKey = setting.WorkflowStorageAccountKey;
-            AmitalCloudSettings.System2RedirectFraction = setting.System2RedirectFraction;
-            AmitalCloudSettings.WindWardSettings = setting.WindWardSettings;
-            AmitalCloudSettings.AmitalIISURL = setting.LogitudeIISURL;
-            AmitalCloudSettings.TempStorageConnection = setting.TempStorageConnection;
+
+         //var setting = new GenericEntityQueryService()
+         //       .GetSingle("Setting", settingKeys , 0) as SettingPM;
+ 
+            //AmitalCloudSettings.Id = setting.Id;
+            //AmitalCloudSettings.ChampEnv = setting.ChampEnv;
+            //AmitalCloudSettings.ChampURL = setting.ChampURL;
+            //AmitalCloudSettings.ChampTestAPIURL = setting.ChampTestAPIURL;
+            //AmitalCloudSettings.ChampTestAPIPassword = setting.ChampTestAPIPassword;
+            //AmitalCloudSettings.ChampProdAPIURL = setting.ChampProdAPIURL;
+            //AmitalCloudSettings.ChampProdAPIPassword = setting.ChampProdAPIPassword;
+            //AmitalCloudSettings.CustomerCareIP = setting.CustomerCareIP;
+            //AmitalCloudSettings.DeploymentStage = setting.DeploymentStage;
+            //AmitalCloudSettings.IsLogEnabled = setting.IsLogEnabled;
+            //AmitalCloudSettings.AmitalURL = setting.LogitudeURL;
+            //AmitalCloudSettings.TotangoServiceId = setting.TotangoServiceId;
+            //AmitalCloudSettings.UsingAzure = setting.UsingAzure;
+            //AmitalCloudSettings.StorageAccountKey = setting.StorageAccountKey;
+            //AmitalCloudSettings.StorageAccountName = setting.StorageAccountName;
+            //AmitalCloudSettings.StorageType = setting.StorageType;
+            //AmitalCloudSettings.AmitalCRMTenantNumber = setting.LogitudeCRMTenantNumber;
+            //AmitalCloudSettings.AutoSignupEmail = setting.AutoSignupEmail;
+            //AmitalCloudSettings.AutoSignupPassword = setting.AutoSignupPassword;
+            //AmitalCloudSettings.ForceHttps = setting.ForceHttps;
+            //AmitalCloudSettings.CheckConnectionURL = setting.CheckConnectionURL;
+            //AmitalCloudSettings.AndroidSharedAppMinimumVersion = setting.AndroidSharedAppMinimumVersion;
+            //AmitalCloudSettings.IOSSharedAppMinimumVersion = setting.IOSSharedAppMinimumVersion;
+            //AmitalCloudSettings.WorkEnvironment = setting.WorkEnvironment;
+            //AmitalCloudSettings.LogoCode = setting.LogoCode;
+            //AmitalCloudSettings.EnableHybridQueue = setting.EnableHybridQueue;
+            //AmitalCloudSettings.EmailAlertSignature = setting.EmailAlertSignature;
+            //AmitalCloudSettings.IOSAppLink = setting.IOSAppLink;
+            //AmitalCloudSettings.AndroidAppLink = setting.AndroidAppLink;
+            //AmitalCloudSettings.AndroidPodAppMinimumVersion = setting.AndroidPodAppMinimumVersion;
+            //AmitalCloudSettings.IOSPodAppMinimumVersion = setting.IOSPodAppMinimumVersion;
+            //AmitalCloudSettings.MinimumOutlookVersion = setting.MinimumOutlookVersion;
+            //AmitalCloudSettings.ABMProductId = setting.ABMProductId;
+            //AmitalCloudSettings.AzureFolderName = setting.AzureFolderName;
+            //AmitalCloudSettings.SignAppVersion = setting.SignAppVersion;
+            //AmitalCloudSettings.ReportsRunUsingWR = setting.ReportsRunUsingWR;
+            //AmitalCloudSettings.SMSServiceUserId = setting.SMSServiceUserId;
+            //AmitalCloudSettings.SMSServiceAuthToken = setting.SMSServiceAuthToken;
+            //AmitalCloudSettings.SMSServicePhoneNumber = setting.SMSServicePhoneNumber;
+            //AmitalCloudSettings.GLSHKEnv = setting.GLSHKEnv;
+            //AmitalCloudSettings.GLSHKURL = setting.GLSHKURL;
+            //AmitalCloudSettings.NotificationHubName = setting.NotificationHubName;
+            //AmitalCloudSettings.NotificationHubConnectionString = setting.NotificationHubConnectionString;
+            //AmitalCloudSettings.DomainName = setting.DomainName;
+            //AmitalCloudSettings.ProductName = setting.ProductName;
+            //AmitalCloudSettings.QueueServiceMode = setting.QueueServiceMode;
+            //AmitalCloudSettings.StorageServiceMode = setting.StorageServiceMode;
+            //AmitalCloudSettings.DropboxAppKey = setting.DropboxAppKey;
+            //AmitalCloudSettings.DropboxAppSecret = setting.DropboxAppSecret;
+            //AmitalCloudSettings.OceanInsightsToken = setting.OceanInsightsToken;
+            //AmitalCloudSettings.CPUIntensiveWebServicesURL = setting.CPUIntensiveWebServicesURL;
+            //AmitalCloudSettings.AmitalCloudEnvironmentURL = setting.AmitalCloudEnvironmentURL;
+            //AmitalCloudSettings.AmitalCloudAmitalTenantPrimaryKey = setting.AmitalCloudLogitudeTenantPrimaryKey;
+            //AmitalCloudSettings.OITenantNumber = setting.OITenantNumber;
+            //AmitalCloudSettings.AzurePrincipalSecretKey = setting.AzurePrincipalSecretKey;
+            //AmitalCloudSettings.DNSZone = setting.DNSZone;
+            //AmitalCloudSettings.DNSIPAddress = setting.DNSIPAddress;
+            //AmitalCloudSettings.WorkflowStorageAccountName = setting.WorkflowStorageAccountName;
+            //AmitalCloudSettings.WorkflowStorageAccountKey = setting.WorkflowStorageAccountKey;
+            //AmitalCloudSettings.System2RedirectFraction = setting.System2RedirectFraction;
+            //AmitalCloudSettings.WindWardSettings = setting.WindWardSettings;
+            //AmitalCloudSettings.AmitalIISURL = setting.LogitudeIISURL;
+            //AmitalCloudSettings.TempStorageConnection = setting.TempStorageConnection;
         }
 
         public static void InitInjectionUtil()

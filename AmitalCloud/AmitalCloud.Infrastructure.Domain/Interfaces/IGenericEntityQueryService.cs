@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace AmitalCloud.Infrastructure.Domain.Interfaces
+public interface IGenericEntityQueryService<TPM>
 {
-    public interface IGenericEntityQueryService
-    {
-        object? GetSingle(string entityName, Dictionary<string, string> keyParams, int tenant);
-    }
+    TPM GetSingle(Dictionary<string, string> keyParams, bool getComposition = true, bool getFromCache = false);
+    List<TPM> GetMulti();
+    object? GetFirst();
+    List<TPM> GetMultiByParent<TParentKeys>(TParentKeys parentKeys, bool getFromCache = false, bool getComposition = true);
+    List<TPM> GetMultiFromCache(string cacheKey, Expression<Func<object, bool>> predicate, string? include = null);
+    List<TPM> GetMulti(Expression<Func<object, bool>> predicate);
+    List<TPM> GetMulti(Expression<Func<object, bool>> predicate, Expression<Func<object, TPM>> selector);
+    List<TPM> GetMulti(Expression<Func<object, bool>> predicate, Expression<Func<object, TPM>> selector, string include);
+    List<TResult> GetMulti<TResult>(Expression<Func<object, bool>> predicate, Expression<Func<object, TResult>> selector);
+    List<TResult> GetMulti<TResult>(Expression<Func<object, bool>> predicate, Expression<Func<object, TResult>> selector, string include);
 }

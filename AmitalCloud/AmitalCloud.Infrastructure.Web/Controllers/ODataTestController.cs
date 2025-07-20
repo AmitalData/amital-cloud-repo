@@ -13,13 +13,10 @@ namespace AmitalCloud.Shipment.Web.Controllers.Generated.ListControllers
         Feature,
         FeatureList>
     {
-        private readonly IGenericEntityQueryService _queryService;
-
+ 
         public ODataTestController(IServiceProvider provider)
             : base(provider, "Feature", "Feature") {
-            _queryService = provider.GetService(typeof(IGenericEntityQueryService)) as IGenericEntityQueryService
-        ?? throw new InvalidOperationException("GenericEntityQueryService not registered");
-        }
+         }
          
 
     }

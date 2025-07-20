@@ -2,6 +2,16 @@
 
 namespace AmitalCloud.Infrastructure.Shared.Reflection
 {
+    public class EntityTypeInfo
+    {
+        public string EntityName { get; set; } = "";
+        public Type PocoType { get; set; }
+        public Type ListType { get; set; }
+        public Type PmType { get; set; }
+        public Type KeysType { get; set; }
+        public Type MappingType { get; set; }
+    }
+
     public class EntityTypeResolver
     {
         public EntityTypeInfo? Resolve(string entityName)
@@ -57,13 +67,4 @@ namespace AmitalCloud.Infrastructure.Shared.Reflection
         }
     }
 
-    public class EntityTypeInfo
-    {
-        public string EntityName { get; set; } = "";
-        public Type PocoType { get; set; }
-        public Type ListType { get; set; }
-        public Type PmType { get; set; }
-        public Type KeysType { get; set; }
-        public Type MappingType { get; set; }
-    }
 }
