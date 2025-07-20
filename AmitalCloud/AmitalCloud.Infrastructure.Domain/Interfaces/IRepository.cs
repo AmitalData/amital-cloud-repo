@@ -31,6 +31,7 @@ namespace AmitalCloud.Infrastructure.Domain.Interfaces
 
 
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate);
+        public List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, string include);
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select);
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, string include);
         List<TResult> GetMulti<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, params Expression<Func<TEntity, object>>[] includes);

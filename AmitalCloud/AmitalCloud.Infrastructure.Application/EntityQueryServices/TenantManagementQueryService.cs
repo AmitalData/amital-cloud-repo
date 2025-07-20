@@ -1,10 +1,12 @@
 ﻿using AmitalCloud.Infrastructure.Application.BaseClasses;
+using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.EntityClasses;
 using Azure.Storage.Blobs.Models;
+using System.Linq.Expressions;
 using POCO = AmitalCloud.Infrastructure.Model.EntityClasses;
 
 
@@ -45,7 +47,23 @@ namespace AmitalCloud.Infrastructure.Application.EntityQueryServices
             return pm;
         }
 
+        public List<TenantManagement> GetTenantsBySupportStatus(bool isDistributor, UserPM? user, int tenant)
+        {
+            var repository = new Repository<TenantManagement>(tenant);
 
+            Expression<Func<TenantManagement, bool>> predicate = isDistributor && user != null
+                ? (t =>
+                    t.DistributorCode == user.DistributorCode &&
+                    t.Id != 0 &&
+                    t.IsDistributorSupportEnabled &&
+                    t.GlobalTenant.IsActive)
+                : t =>
+                    (t.IsSystemSupportEnabled || t.Id == 0) &&
+                    t.GlobalTenant.IsActive;
+
+            List<TenantManagement> tenants = repository.GetMulti<TenantManagement>(predicate, "GlobalTenant");
+            return tenants;
+        }
         private void EnrichWithUser(TenantStatusPM pm, string userId, int tenant)
         {
             UserPM user = _userQueryService.GetSingle(userId, true, true);

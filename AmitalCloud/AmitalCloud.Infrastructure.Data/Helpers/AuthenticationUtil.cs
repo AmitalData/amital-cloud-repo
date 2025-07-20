@@ -13,6 +13,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using AmitalCloud.Infrastructure.Model.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AmitalCloud.Infrastructure.Data.Helpers
 {
@@ -527,20 +528,20 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
             return exists;
         }
 
-        public static ContactPassword VerifyContactPassword(string email, string password, bool isHashPassword = false)
+        public static ContactPassword? VerifyContactPassword(string email, string? password, bool isHashPassword = false)
         {
             IGlobalContext globalContext = GlobalContext.GetContext();
-            ContactPassword contactPassword = null;
-            if (globalContext != null && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            ContactPassword? contactPassword = null;
+            if (globalContext != null && !string.IsNullOrEmpty(email))
             {
                 email = email.ToLower();
-                string hashedOldPassword = !isHashPassword ? PasswordGenerator.GetHashedPassword(email, password) : password;
-                contactPassword = globalContext.ContactPasswords.Where(c => c.Email == email && c.Password == hashedOldPassword && !c.IsBCrypt).FirstOrDefault();
+                string? hashedOldPassword = !string.IsNullOrEmpty(password) ? !isHashPassword ? PasswordGenerator.GetHashedPassword(email, password) : password : null;
+                contactPassword = globalContext.ContactPasswords.Where(c => c.Email == email && !c.IsBCrypt && (string.IsNullOrEmpty(password) || c.Password == hashedOldPassword)  ).FirstOrDefault();
 
                 if (contactPassword == null)
                 {
                     contactPassword = globalContext.ContactPasswords.Where(c => c.Email.ToLower() == email && c.IsBCrypt).FirstOrDefault();
-                    if (contactPassword != null)
+                    if (contactPassword != null && !string.IsNullOrEmpty(password))
                     {
                         var isValid = false;
                         if (!isHashPassword)

@@ -37,8 +37,20 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         {
             try
             {
+                if (loginParameters.IsAzureAdLogin)
+                {
+                    var (email, token, error) = Authentication.ExtractAzureAdCredentials(HttpContext);
+                    if (error != null)
+                    {
+                        return BadRequest(error);
+                    }
+
+                    loginParameters.Email = email!;
+                    loginParameters.AzureAdToken = token!;
+                }
                 Authentication authentication = new Authentication(loginParameters.Tenant, _httpContextAccessor, _memoryCache);
                 UserData data = authentication.AuthenticateUser(loginParameters);
+                data.AzureAdToken = loginParameters.AzureAdToken;
                 return Ok(data);
             }
             catch (Exception ex)
@@ -52,14 +64,27 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         [HttpPost]
         [SwaggerOperation(
         Summary = "User login",
-        Description = "Authenticates a user by email and password and returns their user data."
+        Description = "Authenticates a user by email and password or Azure AD token and returns their user data."
         )]
         public IActionResult PostLoginData(LoginParameters parameters, int tenant, bool? isFromCTool = false)
         {
             try
             {
+                if (parameters.IsAzureAdLogin)
+                {
+                    var (email, token, error) = Authentication.ExtractAzureAdCredentials(HttpContext);
+                    if (error != null)
+                    {
+                        return BadRequest(error);
+                    }
+
+                    parameters.Email = email!;
+                    parameters.AzureAdToken = token!;
+                }
                 Authentication authentication = new Authentication(tenant, _httpContextAccessor, _memoryCache);
-                UserData user = authentication.LoginUser(parameters, tenant, isFromCTool);
+                var user = authentication.LoginUser(parameters, tenant, isFromCTool);
+                user.AzureAdToken = parameters.AzureAdToken;
+
                 return Ok(user);
             }
             catch (Exception ex)

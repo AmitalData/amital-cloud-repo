@@ -22,6 +22,8 @@ namespace AmitalCloud.Infrastructure.Domain.DataContracts
         public bool IsFromPLSignApp { get; set; }
         public int Tenant { get; set; }
         public bool IsCustomsBook { get; set; }
+        public bool IsAzureAdLogin { get; set; }
+        public string AzureAdToken { get; set; } = string.Empty;
 
     }
 }

@@ -46,7 +46,7 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
                 foreach (ContactTenantRole contacttenantrole in contactTenantRoles)
                 {
-                    RolePM role = (from a in roles
+                    RolePM? role = (from a in roles
                                    where a.Id == contacttenantrole.RoleId
                                    select a).FirstOrDefault();
                 }

@@ -18,6 +18,8 @@ using System.Transactions;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using UAParser;
 using Microsoft.Extensions.Caching.Memory;
+using static AmitalCloud.Infrastructure.Domain.Helpers.SettingUtil;
+using System.Diagnostics;
 
 namespace AmitalCloud.Infrastructure.Application.Helpers
 {
@@ -29,6 +31,10 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
         readonly private GlobalContactQueryService globalContactQueryService;
         readonly private ContactPasswordQueryService contactPasswordQueryService;
         readonly private TenantManagementQueryService tenantManagementQueryService;
+        readonly private CardQueryService cardQueryService;
+        readonly private TenantQueryService tenantQueryService;
+        readonly private UserQueryService userQueryService;
+        readonly private GlobalTenantQueryService globalTenantQueryService;
         readonly private IHttpContextAccessor _httpContextAccessor;
         private readonly IMemoryCache _memoryCache;
 
@@ -40,263 +46,62 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             globalContactQueryService = new GlobalContactQueryService(globalContext);
             contactPasswordQueryService = new ContactPasswordQueryService(globalContext);
             tenantManagementQueryService = new TenantManagementQueryService(globalContext);
+            cardQueryService = new CardQueryService(amitalCloudContext);
+            tenantQueryService = new TenantQueryService(amitalCloudContext);
+            userQueryService = new UserQueryService(amitalCloudContext);
+            globalTenantQueryService = new GlobalTenantQueryService(globalContext);
             _httpContextAccessor = httpContextAccessor;
             _memoryCache = memoryCache;
         }
 
+        #region Public API
+        public static (string? Email, string? Token, string? Error) ExtractAzureAdCredentials(HttpContext httpContext)
+        {
+            var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+            if (string.IsNullOrWhiteSpace(authHeader) || !authHeader.StartsWith("Bearer "))
+            {
+                return (null, null, "Authorization header with Bearer token is required.");
+            }
+
+            string token = authHeader.Substring("Bearer ".Length).Trim();
+            string? email = httpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return (null, null, "Email is required for validation.");
+            }
+
+            return (email, token, null);
+        }
         public UserData AuthenticateUser(LoginParameters loginParameters)
         {
-            TenantManagmentPrivateLabelsPM? privatelabel = null;
             var url = AmitalCloudSecurityUtility.getLoggedDomain();
-
             url = url.Split(':')[0];
+            TenantManagmentPrivateLabelsPM? privatelabel = GetPrivateLabelIfNeeded(loginParameters, url);
 
-            if (!loginParameters.IsFromPLSignApp && !url.Contains("system.logbox.co.il") && !url.Contains("cloud.amital.co.il"))
-            {
-                TenantManagmentPrivateLabelsQueryService tenantManagmentPrivateLabelsQueryService = new TenantManagmentPrivateLabelsQueryService(globalContext);
-                privatelabel = tenantManagmentPrivateLabelsQueryService.GetMulti(a => a.PrivateLabelUrl == url && a.InActive == false).FirstOrDefault();
-            }
             DateTime DateBeforePostUserValidation = DateTime.Now;
             string email = loginParameters.Email.Trim();
             string password = loginParameters.Password;
             UserData data = new UserData();
-            List<CompanyLogin> loginsList = new List<CompanyLogin>();
             ContactPasswordPM? contactPassword = null;
-
-            CardQueryService cardQueryService = new CardQueryService(amitalCloudContext);
-            TenantQueryService tenantQueryService = new TenantQueryService(amitalCloudContext);
-            UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
-            GlobalTenantQueryService globalTenantQueryService = new GlobalTenantQueryService(globalContext);
-
             
-            if (!data.HasError)
-            {
-                data = CheckUserState(email.ToLower(), password, ref contactPassword, loginParameters.ByToken, loginParameters.ClientType);
-            }
+            data = CheckUserState(email.ToLower(), password, ref contactPassword, loginParameters.ByToken, loginParameters.ClientType, loginParameters.IsAzureAdLogin);
 
             if (!data.HasError)
             {
-                bool customerCare = false;
-                bool distributor = false;
-                UserPM? amitalUser = null;
-                GlobalContactPM? zeroContact = globalContactQueryService.GetMulti(d => d.GlobalTenantId == 0 && d.Email == email && d.InActive == false).FirstOrDefault();
-
-                if (zeroContact != null)
-                {
-                    amitalUser = userQueryService.GetSingle(zeroContact.Id, false, false);
-                    if (amitalUser?.Tenant == 0)
-                    {
-                        distributor = amitalUser.IsDistributor;
-                        customerCare = !amitalUser.IsDistributor;
-                    }
-                }
-
-                Expression<Func<GlobalContact, bool>> predicateGlobalContact;
-
-                if (customerCare || distributor)
-                {
-                    Expression<Func<TenantManagement, bool>> predicate;
-                    if (distributor && amitalUser != null)
-                    {
-                        predicate = a => a.DistributorCode == amitalUser.DistributorCode && a.Id != 0 && a.IsDistributorSupportEnabled;
-                    }
-                    else
-                    {
-                        predicate = a => a.IsSystemSupportEnabled || a.Id == 0;
-                    }
-                    List<int> tenantManagementIds = tenantManagementQueryService.GetMulti(predicate, a => a.Id);
-                    List<GlobalTenantPM> globalTenants = globalTenantQueryService.GetMulti(t => tenantManagementIds.Contains(t.Id) && t.IsActive);
-                    globalTenants.ForEach(globalTenant => loginsList.Add(CreateCompanyLogin(zeroContact.Email, $"{globalTenant.CompanyName} ({globalTenant.Id})", true, globalTenant.Id, null, null, zeroContact.Id, true, false, globalTenant.PrivateLabelId)));
-
-                    predicateGlobalContact = m => m.Email == email && m.GlobalTenant.IsActive == true && m.InActive == false && m.InternetAccess == true;
-                }
-                else
-                {
-                    predicateGlobalContact = m => m.Email == email && m.GlobalTenant.IsActive == true && m.InActive == false && (m.IsUser == true || m.InternetAccess == true);
-                }
-
-                List<GlobalContactPM> contacts = globalContactQueryService.GetMulti(predicateGlobalContact);
-                foreach (GlobalContactPM contact in contacts)
-                {
-                    GlobalTenantPM globalTenant = globalTenantQueryService.GetSingle(contact.GlobalTenantId, false, true);
-
-                    if (contact.IsUser && !customerCare && !distributor &&
-                        ((!loginParameters.IsCargoTracking || !loginParameters.IsCustomsBook || (loginParameters.IsCustomsBook && FeatureToggleHelper.HasFeatureToggle("LCB", contact.GlobalTenantId)))
-                            || (loginParameters.IsCargoTracking && FeatureToggleHelper.HasFeatureToggle("LCT", contact.GlobalTenantId))))
-                    {
-                        bool manageLicencesPerUser = tenantManagementQueryService.GetSingle(contact.GlobalTenantId, false, true)?.ManageLicencesPerUser ?? false;
-                        bool licensed = !manageLicencesPerUser || (manageLicencesPerUser && (userQueryService.GetSingle(contact.Id, false, false)?.LicencedUser ?? false));
-
-                        loginsList.Add(CreateCompanyLogin(contact.Email, $"{globalTenant.CompanyName} ({contact.GlobalTenantId})", isUser: true, contact.GlobalTenantId, null, null, contact.Id, licensedUser: licensed, contact.InternetAccess, globalTenant.PrivateLabelId));
-                    }
-
-                    if (contact.InternetAccess)
-                    {
-                        TenantPM currentTenant = tenantQueryService.GetSingle(contact.GlobalTenantId, false, true);
-
-                        if ((loginParameters.IsMobileLogin && currentTenant.IsMobileActivated)
-                            || (!loginParameters.IsMobileLogin && (currentTenant.IsWebAccessActivated || currentTenant.IsCargoTrackWebAccessActivated || currentTenant.IsDigitalPortalAccessActivated)))
-                        {
-                            CardContactQueryService cardContactQueryService = new CardContactQueryService(amitalCloudContext);
-                            List<CardContactPM> cardcontactsList = cardContactQueryService.GetMulti(c => c.ContactId == contact.Id && c.InternetAccess == true && c.Tenant == contact.GlobalTenantId);
-
-                            cardcontactsList.ForEach(cardContact =>
-                            {
-                                CardPM? card = cardQueryService.GetMulti(c => c.Id == cardContact.CardId && c.Tenant == cardContact.Tenant).FirstOrDefault();
-
-                                loginsList.Add(CreateCompanyLogin(contact.Email, $"{globalTenant.CompanyName}-{card?.EnglishName} ({contact.GlobalTenantId})", isUser: false, contact.GlobalTenantId, card.Id, card.PartnerTypeId, contact.Id, licensedUser: false, contact.InternetAccess, globalTenant.PrivateLabelId, card.EnglishName));
-                            });
-                        }
-                    }
-                }
-
-                List<CompanyLogin> unliscened = loginsList.Where(s => s.LicensedUser == false && s.IsUser == true).ToList();
-
-                loginsList = loginsList.Where(s => s.LicensedUser == true || s.IsUser == false).OrderBy(c => c.CompanyName).ToList();
-
-                if (!loginParameters.IsFromPLSignApp)
-                {
-                    List<string> logboxAccessiblePrivateLabelTenantsIds = GetLogboxAccessiblePrivateLabelTenantsIds(url);
-                    MapHasLogboxAccessPrivateLabelTenants(loginsList, logboxAccessiblePrivateLabelTenantsIds);
-                }
-
-                if (loginsList.Count == 1)
-                {
-                    CompanyLogin companyAccess = loginsList.First();
-
-                    bool isValidPrivateLabel = privatelabel != null && companyAccess.PrivateLabelId == privatelabel.Id;
-                    bool isInvalidAccess = (privatelabel == null && !string.IsNullOrEmpty(companyAccess.PrivateLabelId) &&
-                                            !companyAccess.HasLogboxAccess && !loginParameters.IsFromPLSignApp) ||
-                                           (privatelabel != null && string.IsNullOrEmpty(companyAccess.PrivateLabelId));
-
-                    if (isValidPrivateLabel || !isInvalidAccess)
-                    {
-                        data = LoginUser(new LoginParameters()
-                        {
-                            Email = email,
-                            Password = password,
-                            IsUser = companyAccess.IsUser,
-                            CardId = companyAccess.CardId,
-                            CardType = companyAccess.CardType,
-                            ByToken = loginParameters.ByToken,
-                            IsMobileLogin = loginParameters.IsMobileLogin,
-                            GetToken = loginParameters.GetToken,
-                            IsAngularLogin = loginParameters.IsAngularLogin,
-                            InternalLoginValidationCall = true,
-                            ClientType = loginParameters.ClientType
-                        }, companyAccess.Tenant);
-                    }
-                    else
-                    {
-                        data = new UserData()
-                        {
-                            UserName = email,
-                            CompanyLogins = new List<CompanyLogin>(),
-                            HasError = true,
-                            ContactsCount = 0,
-                            InActive = true,
-                            Unlicensed = unliscened.Count() > 0,
-                            PrivateLablehasZeroTenant = true
-                        };
-                    }
-
-                    data.CompanyLogins = loginsList;
-                    data.ContactsCount = 1;
-                }
-                else
-                {
-                    var temp = new List<CompanyLogin>();
-
-                    if (loginParameters.IsFromPLSignApp)
-                    {
-                        temp = loginsList.Where(x => x.PrivateLabelId != null).ToList();
-                    }
-                    else if (privatelabel != null)
-                    {
-                        temp = loginsList.Where(a => a.PrivateLabelId == privatelabel.Id).ToList();
-                    }
-                    else
-                    {
-                        temp = loginsList.Where(a => a.PrivateLabelId == null || a.HasLogboxAccess).ToList();
-                    }
-
-                    if (temp.Count == 1)
-                    {
-                        CompanyLogin companyAccess = temp.First();
-                        data = LoginUser(new LoginParameters()
-                        {
-                            Email = email,
-                            Password = password,
-                            IsUser = companyAccess.IsUser,
-                            CardId = companyAccess.CardId,
-                            CardType = companyAccess.CardType,
-                            ByToken = loginParameters.ByToken,
-                            IsMobileLogin = loginParameters.IsMobileLogin,
-                            GetToken = loginParameters.GetToken,
-                            IsAngularLogin = loginParameters.IsAngularLogin,
-                            InternalLoginValidationCall = true,
-                            ClientType = loginParameters.ClientType
-                        }, companyAccess.Tenant);
-                        data.CompanyLogins = temp;
-                        data.ContactsCount = 1;
-                    }
-                    else
-                    {
-                        data = new UserData()
-                        {
-                            UserName = email,
-                            CompanyLogins = temp,
-                            HasError = temp.Count() == 0,
-                            ContactsCount = temp.Count(),
-                            InActive = privatelabel == null && temp.Count() == 0,
-                            Unlicensed = unliscened.Count() > 0,
-                            PrivateLablehasZeroTenant = privatelabel != null && temp.Count() == 0
-                        };
-                    }
-                }
+                data = GetUserTenantLogins(loginParameters, data, email, password, privatelabel, url);
             }
-
-            if (loginParameters.IsMobileLogin && !data.HasError)
-            {
-                data.CompanyLogins = data.CompanyLogins.Where(c => c.InternetAccess == true).ToList();
-
-                List<int> tenants = (from a in data.CompanyLogins select a.Tenant).ToList();
-
-                List<TenantPM> mobileTenants = tenantQueryService.GetMulti(t => tenants.Contains(t.Id));
-
-                List<CompanyLogin> mobileActivatedTenants = new List<CompanyLogin>();
-                foreach (CompanyLogin login in data.CompanyLogins)
-                {
-                    TenantPM? tenant = mobileTenants.FirstOrDefault(t => t.Id == login.Tenant);
-                    if (tenant != null && tenant.IsMobileActivated)
-                    {
-                        List<string> LogoInfo = GetTenantLogoUri(login.Tenant, loginParameters.MobileVersion);
-
-                        if (LogoInfo != null && LogoInfo.Count > 0) login.URL = LogoInfo[0];
-                        if (LogoInfo != null && LogoInfo.Count > 1) login.Extension = LogoInfo[1];
-
-                        mobileActivatedTenants.Add(login);
-                    }
-                }
-
-                data.CompanyLogins = mobileActivatedTenants;
-                data.InActive = mobileActivatedTenants.Count() == 0;
-                data.Unlicensed = mobileActivatedTenants.Count() == 0;
-                data.HasError = mobileActivatedTenants.Count() == 0;
-                data.ContactsCount = mobileActivatedTenants.Count();
-                data.InvalidMobileAccessPermission = mobileActivatedTenants.Count() == 0;
-            }
-
+            data = FilterMobileLogins(data, loginParameters); 
+            
             int executionTime = (int)((DateTime.Now.Ticks - DateBeforePostUserValidation.Ticks) / TimeSpan.TicksPerMillisecond);
             AddServerTimeToHeaderRespose(executionTime);
 
             #region PasswordExpirationDate
-
-            if (data != null && !data.HasError && loginParameters.ClientType == "Web")
+            if (!loginParameters.IsAzureAdLogin && !data.HasError && loginParameters.ClientType == "Web")
             {
                 if (contactPassword == null)
                 {
-                    contactPassword = contactPasswordQueryService.GetMulti(c => c.Email.ToLower() == email).FirstOrDefault();
+                    contactPassword = GetContactPasswordByEmail(email);
                 }
 
                 if (contactPassword?.PasswordExpirationDate != null)
@@ -328,192 +133,427 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
             if (data.HasError)
             {
-                if (data.InValidMailOrPassword || data.IsLocked || data.IpRestricted)
+                if (data.InValidMailOrPassword || data.IsLocked || data.IpRestricted || data.InvalidEmailAddress)
                 {
-                    AddFailedLoginLog(data);
-
-                    if (!data.IpRestricted && loginParameters.ClientType == "Web")
-                    {
-                        if (contactPassword == null)
-                        {
-                            contactPassword = contactPasswordQueryService.GetMulti(c => c.Email.ToLower() == email).FirstOrDefault();
-                        }
-
-                      
-                    }
+                    AddFailedLoginLog(data);                 
                 }
             }
             return data;
         }
-
         public UserData LoginUser(LoginParameters parameters, int tenant, bool? isFromCTool = false)
         {
-            bool FromCTool = isFromCTool ?? false;
+            bool fromCTool = isFromCTool.GetValueOrDefault();
+            parameters.Email = parameters.Email.ToLower();
 
-            DateTime DateBeforePostLoginData = DateTime.Now;
-            if (!string.IsNullOrEmpty(parameters.Email)) parameters.Email = parameters.Email.ToLower();
+            return ProcessLoginFlow(parameters, tenant, fromCTool);
+        }
+        #endregion
 
-            string email = parameters.Email;
-            string password = parameters.Password;
-            bool isUser = parameters.IsUser;
-            string cardId = parameters.CardId;
+        #region Authentication Flow
+        private UserData ProcessLoginFlow(LoginParameters parameters, int tenant, bool fromCTool)
+        {
+            var stopwatch = Stopwatch.StartNew();
 
-            string userData = string.Empty;
-            bool customerCare;
-            string computerId = Guid.NewGuid().ToString("N");
-            ContactPasswordPM? contactPassword = null;
-
-            var passResult = ResolvePassword(password);
-            bool OneTimePassword = passResult?.IsOneTimePassword ?? false;
-
-            UserData? user = CheckCaptchaState(parameters, true);
-
-            if (!user.InValidCaptcha)
+            if (!parameters.IsAzureAdLogin)
             {
-                user = null;
-                customerCare = false;
-                bool distributor = false;
-                UserPM amitalUser = null;
-                // when accessing from authenticateUser, the context may be regarding another tenant, so need to create a new context
-                amitalCloudContext = AmitalCloudContext.GetContext(tenant);
-                UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
-                GlobalContactPM? contact = globalContactQueryService.GetMulti(d => d.GlobalTenantId == 0 && d.Email.ToLower() == parameters.Email.ToLower() && d.InActive == false).FirstOrDefault();
-                if (contact != null)
-                {
-                    amitalUser = userQueryService.GetSingle(contact.Id, false, false);
-                    if (amitalUser?.Tenant == 0)
-                    {
-                        distributor = amitalUser.IsDistributor;
-                        customerCare = !amitalUser.IsDistributor;
-                    }
-                }
-                else
-                {
-                    contact = globalContactQueryService.GetMulti(c => c.Email == email && c.InActive == false && c.GlobalTenantId == tenant).FirstOrDefault();
-                }
-                if (contact != null)
-                {
-                    amitalUser = userQueryService.GetSingle(contact.Id, false, false);
-
-                    user = ValidateUser(email, password, tenant, computerId, out userData, isUser, cardId, parameters.ByToken, parameters.IsMobileLogin ? "Mobile" : "PC", parameters.ClientType, FromCTool, parameters.IsCargoTracking, OneTimePassword);
-                    if (user != null)
-                    {
-                        if (user.IsUser == false)
-                        {
-                            HttpContextHelper.SetCookie(user.UserName, user.UserId.ToString(), user.CurrentTenant.ToString(), user.IsAuthenticated, computerId);
-                        }
-                    }
-                    else
-                    {
-                        contactPassword = null;
-                        user = CheckUserState(email, password, ref contactPassword, parameters.ByToken, parameters.ClientType);
-                    }
-                }
-                else
-                {
-                    user = new UserData() { HasError = true, InValidMailOrPassword = true };
-                }
-
-                TenantManagementPM tenantManagement = tenantManagementQueryService.GetSingle(user.CurrentTenant, false, true);
-                if (tenantManagement != null && tenantManagement.EnableBranding) user.IsBrandingEnabled = tenantManagement.HideSharedlogistics;
-
-                user.Technology = "AG";
-
-                #region KeepUserLoggedIn
-                TenantLoginPolicyQueryService securityPolicyQueryService = new TenantLoginPolicyQueryService(amitalCloudContext);
-                TenantLoginPolicyPM securityPolicy = securityPolicyQueryService.GetMulti(d => d.Tenant == tenant).FirstOrDefault();
-
-                if (securityPolicy != null)
-                {
-                    user.KeepUserLoggedIn = securityPolicy.KeepUserLoggedIn;
-
-                    if (parameters.ClientType == "Web" && !securityPolicy.KeepUserLoggedIn)
-                    {
-                        user.SessionTimeout = securityPolicy.SessionTimeout;
-                        SetSessionPolicy(user);
-                    }
-                }
-                else if (parameters.ClientType == "Web") SetSessionPolicy(user);
-                #endregion
-
-                if (!user.HasError && (parameters.IsMobileLogin || parameters.GetToken))
-                {
-                    bool IsTwoFactorAuthenticationRequired = !parameters.IsAngularLogin && !parameters.IsMobileLogin && parameters.IsUser && !customerCare && !FromCTool && CheckLoginSecurityPolicy(tenant, user, amitalUser, securityPolicy);
-
-                    if (!IsTwoFactorAuthenticationRequired)
-                    {
-                        if (!parameters.ByToken)
-                        {
-                            string hashedPassword = "";
-                            ContactPassword contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(parameters.Email, parameters.Password);
-                            if (contactPasswordPOCO != null)
-                            {
-                                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
-                                hashedPassword = contactPassword.Password;
-                            }
-
-                            if (passResult != null)
-                            {
-                                hashedPassword = passResult.Password;
-                            }
-
-                            string token = AuthenticationUtil.GenerateToken();
-
-                            AuthenticationTokenUpdateService authenticationUpdateService = new AuthenticationTokenUpdateService(tenant);
-                            AuthenticationToken authentication = new AuthenticationToken() { CreateDate = DateTime.Now, Email = email, Password = hashedPassword, Token = token, Tenant = user.CurrentTenant, ClientType = parameters.IsMobileLogin ? "Mobile" : parameters.ClientType };
-                            if (!user.KeepUserLoggedIn && authentication.ClientType == "Web" && user.WebTokenLifeTimeInMinutes != 0) authentication.ExpirationDate = DateTime.Now.AddMinutes(user.WebTokenLifeTimeInMinutes);
-                            AddAuthenticationToken(authentication, authenticationUpdateService);
-                            user.Token = token;
-
-                            #region Document Token
-                            AuthenticationToken authenticationDocument = new AuthenticationToken() { CreateDate = DateTime.Now, ExpirationDate = DateTime.Now.AddMinutes(15), Email = email, Password = hashedPassword, Token = AuthenticationUtil.GenerateToken(), Tenant = user.CurrentTenant, ClientType = "DocumentDownload" };
-                            AddAuthenticationToken(authenticationDocument, authenticationUpdateService);
-                            user.DocumentDownloadToken = authenticationDocument.Token;
-
-                            if (parameters.GetInvalidDocumentToken)
-                            {
-                                AuthenticationToken invalidDocumentToken = new AuthenticationToken() { CreateDate = DateTime.Now, ExpirationDate = DateTime.Now.AddMinutes(-5), Email = email, Password = hashedPassword, Token = AuthenticationUtil.GenerateToken(), Tenant = user.CurrentTenant, ClientType = "DocumentDownload" };
-                                AddAuthenticationToken(invalidDocumentToken, authenticationUpdateService);
-                                user.InvalidDocumentToken = invalidDocumentToken.Token;
-                            }
-                            #endregion
-                        }
-                    }
-                    else
-                    {
-                        user.IsTwoFactorAuthenticationRequired = true;
-                    }
-                }
-
-                if (amitalUser != null)
-                {
-                    user.UserId = amitalUser.Id;
-                    user.Tenant = amitalUser.Tenant;
-                }
-
-                user.HtmlVersion = GetHtmlVersion();
-                user.IsAdmin = IsUserAdmin(email, tenant) || customerCare;
+                var user = CheckCaptchaState(parameters, true);
+                if (user.InValidCaptcha)
+                    return user;
             }
 
-            int executionTime = (int)((DateTime.Now.Ticks - DateBeforePostLoginData.Ticks) / TimeSpan.TicksPerMillisecond);
-            AddServerTimeToHeaderRespose(executionTime);
+            var email = parameters.Email;
+            var password = parameters.Password;
 
-             return user;
+            var contact = GetContact(email, tenant);
+
+            if (contact == null)
+                return new UserData() { HasError = true, InValidMailOrPassword = true };
+
+            var amitalUser = GetUser(contact.Id, tenant);
+
+            var validatedUser = ValidateLogin(email, password, tenant, parameters, fromCTool);
+
+            if (validatedUser == null)
+                return new UserData() { HasError = true, InValidMailOrPassword = true };
+
+            if (!validatedUser.IsUser)
+                HttpContextHelper.SetCookie(validatedUser.UserName, validatedUser.UserId.ToString(), validatedUser.CurrentTenant.ToString(), validatedUser.IsAuthenticated, Guid.NewGuid().ToString("N"));
+
+            SetupBranding(validatedUser);
+
+            validatedUser.Technology = "AG";
+            SetupUserSessionPolicy(validatedUser, parameters, tenant);
+
+            var customerCare = amitalUser != null  && amitalUser.Tenant == 0 ? !amitalUser.IsDistributor : false;
+            HandleAuthenticationTokens(parameters, tenant, validatedUser, amitalUser, fromCTool, customerCare);
+
+            validatedUser.UserId = amitalUser?.Id ?? validatedUser.UserId;
+            validatedUser.Tenant = amitalUser?.Tenant ?? validatedUser.Tenant;
+            validatedUser.IsAdmin = IsUserAdmin(email, tenant) || customerCare;
+
+            stopwatch.Stop();
+            AddServerTimeToHeaderRespose((int)stopwatch.ElapsedMilliseconds);
+
+            return validatedUser!;
         }
-
-        private void AddAuthenticationToken(AuthenticationToken authentication, AuthenticationTokenUpdateService authenticationUpdateService)
+        private void AddFailedLoginLog(UserData data)
         {
-            AuthenticationTokenPM authenticationPM = new AuthenticationTokenPM(authentication);
-            authenticationPM.ChangeSetOp = ChangeSetOperation.Insert;
-            authenticationUpdateService.Update(authenticationPM, true);
-
-            string cacheKey = $"Token_({authentication.Token})";
-            _memoryCache.Set(cacheKey, authentication, new MemoryCacheEntryOptions
+            FailedLoginLogUpdateService failedLoginLogUpdateService = new FailedLoginLogUpdateService(data.Tenant);
+            FailedLoginLogPM failedLoginLog = new FailedLoginLogPM()
             {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)  // Set absolute expiration time
-            });
+                Id = IdCounter.GetNumber("FailedLoginLog", data.Tenant).ToString(),
+                Browser = GetBrowserType(),
+                IP = AuthenticationUtil.GetIP4Address(),    
+                GMTDateTime = DateTime.Now,
+                UserAgent = !string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"]) ? (_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Length <= 500 ? _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString() : _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Substring(0, 500)) : null,
+                Email = data.UserName,
+                ChangeSetOp = ChangeSetOperation.Insert
+            };
+
+            if (data.InvalidEmailAddress) failedLoginLog.Reason = "Wrong Email address";
+            else if (data.InValidMailOrPassword) failedLoginLog.Reason = "Wrong Password";
+            else if (data.IpRestricted) failedLoginLog.Reason = "Unauthorized IP address";
+            else if (data.InValidCaptcha) failedLoginLog.Reason = "Valid Captcha";
+            else if (data.IsLocked) failedLoginLog.Reason = "Locked User";
+
+            data.InvalidEmailAddress = false;
+            string? currentIP = _httpContextAccessor.HttpContext?.Request.Headers["X-Real-IP"];
+            if (!string.IsNullOrEmpty(currentIP)) failedLoginLog.Browser = failedLoginLog.Browser.ToUpper();
+
+            failedLoginLogUpdateService.Update(failedLoginLog, true);
+        }
+        private void AddServerTimeToHeaderRespose(int executionTime)
+        {
+            var headers = _httpContextAccessor.HttpContext?.Response?.Headers;
+            if (headers == null) return;
+            headers["ServerTime"] = executionTime.ToString();
+        }
+        private void SetupUserSessionPolicy(UserData user, LoginParameters parameters, int tenant)
+        {
+            TenantLoginPolicyQueryService securityPolicyQueryService = new TenantLoginPolicyQueryService(amitalCloudContext);
+            TenantLoginPolicyPM? securityPolicy = securityPolicyQueryService.GetMulti(d => d.Tenant == tenant).FirstOrDefault();
+
+            if (securityPolicy != null)
+            {
+                user.KeepUserLoggedIn = securityPolicy.KeepUserLoggedIn;
+
+                if (parameters.ClientType == "Web" && !securityPolicy.KeepUserLoggedIn)
+                {
+                    user.SessionTimeout = securityPolicy.SessionTimeout;
+                    SetSessionPolicy(user);
+                }
+            }
+            else if (parameters.ClientType == "Web")
+            {
+                SetSessionPolicy(user);
+            }
+        }
+        private void SetSessionPolicy(UserData data)
+        {
+            SessionPolicyQueryService sessionPolicyQueryService = new SessionPolicyQueryService(globalContext);
+            SessionPolicy sessionPolicy = sessionPolicyQueryService.GetFirst();
+            if (sessionPolicy != null)
+            {
+                data.WebTokenLifeTimeInMinutes = sessionPolicy.WebTokenLifeTimeInMinutes;
+                data.WebTokenExpirationWarningInMinutes = sessionPolicy.WebTokenExpirationWarningInMinutes;
+            }
+        }
+        UserData HandleLoginResult(List<CompanyLogin> logins, LoginParameters loginParams, string email, string password, TenantManagmentPrivateLabelsPM? pl, List<CompanyLogin> unlicensed)
+        {
+            if (logins.Count == 1)
+            {
+                var access = logins.First();
+
+                bool isValidPL = pl != null && access.PrivateLabelId == pl.Id;
+                bool isInvalidAccess = (pl == null && !string.IsNullOrEmpty(access.PrivateLabelId) && !access.HasLogboxAccess && !loginParams.IsFromPLSignApp)
+                                    || (pl != null && string.IsNullOrEmpty(access.PrivateLabelId));
+
+                if (isValidPL || !isInvalidAccess)
+                {
+                    var userData = LoginUser(new LoginParameters
+                    {
+                        Email = email,
+                        Password = password,
+                        IsUser = access.IsUser,
+                        CardId = access.CardId,
+                        CardType = access.CardType,
+                        ByToken = loginParams.ByToken,
+                        IsMobileLogin = loginParams.IsMobileLogin,
+                        GetToken = loginParams.GetToken,
+                        IsAngularLogin = loginParams.IsAngularLogin,
+                        InternalLoginValidationCall = true,
+                        ClientType = loginParams.ClientType,
+                        IsAzureAdLogin = loginParams.IsAzureAdLogin,
+                        AzureAdToken = loginParams.AzureAdToken
+                    }, access.Tenant);
+
+                    userData.CompanyLogins = logins;
+                    userData.ContactsCount = 1;
+                    return userData;
+                }
+
+                return new UserData
+                {
+                    UserName = email,
+                    CompanyLogins = new List<CompanyLogin>(),
+                    HasError = true,
+                    ContactsCount = 0,
+                    InActive = true,
+                    Unlicensed = unlicensed.Any(),
+                    PrivateLablehasZeroTenant = true
+                };
+            }
+
+            var filtered = loginParams.IsFromPLSignApp
+                ? logins.Where(x => x.PrivateLabelId != null).ToList()
+                : pl != null
+                    ? logins.Where(x => x.PrivateLabelId == pl.Id).ToList()
+                    : logins.Where(x => x.PrivateLabelId == null || x.HasLogboxAccess).ToList();
+
+            if (filtered.Count == 1)
+            {
+                var access = filtered.First();
+                var userData = LoginUser(new LoginParameters
+                {
+                    Email = email,
+                    Password = password,
+                    IsUser = access.IsUser,
+                    CardId = access.CardId,
+                    CardType = access.CardType,
+                    ByToken = loginParams.ByToken,
+                    IsMobileLogin = loginParams.IsMobileLogin,
+                    GetToken = loginParams.GetToken,
+                    IsAngularLogin = loginParams.IsAngularLogin,
+                    InternalLoginValidationCall = true,
+                    ClientType = loginParams.ClientType,
+                    IsAzureAdLogin = loginParams.IsAzureAdLogin,
+                    AzureAdToken = loginParams.AzureAdToken
+                }, access.Tenant);
+
+                userData.CompanyLogins = filtered;
+                userData.ContactsCount = 1;
+                return userData;
+            }
+
+            return new UserData
+            {
+                UserName = email,
+                CompanyLogins = filtered,
+                HasError = filtered.Count == 0,
+                ContactsCount = filtered.Count,
+                InActive = pl == null && filtered.Count == 0,
+                Unlicensed = unlicensed.Any(),
+                PrivateLablehasZeroTenant = pl != null && filtered.Count == 0
+            };
+        }
+        private UserData FilterMobileLogins(UserData data, LoginParameters loginParams)
+        {
+            if (!loginParams.IsMobileLogin || data.HasError)
+                return data;
+
+            var validLogins = data.CompanyLogins
+                .Where(c => c.InternetAccess)
+                .ToList();
+
+            if (!validLogins.Any())
+            {
+                data.HasError = data.InActive = data.Unlicensed = data.InvalidMobileAccessPermission = true;
+                data.ContactsCount = 0;
+                data.CompanyLogins = new List<CompanyLogin>();
+                return data;
+            }
+
+            var tenantIds = validLogins.Select(c => c.Tenant).Distinct().ToList();
+            var mobileTenants = tenantQueryService.GetMulti(t => tenantIds.Contains(t.Id))
+                                .Where(t => t.IsMobileActivated)
+                                .ToDictionary(t => t.Id);
+
+            var mobileLogins = validLogins
+                .Where(login => mobileTenants.ContainsKey(login.Tenant))
+                .Select(login =>
+                {
+                    var tenantId = login.Tenant;
+                    var logoInfo = GetTenantLogoUri(tenantId, loginParams.MobileVersion);
+
+                    if (logoInfo?.Count > 0)
+                        login.URL = logoInfo[0];
+                    if (logoInfo?.Count > 1)
+                        login.Extension = logoInfo[1];
+
+                    return login;
+                })
+                .ToList();
+
+            data.CompanyLogins = mobileLogins;
+            var hasNoMobileLogins = !mobileLogins.Any();
+
+            data.HasError = data.InActive = data.Unlicensed = data.InvalidMobileAccessPermission = hasNoMobileLogins;
+            data.ContactsCount = mobileLogins.Count;
+
+            return data;
+        }
+        private void SetupBranding(UserData validatedUser)
+        {
+            var tenantManagement = tenantManagementQueryService.GetSingle(validatedUser.CurrentTenant, false, true);
+            if (tenantManagement != null && tenantManagement.EnableBranding)
+            {
+                validatedUser.IsBrandingEnabled = tenantManagement.HideSharedlogistics;
+            }
         }
 
+        #endregion
+
+        #region User/Contact Management
+        private string HandleUserOrContactLogin(UserData user, GlobalContactPM? member, string? cardId, string via, bool isUser, bool isFromCTool,
+            bool IsFromCargoTracking, int tenant, string computerId, UserPM? amitalUser, bool distributor, bool customerCare, IAmitalCloudContext amitalCloudContext)
+        {
+            CardPM? card = null;
+            string? userAgent = _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString();
+            if (!string.IsNullOrEmpty(userAgent) && userAgent.Length > 500)
+                userAgent = userAgent.Substring(0, 500);
+
+            if (!isFromCTool)
+            {
+                if (isUser)
+                {
+                    HandleUserLogin(user, tenant, computerId, userAgent, amitalCloudContext);
+                }
+                else
+                {
+                    card = HandleContactLogin(user, member, cardId, via, IsFromCargoTracking, tenant, computerId, userAgent, amitalCloudContext);
+                }
+            }
+
+            if (amitalUser != null)
+            {
+                distributor = amitalUser.IsDistributor;
+                customerCare = !amitalUser.IsDistributor;
+            }
+
+            string simplogGuid = Guid.NewGuid().ToString("N");
+            return $"{member?.Email}:{member?.Id}" + (card != null ? $":{card.Id}:{card.PartnerTypeId}" : "") + $":{simplogGuid}";
+        }
+        private void HandleUserLogin(UserData user, int tenant, string computerId, string? userAgent, IAmitalCloudContext context)
+        {
+            var userLog = new UserLoginLogPM
+            {
+                Id = IdCounter.GetNumber("UserLoginLog", tenant).ToString(),
+                Tenant = tenant,
+                Browser = GetBrowserType(),
+                IP = AuthenticationUtil.GetIP4Address(),
+                UserId = user.Id,
+                GMTDateTime = DateTime.Now,
+                LocalDateTime = TenantServerConfigration.GetCurrentDateTime(tenant),
+                UserAgent = userAgent,
+                ComputerId = computerId,
+                ChangeSetOp = ChangeSetOperation.Insert,
+            };
+
+            if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request.Headers["X-Real-IP"]))
+                userLog.Browser = userLog.Browser.ToUpper();
+
+            using var scope = TransactionFactory.GetNewTransaction(TimeSpan.FromMinutes(10));
+
+            var userLastLoginQuery = new UserLastLoginQueryService(context);
+            var lastLogin = userLastLoginQuery.GetSingle(user.Id, false, false) ??
+                            new UserLastLoginPM
+                            {
+                                Id = user.Id,
+                                Tenant = tenant,
+                                ComputerId = computerId,
+                                WorkEnvironment = AmitalCloudSettingConfigration.GetWorkEnvironment(),
+                                IP = AuthenticationUtil.GetIP4Address(),
+                                ChangeSetOp = ChangeSetOperation.Insert
+                            };
+
+            user.LastLoginDateTime = lastLogin.LoginDateTime;
+            lastLogin.IP = AuthenticationUtil.GetIP4Address();
+            lastLogin.LoginDateTime = TenantServerConfigration.GetCurrentDateTime(tenant);
+            lastLogin.Tenant = tenant;
+            lastLogin.ChangeSetOp = lastLogin.ChangeSetOp != ChangeSetOperation.Insert ? ChangeSetOperation.Update : ChangeSetOperation.Insert;
+
+            new UserLastLoginUpdateService(context).Update(lastLogin, true);
+            new UserLoginLogUpdateService(context).Update(userLog, true);
+
+            scope.Complete();
+        }
+        private CardPM? HandleContactLogin(UserData user, GlobalContactPM? member, string? cardId, string via, bool isFromCargoTracking, int tenant, string computerId, string? userAgent, IAmitalCloudContext context)
+        {
+            var now = TenantServerConfigration.GetCurrentDateTime(tenant);
+            CardPM? card = null;
+
+            if (member != null && !string.IsNullOrEmpty(cardId))
+            {
+                var cardContactService = new CardContactQueryService(context);
+                var cardService = new CardQueryService(context);
+
+
+                Expression<Func<CardContact, bool>> predicate = d =>
+                    d.ContactId == member.Id &&
+                    d.CardId == cardId;
+
+                var cardContact = cardContactService.GetMulti<CardContactPM>(predicate, "Card").FirstOrDefault();
+                if (cardContact?.Card == null)
+                    return null;
+
+                card = cardContact.Card;
+                card.SharedLogisticsInvitationStatusCode = !isFromCargoTracking ? 3 : card.SharedLogisticsInvitationStatusCode;
+                card.CargoTrackingInvitationStatusCode = isFromCargoTracking ? 3 : card.CargoTrackingInvitationStatusCode;
+                card.LastLoginDate = now;
+                cardContact!.LastLoginDate = now;
+
+                user.CardId = card.Id;
+                user.CardType = card.PartnerTypeId;
+
+                if (via == "Mobile")
+                    card.IsActiveForMobile = true;
+
+                CreateSharedLogisticsContactLastLogin(via, user, card);
+            }
+            var contactLog = new ContactLoginLogPM
+            {
+                Id = IdCounter.GetNumber("ContactLoginLog", tenant).ToString(),
+                Tenant = tenant,
+                Browser = GetBrowserType(),
+                IP = AuthenticationUtil.GetIP4Address(),
+                ContactId = user.Id,
+                GMTDateTime = DateTime.Now,
+                LocalDateTime = now,
+                ContactAgent = userAgent,
+                ComputerId = computerId,
+                Via = via,
+                ChangeSetOp = ChangeSetOperation.Insert,
+            };
+
+            var contactLastLoginService = new ContactLastLoginQueryService(context);
+            var lastLogin = contactLastLoginService.GetSingle(user.Id, false, false) ??
+                            new ContactLastLoginPM
+                            {
+                                Id = user.Id,
+                                Tenant = tenant,
+                                LoginDateTime = now,
+                                ChangeSetOp = ChangeSetOperation.Insert
+                            };
+
+            user.DigitalLastLoginDateTime = lastLogin.LoginDateTime;
+            lastLogin.ComputerId = computerId;
+            lastLogin.LoginDateTime = now;
+            lastLogin.ChangeSetOp = lastLogin.ChangeSetOp != ChangeSetOperation.Insert ? ChangeSetOperation.Update : ChangeSetOperation.Insert;
+
+            new ContactLastLoginUpdateService(context).Update(lastLogin, true);
+            new ContactLoginLogUpdateService(context).Update(contactLog, true);
+
+            return card;
+        }
+        private TenantManagmentPrivateLabelsPM? GetPrivateLabelIfNeeded(LoginParameters loginParameters, string url)
+        {
+            if (!loginParameters.IsFromPLSignApp && !url.Contains("system.logbox.co.il") && !url.Contains("cloud.amital.co.il"))
+            {
+                TenantManagmentPrivateLabelsQueryService tenantManagmentPrivateLabelsQueryService = new TenantManagmentPrivateLabelsQueryService(globalContext);
+                return tenantManagmentPrivateLabelsQueryService.GetMulti(a => a.PrivateLabelUrl == url && a.InActive == false).FirstOrDefault();
+            }
+            return null;
+        }
         private void MapHasLogboxAccessPrivateLabelTenants(List<CompanyLogin> loginsList, List<string> logboxAccessiblePrivateLabelTenantsIds)
         {
             foreach (CompanyLogin companyLogin in loginsList)
@@ -524,9 +564,357 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                 }
             }
         }
-
-        private UserData? ValidateUser(string name, string password, int tenant, string computerId, out string? userData, bool isUser, string cardId, bool byToken, string via, string clientType, bool isFromCTool, bool IsFromCargoTracking, bool OneTimePassword)
+        private void CreateSharedLogisticsContactLastLogin(string via, UserData user, CardPM card)
         {
+            IAmitalCloudContext context = AmitalCloudContext.GetContext(card.Tenant);
+
+            string loginVia = string.IsNullOrEmpty(via) ? "PC" : via;
+            var now = TenantServerConfigration.GetCurrentDateTime(card.Tenant);
+            var queryService = new SharedLogisticsContactLastLoginQueryService(context);
+            var existingLogin = queryService.GetMulti(a =>
+                a.ContactId == user.Id &&
+                a.CardId == card.Id &&
+                a.PartnerTypeId == card.PartnerTypeId &&
+                a.Via == loginVia).FirstOrDefault();
+
+            var login = existingLogin ?? new SharedLogisticsContactLastLoginPM
+            {
+                ContactId = user.Id,
+                CardId = card.Id,
+                PartnerTypeId = card.PartnerTypeId,
+                Via = loginVia,
+                Tenant = card.Tenant,
+                ChangeSetOp = ChangeSetOperation.Insert
+            };
+
+            login.LoginDateTime = now;
+            login.ChangeSetOp = existingLogin == null ? ChangeSetOperation.Insert : ChangeSetOperation.Update;
+
+            var updateService = new SharedLogisticsContactLastLoginUpdateService(context);
+            updateService.Update(login, true);
+        }
+        private CompanyLogin CreateCompanyLogin(string email, string companyName, bool isUser, int tenantId, string? cardId, string? cardType, string contactId, bool licensedUser, bool internetAccess, string privateLabelId, string? customerName = "")
+    => new CompanyLogin
+    {
+        Email = email,
+        CompanyName = companyName,
+        IsUser = isUser,
+        Tenant = tenantId,
+        CardId = cardId ?? string.Empty,
+        CardType = cardType ?? string.Empty,
+        ContactId = contactId,
+        LicensedUser = licensedUser,
+        InternetAccess = internetAccess,
+        PrivateLabelId = privateLabelId,
+        CustomerName = customerName ?? string.Empty
+    };
+        public UserData GetUserTenantLogins(LoginParameters loginParams, UserData data, string email, string password, TenantManagmentPrivateLabelsPM? privatelabel, string url)
+        {
+
+            var logins = new List<CompanyLogin>();
+            List<GlobalContactPM>? contacts = GetContacts(email, tenant);
+
+            var zeroContact = contacts.FirstOrDefault(x => x.GlobalTenantId == 0);
+            var user = zeroContact != null ? GetUser(zeroContact.Id, tenant) : null;
+
+            bool isDistributor = user != null && user.IsDistributor && user.Tenant == 0;
+            bool isCustomerCare = user != null && !isDistributor && user.Tenant == 0;
+
+            if (isCustomerCare || isDistributor)
+                logins.AddRange(GetSupportLogins(zeroContact!, user, isDistributor));
+
+            var filteredContacts = contacts.Where(c => isCustomerCare || isDistributor ? c.InternetAccess : (c.IsUser || c.InternetAccess)).ToList();
+
+            foreach (GlobalContactPM contact in filteredContacts)
+            {
+                var tenant = contact.GlobalTenant;
+                bool shouldAddUser = contact.IsUser &&
+                                     !isCustomerCare &&
+                                     !isDistributor;
+                if (shouldAddUser)
+                {
+                    bool licensed = IsLicensed(contact);
+                    logins.Add(CreateCompanyLogin(
+                        contact.Email,
+                        $"{tenant.CompanyName} ({tenant.Id})",
+                        true,
+                        tenant.Id,
+                        null,
+                        null,
+                        contact.Id,
+                        true,
+                        contact.InternetAccess,
+                        tenant.PrivateLabelId
+                    ));
+                }
+
+                if (contact.InternetAccess && HasAccess(tenant.Id, loginParams))
+                {
+                    logins.AddRange(GetCardLogins(contact, tenant));
+                }
+            }
+
+
+            var unlicensed = logins.Where(x => x.IsUser && !x.LicensedUser).ToList();
+            logins = logins.Where(x => x.LicensedUser || !x.IsUser).OrderBy(x => x.CompanyName).ToList();
+
+            if (!loginParams.IsFromPLSignApp)
+                MapHasLogboxAccessPrivateLabelTenants(logins, GetLogboxAccessiblePrivateLabelTenantsIds(url));
+
+            return HandleLoginResult(logins, loginParams, email, password, privatelabel, unlicensed);
+        }
+        IEnumerable<CompanyLogin> GetSupportLogins(GlobalContactPM contact, UserPM? user, bool isDistributor)
+        {
+            List<TenantManagement> tenants = tenantManagementQueryService.GetTenantsBySupportStatus(isDistributor, user, tenant);
+
+            return tenants.Select(t =>
+                    CreateCompanyLogin(
+                        contact.Email,
+                        $"{t.GlobalTenant.CompanyName} ({t.Id})",
+                        true,
+                        t.Id,
+                        null,
+                        null,
+                        contact.Id,
+                        true,
+                        false,
+                        t.GlobalTenant.PrivateLabelId));
+        }
+        List<GlobalContactPM> GetContacts(string email, int tenant) =>
+           globalContactQueryService.GetContactsByEmail(email, tenant);
+        ContactPasswordPM? GetContactPasswordByEmail(string email) =>
+            contactPasswordQueryService
+                .GetMulti(d => d.Email.ToLower() == email.ToLower())
+                .FirstOrDefault();
+        IEnumerable<CompanyLogin> GetCardLogins(GlobalContactPM contact, GlobalTenantPM tenant)
+        {
+            var cardContactQueryService = new CardContactQueryService(amitalCloudContext);
+
+            Expression<Func<CardContact, bool>> predicate = c =>
+                c.ContactId == contact.Id &&
+                c.InternetAccess &&
+                 c.Tenant == contact.GlobalTenantId;
+
+            var cardContacts = cardContactQueryService.GetMulti<CardContactPM>(predicate, "Card");
+
+            return cardContacts?.Select(cardContact =>
+            {
+                var card = cardContact.Card;
+                return CreateCompanyLogin(
+                    contact.Email,
+                    $"{tenant.CompanyName}-{card?.EnglishName} ({tenant.Id})",
+                    false,
+                    tenant.Id,
+                    card?.Id,
+                    card?.PartnerTypeId,
+                    contact.Id,
+                    false,
+                    true,
+                    tenant.PrivateLabelId,
+                    card?.EnglishName
+                );
+            }) ?? new List<CompanyLogin>();
+        }
+        private GlobalContactPM? GetContact(string email, int tenant)
+        {
+            var contacts = GetContacts(email, tenant);
+            return contacts.FirstOrDefault(c => c.GlobalTenantId == 0)
+                ?? contacts.FirstOrDefault(c => c.GlobalTenantId == tenant);
+        }
+        private UserPM? GetUser(string contactId, int tenant)
+        {
+            var context = AmitalCloudContext.GetContext(tenant);
+            var userQueryService = new UserQueryService(context);
+            return userQueryService.GetMulti(x=> x.Id == contactId).FirstOrDefault();
+        }
+        private UserData? BuildUserData(GlobalContactPM member, string name, int tenant, bool isUser, string? cardId, IAmitalCloudContext context, out GlobalContactPM finalMember)
+        {
+            finalMember = member;
+
+            if (!string.IsNullOrEmpty(cardId))
+            {
+                var cardContactQuery = new CardContactQueryService(context);
+                var cardContact = cardContactQuery.GetMulti(d => d.ContactId == member.Id && d.CardId == cardId).FirstOrDefault();
+
+                if (cardContact == null)
+                {
+                    var fallback = globalContactQueryService.GetMulti(m =>
+                        m.Email == name &&
+                        !m.InActive &&
+                        (m.IsUser || m.InternetAccess) &&
+                        m.GlobalTenantId == tenant).FirstOrDefault();
+
+                    if (fallback != null)
+                        finalMember = fallback;
+                }
+            }
+
+            return new UserData
+            {
+                UserName = name,
+                Id = finalMember.Id,
+                Name = name,
+                CurrentTenant = tenant,
+                IsUser = isUser
+            };
+        }
+        private (bool passedAuthentication, GlobalContactPM? member, ContactPasswordPM? contactPassword)
+        TryAuthenticateContact(string name, string? password, bool byToken, bool OneTimePassword,
+        bool IsAzureAdLogin, List<GlobalContactPM>? contacts, int tenant, bool isUser, string clientType)
+        {
+            ContactPasswordPM? contactPassword = null;
+            GlobalContactPM? member = null;
+            bool passedAuthentication = false;
+
+            string hashedPassword = string.Empty;
+            bool isHashPassword = false;
+
+            if (!IsAzureAdLogin)
+            {
+                hashedPassword = byToken ? password! : PasswordGenerator.GetHashedPassword(name, password!);
+                isHashPassword = byToken;
+
+                if (!isHashPassword)
+                {
+                    var passResult = ResolvePassword(password!);
+                    if (passResult != null)
+                    {
+                        hashedPassword = passResult.Password;
+                        isHashPassword = passResult.isHashPassword;
+                    }
+                }
+            }
+
+            string? pass = !IsAzureAdLogin ? (isHashPassword ? hashedPassword : password) : null;
+            ContactPassword? contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(name, pass, isHashPassword);
+
+            if (contactPasswordPOCO != null)
+            {
+                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
+                CheckLockedUser(contactPassword, clientType);
+
+                if ((!contactPassword.IsLocked || clientType == "Web") && (!contactPassword.MustChangePassword || OneTimePassword))
+                {
+                    passedAuthentication = true;
+
+                    if (contacts != null)
+                    {
+                        var tenantContacts = contacts.Where(m => m.GlobalTenantId == tenant).ToList();
+
+                        member = tenantContacts.Count switch
+                        {
+                            > 1 => isUser
+                                ? tenantContacts.FirstOrDefault(m => m.IsUser)
+                                : tenantContacts.FirstOrDefault(m => m.InternetAccess),
+                            1 => tenantContacts.First(),
+                            _ => contacts.FirstOrDefault(m => m.GlobalTenantId == 0)
+                        };
+                    }
+
+                    var contactPasswordUpdateService = new ContactPasswordUpdateService(tenant);
+                    if (contactPassword?.NumberOfRetries > 0)
+                        UpdateContactPassword(contactPassword, contactPasswordUpdateService, numberOfRetries: 0);
+
+                    if (member != null)
+                    {
+                        CacheUserRoles(member, tenant);
+                    }
+                    else if (contactPassword != null)
+                    {
+                        contactPassword.NumberOfRetries++;
+                        UpdateContactPassword(contactPassword, contactPasswordUpdateService, contactPassword.NumberOfRetries);
+                    }
+                }
+            }
+
+            return (passedAuthentication, member, contactPassword);
+        }
+
+        private void CacheUserRoles(GlobalContactPM contact, int tenant)
+        {
+            var roleQuery = new RoleQuery(tenant);
+            var allRoles = roleQuery.GetRolesForContact(contact.Id, contact.GlobalTenantId).ToList();
+
+            var customRoles = allRoles.Where(r => r.IsCustomRole).ToList();
+            var roleIds = allRoles.Select(r => r.Id).ToList();
+
+            // הסרת ParentRoles במקרה של CustomRoles
+            foreach (var customRole in customRoles)
+            {
+                if (roleIds.Contains(customRole.ParentRoleId))
+                    roleIds.Remove(customRole.ParentRoleId);
+            }
+
+            var contactInfo = new ContactInfo
+            {
+                Tenant = tenant,
+                ContactEmail = contact.Email,
+                RolesIds = roleIds
+            };
+
+            CacheManager.CacheWrapper.Insert(
+                contact.Email + tenant,
+                contactInfo,
+                null,
+                DateTime.UtcNow.AddMinutes(30),
+                TimeSpan.Zero
+            );
+        }
+        #endregion
+
+        #region Security & Two-Factor
+        private bool IsCustomerCareIpAuthenticated()
+        {
+            var authenticatedIPs = (AmitalCloudSettings.CustomerCareIP ?? string.Empty)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            var httpContext = _httpContextAccessor.HttpContext;
+            var remoteIp = httpContext?.Connection.RemoteIpAddress?.ToString();
+
+            bool isLocalhost = remoteIp == "::1" || remoteIp == "127.0.0.1";
+            bool isHttpAuth = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_IIS_HTTPAUTH"));
+
+            if (authenticatedIPs.Contains("*") || (isHttpAuth && isLocalhost))
+                return true;
+
+            string? currentIp = httpContext?.Request.Headers["X-Real-IP"].FirstOrDefault() ?? remoteIp;
+            return authenticatedIPs.Contains(currentIp);
+        }
+        private bool IsUserAdmin(string email, int tenant)
+        {
+            UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
+            List<UserPM> entities = userQueryService.GetMulti(record => record.Contact.Email == email && (record.Tenant == tenant || record.Tenant == 0));
+            UserPM? loggedUser = entities.Where(a => a.Tenant == tenant).FirstOrDefault() ?? entities.Where(a => a.Tenant == 0).FirstOrDefault();
+            return loggedUser?.UserRoles != null && loggedUser.UserRoles.Contains("Administrator");
+        }
+        bool IsLicensed(GlobalContactPM contact)
+        {
+            var managePerUser = tenantManagementQueryService.GetSingle(contact.GlobalTenantId, false, true)?.ManageLicencesPerUser ?? false;
+            return !managePerUser || (GetUser(contact.Id, contact.GlobalTenantId)?.LicencedUser ?? false);
+        }
+        bool HasAccess(int tenantId, LoginParameters loginParams)
+        {
+            var tenant = tenantQueryService.GetSingle(tenantId, false, true);
+            return loginParams.IsMobileLogin
+                ? tenant.IsMobileActivated
+                : tenant.IsWebAccessActivated || tenant.IsCargoTrackWebAccessActivated || tenant.IsDigitalPortalAccessActivated;
+        }
+        private UserData? ValidateLogin(string email, string? password, int tenant, LoginParameters parameters, bool fromCTool)
+        {
+            var validatedUser = ValidateUser(email, password, tenant, Guid.NewGuid().ToString("N"), out _, parameters.IsUser, parameters.CardId,
+                parameters.ByToken, parameters.IsMobileLogin ? "Mobile" : "PC", parameters.ClientType, fromCTool, parameters.IsCargoTracking,
+                false, parameters.IsAzureAdLogin);
+
+            if (validatedUser != null)
+                return validatedUser;
+
+            ContactPasswordPM? contactPassword = null;
+            return CheckUserState(email, password, ref contactPassword, parameters.ByToken, parameters.ClientType, parameters.IsAzureAdLogin);
+        }
+        private UserData? ValidateUser(string name, string? password, int tenant, string computerId, out string? userData, bool isUser, string? cardId, bool byToken,
+           string via, string clientType, bool isFromCTool, bool IsFromCargoTracking, bool OneTimePassword, bool IsAzureAdLogin)
+        {
+            var myAmitalCloudContext = AmitalCloudContext.GetContext(tenant);
             ContactPasswordPM? contactPassword = null;
             UserData? user = null;
             userData = null;
@@ -534,32 +922,21 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             bool distributor = false;
             UserPM? amitalUser = null;
             GlobalContactPM? member = null;
-
             name = name.ToLower();
+
             if (name.Contains("system@"))
-            {
                 return user;
-            }
 
-            string hashedPassword = byToken ? password : PasswordGenerator.GetHashedPassword(name, password);
-            bool isHashPassword = byToken;
+            var contacts = GetContacts(name, tenant)?.Where(d => d.GlobalTenantId == 0 || d.GlobalTenantId == tenant)?.ToList();
 
-            if (!isHashPassword)
+            var contact = contacts?.FirstOrDefault(c => c.GlobalTenantId == 0) ??
+                contacts?.Where(c => c.GlobalTenantId == tenant).OrderByDescending(c => c.IsUser).FirstOrDefault();
+           
+            if (contact == null) return user;
+
+            if (contact.GlobalTenantId == 0)
             {
-                var passResult = ResolvePassword(password);
-                if (passResult != null)
-                {
-                    hashedPassword = passResult.Password;
-                    isHashPassword = passResult.isHashPassword;
-                }
-            }
-
-            GlobalContactPM? contact = globalContactQueryService.GetMulti(d => d.GlobalTenantId == 0 && d.InActive == false && d.Email == name).FirstOrDefault();
-
-            if (contact != null)
-            {
-                UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
-                amitalUser = userQueryService.GetSingle(contact.Id, false, false);
+                amitalUser = GetUser(contact.Id, tenant);
 
                 if (amitalUser?.Tenant == 0)
                 {
@@ -567,342 +944,156 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                     customerCare = !amitalUser.IsDistributor;
                 }
             }
-            else
+
+
+            if (!customerCare || IsCustomerCareIpAuthenticated())
             {
-                List<GlobalContactPM> globalContacts = globalContactQueryService.GetMulti(m => m.Email == name && m.InActive == false && m.GlobalTenantId == tenant);
-                if (globalContacts.Count > 1)
+                var authenticationResult = TryAuthenticateContact(
+                    name, password, byToken, OneTimePassword, IsAzureAdLogin,
+                    contacts, tenant, isUser, clientType);
+
+                if (authenticationResult.passedAuthentication)
                 {
-                    contact = globalContactQueryService.GetMulti(m => m.Email == name && m.InActive == false && m.GlobalTenantId == tenant && m.IsUser == isUser).FirstOrDefault();
+                    contactPassword = authenticationResult.contactPassword;
+                    member = authenticationResult.member;
+                }
+            }
+            if (member != null)
+                  user = BuildUserData(member, name, tenant, isUser, cardId, myAmitalCloudContext, out var finalMember);
+
+            if (user != null)
+                userData = HandleUserOrContactLogin(user, member, cardId, via, isUser, isFromCTool, IsFromCargoTracking, tenant, computerId, amitalUser, distributor, customerCare, myAmitalCloudContext);
+
+            if (contactPassword != null && user != null)
+                user.NumberOfRetries = contactPassword.NumberOfRetries;
+
+            return user;
+        }
+        private UserData CheckUserState(string email, string? password, ref ContactPasswordPM? contactPassword, bool byToken, string clientType, bool isAzureAdLogin)
+        {
+            if (!string.IsNullOrEmpty(email))
+                email = email.ToLower();
+
+            UserData userData = new UserData()
+            {
+                UserName = email,
+            };
+
+            bool isOneTimePassword = false;
+            bool isHashedPassword = byToken;
+            string? hashedPassword = null;
+
+            if (!isAzureAdLogin)
+            {
+                if (!isHashedPassword)
+                {
+                    var passResult = ResolvePassword(password!);
+                    if (passResult != null)
+                    {
+                        hashedPassword = passResult.Password;
+                        isOneTimePassword = passResult.IsOneTimePassword;
+                        isHashedPassword = passResult.isHashPassword;
+                    }
                 }
                 else
                 {
-                    contact = globalContacts.FirstOrDefault();
-                }
-            }
-            if (contact != null)
-            {
-                if (!customerCare || IscustomerCareIpAuthenticated())
-                {
-                    string pass = isHashPassword ? hashedPassword : password;
-                    ContactPassword contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(name, pass, isHashPassword);
-
-                    if (contactPasswordPOCO != null)
-                    {
-                        contactPassword = new ContactPasswordPM(contactPasswordPOCO);
-                        CheckLockedUser(contactPassword, clientType);
-
-                        if ((!contactPassword.IsLocked || clientType == "Web") && (!contactPassword.MustChangePassword || OneTimePassword))
-                        {
-                            member = globalContactQueryService.GetMulti(m => m.Email == name && m.GlobalTenantId == tenant && m.InActive == false).FirstOrDefault();
-                            if (member == null)
-                            {
-                                member = globalContactQueryService.GetMulti(m => m.Email == name && m.GlobalTenantId == 0).FirstOrDefault();
-                            }
-                            if (member == null)
-                            {
-                                List<GlobalContactPM> globalcontacts = globalContactQueryService.GetMulti(m => m.Email == name && m.InActive == false && (m.IsUser == true || m.InternetAccess == true) && m.GlobalTenantId == tenant);
-                                if (globalcontacts.Count > 1)
-                                {
-                                    if (isUser)
-                                    {
-                                        member = globalcontacts.Where(m => m.Email == name && m.InActive == false && m.IsUser == true && m.GlobalTenantId == tenant).FirstOrDefault();
-                                    }
-                                    else
-                                    {
-                                        member = globalcontacts.Where(m => m.Email == name && m.InActive == false && m.InternetAccess == true && m.GlobalTenantId == tenant).FirstOrDefault();
-                                    }
-                                }
-                                else
-                                {
-                                    member = globalcontacts.FirstOrDefault();
-                                }
-                            }
-
-                            ContactPasswordUpdateService contactPasswordUpdateService = new ContactPasswordUpdateService(tenant);
-
-                            if (member != null)
-                            {
-                                if (contactPassword.NumberOfRetries > 0)
-                                {
-                                    UpdateContactPassword(contactPassword, contactPasswordUpdateService, numberOfRetries: 0);
-                                }
-
-                                RoleQuery roleQuery = new RoleQuery(tenant);
-                                List<RolePM> allRoles = roleQuery.GetRolesForContact(contact.Id, contact.GlobalTenantId).ToList();
-                                List<RolePM> allCustomRoles = allRoles.Where(d => d.IsCustomRole == true).ToList();
-
-                                List<string> allRolesIds = allRoles.Select(s => s.Id).ToList();
-
-                                foreach (RolePM item in allCustomRoles)
-                                {
-                                    if (allRolesIds.Contains(item.ParentRoleId))
-                                    {
-                                        allRolesIds.Remove(item.ParentRoleId);
-                                    }
-                                }
-
-                                ContactInfo myContactInfo = new ContactInfo()
-                                {
-                                    Tenant = tenant,
-                                    ContactEmail = contact.Email,
-                                    RolesIds = allRolesIds,
-                                };
-
-                                CacheManager.CacheWrapper.Insert(contact.Email + tenant, myContactInfo, null, System.DateTime.UtcNow.AddMinutes(30), TimeSpan.Zero);
-                            }
-                            else
-                            {
-                                contactPassword.NumberOfRetries++;
-                                UpdateContactPassword(contactPassword, contactPasswordUpdateService, contactPassword.NumberOfRetries);
-                            }
-                        }
-                    }
-                }
-
-                IAmitalCloudContext myAmitalCloudContext = AmitalCloudContext.GetContext(contact.GlobalTenantId);
-
-                if (member != null)
-                {
-                    if (!string.IsNullOrEmpty(cardId))
-                    {
-                        CardContactQueryService cardContactQueryService = new CardContactQueryService(myAmitalCloudContext);
-                        CardContactPM cardContact = cardContactQueryService.GetMulti(d => d.ContactId == member.Id && d.CardId == cardId).FirstOrDefault();
-                        if (cardContact == null)
-                        {
-                            GlobalContactPM member2 = globalContactQueryService.GetMulti(m => m.Email == name && m.InActive == false && (m.IsUser == true || m.InternetAccess == true) && m.GlobalTenantId == tenant).FirstOrDefault();
-                            if (member2 != null)
-                            {
-                                member = member2;
-                            }
-                        }
-                    }
-
-                    user = new UserData()
-                    {
-                        UserName = name,
-                        Id = member.Id,
-                        Name = name,
-                        CurrentTenant = tenant,
-                        IsUser = isUser,
-                    };
-                }
-
-                if (user != null)
-                {
-                    CardPM? card = null;
-                    string? userAgent = !string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request?.Headers["User-Agent"]) ? (_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Length <= 500 ? _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString() : _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Substring(0, 500)) : null;
-
-                    if (!isFromCTool)
-                    {
-                        if (isUser)
-                        {
-                            UserLoginLogPM userLog = new UserLoginLogPM()
-                            {
-                                Id = IdCounter.GetNumber("UserLoginLog", tenant).ToString(),
-                                Tenant = tenant,
-                                Browser = getBrowserType(),
-                                IP = AuthenticationUtil.GetIP4Address(),
-                                UserId = user.Id,
-                                GMTDateTime = DateTime.Now,
-                                LocalDateTime = TenantServerConfigration.GetCurrentDateTime(tenant),
-                                UserAgent = userAgent,
-                                ComputerId = computerId,
-                                ChangeSetOp = ChangeSetOperation.Insert,
-                            };
-                            string? currentIP = _httpContextAccessor.HttpContext?.Request.Headers["X-Real-IP"];
-                            if (!string.IsNullOrEmpty(currentIP))
-                            {
-                                userLog.Browser = userLog.Browser.ToUpper();
-                            }
-                            using (TransactionScope scope = TransactionFactory.GetNewTransaction(TimeSpan.FromMinutes(10)))
-                            {
-                                UserLastLoginQueryService userLastLoginQueryService = new UserLastLoginQueryService(myAmitalCloudContext);
-                                UserLastLoginPM lastLogin = userLastLoginQueryService.GetSingle(user.Id, false, false);
-                                if (lastLogin == null)
-                                {
-                                    lastLogin = new UserLastLoginPM()
-                                    {
-                                        Id = user.Id,
-                                        Tenant = tenant,
-                                        ComputerId = computerId,
-                                        WorkEnvironment = AmitalCloudSettingConfigration.GetWorkEnvironment(),
-                                        IP = AuthenticationUtil.GetIP4Address(),
-                                        ChangeSetOp = ChangeSetOperation.Insert
-                                    };
-                                    UserLastLoginUpdateService userLastLoginUpdateService = new UserLastLoginUpdateService(myAmitalCloudContext);
-                                    userLastLoginUpdateService.Update(lastLogin, true);
-                                }
-
-                                user.LastLoginDateTime = lastLogin.LoginDateTime;
-                                lastLogin.IP = AuthenticationUtil.GetIP4Address();
-                                lastLogin.LoginDateTime = TenantServerConfigration.GetCurrentDateTime(tenant);
-                                lastLogin.Tenant = tenant;
-
-                                UserLoginLogUpdateService userLoginLogUpdateService = new UserLoginLogUpdateService(myAmitalCloudContext);
-                                userLoginLogUpdateService.Update(userLog, true);
-                                scope.Complete();
-                            }
-                        }
-                        else
-                        {
-                            CardContactQueryService cardContactQueryService = new CardContactQueryService(myAmitalCloudContext);
-                            CardQueryService cardQueryService = new CardQueryService(myAmitalCloudContext);
-                            CardContactPM cardContact = cardContactQueryService.GetMulti(d => d.ContactId == member.Id && d.CardId == cardId).FirstOrDefault();
-                            if (cardContact != null)
-                            {
-                                card = cardQueryService.GetSingle(cardId, false, false);
-                                card.SharedLogisticsInvitationStatusCode = !IsFromCargoTracking ? 3 : card.SharedLogisticsInvitationStatusCode;
-                                card.CargoTrackingInvitationStatusCode = IsFromCargoTracking ? 3 : card.CargoTrackingInvitationStatusCode;
-                                card.LastLoginDate = TenantServerConfigration.GetCurrentDateTime(tenant);
-                                cardContact.LastLoginDate = TenantServerConfigration.GetCurrentDateTime(tenant);
-                                user.CardId = card.Id;
-                                user.CardType = card.PartnerTypeId;
-
-                                if (via == "Mobile")
-                                {
-                                    card.IsActiveForMobile = true;
-                                }
-                            }
-
-                            if (card != null)
-                            {
-                                string activity = card.PartnerTypeId == "CS" ? "Customer Access" : "Agent Access";
-                                CreateSharedLogisticsContactLastLogin(via, user, card);
-                            }
-
-                            ContactLoginLogPM contactLog = new ContactLoginLogPM()
-                            {
-                                Id = IdCounter.GetNumber("ContactLoginLog", tenant).ToString(),
-                                Tenant = tenant,
-                                Browser = getBrowserType(),
-                                IP = AuthenticationUtil.GetIP4Address(),
-                                ContactId = user.Id,
-                                GMTDateTime = DateTime.Now,
-                                LocalDateTime = TenantServerConfigration.GetCurrentDateTime(tenant),
-                                ContactAgent = userAgent,
-                                ComputerId = computerId,
-                                Via = via,
-                                ChangeSetOp = ChangeSetOperation.Insert,
-                            };
-
-                            ContactLastLoginQueryService contactLastLoginQueryService = new ContactLastLoginQueryService(myAmitalCloudContext);
-                            ContactLastLoginPM lastLogin = contactLastLoginQueryService.GetSingle(user.Id, false, false);
-                            if (lastLogin == null)
-                            {
-                                lastLogin = new ContactLastLoginPM()
-                                {
-                                    Id = user.Id,
-                                    Tenant = tenant,
-                                    LoginDateTime = TenantServerConfigration.GetCurrentDateTime(tenant),
-                                    ChangeSetOp = ChangeSetOperation.Insert
-                                };
-                                ContactLastLoginUpdateService contactLastLoginUpdateService = new ContactLastLoginUpdateService(myAmitalCloudContext);
-                                contactLastLoginUpdateService.Update(lastLogin, true);
-                            }
-
-                            user.DigitalLastLoginDateTime = lastLogin.LoginDateTime;
-                            lastLogin.ComputerId = computerId;
-                            lastLogin.LoginDateTime = TenantServerConfigration.GetCurrentDateTime(tenant);
-
-                            ContactLoginLogUpdateService contactLoginLogUpdateService = new ContactLoginLogUpdateService(myAmitalCloudContext);
-                            contactLoginLogUpdateService.Update(contactLog, true);
-                        }
-                    }
-
-                    if (amitalUser != null)
-                    {
-                        distributor = amitalUser.IsDistributor;
-                        customerCare = !amitalUser.IsDistributor;
-                    }
-
-                    string SimplogGuid = Guid.NewGuid().ToString("N");
-                    userData = $"{member.Email}:{member.Id}" + (card != null ? $":{card.Id}:{card.PartnerTypeId}" : "") + $":{SimplogGuid}";
+                    hashedPassword = password;
                 }
             }
 
-            if (contactPassword != null)
-            {
-                user.NumberOfRetries = contactPassword.NumberOfRetries;
-            }
-            return user;
-        }
+            string? pass = isAzureAdLogin ? null : (isHashedPassword ? hashedPassword : password);
+            ContactPassword? contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(email, pass, isHashedPassword);
 
-        private void CreateSharedLogisticsContactLastLogin(string via, UserData user, CardPM card)
-        {
-            IAmitalCloudContext cardContext = AmitalCloudContext.GetContext(card.Tenant);
-            string loggedVia = string.IsNullOrEmpty(via) ? "PC" : via;
-            SharedLogisticsContactLastLoginQueryService sharedLogisticsContactLastLoginQueryService = new SharedLogisticsContactLastLoginQueryService(cardContext);
-            SharedLogisticsContactLastLoginPM sharedContactLastLogin = sharedLogisticsContactLastLoginQueryService.GetMulti(a => a.ContactId == user.Id && a.CardId == card.Id && a.PartnerTypeId == card.PartnerTypeId && a.Via == loggedVia).FirstOrDefault();
-            if (sharedContactLastLogin == null)
+            if (contactPasswordPOCO != null)
             {
-                sharedContactLastLogin = new SharedLogisticsContactLastLoginPM()
-                {
-                    ContactId = user.Id,
-                    CardId = card.Id,
-                    PartnerTypeId = card.PartnerTypeId,
-                    Via = via,
-                    Tenant = card.Tenant,
-                    LoginDateTime = TenantServerConfigration.GetCurrentDateTime(card.Tenant),
-                    ChangeSetOp = ChangeSetOperation.Insert
-                };
+                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
+                CheckLockedUser(contactPassword, clientType);
+
+                var contact = GetContact(email!, tenant);
+                var user = contact != null ? GetUser(contact.Id, tenant) : null;
+
+                bool isCustomerCare = user?.Tenant == 0 && user?.IsDistributor == false;
+                bool isDistributor = user?.Tenant == 0 && user?.IsDistributor == true;
+
+                userData.Technology = user?.Technology ?? string.Empty;
+                userData.IsUser = contact?.IsUser ?? false;
+                userData.IsLocked = contactPassword.IsLocked;
+                userData.MustChangePassword = !isOneTimePassword && contactPassword.MustChangePassword;
+
+                if (isCustomerCare)
+                    userData.IpRestricted = !IsCustomerCareIpAuthenticated();
             }
             else
             {
-                sharedContactLastLogin.LoginDateTime = TenantServerConfigration.GetCurrentDateTime(card.Tenant);
-                sharedContactLastLogin.ChangeSetOp = ChangeSetOperation.Update;
+                contactPassword = GetContactPasswordByEmail(email);
+                if (contactPassword != null)
+                {
+                    contactPassword.NumberOfRetries++;
+                    UpdateContactPassword(contactPassword, new ContactPasswordUpdateService(tenant), contactPassword.NumberOfRetries);
+                }
+                else
+                    userData.InvalidEmailAddress = true;
+
+                userData.InValidMailOrPassword = !byToken;
             }
 
-            SharedLogisticsContactLastLoginUpdateService sharedLogisticsContactLastLoginUpdateService = new SharedLogisticsContactLastLoginUpdateService(cardContext);
-            sharedLogisticsContactLastLoginUpdateService.Update(sharedContactLastLogin, true);
-        }
+            userData.HasError = (userData.InValidMailOrPassword || userData.IpRestricted || (userData.IsLocked && clientType != "Web") || userData.MustChangePassword);
 
-        private void AddFailedLoginLog(UserData data)
+            userData.NumberOfRetries = contactPassword?.NumberOfRetries ?? 0;
+
+            return userData;
+        }
+        private void CheckLockedUser(ContactPasswordPM contact, string clientType)
         {
-            FailedLoginLogUpdateService failedLoginLogUpdateService = new FailedLoginLogUpdateService(data.Tenant);
-            FailedLoginLogPM failedLoginLog = new FailedLoginLogPM()
+            bool? IsLocked = null;
+            int? NumberOfRetries = null;
+
+            if (contact.IsLocked)
             {
-                Id = IdCounter.GetNumber("FailedLoginLog", data.Tenant).ToString(),
-                Browser = getBrowserType(),
-                IP = AuthenticationUtil.GetIP4Address(),
-                GMTDateTime = DateTime.Now,
-                UserAgent = !string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"]) ? (_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Length <= 500 ? _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString() : _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Substring(0, 500)) : null,
-                Email = data.UserName,
-                ChangeSetOp = ChangeSetOperation.Insert
-            };
+                if (contact.LockDateTime.HasValue)
+                {
+                    var minutesLocked = (DateTime.Now - contact.LockDateTime.Value).TotalMinutes;
+                    if (minutesLocked > 30 || clientType == "Web")
+                    {
+                        IsLocked = false;
+                        NumberOfRetries = 0;
+                    }
+                }
+                else
+                    IsLocked = false;
+            }
+            else if (clientType == "Web")
+            {
+                IsLocked = false;
+                NumberOfRetries = 0;
+                contact.CaptchaKey = null;
+            }
 
-            if (data.Param1) failedLoginLog.Reason = "Wrong Email address";
-            else if (data.InValidMailOrPassword) failedLoginLog.Reason = "Wrong Password";
-            else if (data.IpRestricted) failedLoginLog.Reason = "Unauthorized IP address";
-            else if (data.InValidCaptcha) failedLoginLog.Reason = "Valid Captcha";
-            else if (data.IsLocked) failedLoginLog.Reason = "Locked User";
-
-            data.Param1 = false;
-            string? currentIP = _httpContextAccessor.HttpContext?.Request.Headers["X-Real-IP"];
-            if (!string.IsNullOrEmpty(currentIP)) failedLoginLog.Browser = failedLoginLog.Browser.ToUpper();
-
-            failedLoginLogUpdateService.Update(failedLoginLog, true);
+            if (IsLocked.HasValue || NumberOfRetries.HasValue)
+                UpdateContactPassword(contact, new ContactPasswordUpdateService(tenant), NumberOfRetries, IsLocked);
         }
-
-        private bool CheckLoginSecurityPolicy(int tenant, UserData user, UserPM amitalUser, TenantLoginPolicyPM securityPolicy)
+        private bool CheckLoginSecurityPolicy(int tenant, UserData user, UserPM? amitalUser, TenantLoginPolicyPM securityPolicy, bool isAzureAdLogin)
         {
             string ipAddress = AuthenticationUtil.GetIP4Address();
-            string? deviceDescription = !string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"]) ? (_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Length <= 500 ? _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString() : _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Substring(0, 500)) : "";
+            string? deviceDescription = !string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"]) ? (_httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Length <= 500
+                ? _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString() : _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString().Substring(0, 500)) : "";
+
             string? TwoFactorkey = _httpContextAccessor.HttpContext?.Request.Headers["TwoFactorkey"];
 
             bool IsTwoFactorAuthenticationRequired = false;
             if (securityPolicy != null && securityPolicy.LoginPolicyCode != "NOREST")
             {
-                if (securityPolicy.LoginPolicyCode == "TFAUTH")
+                if (!isAzureAdLogin && securityPolicy.LoginPolicyCode == "TFAUTH")
                 {
                     if (!user.IsUser ||
-                        (securityPolicy.IsEnabledForSpecificUsers && !amitalUser.IsTwoFactorAuthenticationEnabled)
+                        (securityPolicy.IsEnabledForSpecificUsers && amitalUser?.IsTwoFactorAuthenticationEnabled == false)
                         || (securityPolicy.ExcludeInternalIPs && !string.IsNullOrEmpty(securityPolicy.TwoFactorInternalIPs) && securityPolicy.TwoFactorInternalIPs.Contains(ipAddress)))
                     {
                         return false;
                     }
 
                     ContactQueryService contactQueryService = new ContactQueryService(amitalCloudContext);
-                    ContactPM loggedContact = contactQueryService.GetSingle(amitalUser.Id, false, false);
+                    ContactPM loggedContact = contactQueryService.GetSingle(amitalUser?.Id, false, false);
 
                     TwoFactorAuthenticationDevicePM? device = null;
                     if (!string.IsNullOrEmpty(TwoFactorkey))
@@ -927,7 +1118,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                             Tenant = tenant,
                             CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
                             UpdateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                            UserId = amitalUser.Id,
+                            UserId = amitalUser?.Id,
                             CodeExpirationDate = TenantServerConfigration.GetCurrentDateTime(tenant).AddMinutes(10),
                             AuthenticationCode = authCode,
                             DeviceDescription = deviceDescription,
@@ -946,7 +1137,7 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                     }
                     else
                     {
-                        if (device.IsVerified)
+                        if (device!.IsVerified)
                         {
                             device.DeviceDescription = deviceDescription;
                             device.LastLoginIP = ipAddress;
@@ -989,200 +1180,16 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
             }
             return IsTwoFactorAuthenticationRequired;
         }
-
-        private string GetContactMaskedMobileNumber(ContactPM loggedContact)
-        {
-            if (!string.IsNullOrEmpty(loggedContact.Mobile))
-            {
-                var firstDigits = loggedContact.Mobile.Substring(0, 4);
-                var lastDigits = loggedContact.Mobile.Substring(loggedContact.Mobile.Length - 2, 2);
-                var requiredMask = new String('*', loggedContact.Mobile.Length - firstDigits.Length - lastDigits.Length);
-                var maskedString = string.Concat(firstDigits, requiredMask, lastDigits);
-
-                return maskedString;
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        private UserData CheckCaptchaState(LoginParameters loginParameters, bool withoutCheckUsed = false)
-        {
-             UserData data = new UserData();
-            if (!loginParameters.IsMobileLogin && loginParameters.ClientType == "Web")
-            {
-                bool isCheckCaptchaCode = !string.IsNullOrEmpty(loginParameters.CaptchaCode) && !string.IsNullOrEmpty(loginParameters.CaptchaKey);
-                ContactPasswordPM contactPassword = contactPasswordQueryService.GetMulti(c => c.Email.ToLower() == loginParameters.Email).FirstOrDefault();
-
-                if (!isCheckCaptchaCode && contactPassword != null && contactPassword.NumberOfRetries++ >= 5)
-                {
-                    DateTime dateNowBefor5Minutes = DateTime.Now.AddMinutes(-5);
-                    if (contactPassword.LockDateTime > dateNowBefor5Minutes) isCheckCaptchaCode = true;
-                    if (!isCheckCaptchaCode)
-                    {
-                        int countCaptchaKey = new CaptchaKeyQueryService(0).GetMulti(a => a.Email == loginParameters.Email && a.Activity == "Login" && a.CreateDate >= dateNowBefor5Minutes).Count();
-                        if (countCaptchaKey >= 5) isCheckCaptchaCode = true;
-                    }
-                }
-
-              
-            }
-            return data;
-        }
-
-        private List<string> GetLogboxAccessiblePrivateLabelTenantsIds(string url)
-        {
-            List<string> logboxAccessiblePrivateLabelTenantsIds = new List<string>();
-            if (url.Contains("system.logbox.co.il") || url.Contains("pre.logbox.co.il") || url.Contains("localhost"))
-            {
-                TenantManagmentPrivateLabelsQueryService tenantManagmentPrivateLabelsQueryService = new TenantManagmentPrivateLabelsQueryService(globalContext);
-                logboxAccessiblePrivateLabelTenantsIds = tenantManagmentPrivateLabelsQueryService.GetMulti(a => a.InActive == false && a.HasLogboxAccess, a => a.Id);
-            }
-            return logboxAccessiblePrivateLabelTenantsIds;
-        }
-
-        private bool IscustomerCareIpAuthenticated()
-        {
-            string[] authenticatedIPs = (AmitalCloudSettings.CustomerCareIP ?? string.Empty).Split(',');
-
-            if (authenticatedIPs.Contains("*") || (Environment.GetEnvironmentVariable("ASPNETCORE_IIS_HTTPAUTH") != null && (_httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() == "::1" || _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() == "127.0.0.1")))
-            {
-                return true;
-            }
-            else
-            {
-                string? currentIP = _httpContextAccessor.HttpContext?.Request.Headers["X-Real-IP"];
-                if (string.IsNullOrEmpty(currentIP))
-                {
-                    currentIP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-                }
-                return authenticatedIPs.Contains(currentIP);
-            }
-        }
-
-        private UserData CheckUserState(string email, string password, ref ContactPasswordPM contactPassword, bool byToken, string clientType)
-        {
-            if (!string.IsNullOrEmpty(email)) email = email.ToLower();
-            UserData userData = new UserData()
-            {
-                UserName = email,
-            };
-            string hashedPassword = byToken ? password : PasswordGenerator.GetHashedPassword(email, password);
-            bool IsOneTimePassword = false;
-            bool isHashPassword = byToken;
-
-            if (!isHashPassword)
-            {
-                var passResult = ResolvePassword(password);
-                if (passResult != null)
-                {
-                    hashedPassword = passResult.Password;
-                    IsOneTimePassword = passResult.IsOneTimePassword;
-                    isHashPassword = passResult.isHashPassword;
-                }
-            }
-
-            string pass = isHashPassword ? hashedPassword : password;
-            ContactPassword contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(email, pass, isHashPassword);
-
-            if (contactPasswordPOCO != null)
-            {
-                contactPassword = new ContactPasswordPM(contactPasswordPOCO);
-                CheckLockedUser(contactPassword, clientType);
-
-                GlobalContactPM contact = globalContactQueryService.GetMulti(d => d.GlobalTenantId == 0 && d.InActive == false && d.Email.ToLower() == email).FirstOrDefault();
-                bool customerCare = false;
-                bool distributor = false;
-                UserPM amitalUser = null;
-                if (contact != null)
-                {
-                    UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
-                    amitalUser = userQueryService.GetSingle(contact.Id, false, false);
-                    if (amitalUser?.Tenant == 0)
-                    {
-                        distributor = amitalUser.IsDistributor;
-                        customerCare = !amitalUser.IsDistributor;
-                    }
-                    userData.Technology = amitalUser.Technology;
-                    userData.IsUser = contact.IsUser;
-                }
-
-                userData.IsLocked = contactPassword.IsLocked;
-                userData.MustChangePassword = !IsOneTimePassword && contactPassword.MustChangePassword;
-
-                if (customerCare)
-                {
-                    userData.IpRestricted = !IscustomerCareIpAuthenticated();
-                }
-            }
-            else
-            {
-                contactPassword = contactPasswordQueryService.GetMulti(d => d.Email.ToLower() == email).FirstOrDefault();
-                if (contactPassword != null)
-                {
-                    contactPassword.NumberOfRetries++;
-                    UpdateContactPassword(contactPassword, new ContactPasswordUpdateService(tenant), contactPassword.NumberOfRetries);
-                }
-                else userData.Param1 = true;
-
-                userData.InValidMailOrPassword = !byToken;
-            }
-
-            userData.HasError = (userData.InValidMailOrPassword || userData.IpRestricted || (userData.IsLocked && clientType != "Web") || userData.MustChangePassword);
-
-            if (contactPassword != null)
-            {
-                userData.NumberOfRetries = contactPassword.NumberOfRetries;
-            }
-
-            return userData;
-        }
-
-        private void CheckLockedUser(ContactPasswordPM contact, string clientType)
-        {
-            bool? IsLocked = null;
-            int? NumberOfRetries = null;
-
-            if (contact.IsLocked)
-            {
-                if (contact.LockDateTime != null)
-                {
-                    TimeSpan timeElapsed = (DateTime.Now - contact.LockDateTime.Value);
-                    if (timeElapsed.TotalMinutes > 30 || clientType == "Web")
-                    {
-                        IsLocked = false;
-                        NumberOfRetries = 0;
-                    }
-                }
-                else
-                {
-                    IsLocked = false;
-                }
-            }
-            else if (clientType == "Web")
-            {
-                IsLocked = false;
-                NumberOfRetries = 0;
-                contact.CaptchaKey = null;
-            }
-
-            if (IsLocked != null || NumberOfRetries != null)
-            {
-                UpdateContactPassword(contact, new ContactPasswordUpdateService(tenant), NumberOfRetries, IsLocked);
-            }
-        }
-
         private string? AddVerificationCodeSMSLog(ContactPM loggedContact, TwoFactorAuthenticationDevicePM device)
         {
             if (!string.IsNullOrEmpty(loggedContact.Mobile) && loggedContact.Mobile.Length > 7)
             {
                 int tenant = device.Tenant;
                 ObjectTableQueryService objectTableQueryService = new ObjectTableQueryService(amitalCloudContext);
-                ObjectTablePM objectTable = objectTableQueryService.GetMultiFromCache(nameof(TwoFactorAuthenticationDevice) + 0, d => d.Name == nameof(TwoFactorAuthenticationDevice) && d.Tenant == 0).FirstOrDefault();
+                var objectTable = objectTableQueryService.GetMultiFromCache(nameof(TwoFactorAuthenticationDevice) + 0, d => d.Name == nameof(TwoFactorAuthenticationDevice) && d.Tenant == 0).FirstOrDefault();
 
-                string myObjectTableId = objectTable?.Id;
-                string environment =   AmitalCloudSettings.WorkEnvironment == "cloud" ? "Cloud" : "Amital";
+                string? myObjectTableId = objectTable?.Id;
+                string environment = AmitalCloudSettings.WorkEnvironment == "cloud" ? "Cloud" : "Amital";
                 string body = $"Please use the code {device.AuthenticationCode} to verify your {environment} Account";
                 byte[] bytearray = Encoding.ASCII.GetBytes(body);
 
@@ -1248,7 +1255,220 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
             return null;
         }
+        private UserData CheckCaptchaState(LoginParameters loginParameters, bool withoutCheckUsed = false)
+        {
+            UserData data = new UserData();
+            if (!loginParameters.IsMobileLogin && loginParameters.ClientType == "Web")
+            {
+                bool isCheckCaptchaCode = !string.IsNullOrEmpty(loginParameters.CaptchaCode) && !string.IsNullOrEmpty(loginParameters.CaptchaKey);
+                ContactPasswordPM? contactPassword = GetContactPasswordByEmail(loginParameters.Email);
 
+                if (!isCheckCaptchaCode && contactPassword != null && contactPassword.NumberOfRetries++ >= 5)
+                {
+                    DateTime dateNowBefor5Minutes = DateTime.Now.AddMinutes(-5);
+                    if (contactPassword.LockDateTime > dateNowBefor5Minutes) isCheckCaptchaCode = true;
+                    if (!isCheckCaptchaCode)
+                    {
+                        int countCaptchaKey = new CaptchaKeyQueryService(0).GetMulti(a => a.Email == loginParameters.Email && a.Activity == "Login" && a.CreateDate >= dateNowBefor5Minutes).Count();
+                        if (countCaptchaKey >= 5) isCheckCaptchaCode = true;
+                    }
+                }
+
+
+            }
+            return data;
+        }
+        private bool CheckAndHandleTwoFactorAuthentication(int tenant, UserData user, UserPM? amitalUser, bool fromCTool, bool customerCare, LoginParameters parameters)
+        {
+            if (parameters.IsAngularLogin || parameters.IsMobileLogin || !parameters.IsUser || customerCare || fromCTool)
+            {
+                return false;
+            }
+
+            amitalCloudContext = AmitalCloudContext.GetContext(tenant);
+            TenantLoginPolicyQueryService securityPolicyQueryService = new TenantLoginPolicyQueryService(amitalCloudContext);
+            TenantLoginPolicyPM? securityPolicy = securityPolicyQueryService.GetMulti(d => d.Tenant == tenant).FirstOrDefault();
+
+            if (securityPolicy == null || securityPolicy.LoginPolicyCode == "NOREST")
+            {
+                return false;
+            }
+
+            return CheckLoginSecurityPolicy(tenant, user, amitalUser, securityPolicy, parameters.IsAzureAdLogin);
+        }
+        private void UpdateContactPassword(ContactPasswordPM contactPassword, ContactPasswordUpdateService contactPasswordUpdateService, int? numberOfRetries = null, bool? isLocked = null, string? captchaKey = null)
+        {
+            if (numberOfRetries.HasValue)
+            {
+                contactPassword.NumberOfRetries = numberOfRetries.Value;
+
+                if (contactPassword.NumberOfRetries >= 5)
+                {
+                    contactPassword.IsLocked = true;
+                    contactPassword.LockDateTime = DateTime.Now;
+                }
+            }
+            if (isLocked == false || numberOfRetries == 0)
+            {
+                contactPassword.LockDateTime = null;
+                contactPassword.IsLocked = false;
+                contactPassword.NumberOfRetries = 0;
+            }
+
+            if (!string.IsNullOrWhiteSpace(captchaKey))
+                contactPassword.CaptchaKey = captchaKey;
+
+            contactPassword.ChangeSetOp = ChangeSetOperation.Update;
+            contactPasswordUpdateService.Update(contactPassword, true);
+        }
+
+        #endregion
+
+        #region Token Management
+        private void HandleAuthenticationTokens(LoginParameters parameters, int tenant, UserData validatedUser, UserPM? amitalUser, bool fromCTool, bool customerCare)
+        {
+            if (validatedUser.HasError)
+                return;
+
+            if (parameters.IsMobileLogin || parameters.GetToken)
+            {
+                bool twoFactorRequired = CheckAndHandleTwoFactorAuthentication(tenant, validatedUser, amitalUser, fromCTool, customerCare, parameters);
+
+                if (!twoFactorRequired && !parameters.ByToken)
+                {
+                    GenerateTokensForUser(validatedUser, parameters, tenant);
+                }
+                else if (twoFactorRequired)
+                {
+                    validatedUser.IsTwoFactorAuthenticationRequired = true;
+                }
+            }
+        }
+        private void GenerateTokensForUser(UserData user, LoginParameters parameters, int tenant)
+        {
+            string hashedPassword = string.Empty;
+            bool isAzureAdLogin = parameters.IsAzureAdLogin;
+            if (!isAzureAdLogin)
+            {
+                ContactPassword? contactPasswordPOCO = AuthenticationUtil.VerifyContactPassword(user.UserName, parameters.Password);
+                if (contactPasswordPOCO != null)
+                {
+                    ContactPasswordPM contactPasswordPM = new ContactPasswordPM(contactPasswordPOCO);
+                    hashedPassword = contactPasswordPM.Password;
+                }
+                else
+                {
+                    var passResult = ResolvePassword(parameters.Password);
+                    if (passResult != null)
+                    {
+                        hashedPassword = passResult.Password;
+                    }
+                }
+            }
+            string token = !isAzureAdLogin ? AuthenticationUtil.GenerateToken() : parameters.AzureAdToken;
+
+            AuthenticationTokenUpdateService authenticationUpdateService = new AuthenticationTokenUpdateService(tenant);
+            AuthenticationToken authentication = new AuthenticationToken()
+            {
+                CreateDate = DateTime.Now,
+                Email = user.UserName,
+                Password = hashedPassword,
+                Token = token,
+                Tenant = user.CurrentTenant,
+                ClientType = parameters.IsMobileLogin ? "Mobile" : parameters.ClientType
+            };
+
+            if (!user.KeepUserLoggedIn && authentication.ClientType == "Web" && user.WebTokenLifeTimeInMinutes != 0)
+                authentication.ExpirationDate = DateTime.Now.AddMinutes(user.WebTokenLifeTimeInMinutes);
+
+            AddAuthenticationToken(authentication, authenticationUpdateService);
+            user.Token = token;
+
+            if (isAzureAdLogin)
+                return;
+            // יצירת טוקן להורדת מסמכים
+            AuthenticationToken authenticationDocument = new AuthenticationToken()
+            {
+                CreateDate = DateTime.Now,
+                ExpirationDate = DateTime.Now.AddMinutes(15),
+                Email = user.UserName,
+                Password = hashedPassword,
+                Token = AuthenticationUtil.GenerateToken(),
+                Tenant = user.CurrentTenant,
+                ClientType = "DocumentDownload"
+            };
+            AddAuthenticationToken(authenticationDocument, authenticationUpdateService);
+            user.DocumentDownloadToken = authenticationDocument.Token;
+
+            if (parameters.GetInvalidDocumentToken)
+            {
+                AuthenticationToken invalidDocumentToken = new AuthenticationToken()
+                {
+                    CreateDate = DateTime.Now,
+                    ExpirationDate = DateTime.Now.AddMinutes(-5),
+                    Email = user.UserName,
+                    Password = hashedPassword,
+                    Token = AuthenticationUtil.GenerateToken(),
+                    Tenant = user.CurrentTenant,
+                    ClientType = "DocumentDownload"
+                };
+                AddAuthenticationToken(invalidDocumentToken, authenticationUpdateService);
+                user.InvalidDocumentToken = invalidDocumentToken.Token;
+            }
+        }
+        private void AddAuthenticationToken(AuthenticationToken authentication, AuthenticationTokenUpdateService authenticationUpdateService)
+        {
+            AuthenticationTokenPM authenticationPM = new AuthenticationTokenPM(authentication);
+            authenticationPM.ChangeSetOp = ChangeSetOperation.Insert;
+            authenticationUpdateService.Update(authenticationPM, true);
+
+            string cacheKey = $"Token_({authentication.Token})";
+            _memoryCache.Set(cacheKey, authentication, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)  // Set absolute expiration time
+            });
+        }
+        #endregion
+
+        #region Utility
+        private PasswordParameter? ResolvePassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return null;
+
+            const string OneTimeMarker = "@OneTimePassword";
+            const string HashMarker = "@HashPassword";
+
+            string? marker = password.Contains(OneTimeMarker) ? OneTimeMarker :
+                             password.Contains(HashMarker) ? HashMarker : null;
+
+            if (marker == null)
+                return null;
+
+            var split = password.Split(new[] { marker }, StringSplitOptions.None);
+            if (split.Length == 0 || string.IsNullOrWhiteSpace(split[0]))
+                return null;
+
+            return new PasswordParameter
+            {
+                Password = split[0],
+                IsOneTimePassword = marker == OneTimeMarker,
+                isHashPassword = true
+            };
+        }
+        private static string GetUrlImage(byte[] datainByte, string extension) => $"data:image/{extension};base64,{Convert.ToBase64String(datainByte, 0, datainByte.Length)}";
+        private string GetBrowserType()
+        {
+            var userAgent = _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString();
+            var parser = Parser.GetDefault();
+            ClientInfo clientInfo = parser.Parse(userAgent);
+
+            string browser = clientInfo.UA.Family;
+            string versionMajor = clientInfo.UA.Major;
+
+            string browserType = $"{browser}{versionMajor}";
+            return browserType;
+        }
         private List<string>? GetTenantLogoUri(int companyId, int mobileVersion)
         {
             try
@@ -1302,123 +1522,27 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
                 return null;
             }
         }
-
-        private static string GetUrlImage(byte[] datainByte, string extension) => $"data:image/{extension};base64,{Convert.ToBase64String(datainByte, 0, datainByte.Length)}";
-
-        private string GetHtmlVersion()
+        public static string? GetClientIpAddress(HttpContext httpContext)
         {
-            SettingQueryService settingQueryService = new SettingQueryService(globalContext);
-            Setting mySettings = settingQueryService.GetFirst();
-            return mySettings?.HtmlVersion ?? "";
+            var ip = httpContext.Request.Headers["X-Real-IP"].FirstOrDefault();
+            return !string.IsNullOrEmpty(ip)
+                ? ip
+                : httpContext.Connection.RemoteIpAddress?.ToString();
         }
-
-        private void AddServerTimeToHeaderRespose(int executionTime)
+        private List<string> GetLogboxAccessiblePrivateLabelTenantsIds(string url)
         {
-            if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext?.Response.Headers["ServerTime"]))
+            List<string> logboxAccessiblePrivateLabelTenantsIds = new List<string>();
+            if (url.Contains("system.logbox.co.il") || url.Contains("pre.logbox.co.il") || url.Contains("localhost"))
             {
-                _httpContextAccessor.HttpContext.Response.Headers["ServerTime"] = executionTime.ToString();
+                TenantManagmentPrivateLabelsQueryService tenantManagmentPrivateLabelsQueryService = new TenantManagmentPrivateLabelsQueryService(globalContext);
+                logboxAccessiblePrivateLabelTenantsIds = tenantManagmentPrivateLabelsQueryService.GetMulti(a => a.InActive == false && a.HasLogboxAccess, a => a.Id);
             }
-            else
-            {
-                _httpContextAccessor.HttpContext?.Response?.Headers.Add("ServerTime", executionTime.ToString());
-            }
+            return logboxAccessiblePrivateLabelTenantsIds;
         }
-
-        private void SetSessionPolicy(UserData data)
-        {
-            SessionPolicyQueryService sessionPolicyQueryService = new SessionPolicyQueryService(globalContext);
-            SessionPolicy sessionPolicy = sessionPolicyQueryService.GetFirst();
-            if (sessionPolicy != null)
-            {
-                data.WebTokenLifeTimeInMinutes = sessionPolicy.WebTokenLifeTimeInMinutes;
-                data.WebTokenExpirationWarningInMinutes = sessionPolicy.WebTokenExpirationWarningInMinutes;
-            }
-        }
-
-        private PasswordParameter? ResolvePassword(string password)
-        {
-            PasswordParameter result = null;
-
-            if (!string.IsNullOrEmpty(password) && (password.Contains("@OneTimePassword") || password.Contains(@"HashPassword")))
-            {
-                var passwordarray = password.Contains("@OneTimePassword") ? password.Split(new string[] { "@OneTimePassword" }, StringSplitOptions.None) : password.Split(new string[] { "@HashPassword" }, StringSplitOptions.None);
-                if (passwordarray.Length > 0)
-                {
-                    result = new PasswordParameter();
-                    result.Password = passwordarray[0];
-                    if (password.Contains("@OneTimePassword")) result.IsOneTimePassword = true;
-                    result.isHashPassword = true;
-                }
-            }
-            return result;
-        }
-
-        private CompanyLogin CreateCompanyLogin(string email, string companyName, bool isUser, int tenantId, string cardId, string cardType, string contactId, bool licensedUser, bool internetAccess, string privateLabelId, string customerName="")
-            => new CompanyLogin
-            {
-                Email = email,
-                CompanyName = companyName,
-                IsUser = isUser,
-                Tenant = tenantId,
-                CardId = cardId,
-                CardType = cardType,
-                ContactId = contactId,
-                LicensedUser = licensedUser,
-                InternetAccess = internetAccess,
-                PrivateLabelId = privateLabelId,
-                CustomerName = customerName
-            };
-
-        private void UpdateContactPassword(ContactPasswordPM contactPassword, ContactPasswordUpdateService contactPasswordUpdateService, int? numberOfRetries = null, bool? isLocked = null, string? captchaKey = null)
-        {
-            if (numberOfRetries != null)
-            {
-                contactPassword.NumberOfRetries = (int)numberOfRetries;
-
-                if (contactPassword.NumberOfRetries >= 5)
-                {
-                    contactPassword.IsLocked = true;
-                    contactPassword.LockDateTime = DateTime.Now;
-                }
-            }
-            if (isLocked == false || numberOfRetries == 0)
-            {
-                contactPassword.LockDateTime = null;
-            }
-            if (captchaKey != null)
-            {
-                contactPassword.CaptchaKey = captchaKey;
-            }
-
-            contactPassword.ChangeSetOp = ChangeSetOperation.Update;
-            contactPasswordUpdateService.Update(contactPassword, true);
-        }
-
-        private bool IsUserAdmin(string email, int tenant)
-        {
-            UserQueryService userQueryService = new UserQueryService(amitalCloudContext);
-            List<UserPM> entities = userQueryService.GetMulti(record => record.Contact.Email == email && (record.Tenant == tenant || record.Tenant == 0));
-            UserPM? loggedUser = entities.Where(a => a.Tenant == tenant).FirstOrDefault() ?? entities.Where(a => a.Tenant == 0).FirstOrDefault();
-            return loggedUser?.UserRoles != null && loggedUser.UserRoles.Contains("Administrator");
-        }
-
-        private string getBrowserType()
-        {
-            var userAgent = _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].ToString();
-            var parser = Parser.GetDefault();
-            ClientInfo clientInfo = parser.Parse(userAgent);
-
-            string browser = clientInfo.UA.Family;
-            string versionMajor = clientInfo.UA.Major;
-
-            string browserType = $"{browser}{versionMajor}";
-            return browserType;
-        }
-
         public static bool GetIsBlockingFromDB(HttpContext httpContext)
         {
             bool hasBlockingDBRecords = new GlobalDBQueryService(0)
-                .GetMulti(_ => true) 
+                .GetMulti(_ => true)
                 .Any();
 
             string? clientIp = GetClientIpAddress(httpContext);
@@ -1428,15 +1552,25 @@ namespace AmitalCloud.Infrastructure.Application.Helpers
 
             return !isTrustedIp && hasBlockingDBRecords;
         }
-
-      
-        public static string? GetClientIpAddress(HttpContext httpContext)
+        private string GetContactMaskedMobileNumber(ContactPM loggedContact)
         {
-            var ip = httpContext.Request.Headers["X-Real-IP"].FirstOrDefault();
-            return !string.IsNullOrEmpty(ip)
-                ? ip
-                : httpContext.Connection.RemoteIpAddress?.ToString();
+            if (!string.IsNullOrEmpty(loggedContact.Mobile))
+            {
+                var firstDigits = loggedContact.Mobile.Substring(0, 4);
+                var lastDigits = loggedContact.Mobile.Substring(loggedContact.Mobile.Length - 2, 2);
+                var requiredMask = new String('*', loggedContact.Mobile.Length - firstDigits.Length - lastDigits.Length);
+                var maskedString = string.Concat(firstDigits, requiredMask, lastDigits);
+
+                return maskedString;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
+
+        #endregion
+
 
     }
 }

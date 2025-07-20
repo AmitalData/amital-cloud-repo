@@ -39,7 +39,7 @@ namespace AmitalCloud.Infrastructure.Domain.DataContracts
         public decimal SessionTimeout { get; set; }
         public int WebTokenExpirationWarningInMinutes { get; set; }
         public int WebTokenLifeTimeInMinutes { get; set; }
-        public bool Param1 { get; set; }
+        public bool InvalidEmailAddress { get; set; }
         public string CaptchaImage { get; set; } = string.Empty;
         public string CaptchaKey { get; set; } = string.Empty;
         public bool InValidCaptcha { get; set; }
@@ -49,6 +49,8 @@ namespace AmitalCloud.Infrastructure.Domain.DataContracts
         public bool IsAdmin { get; set; }
         public bool IsAuthenticated { get; set; }
         public string? Name { get; set; }
+        public string AzureAdToken { get; set; } = string.Empty;
+
     }
 
 

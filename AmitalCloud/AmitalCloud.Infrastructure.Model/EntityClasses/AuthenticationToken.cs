@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace AmitalCloud.Infrastructure.Model.EntityClasses
 {
-	[DataBase(AmitalCloudDBSchema.AMITAL_MAIN)]
+	[DataBase(AmitalCloudDBSchema.AMITAL_GLOBAL)]
 	[Table("AuthenticationTokens")]
     public class AuthenticationToken : BaseEntity
 	{
