@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VATTypesGroupUpdateService:BaseEntityUpdateService<POCO.VATTypesGroup,VATTypesGroupPM,VatTypePM,VATTypesGroupList,string>
+   public partial class VATTypesGroupUpdateService:BaseEntityUpdateService<Entity.VATTypesGroup,VATTypesGroupPM,VatTypePM,VATTypesGroupList,string>
    {
    			
-        public VATTypesGroupUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VATTypesGroupDataMapping();
-            Repository = new Repository<POCO.VATTypesGroup>(mainContext);
-        }
-        public VATTypesGroupUpdateService(int tenant) :  base( tenant)  
+        public VATTypesGroupUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VATTypesGroupDataMapping();
-            Repository = new Repository<POCO.VATTypesGroup>(tenant);
+            Repository = new Repository<Entity.VATTypesGroup>(unitOfWork);
 		}
-        public VATTypesGroupUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VATTypesGroup,string> GetKeys(VATTypesGroupPM entityPM) => new VATTypesGroupKeys<string>() { GroupVATTypeId = entityPM.GroupVATTypeId, SingleVATTypeId = entityPM.SingleVATTypeId };
+		protected override IEntityKeyFields<Entity.VATTypesGroup,string> GetKeys(VATTypesGroupPM entityPM) => new VATTypesGroupKeys<string>() { GroupVATTypeId = entityPM.GroupVATTypeId, SingleVATTypeId = entityPM.SingleVATTypeId };
 protected override void FillDefaultValuesOnCreate(VATTypesGroupPM entityPM)
 		{
 		}

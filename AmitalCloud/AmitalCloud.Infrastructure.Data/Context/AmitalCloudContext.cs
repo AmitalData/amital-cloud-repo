@@ -17,8 +17,6 @@ using AmitalCloud.Infrastructure.Data.DBHelpers;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-
-
 namespace AmitalCloud.Infrastructure.Data.Context
 {
    public partial class AmitalCloudContext: DbContextBase, IAmitalCloudContext
@@ -72,7 +70,6 @@ namespace AmitalCloud.Infrastructure.Data.Context
         {
             get { return AmitalCloudDBSchema.AMITAL_MAIN; }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Disable cascade delete globally by configuring each relationship
@@ -132,12 +129,12 @@ namespace AmitalCloud.Infrastructure.Data.Context
             this.Entry(entity).State = EntityState.Modified;
         }
 
-        public void DetectChanges()
+        private void DetectChanges()
         {
             this.ChangeTracker.DetectChanges();
         }
 
-        public override int SaveChanges()
+        internal new int SaveChanges()
         {
 		    DetectChanges();
 		    return base.SaveChanges();
@@ -169,7 +166,7 @@ namespace AmitalCloud.Infrastructure.Data.Context
             Dispose(true);
         }
 
-        public Task<int> SaveChangesAsync()
+        internal Task<int> SaveChangesAsync()
         {
             throw new NotImplementedException();
         }
@@ -438,6 +435,5 @@ namespace AmitalCloud.Infrastructure.Data.Context
 	public DbSet<WorkerRoleName> WorkerRoleNames  {  get; set; }
 	
 public int Tenant => _tenant;
-
-    }
-}
+ }
+}

@@ -20,10 +20,10 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
     public static class TableLastUpdateClass
     {
 
-        public static void UpdateTableHistory(int tenant, string tableName
+        public static void UpdateTableHistory(IUnitOfWork unitOfWork, int tenant, string tableName
             , TableLastUpdateM tableLastUpdateM = null)
         {
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = unitOfWork)
             {
                 User loggedUser = null;
                 ObjectTable entityObjectTable = null;
@@ -188,10 +188,12 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
         //}
         public static void UpdateSystemMetaDataHistory(bool updateFields = true, bool updateTranslations = true)
         {
-            using (TransactionScope scope = TransactionFactory.GetNewTransaction())
+            //TransactionScope scope = TransactionFactory.GetNewTransaction()
+            using (var uow = new UnitOfWork(0))
             {
-                Repository<SystemMetadataLastUpdate> systemMetdaDataRep = new Repository<SystemMetadataLastUpdate>(0);
+                Repository<SystemMetadataLastUpdate> systemMetdaDataRep = new Repository<SystemMetadataLastUpdate>(uow);
                 SystemMetadataLastUpdate lastUpdates = systemMetdaDataRep.GetSingle(x => x.Id == "1");
+                uow.CreateTransactionScope(TransactionScopeOption.RequiresNew);
                 if (lastUpdates != null)
                 {
                     if (updateFields)
@@ -212,59 +214,56 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
 
                     systemMetdaDataRep.Insert(lastUpdates);
                 }
-
-                systemMetdaDataRep.SubmitChanges();
-
-                scope.Complete();
+                uow.Save();
+                uow.Commit();
             }
         }
 
 
         public static void UpdateAllClosedTablesHistory(int tenant)
         {
-            IAmitalCloudContext context = AmitalCloudContext.GetContext(tenant);
-            Repository<ObjectTableLastUpdate> tableLastUpdateRepository = new Repository<ObjectTableLastUpdate>(context);
-            Repository<ObjectTable> objectTabelRepository = new Repository<ObjectTable>(context);
-            Repository<Contact> contactRepository = new Repository<Contact>(tenant);
-            ContactQuery contactQuery = new ContactQuery(tenant);
-
-            List<ObjectTable> objectTablesList = objectTabelRepository.GetMulti(x => x.Tenant == 0).Where(t => t.IsClosed).ToList();
-            ContactPM loggedContact = contactQuery.GetContactByEmailOnly("system@tenant0.com", 0);
-
-            foreach (ObjectTable table in objectTablesList)
+            using (var uow = new UnitOfWork(tenant))
             {
+                Repository<ObjectTableLastUpdate> tableLastUpdateRepository = new Repository<ObjectTableLastUpdate>(uow);
+                Repository<ObjectTable> objectTabelRepository = new Repository<ObjectTable>(uow);
+                Repository<Contact> contactRepository = new Repository<Contact>(tenant);
+                ContactQuery contactQuery = new ContactQuery(tenant);
 
-                ObjectTableLastUpdate tableLastUpdate = tableLastUpdateRepository.GetSingle(x => x.ObjectTableId == table.Id && x.Tenant == 0);
-                if (tableLastUpdate != null)
+                List<ObjectTable> objectTablesList = objectTabelRepository.GetMulti(x => x.Tenant == 0).Where(t => t.IsClosed).ToList();
+                ContactPM loggedContact = contactQuery.GetContactByEmailOnly("system@tenant0.com", 0);
+
+                foreach (ObjectTable table in objectTablesList)
                 {
-                    tableLastUpdate.LastUpdateDate = DateTime.UtcNow;
-                    tableLastUpdate.UpdatedByUserId = loggedContact.Id;
 
-                    tableLastUpdateRepository.Update(tableLastUpdate);
-                }
-                else
-                {
-
-                    tableLastUpdate = new ObjectTableLastUpdate()
+                    ObjectTableLastUpdate tableLastUpdate = tableLastUpdateRepository.GetSingle(x => x.ObjectTableId == table.Id && x.Tenant == 0);
+                    if (tableLastUpdate != null)
                     {
-                        Id = IdCounter.GetNumber("ObjectTableLastUpdate", tenant),
-                        Tenant = 0,
-                        LastUpdateDate = DateTime.UtcNow,
-                        ObjectTableId = table.Id,
-                        UpdatedByUserId = loggedContact.Id,
+                        tableLastUpdate.LastUpdateDate = DateTime.UtcNow;
+                        tableLastUpdate.UpdatedByUserId = loggedContact.Id;
 
-                    };
+                        tableLastUpdateRepository.Update(tableLastUpdate);
+                    }
+                    else
+                    {
 
-                    tableLastUpdateRepository.Insert(tableLastUpdate);
+                        tableLastUpdate = new ObjectTableLastUpdate()
+                        {
+                            Id = IdCounter.GetNumber("ObjectTableLastUpdate", tenant),
+                            Tenant = 0,
+                            LastUpdateDate = DateTime.UtcNow,
+                            ObjectTableId = table.Id,
+                            UpdatedByUserId = loggedContact.Id,
+
+                        };
+
+                        tableLastUpdateRepository.Insert(tableLastUpdate);
+                    }
+
+
+
                 }
-
-
-
+                uow.Save();
             }
-
-            tableLastUpdateRepository.SubmitChanges();
-
-
         }
     }
 }

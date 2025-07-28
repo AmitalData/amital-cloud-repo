@@ -13,7 +13,7 @@ namespace AmitalCloud.Infrastructure.Domain.Interfaces
         void Insert(TEntity entity);
         void Delete(TEntity entity);
         void Update(TEntity entity);
-        void SubmitChanges();
+        //void SubmitChanges();
         TEntity GetFirst();
         List<TEntity> GetAll(int tenant);
         List<TEntity> GetAll(int tenant, bool fromCache = true);

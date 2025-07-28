@@ -19,7 +19,7 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
 	{
 		
         [Key]
-        //[ForeignKey("Card")]
+        [ForeignKey("Card")]
         [Column("Id")]
 	    public string Id { get; set; }
 	      

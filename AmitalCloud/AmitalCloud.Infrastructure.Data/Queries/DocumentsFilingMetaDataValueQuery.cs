@@ -46,153 +46,153 @@ namespace AmitalCloud.Infrastructure.Data.Queries
 
 
 
-        public static void UpSert_Del(DocumentsFilingPM documentsFilingPM, string MetaDataTypeCode, string MetaDataTypeValue)
-        {
-            string documentsMetaDataTypeId = null;
-            var context = AmitalCloudContext.GetContext(documentsFilingPM.Tenant);
-            DocumentsMetaDataTypeRepository TypesRepo = new DocumentsMetaDataTypeRepository(context);
-            var pocoMDType = TypesRepo.GetSingleDocumentsMetaDataTypeByCode(MetaDataTypeCode, documentsFilingPM.Tenant);
-            if (pocoMDType == null)
-            {
-                LogMessagingUtil.Instance.AppendLine("GetDocumentsMetaDataTypeVERId is null !!!!! UpSertVERValue - failed ");
-                return;
-            }
-            documentsMetaDataTypeId = pocoMDType.Id;
+        //public static void UpSert_Del(DocumentsFilingPM documentsFilingPM, string MetaDataTypeCode, string MetaDataTypeValue)
+        //{
+        //    string documentsMetaDataTypeId = null;
+        //    var context = AmitalCloudContext.GetContext(documentsFilingPM.Tenant);
+        //    DocumentsMetaDataTypeRepository TypesRepo = new DocumentsMetaDataTypeRepository(context);
+        //    var pocoMDType = TypesRepo.GetSingleDocumentsMetaDataTypeByCode(MetaDataTypeCode, documentsFilingPM.Tenant);
+        //    if (pocoMDType == null)
+        //    {
+        //        LogMessagingUtil.Instance.AppendLine("GetDocumentsMetaDataTypeVERId is null !!!!! UpSertVERValue - failed ");
+        //        return;
+        //    }
+        //    documentsMetaDataTypeId = pocoMDType.Id;
 
-            var repository = new DocumentsFilingMetaDataValueRepository(context);
-            var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
-            var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
-                .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
-                //.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
-                .Where(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId)
-                .ToList();
+        //    var repository = new DocumentsFilingMetaDataValueRepository(context);
+        //    var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
+        //    var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
+        //        .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
+        //        //.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
+        //        .Where(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId)
+        //        .ToList();
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
-            var mapper = config.CreateMapper();
-            var mydocumentsFilingMetaDataVERValueList = mapper.Map<List<DocumentsFilingMetaDataValuePM>>(mydocumentsFilingMetaDataVERValue);
+        //    var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
+        //    var mapper = config.CreateMapper();
+        //    var mydocumentsFilingMetaDataVERValueList = mapper.Map<List<DocumentsFilingMetaDataValuePM>>(mydocumentsFilingMetaDataVERValue);
 
-            DocumentsFilingMetaDataValuePM mydocumentsFilingMetaDataVERValuePM = null;
-            if (mydocumentsFilingMetaDataVERValueList.Count() > 1)
-            {
-                var listId = mydocumentsFilingMetaDataVERValueList.Select(r => r.Id);
-                var pocosDelete = repository.GetAll(documentsFilingPM.Tenant).Where(r => listId.Contains(r.Id)).ToList();
-                pocosDelete.ForEach(itemPoco => { repository.Delete(itemPoco); });
+        //    DocumentsFilingMetaDataValuePM mydocumentsFilingMetaDataVERValuePM = null;
+        //    if (mydocumentsFilingMetaDataVERValueList.Count() > 1)
+        //    {
+        //        var listId = mydocumentsFilingMetaDataVERValueList.Select(r => r.Id);
+        //        var pocosDelete = repository.GetAll(documentsFilingPM.Tenant).Where(r => listId.Contains(r.Id)).ToList();
+        //        pocosDelete.ForEach(itemPoco => { repository.Delete(itemPoco); });
 
-                LogMessagingUtil.Instance.AppendLine("UpSert_Del Del there is more then 1 (hd#353339)");
+        //        LogMessagingUtil.Instance.AppendLine("UpSert_Del Del there is more then 1 (hd#353339)");
 
-                documentsFilingPM.DocumentsFilingMetaDataValues.Clear();
-            }
-            else if (mydocumentsFilingMetaDataVERValueList.Count() == 1)
-            {
-                mydocumentsFilingMetaDataVERValuePM = mydocumentsFilingMetaDataVERValueList.FirstOrDefault();
-            }
-
-
-            if (mydocumentsFilingMetaDataVERValuePM != null)
-            {
-                if (mydocumentsFilingMetaDataVERValuePM.MetaDataValue == MetaDataTypeValue)
-                {
-                    LogMessagingUtil.Instance.AppendLine("mydocumentsFilingMetaDataVERValue.MetaDataValue == DeclarationNumber ");
-                    return;
-                }
-                var itemPoco = new DocumentsFilingMetaDataValue();
-
-                mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
-             //   DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
-                //var repository = new DocumentsFilingMetaDataValueRepository(context);
-                repository.Update(itemPoco);
-                var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
-                if (pmInMem != null)
-                {
-                    pmInMem.MetaDataValue = MetaDataTypeValue;
-                }
-                else
-                {
-                    LogMessagingUtil.Instance.AppendLine("documentsFilingPM.DocumentsFilingMetaDataValues.Add(mydocumentsFilingMetaDataVERValuePM);");//nir ask to delete 
-
-                }
-
-            }
-            else
-            {
-                var temp = new DocumentsFilingMetaDataValuePM()
-                {
-                    DocumentsMetaDataTypeId = documentsMetaDataTypeId,
-                    MetaDataValue = MetaDataTypeValue,
-                    //DocumentsMetaDataTypeCode = MetaDataTypeCode,
-
-                };
-                documentsFilingMetaDataValueQuery.Create(documentsFilingPM, temp);
-                documentsFilingPM.DocumentsFilingMetaDataValues.Add(temp);
+        //        documentsFilingPM.DocumentsFilingMetaDataValues.Clear();
+        //    }
+        //    else if (mydocumentsFilingMetaDataVERValueList.Count() == 1)
+        //    {
+        //        mydocumentsFilingMetaDataVERValuePM = mydocumentsFilingMetaDataVERValueList.FirstOrDefault();
+        //    }
 
 
-            }
-            repository.SubmitChanges();
-        }
+        //    if (mydocumentsFilingMetaDataVERValuePM != null)
+        //    {
+        //        if (mydocumentsFilingMetaDataVERValuePM.MetaDataValue == MetaDataTypeValue)
+        //        {
+        //            LogMessagingUtil.Instance.AppendLine("mydocumentsFilingMetaDataVERValue.MetaDataValue == DeclarationNumber ");
+        //            return;
+        //        }
+        //        var itemPoco = new DocumentsFilingMetaDataValue();
 
-        public static void UpSert_OLD_MOVE2DELSERT(DocumentsFilingPM documentsFilingPM, string MetaDataTypeCode, string MetaDataTypeValue)
-        {
-            string documentsMetaDataTypeId = null;
-            var context = AmitalCloudContext.GetContext(documentsFilingPM.Tenant);
-            DocumentsMetaDataTypeRepository TypesRepo = new DocumentsMetaDataTypeRepository(context);
-            var pocoMDType = TypesRepo.GetSingleDocumentsMetaDataTypeByCode(MetaDataTypeCode, documentsFilingPM.Tenant);
-            if (pocoMDType == null)
-            {
-                LogMessagingUtil.Instance.AppendLine("GetDocumentsMetaDataTypeVERId is null !!!!! UpSertVERValue - failed ");
-                return;
-            }
-            documentsMetaDataTypeId = pocoMDType.Id;
+        //        mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
+        //     //   DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
+        //        //var repository = new DocumentsFilingMetaDataValueRepository(context);
+        //        repository.Update(itemPoco);
+        //        var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
+        //        if (pmInMem != null)
+        //        {
+        //            pmInMem.MetaDataValue = MetaDataTypeValue;
+        //        }
+        //        else
+        //        {
+        //            LogMessagingUtil.Instance.AppendLine("documentsFilingPM.DocumentsFilingMetaDataValues.Add(mydocumentsFilingMetaDataVERValuePM);");//nir ask to delete 
+
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        var temp = new DocumentsFilingMetaDataValuePM()
+        //        {
+        //            DocumentsMetaDataTypeId = documentsMetaDataTypeId,
+        //            MetaDataValue = MetaDataTypeValue,
+        //            //DocumentsMetaDataTypeCode = MetaDataTypeCode,
+
+        //        };
+        //        documentsFilingMetaDataValueQuery.Create(documentsFilingPM, temp);
+        //        documentsFilingPM.DocumentsFilingMetaDataValues.Add(temp);
 
 
-            var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
-            var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
-                .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
-                .FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
+        //    }
+        //    repository.SubmitChanges();
+        //}
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
-            var mapper = config.CreateMapper();
-            var mydocumentsFilingMetaDataVERValuePM = mapper.Map<DocumentsFilingMetaDataValuePM>(mydocumentsFilingMetaDataVERValue);
+        //public static void UpSert_OLD_MOVE2DELSERT(DocumentsFilingPM documentsFilingPM, string MetaDataTypeCode, string MetaDataTypeValue)
+        //{
+        //    string documentsMetaDataTypeId = null;
+        //    var context = AmitalCloudContext.GetContext(documentsFilingPM.Tenant);
+        //    DocumentsMetaDataTypeRepository TypesRepo = new DocumentsMetaDataTypeRepository(context);
+        //    var pocoMDType = TypesRepo.GetSingleDocumentsMetaDataTypeByCode(MetaDataTypeCode, documentsFilingPM.Tenant);
+        //    if (pocoMDType == null)
+        //    {
+        //        LogMessagingUtil.Instance.AppendLine("GetDocumentsMetaDataTypeVERId is null !!!!! UpSertVERValue - failed ");
+        //        return;
+        //    }
+        //    documentsMetaDataTypeId = pocoMDType.Id;
 
-            if (mydocumentsFilingMetaDataVERValuePM != null)
-            {
-                if (mydocumentsFilingMetaDataVERValuePM.MetaDataValue == MetaDataTypeValue)
-                {
-                    LogMessagingUtil.Instance.AppendLine("mydocumentsFilingMetaDataVERValue.MetaDataValue == DeclarationNumber ");
-                    return;
-                }
-                var itemPoco = new DocumentsFilingMetaDataValue();
 
-                mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
-              //  DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
-                var repository = new DocumentsFilingMetaDataValueRepository(context);
-                repository.Update(itemPoco);
-                var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
-                if (pmInMem != null)
-                {
-                    pmInMem.MetaDataValue = MetaDataTypeValue;
-                }
-                else
-                {
-                    documentsFilingPM.DocumentsFilingMetaDataValues.Add(mydocumentsFilingMetaDataVERValuePM);
-                }
-                TypesRepo.SubmitChanges();
-            }
-            else
-            {
-                var temp = new DocumentsFilingMetaDataValuePM()
-                {
-                    DocumentsMetaDataTypeId = documentsMetaDataTypeId,
-                    MetaDataValue = MetaDataTypeValue,
-                    //DocumentsMetaDataTypeCode = MetaDataTypeCode,
+        //    var documentsFilingMetaDataValueQuery = new DocumentsFilingMetaDataValueQuery(context);
+        //    var mydocumentsFilingMetaDataVERValue = documentsFilingMetaDataValueQuery
+        //        .GetDocumentsFilingMetaDataValuePMsByDocumentIdTenant(documentsFilingPM.Id, documentsFilingPM.Tenant)
+        //        .FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
 
-                };
-                documentsFilingMetaDataValueQuery.Create(documentsFilingPM, temp);
-                documentsFilingPM.DocumentsFilingMetaDataValues.Add(temp);
+        //    var config = new MapperConfiguration(cfg => cfg.AddProfile(new DocumentsFilingMetaDataValueDataMapping()), new NullLoggerFactory());
+        //    var mapper = config.CreateMapper();
+        //    var mydocumentsFilingMetaDataVERValuePM = mapper.Map<DocumentsFilingMetaDataValuePM>(mydocumentsFilingMetaDataVERValue);
 
-                documentsFilingMetaDataValueQuery.repository.SubmitChanges();
-            }
+        //    if (mydocumentsFilingMetaDataVERValuePM != null)
+        //    {
+        //        if (mydocumentsFilingMetaDataVERValuePM.MetaDataValue == MetaDataTypeValue)
+        //        {
+        //            LogMessagingUtil.Instance.AppendLine("mydocumentsFilingMetaDataVERValue.MetaDataValue == DeclarationNumber ");
+        //            return;
+        //        }
+        //        var itemPoco = new DocumentsFilingMetaDataValue();
 
-        }
+        //        mydocumentsFilingMetaDataVERValuePM.MetaDataValue = MetaDataTypeValue;
+        //      //  DocumentsFilingMetaDataValueMapping.MapEntity(mydocumentsFilingMetaDataVERValuePM, itemPoco, true /*false - if false do not map keys !!*/ );
+        //        var repository = new DocumentsFilingMetaDataValueRepository(context);
+        //        repository.Update(itemPoco);
+        //        var pmInMem = documentsFilingPM.DocumentsFilingMetaDataValues.FirstOrDefault(r => r.DocumentsMetaDataTypeId == documentsMetaDataTypeId);
+        //        if (pmInMem != null)
+        //        {
+        //            pmInMem.MetaDataValue = MetaDataTypeValue;
+        //        }
+        //        else
+        //        {
+        //            documentsFilingPM.DocumentsFilingMetaDataValues.Add(mydocumentsFilingMetaDataVERValuePM);
+        //        }
+        //        TypesRepo.SubmitChanges();
+        //    }
+        //    else
+        //    {
+        //        var temp = new DocumentsFilingMetaDataValuePM()
+        //        {
+        //            DocumentsMetaDataTypeId = documentsMetaDataTypeId,
+        //            MetaDataValue = MetaDataTypeValue,
+        //            //DocumentsMetaDataTypeCode = MetaDataTypeCode,
+
+        //        };
+        //        documentsFilingMetaDataValueQuery.Create(documentsFilingPM, temp);
+        //        documentsFilingPM.DocumentsFilingMetaDataValues.Add(temp);
+
+        //        documentsFilingMetaDataValueQuery.repository.SubmitChanges();
+        //    }
+
+        //}
 
 
         public DocumentsFilingMetaDataValueQuery(DocumentsFilingMetaDataValueRepository documentsFilingMetaDataValueRepository)

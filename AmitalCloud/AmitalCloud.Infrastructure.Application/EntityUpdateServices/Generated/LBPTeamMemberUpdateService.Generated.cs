@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class LBPTeamMemberUpdateService:BaseEntityUpdateService<POCO.LBPTeamMember,LBPTeamMemberPM,TeamPM,LBPTeamMemberList,string>
+   public partial class LBPTeamMemberUpdateService:BaseEntityUpdateService<Entity.LBPTeamMember,LBPTeamMemberPM,TeamPM,LBPTeamMemberList,string>
    {
    			
-        public LBPTeamMemberUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new LBPTeamMemberDataMapping();
-            Repository = new Repository<POCO.LBPTeamMember>(mainContext);
-        }
-        public LBPTeamMemberUpdateService(int tenant) :  base( tenant)  
+        public LBPTeamMemberUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new LBPTeamMemberDataMapping();
-            Repository = new Repository<POCO.LBPTeamMember>(tenant);
+            Repository = new Repository<Entity.LBPTeamMember>(unitOfWork);
 		}
-        public LBPTeamMemberUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.LBPTeamMember,string> GetKeys(LBPTeamMemberPM entityPM) => new LBPTeamMemberKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.LBPTeamMember,string> GetKeys(LBPTeamMemberPM entityPM) => new LBPTeamMemberKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(LBPTeamMemberPM entityPM)
 		{
 		}

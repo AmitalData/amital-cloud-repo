@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AWBDescriptionOfGoodsUpdateService:BaseEntityUpdateService<POCO.AWBDescriptionOfGoods,AWBDescriptionOfGoodsPM,IEntityPM,AWBDescriptionOfGoodsList,string>
+   public partial class AWBDescriptionOfGoodsUpdateService:BaseEntityUpdateService<Entity.AWBDescriptionOfGoods,AWBDescriptionOfGoodsPM,IEntityPM,AWBDescriptionOfGoodsList,string>
    {
    			
-        public AWBDescriptionOfGoodsUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AWBDescriptionOfGoodsDataMapping();
-            Repository = new Repository<POCO.AWBDescriptionOfGoods>(mainContext);
-        }
-        public AWBDescriptionOfGoodsUpdateService(int tenant) :  base( tenant)  
+        public AWBDescriptionOfGoodsUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AWBDescriptionOfGoodsDataMapping();
-            Repository = new Repository<POCO.AWBDescriptionOfGoods>(tenant);
+            Repository = new Repository<Entity.AWBDescriptionOfGoods>(unitOfWork);
 		}
-        public AWBDescriptionOfGoodsUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AWBDescriptionOfGoods,string> GetKeys(AWBDescriptionOfGoodsPM entityPM) => new AWBDescriptionOfGoodsKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.AWBDescriptionOfGoods,string> GetKeys(AWBDescriptionOfGoodsPM entityPM) => new AWBDescriptionOfGoodsKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(AWBDescriptionOfGoodsPM entityPM)
 		{
 		}

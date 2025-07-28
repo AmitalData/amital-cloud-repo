@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentUpdateService:BaseEntityUpdateService<POCO.Document,DocumentPM,IEntityPM,DocumentList,string>
+   public partial class DocumentUpdateService:BaseEntityUpdateService<Entity.Document,DocumentPM,IEntityPM,DocumentList,string>
    {
    			
-        public DocumentUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentDataMapping();
-            Repository = new Repository<POCO.Document>(mainContext);
-        }
-        public DocumentUpdateService(int tenant) :  base( tenant)  
+        public DocumentUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentDataMapping();
-            Repository = new Repository<POCO.Document>(tenant);
+            Repository = new Repository<Entity.Document>(unitOfWork);
 		}
-        public DocumentUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Document,string> GetKeys(DocumentPM entityPM) => new DocumentKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Document,string> GetKeys(DocumentPM entityPM) => new DocumentKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentPM entityPM)
 		{
 		}

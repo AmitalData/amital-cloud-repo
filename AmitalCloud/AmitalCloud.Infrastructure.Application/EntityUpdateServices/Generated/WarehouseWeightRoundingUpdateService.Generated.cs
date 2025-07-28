@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class WarehouseWeightRoundingUpdateService:BaseEntityUpdateService<POCO.WarehouseWeightRounding,WarehouseWeightRoundingPM,IEntityPM,WarehouseWeightRoundingList,string>
+   public partial class WarehouseWeightRoundingUpdateService:BaseEntityUpdateService<Entity.WarehouseWeightRounding,WarehouseWeightRoundingPM,IEntityPM,WarehouseWeightRoundingList,string>
    {
    			
-        public WarehouseWeightRoundingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new WarehouseWeightRoundingDataMapping();
-            Repository = new Repository<POCO.WarehouseWeightRounding>(mainContext);
-        }
-        public WarehouseWeightRoundingUpdateService(int tenant) :  base( tenant)  
+        public WarehouseWeightRoundingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new WarehouseWeightRoundingDataMapping();
-            Repository = new Repository<POCO.WarehouseWeightRounding>(tenant);
+            Repository = new Repository<Entity.WarehouseWeightRounding>(unitOfWork);
 		}
-        public WarehouseWeightRoundingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.WarehouseWeightRounding,string> GetKeys(WarehouseWeightRoundingPM entityPM) => new WarehouseWeightRoundingKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.WarehouseWeightRounding,string> GetKeys(WarehouseWeightRoundingPM entityPM) => new WarehouseWeightRoundingKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(WarehouseWeightRoundingPM entityPM)
 		{
 		}

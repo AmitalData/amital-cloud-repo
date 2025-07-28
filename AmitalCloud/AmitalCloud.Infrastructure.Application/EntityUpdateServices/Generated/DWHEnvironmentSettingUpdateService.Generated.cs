@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWHEnvironmentSettingUpdateService:BaseEntityUpdateService<POCO.DWHEnvironmentSetting,DWHEnvironmentSettingPM,IEntityPM,DWHEnvironmentSettingList,int>
+   public partial class DWHEnvironmentSettingUpdateService:BaseEntityUpdateService<Entity.DWHEnvironmentSetting,DWHEnvironmentSettingPM,IEntityPM,DWHEnvironmentSettingList,int>
    {
    			
-        public DWHEnvironmentSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWHEnvironmentSettingDataMapping();
-            Repository = new Repository<POCO.DWHEnvironmentSetting>(mainContext);
-        }
-        public DWHEnvironmentSettingUpdateService(int tenant) :  base( tenant)  
+        public DWHEnvironmentSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWHEnvironmentSettingDataMapping();
-            Repository = new Repository<POCO.DWHEnvironmentSetting>(tenant);
+            Repository = new Repository<Entity.DWHEnvironmentSetting>(unitOfWork);
 		}
-        public DWHEnvironmentSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWHEnvironmentSetting,int> GetKeys(DWHEnvironmentSettingPM entityPM) => new DWHEnvironmentSettingKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWHEnvironmentSetting,int> GetKeys(DWHEnvironmentSettingPM entityPM) => new DWHEnvironmentSettingKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWHEnvironmentSettingPM entityPM)
 		{
 		}

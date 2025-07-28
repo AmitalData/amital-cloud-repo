@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QueryExportExecutionLogUpdateService:BaseEntityUpdateService<POCO.QueryExportExecutionLog,QueryExportExecutionLogPM,IEntityPM,QueryExportExecutionLogList,string>
+   public partial class QueryExportExecutionLogUpdateService:BaseEntityUpdateService<Entity.QueryExportExecutionLog,QueryExportExecutionLogPM,IEntityPM,QueryExportExecutionLogList,string>
    {
    			
-        public QueryExportExecutionLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QueryExportExecutionLogDataMapping();
-            Repository = new Repository<POCO.QueryExportExecutionLog>(mainContext);
-        }
-        public QueryExportExecutionLogUpdateService(int tenant) :  base( tenant)  
+        public QueryExportExecutionLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QueryExportExecutionLogDataMapping();
-            Repository = new Repository<POCO.QueryExportExecutionLog>(tenant);
+            Repository = new Repository<Entity.QueryExportExecutionLog>(unitOfWork);
 		}
-        public QueryExportExecutionLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QueryExportExecutionLog,string> GetKeys(QueryExportExecutionLogPM entityPM) => new QueryExportExecutionLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.QueryExportExecutionLog,string> GetKeys(QueryExportExecutionLogPM entityPM) => new QueryExportExecutionLogKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(QueryExportExecutionLogPM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

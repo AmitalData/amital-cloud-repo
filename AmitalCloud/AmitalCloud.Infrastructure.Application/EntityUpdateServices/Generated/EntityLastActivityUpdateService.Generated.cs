@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityLastActivityUpdateService:BaseEntityUpdateService<POCO.EntityLastActivity,EntityLastActivityPM,IEntityPM,EntityLastActivityList,string>
+   public partial class EntityLastActivityUpdateService:BaseEntityUpdateService<Entity.EntityLastActivity,EntityLastActivityPM,IEntityPM,EntityLastActivityList,string>
    {
    			
-        public EntityLastActivityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityLastActivityDataMapping();
-            Repository = new Repository<POCO.EntityLastActivity>(mainContext);
-        }
-        public EntityLastActivityUpdateService(int tenant) :  base( tenant)  
+        public EntityLastActivityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityLastActivityDataMapping();
-            Repository = new Repository<POCO.EntityLastActivity>(tenant);
+            Repository = new Repository<Entity.EntityLastActivity>(unitOfWork);
 		}
-        public EntityLastActivityUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityLastActivity,string> GetKeys(EntityLastActivityPM entityPM) => new EntityLastActivityKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EntityLastActivity,string> GetKeys(EntityLastActivityPM entityPM) => new EntityLastActivityKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EntityLastActivityPM entityPM)
 		{
 		}

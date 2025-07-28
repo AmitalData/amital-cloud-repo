@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FeatureTypeUpdateService:BaseEntityUpdateService<POCO.FeatureType,FeatureTypePM,IEntityPM,FeatureTypeList,string>
+   public partial class FeatureTypeUpdateService:BaseEntityUpdateService<Entity.FeatureType,FeatureTypePM,IEntityPM,FeatureTypeList,string>
    {
    			
-        public FeatureTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FeatureTypeDataMapping();
-            Repository = new Repository<POCO.FeatureType>(mainContext);
-        }
-        public FeatureTypeUpdateService(int tenant) :  base( tenant)  
+        public FeatureTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FeatureTypeDataMapping();
-            Repository = new Repository<POCO.FeatureType>(tenant);
+            Repository = new Repository<Entity.FeatureType>(unitOfWork);
 		}
-        public FeatureTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FeatureType,string> GetKeys(FeatureTypePM entityPM) => new FeatureTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.FeatureType,string> GetKeys(FeatureTypePM entityPM) => new FeatureTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(FeatureTypePM entityPM)
 		{
 		}

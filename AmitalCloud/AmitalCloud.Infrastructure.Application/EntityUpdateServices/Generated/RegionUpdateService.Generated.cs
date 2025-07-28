@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RegionUpdateService:BaseEntityUpdateService<POCO.Region,RegionPM,IEntityPM,RegionList,string>
+   public partial class RegionUpdateService:BaseEntityUpdateService<Entity.Region,RegionPM,IEntityPM,RegionList,string>
    {
    			
-        public RegionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RegionDataMapping();
-            Repository = new Repository<POCO.Region>(mainContext);
-        }
-        public RegionUpdateService(int tenant) :  base( tenant)  
+        public RegionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RegionDataMapping();
-            Repository = new Repository<POCO.Region>(tenant);
+            Repository = new Repository<Entity.Region>(unitOfWork);
 		}
-        public RegionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Region,string> GetKeys(RegionPM entityPM) => new RegionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Region,string> GetKeys(RegionPM entityPM) => new RegionKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(RegionPM entityPM)
 		{
 		}

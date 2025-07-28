@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RuleConditionFieldUpdateService:BaseEntityUpdateService<POCO.RuleConditionField,RuleConditionFieldPM,IEntityPM,RuleConditionFieldList,string>
+   public partial class RuleConditionFieldUpdateService:BaseEntityUpdateService<Entity.RuleConditionField,RuleConditionFieldPM,IEntityPM,RuleConditionFieldList,string>
    {
    			
-        public RuleConditionFieldUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RuleConditionFieldDataMapping();
-            Repository = new Repository<POCO.RuleConditionField>(mainContext);
-        }
-        public RuleConditionFieldUpdateService(int tenant) :  base( tenant)  
+        public RuleConditionFieldUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RuleConditionFieldDataMapping();
-            Repository = new Repository<POCO.RuleConditionField>(tenant);
+            Repository = new Repository<Entity.RuleConditionField>(unitOfWork);
 		}
-        public RuleConditionFieldUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RuleConditionField,string> GetKeys(RuleConditionFieldPM entityPM) => new RuleConditionFieldKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.RuleConditionField,string> GetKeys(RuleConditionFieldPM entityPM) => new RuleConditionFieldKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(RuleConditionFieldPM entityPM)
 		{
 		}

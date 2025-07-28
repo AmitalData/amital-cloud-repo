@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UsersReleaseNotesDisplayUpdateService:BaseEntityUpdateService<POCO.UsersReleaseNotesDisplay,UsersReleaseNotesDisplayPM,IEntityPM,UsersReleaseNotesDisplayList,string>
+   public partial class UsersReleaseNotesDisplayUpdateService:BaseEntityUpdateService<Entity.UsersReleaseNotesDisplay,UsersReleaseNotesDisplayPM,IEntityPM,UsersReleaseNotesDisplayList,string>
    {
    			
-        public UsersReleaseNotesDisplayUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UsersReleaseNotesDisplayDataMapping();
-            Repository = new Repository<POCO.UsersReleaseNotesDisplay>(mainContext);
-        }
-        public UsersReleaseNotesDisplayUpdateService(int tenant) :  base( tenant)  
+        public UsersReleaseNotesDisplayUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UsersReleaseNotesDisplayDataMapping();
-            Repository = new Repository<POCO.UsersReleaseNotesDisplay>(tenant);
+            Repository = new Repository<Entity.UsersReleaseNotesDisplay>(unitOfWork);
 		}
-        public UsersReleaseNotesDisplayUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UsersReleaseNotesDisplay,string> GetKeys(UsersReleaseNotesDisplayPM entityPM) => new UsersReleaseNotesDisplayKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UsersReleaseNotesDisplay,string> GetKeys(UsersReleaseNotesDisplayPM entityPM) => new UsersReleaseNotesDisplayKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(UsersReleaseNotesDisplayPM entityPM)
 		{
 		}

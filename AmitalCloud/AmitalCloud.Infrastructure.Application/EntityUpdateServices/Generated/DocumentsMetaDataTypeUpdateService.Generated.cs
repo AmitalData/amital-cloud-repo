@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentsMetaDataTypeUpdateService:BaseEntityUpdateService<POCO.DocumentsMetaDataType,DocumentsMetaDataTypePM,IEntityPM,DocumentsMetaDataTypeList,string>
+   public partial class DocumentsMetaDataTypeUpdateService:BaseEntityUpdateService<Entity.DocumentsMetaDataType,DocumentsMetaDataTypePM,IEntityPM,DocumentsMetaDataTypeList,string>
    {
    			
-        public DocumentsMetaDataTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentsMetaDataTypeDataMapping();
-            Repository = new Repository<POCO.DocumentsMetaDataType>(mainContext);
-        }
-        public DocumentsMetaDataTypeUpdateService(int tenant) :  base( tenant)  
+        public DocumentsMetaDataTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentsMetaDataTypeDataMapping();
-            Repository = new Repository<POCO.DocumentsMetaDataType>(tenant);
+            Repository = new Repository<Entity.DocumentsMetaDataType>(unitOfWork);
 		}
-        public DocumentsMetaDataTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentsMetaDataType,string> GetKeys(DocumentsMetaDataTypePM entityPM) => new DocumentsMetaDataTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentsMetaDataType,string> GetKeys(DocumentsMetaDataTypePM entityPM) => new DocumentsMetaDataTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentsMetaDataTypePM entityPM)
 		{
 		}

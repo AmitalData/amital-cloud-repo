@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ReportExecutionLogUpdateService:BaseEntityUpdateService<POCO.ReportExecutionLog,ReportExecutionLogPM,IEntityPM,ReportExecutionLogList,string>
+   public partial class ReportExecutionLogUpdateService:BaseEntityUpdateService<Entity.ReportExecutionLog,ReportExecutionLogPM,IEntityPM,ReportExecutionLogList,string>
    {
    			
-        public ReportExecutionLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ReportExecutionLogDataMapping();
-            Repository = new Repository<POCO.ReportExecutionLog>(mainContext);
-        }
-        public ReportExecutionLogUpdateService(int tenant) :  base( tenant)  
+        public ReportExecutionLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ReportExecutionLogDataMapping();
-            Repository = new Repository<POCO.ReportExecutionLog>(tenant);
+            Repository = new Repository<Entity.ReportExecutionLog>(unitOfWork);
 		}
-        public ReportExecutionLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ReportExecutionLog,string> GetKeys(ReportExecutionLogPM entityPM) => new ReportExecutionLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ReportExecutionLog,string> GetKeys(ReportExecutionLogPM entityPM) => new ReportExecutionLogKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ReportExecutionLogPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("ReportExecutionLog", entityPM.Tenant); 

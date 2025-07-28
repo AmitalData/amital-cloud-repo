@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class HTSCodeUpdateService:BaseEntityUpdateService<POCO.HTSCode,HTSCodePM,ProductItemPM,HTSCodeList,string>
+   public partial class HTSCodeUpdateService:BaseEntityUpdateService<Entity.HTSCode,HTSCodePM,ProductItemPM,HTSCodeList,string>
    {
    			
-        public HTSCodeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new HTSCodeDataMapping();
-            Repository = new Repository<POCO.HTSCode>(mainContext);
-        }
-        public HTSCodeUpdateService(int tenant) :  base( tenant)  
+        public HTSCodeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new HTSCodeDataMapping();
-            Repository = new Repository<POCO.HTSCode>(tenant);
+            Repository = new Repository<Entity.HTSCode>(unitOfWork);
 		}
-        public HTSCodeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.HTSCode,string> GetKeys(HTSCodePM entityPM) => new HTSCodeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.HTSCode,string> GetKeys(HTSCodePM entityPM) => new HTSCodeKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(HTSCodePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("HTSCode", entityPM.Tenant); 

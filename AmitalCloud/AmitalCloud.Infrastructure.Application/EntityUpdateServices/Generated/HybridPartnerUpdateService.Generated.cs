@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class HybridPartnerUpdateService:BaseEntityUpdateService<POCO.HybridPartner,HybridPartnerPM,IEntityPM,HybridPartnerList,string>
+   public partial class HybridPartnerUpdateService:BaseEntityUpdateService<Entity.HybridPartner,HybridPartnerPM,IEntityPM,HybridPartnerList,string>
    {
    			
-        public HybridPartnerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new HybridPartnerDataMapping();
-            Repository = new Repository<POCO.HybridPartner>(mainContext);
-        }
-        public HybridPartnerUpdateService(int tenant) :  base( tenant)  
+        public HybridPartnerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new HybridPartnerDataMapping();
-            Repository = new Repository<POCO.HybridPartner>(tenant);
+            Repository = new Repository<Entity.HybridPartner>(unitOfWork);
 		}
-        public HybridPartnerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.HybridPartner,string> GetKeys(HybridPartnerPM entityPM) => new HybridPartnerKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.HybridPartner,string> GetKeys(HybridPartnerPM entityPM) => new HybridPartnerKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(HybridPartnerPM entityPM)
 		{
 		}

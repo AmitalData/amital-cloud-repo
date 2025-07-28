@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomAgentUpdateService:BaseEntityUpdateService<POCO.CustomAgent,CustomAgentPM,IEntityPM,CustomAgentList,string>
+   public partial class CustomAgentUpdateService:BaseEntityUpdateService<Entity.CustomAgent,CustomAgentPM,IEntityPM,CustomAgentList,string>
    {
    			
-        public CustomAgentUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomAgentDataMapping();
-            Repository = new Repository<POCO.CustomAgent>(mainContext);
-        }
-        public CustomAgentUpdateService(int tenant) :  base( tenant)  
+        public CustomAgentUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomAgentDataMapping();
-            Repository = new Repository<POCO.CustomAgent>(tenant);
+            Repository = new Repository<Entity.CustomAgent>(unitOfWork);
 		}
-        public CustomAgentUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomAgent,string> GetKeys(CustomAgentPM entityPM) => new CustomAgentKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomAgent,string> GetKeys(CustomAgentPM entityPM) => new CustomAgentKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomAgentPM entityPM)
 		{
 		}

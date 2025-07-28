@@ -1,6 +1,8 @@
 ﻿using AmitalCloud.Infrastructure.Application.BaseClasses;
 using AmitalCloud.Infrastructure.Application.Helpers;
+using AmitalCloud.Infrastructure.Data.Context;
 using AmitalCloud.Infrastructure.Data.Helpers;
+using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.Enums;
 using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Model.Interfaces;
@@ -12,11 +14,11 @@ namespace AmitalCloud.Infrastructure.Web.BaseClasses
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class BasePMControler<TService, TUpdateService, TEntityPM, TEntityPOCO> : ControllerBase
-        where TService : class, IBaseEntityQueryService<TEntityPM, TEntityPOCO>
-        where TUpdateService : class, IBaseEntityUpdateService<TEntityPM>
-        where TEntityPM : class, IEntityPM, new()
-        where TEntityPOCO : IEntity
+    public abstract class BasePMControler<TService, TUpdateService, TEntity, TEntityDTO> : ControllerBase
+        where TService : class, IBaseEntityQueryService<TEntity, TEntityDTO>
+        where TUpdateService : class, IBaseEntityUpdateService<TEntity>
+        where TEntity : class, IEntityPM, new()
+        where TEntityDTO : IEntity
     {
         private protected string ObjectTableName;
         private protected bool EnableSecurity;
@@ -58,90 +60,60 @@ namespace AmitalCloud.Infrastructure.Web.BaseClasses
             }
 
         }
-
         [HttpPost]
-        public IActionResult Post(IEntityPM entityPM)
-        {
-            if (ModelState.IsValid)
-            {
-                string logKey = PerformanceLogger.LogCurrentTime();
-                try
-                {
-                    var tenant = AuthenticationToken("NEW", entityPM.Tenant);
-                    using (TransactionScope scope = TransactionFactory.GetTransaction())
-                    {
-                        SaveEntity(entityPM, ChangeSetOperation.Insert);
-                        if (SaveHistory) TableLastUpdateClass.UpdateTableHistory(entityPM.Tenant, ObjectTableName);
-                        scope.Complete();
-                        return Ok(entityPM);
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, AmitalCloudApiExceptionBuilder.BuildException(ex));
-                }
-                finally
-                {
-                    PerformanceLogger.AddServerExecutionTimeHeader(logKey);
-                }
-            }
-            else
-            {
-                return BadRequest(AmitalCloudApiExceptionBuilder.BuildModelException(ModelState));
-            }
-        }
-
+        public IActionResult Post([FromServices] IUnitOfWork unitOfWork, IEntityPM entityPM)=> Save(unitOfWork, entityPM, "NEW", ChangeSetOperation.Insert);
         [HttpPut]
-        public IActionResult Put(IEntityPM entityPM)
-        {
-            if (ModelState.IsValid)
-            {
-                string logKey = PerformanceLogger.LogCurrentTime();
-                try
-                {
-                    using (TransactionScope scope = TransactionFactory.GetTransaction())
-                    {
-                        var tenant = AuthenticationToken("UPDATE", entityPM.Tenant);
-                        SaveEntity(entityPM, ChangeSetOperation.Update);
-                        //TableLastUpdateClass.UpdateTableHistory(entityPM.Tenant, "AWBAdditionalHandlingInfo");
-
-                        scope.Complete();
-                        return Ok(entityPM);
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, AmitalCloudApiExceptionBuilder.BuildException(ex));
-                }
-                finally
-                {
-                    PerformanceLogger.AddServerExecutionTimeHeader(logKey);
-                }
-            }
-            else
-            {
-                return BadRequest(AmitalCloudApiExceptionBuilder.BuildModelException(ModelState));
-            }
-        }
-
+        public IActionResult Put([FromServices] IUnitOfWork unitOfWork, IEntityPM entityPM)=> Save(unitOfWork, entityPM, "UPDATE", ChangeSetOperation.Update);
         // DELETE api/<controller>/5
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromServices] IUnitOfWork unitOfWork, int id)
         {
-        }
-
-        private object GetResult(int tenant, IEnumerable<KeyValuePair<string, string>> paramList) => GetService(tenant).GetSingle(paramList, true, false);
-        private void SaveEntity(IEntityPM entityPM, ChangeSetOperation changeSetOperation)
-        {
-            if (!HasTenant) return;
-            IBaseEntityUpdateService<TEntityPM> service = GetUpdateService(entityPM.Tenant);
-            if (changeSetOperation == ChangeSetOperation.Update) service.InitializeEntityPM((TEntityPM)entityPM);
-            entityPM.ChangeSetOp = changeSetOperation;
-            service.Update((TEntityPM)entityPM, true);
         }
         #endregion
+
+        #region Private Methods
+        private object GetResult(int tenant, IEnumerable<KeyValuePair<string, string>> paramList) => GetService(tenant).GetSingle(paramList, true, false);
+        private void SaveEntity(IUnitOfWork unitOfWork,IEntityPM entityPM, ChangeSetOperation changeSetOperation)
+        {
+            if (!HasTenant) return;
+            IBaseEntityUpdateService<TEntity> service = GetUpdateService(unitOfWork);
+            if (changeSetOperation == ChangeSetOperation.Update) service.InitializeEntityPM((TEntity)entityPM);
+            entityPM.ChangeSetOp = changeSetOperation;
+            service.Update((TEntity)entityPM, true);
+        }
+        private IActionResult Save(IUnitOfWork unitOfWork, IEntityPM entityPM, string authOption, ChangeSetOperation operation)
+        {
+            if (ModelState.IsValid)
+            {
+                string logKey = PerformanceLogger.LogCurrentTime();
+                try
+                {
+                    using (var uow = unitOfWork)
+                    {
+                        var tenant = AuthenticationToken(authOption, entityPM.Tenant);
+                        uow.CreateTransactionScope(TransactionScopeOption.Required);
+                        SaveEntity(uow, entityPM, ChangeSetOperation.Update);
+                        if (SaveHistory) TableLastUpdateClass.UpdateTableHistory(uow, entityPM.Tenant, ObjectTableName);
+                        uow.Save();
+                        uow.Commit();
+                        return Ok(entityPM);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, AmitalCloudApiExceptionBuilder.BuildException(ex));
+                }
+                finally
+                {
+                    PerformanceLogger.AddServerExecutionTimeHeader(logKey);
+                }
+            }
+            else
+            {
+                return BadRequest(AmitalCloudApiExceptionBuilder.BuildModelException(ModelState));
+            }
+        }
         private int AuthenticationToken(string mode, int tenant = 0)
         {
             int? entityTenant;
@@ -156,14 +128,18 @@ namespace AmitalCloud.Infrastructure.Web.BaseClasses
             int authTokenTenant = AmitalCloudSecurityUtility.AuthenticateTenant(entityTenant, EnableSecurity ? mode : null, ObjectTableName);
             return authTokenTenant;
         }
-        private IBaseEntityQueryService<TEntityPM, TEntityPOCO> GetService(int tenant)
+        private IBaseEntityQueryService<TEntity, TEntityDTO> GetService(int tenant)
         {
-            return (IBaseEntityQueryService<TEntityPM, TEntityPOCO>)typeof(TService).GetConstructor(new Type[] { typeof(int) }).Invoke(null, new object[] { tenant });
+            return (IBaseEntityQueryService<TEntity, TEntityDTO>)typeof(TService).GetConstructor(new Type[] { typeof(int) }).Invoke(null, new object[] { tenant });
         }
-        private IBaseEntityUpdateService<TEntityPM> GetUpdateService(int tenant)
+        //private IBaseEntityUpdateService<TEntity> GetUpdateService(int tenant)
+        //{
+        //    return (IBaseEntityUpdateService<TEntity>)typeof(TUpdateService).GetConstructor(new Type[] { typeof(int) }).Invoke(null, new object[] { tenant });
+        //}
+        private IBaseEntityUpdateService<TEntity> GetUpdateService(IUnitOfWork unitOfWork)
         {
-            return (IBaseEntityUpdateService<TEntityPM>)typeof(TUpdateService).GetConstructor(new Type[] { typeof(int) }).Invoke(null, new object[] { tenant });
+            return typeof(TUpdateService).GetConstructor(new Type[] { typeof(IUnitOfWork) }).Invoke(null, new object[] { unitOfWork }) as IBaseEntityUpdateService<TEntity>;
         }
-
+        #endregion Private Methods
     }
 }

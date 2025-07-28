@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PerformanceLogUpdateService:BaseEntityUpdateService<POCO.PerformanceLog,PerformanceLogPM,IEntityPM,PerformanceLogList,string>
+   public partial class PerformanceLogUpdateService:BaseEntityUpdateService<Entity.PerformanceLog,PerformanceLogPM,IEntityPM,PerformanceLogList,string>
    {
    			
-        public PerformanceLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PerformanceLogDataMapping();
-            Repository = new Repository<POCO.PerformanceLog>(mainContext);
-        }
-        public PerformanceLogUpdateService(int tenant) :  base( tenant)  
+        public PerformanceLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PerformanceLogDataMapping();
-            Repository = new Repository<POCO.PerformanceLog>(tenant);
+            Repository = new Repository<Entity.PerformanceLog>(unitOfWork);
 		}
-        public PerformanceLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PerformanceLog,string> GetKeys(PerformanceLogPM entityPM) => new PerformanceLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PerformanceLog,string> GetKeys(PerformanceLogPM entityPM) => new PerformanceLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PerformanceLogPM entityPM)
 		{
 		}

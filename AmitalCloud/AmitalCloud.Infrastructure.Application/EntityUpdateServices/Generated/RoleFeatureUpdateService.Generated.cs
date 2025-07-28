@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RoleFeatureUpdateService:BaseEntityUpdateService<POCO.RoleFeature,RoleFeaturePM,IEntityPM,RoleFeatureList,string>
+   public partial class RoleFeatureUpdateService:BaseEntityUpdateService<Entity.RoleFeature,RoleFeaturePM,IEntityPM,RoleFeatureList,string>
    {
    			
-        public RoleFeatureUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RoleFeatureDataMapping();
-            Repository = new Repository<POCO.RoleFeature>(mainContext);
-        }
-        public RoleFeatureUpdateService(int tenant) :  base( tenant)  
+        public RoleFeatureUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RoleFeatureDataMapping();
-            Repository = new Repository<POCO.RoleFeature>(tenant);
+            Repository = new Repository<Entity.RoleFeature>(unitOfWork);
 		}
-        public RoleFeatureUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RoleFeature,string> GetKeys(RoleFeaturePM entityPM) => new RoleFeatureKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.RoleFeature,string> GetKeys(RoleFeaturePM entityPM) => new RoleFeatureKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(RoleFeaturePM entityPM)
 		{
 		}

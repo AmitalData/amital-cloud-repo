@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DigitalFieldSecurityUpdateService:BaseEntityUpdateService<POCO.DigitalFieldSecurity,DigitalFieldSecurityPM,IEntityPM,DigitalFieldSecurityList,string>
+   public partial class DigitalFieldSecurityUpdateService:BaseEntityUpdateService<Entity.DigitalFieldSecurity,DigitalFieldSecurityPM,IEntityPM,DigitalFieldSecurityList,string>
    {
    			
-        public DigitalFieldSecurityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DigitalFieldSecurityDataMapping();
-            Repository = new Repository<POCO.DigitalFieldSecurity>(mainContext);
-        }
-        public DigitalFieldSecurityUpdateService(int tenant) :  base( tenant)  
+        public DigitalFieldSecurityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DigitalFieldSecurityDataMapping();
-            Repository = new Repository<POCO.DigitalFieldSecurity>(tenant);
+            Repository = new Repository<Entity.DigitalFieldSecurity>(unitOfWork);
 		}
-        public DigitalFieldSecurityUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DigitalFieldSecurity,string> GetKeys(DigitalFieldSecurityPM entityPM) => new DigitalFieldSecurityKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DigitalFieldSecurity,string> GetKeys(DigitalFieldSecurityPM entityPM) => new DigitalFieldSecurityKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DigitalFieldSecurityPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DigitalFieldSecurity", entityPM.Tenant); 

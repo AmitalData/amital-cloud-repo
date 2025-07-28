@@ -31,7 +31,7 @@ namespace AmitalCloud.Infrastructure.Data.BaseClasses
             InitLog();
         }
 
-        public override int SaveChanges()
+        internal new int SaveChanges()
         {
             bool suppressThrow = false;
             var saveChangeLogger = CreateLogger();

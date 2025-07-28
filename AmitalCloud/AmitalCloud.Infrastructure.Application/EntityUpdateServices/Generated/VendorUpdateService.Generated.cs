@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VendorUpdateService:BaseEntityUpdateService<POCO.Vendor,VendorPM,IEntityPM,VendorList,string>
+   public partial class VendorUpdateService:BaseEntityUpdateService<Entity.Vendor,VendorPM,IEntityPM,VendorList,string>
    {
    			
-        public VendorUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VendorDataMapping();
-            Repository = new Repository<POCO.Vendor>(mainContext);
-        }
-        public VendorUpdateService(int tenant) :  base( tenant)  
+        public VendorUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VendorDataMapping();
-            Repository = new Repository<POCO.Vendor>(tenant);
+            Repository = new Repository<Entity.Vendor>(unitOfWork);
 		}
-        public VendorUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Vendor,string> GetKeys(VendorPM entityPM) => new VendorKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Vendor,string> GetKeys(VendorPM entityPM) => new VendorKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(VendorPM entityPM)
 		{
 		}

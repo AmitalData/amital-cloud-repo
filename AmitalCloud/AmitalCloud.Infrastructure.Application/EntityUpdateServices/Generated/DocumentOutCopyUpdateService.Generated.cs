@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentOutCopyUpdateService:BaseEntityUpdateService<POCO.DocumentOutCopy,DocumentOutCopyPM,IEntityPM,DocumentOutCopyList,string>
+   public partial class DocumentOutCopyUpdateService:BaseEntityUpdateService<Entity.DocumentOutCopy,DocumentOutCopyPM,IEntityPM,DocumentOutCopyList,string>
    {
    			
-        public DocumentOutCopyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentOutCopyDataMapping();
-            Repository = new Repository<POCO.DocumentOutCopy>(mainContext);
-        }
-        public DocumentOutCopyUpdateService(int tenant) :  base( tenant)  
+        public DocumentOutCopyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentOutCopyDataMapping();
-            Repository = new Repository<POCO.DocumentOutCopy>(tenant);
+            Repository = new Repository<Entity.DocumentOutCopy>(unitOfWork);
 		}
-        public DocumentOutCopyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentOutCopy,string> GetKeys(DocumentOutCopyPM entityPM) => new DocumentOutCopyKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentOutCopy,string> GetKeys(DocumentOutCopyPM entityPM) => new DocumentOutCopyKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentOutCopyPM entityPM)
 		{
 		}

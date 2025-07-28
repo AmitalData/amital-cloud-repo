@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QuoteTemplateTextDesignUpdateService:BaseEntityUpdateService<POCO.QuoteTemplateTextDesign,QuoteTemplateTextDesignPM,IEntityPM,QuoteTemplateTextDesignList,string>
+   public partial class QuoteTemplateTextDesignUpdateService:BaseEntityUpdateService<Entity.QuoteTemplateTextDesign,QuoteTemplateTextDesignPM,IEntityPM,QuoteTemplateTextDesignList,string>
    {
    			
-        public QuoteTemplateTextDesignUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QuoteTemplateTextDesignDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateTextDesign>(mainContext);
-        }
-        public QuoteTemplateTextDesignUpdateService(int tenant) :  base( tenant)  
+        public QuoteTemplateTextDesignUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QuoteTemplateTextDesignDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateTextDesign>(tenant);
+            Repository = new Repository<Entity.QuoteTemplateTextDesign>(unitOfWork);
 		}
-        public QuoteTemplateTextDesignUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QuoteTemplateTextDesign,string> GetKeys(QuoteTemplateTextDesignPM entityPM) => new QuoteTemplateTextDesignKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.QuoteTemplateTextDesign,string> GetKeys(QuoteTemplateTextDesignPM entityPM) => new QuoteTemplateTextDesignKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(QuoteTemplateTextDesignPM entityPM)
 		{
 		}

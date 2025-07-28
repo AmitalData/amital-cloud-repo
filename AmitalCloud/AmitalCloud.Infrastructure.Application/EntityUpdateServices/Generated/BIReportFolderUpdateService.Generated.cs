@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BIReportFolderUpdateService:BaseEntityUpdateService<POCO.BIReportFolder,BIReportFolderPM,IEntityPM,BIReportFolderList,string>
+   public partial class BIReportFolderUpdateService:BaseEntityUpdateService<Entity.BIReportFolder,BIReportFolderPM,IEntityPM,BIReportFolderList,string>
    {
    			
-        public BIReportFolderUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BIReportFolderDataMapping();
-            Repository = new Repository<POCO.BIReportFolder>(mainContext);
-        }
-        public BIReportFolderUpdateService(int tenant) :  base( tenant)  
+        public BIReportFolderUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BIReportFolderDataMapping();
-            Repository = new Repository<POCO.BIReportFolder>(tenant);
+            Repository = new Repository<Entity.BIReportFolder>(unitOfWork);
 		}
-        public BIReportFolderUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BIReportFolder,string> GetKeys(BIReportFolderPM entityPM) => new BIReportFolderKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BIReportFolder,string> GetKeys(BIReportFolderPM entityPM) => new BIReportFolderKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BIReportFolderPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("BIReportFolder", entityPM.Tenant); 

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ChangePasswordLogUpdateService:BaseEntityUpdateService<POCO.ChangePasswordLog,ChangePasswordLogPM,IEntityPM,ChangePasswordLogList,string>
+   public partial class ChangePasswordLogUpdateService:BaseEntityUpdateService<Entity.ChangePasswordLog,ChangePasswordLogPM,IEntityPM,ChangePasswordLogList,string>
    {
    			
-        public ChangePasswordLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ChangePasswordLogDataMapping();
-            Repository = new Repository<POCO.ChangePasswordLog>(mainContext);
-        }
-        public ChangePasswordLogUpdateService(int tenant) :  base( tenant)  
+        public ChangePasswordLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ChangePasswordLogDataMapping();
-            Repository = new Repository<POCO.ChangePasswordLog>(tenant);
+            Repository = new Repository<Entity.ChangePasswordLog>(unitOfWork);
 		}
-        public ChangePasswordLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ChangePasswordLog,string> GetKeys(ChangePasswordLogPM entityPM) => new ChangePasswordLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ChangePasswordLog,string> GetKeys(ChangePasswordLogPM entityPM) => new ChangePasswordLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ChangePasswordLogPM entityPM)
 		{
 		}

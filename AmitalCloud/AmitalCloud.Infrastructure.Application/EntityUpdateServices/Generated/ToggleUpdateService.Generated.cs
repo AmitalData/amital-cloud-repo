@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ToggleUpdateService:BaseEntityUpdateService<POCO.Toggle,TogglePM,IEntityPM,ToggleList,string>
+   public partial class ToggleUpdateService:BaseEntityUpdateService<Entity.Toggle,TogglePM,IEntityPM,ToggleList,string>
    {
    			
-        public ToggleUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ToggleDataMapping();
-            Repository = new Repository<POCO.Toggle>(mainContext);
-        }
-        public ToggleUpdateService(int tenant) :  base( tenant)  
+        public ToggleUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ToggleDataMapping();
-            Repository = new Repository<POCO.Toggle>(tenant);
+            Repository = new Repository<Entity.Toggle>(unitOfWork);
 		}
-        public ToggleUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Toggle,string> GetKeys(TogglePM entityPM) => new ToggleKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.Toggle,string> GetKeys(TogglePM entityPM) => new ToggleKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TogglePM entityPM)
 		{
 		}

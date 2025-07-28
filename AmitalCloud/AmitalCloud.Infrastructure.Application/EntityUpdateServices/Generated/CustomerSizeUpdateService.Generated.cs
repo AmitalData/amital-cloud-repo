@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerSizeUpdateService:BaseEntityUpdateService<POCO.CustomerSize,CustomerSizePM,IEntityPM,CustomerSizeList,string>
+   public partial class CustomerSizeUpdateService:BaseEntityUpdateService<Entity.CustomerSize,CustomerSizePM,IEntityPM,CustomerSizeList,string>
    {
    			
-        public CustomerSizeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerSizeDataMapping();
-            Repository = new Repository<POCO.CustomerSize>(mainContext);
-        }
-        public CustomerSizeUpdateService(int tenant) :  base( tenant)  
+        public CustomerSizeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerSizeDataMapping();
-            Repository = new Repository<POCO.CustomerSize>(tenant);
+            Repository = new Repository<Entity.CustomerSize>(unitOfWork);
 		}
-        public CustomerSizeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerSize,string> GetKeys(CustomerSizePM entityPM) => new CustomerSizeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerSize,string> GetKeys(CustomerSizePM entityPM) => new CustomerSizeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomerSizePM entityPM)
 		{
 		}

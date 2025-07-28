@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CarrierAreasPortUpdateService:BaseEntityUpdateService<POCO.CarrierAreasPort,CarrierAreasPortPM,CarrierAreaPM,CarrierAreasPortList,string>
+   public partial class CarrierAreasPortUpdateService:BaseEntityUpdateService<Entity.CarrierAreasPort,CarrierAreasPortPM,CarrierAreaPM,CarrierAreasPortList,string>
    {
    			
-        public CarrierAreasPortUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CarrierAreasPortDataMapping();
-            Repository = new Repository<POCO.CarrierAreasPort>(mainContext);
-        }
-        public CarrierAreasPortUpdateService(int tenant) :  base( tenant)  
+        public CarrierAreasPortUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CarrierAreasPortDataMapping();
-            Repository = new Repository<POCO.CarrierAreasPort>(tenant);
+            Repository = new Repository<Entity.CarrierAreasPort>(unitOfWork);
 		}
-        public CarrierAreasPortUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CarrierAreasPort,string> GetKeys(CarrierAreasPortPM entityPM) => new CarrierAreasPortKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CarrierAreasPort,string> GetKeys(CarrierAreasPortPM entityPM) => new CarrierAreasPortKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CarrierAreasPortPM entityPM)
 		{
 		}

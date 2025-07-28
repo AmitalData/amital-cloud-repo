@@ -61,22 +61,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-	  private string _rowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string Rowid  
-	   {
-	     get { return _rowid; }
-		 set
-		 {
-		   if(_rowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Rowid",OldValue=_rowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _rowid=value;
-		   }
-		 }
-	   }
 	 }
 #endregion Properties
 }

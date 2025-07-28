@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BusinessProcessQueueUpdateService:BaseEntityUpdateService<POCO.BusinessProcessQueue,BusinessProcessQueuePM,IEntityPM,BusinessProcessQueueList,string>
+   public partial class BusinessProcessQueueUpdateService:BaseEntityUpdateService<Entity.BusinessProcessQueue,BusinessProcessQueuePM,IEntityPM,BusinessProcessQueueList,string>
    {
    			
-        public BusinessProcessQueueUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BusinessProcessQueueDataMapping();
-            Repository = new Repository<POCO.BusinessProcessQueue>(mainContext);
-        }
-        public BusinessProcessQueueUpdateService(int tenant) :  base( tenant)  
+        public BusinessProcessQueueUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BusinessProcessQueueDataMapping();
-            Repository = new Repository<POCO.BusinessProcessQueue>(tenant);
+            Repository = new Repository<Entity.BusinessProcessQueue>(unitOfWork);
 		}
-        public BusinessProcessQueueUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BusinessProcessQueue,string> GetKeys(BusinessProcessQueuePM entityPM) => new BusinessProcessQueueKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BusinessProcessQueue,string> GetKeys(BusinessProcessQueuePM entityPM) => new BusinessProcessQueueKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BusinessProcessQueuePM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

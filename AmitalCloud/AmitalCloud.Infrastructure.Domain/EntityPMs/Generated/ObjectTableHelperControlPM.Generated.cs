@@ -125,14 +125,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private FeaturePM _feature;
-		
-        [DataMember]
-        public virtual FeaturePM Feature 
-		{ 
-		get { return _feature; } 
-		set { _feature = value; }
-		}
 	  private string _featureUniqeCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

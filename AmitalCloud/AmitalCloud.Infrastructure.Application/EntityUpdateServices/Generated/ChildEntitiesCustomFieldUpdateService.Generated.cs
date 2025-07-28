@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ChildEntitiesCustomFieldUpdateService:BaseEntityUpdateService<POCO.ChildEntitiesCustomField,ChildEntitiesCustomFieldPM,IEntityPM,ChildEntitiesCustomFieldList,string>
+   public partial class ChildEntitiesCustomFieldUpdateService:BaseEntityUpdateService<Entity.ChildEntitiesCustomField,ChildEntitiesCustomFieldPM,IEntityPM,ChildEntitiesCustomFieldList,string>
    {
    			
-        public ChildEntitiesCustomFieldUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ChildEntitiesCustomFieldDataMapping();
-            Repository = new Repository<POCO.ChildEntitiesCustomField>(mainContext);
-        }
-        public ChildEntitiesCustomFieldUpdateService(int tenant) :  base( tenant)  
+        public ChildEntitiesCustomFieldUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ChildEntitiesCustomFieldDataMapping();
-            Repository = new Repository<POCO.ChildEntitiesCustomField>(tenant);
+            Repository = new Repository<Entity.ChildEntitiesCustomField>(unitOfWork);
 		}
-        public ChildEntitiesCustomFieldUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ChildEntitiesCustomField,string> GetKeys(ChildEntitiesCustomFieldPM entityPM) => new ChildEntitiesCustomFieldKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ChildEntitiesCustomField,string> GetKeys(ChildEntitiesCustomFieldPM entityPM) => new ChildEntitiesCustomFieldKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ChildEntitiesCustomFieldPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("ChildEntitiesCustomField", entityPM.Tenant); 

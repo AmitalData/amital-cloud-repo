@@ -35,7 +35,7 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
                 return;
             }
             int tenant = args.Tenant;
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 EventTypeRepository eventTypeRepository = new EventTypeRepository(uow);
                 EventType eventType = eventTypeRepository.GetSingleEventTypeByCode(args.EventTypeCode, tenant);
@@ -201,7 +201,7 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
         public static Response CreateTraceEventsList(List<TraceEventParams> traceEventParamsList, int tenant, string objectTableName, string currentStatusId, string param = null)
         {
             Response response = new Response();
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 EventTypeRepository eventTypesRepository = new EventTypeRepository(uow);
                 TraceEventRepository traceEventsRepository = new TraceEventRepository(uow);
@@ -337,7 +337,7 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
         public static void DeleteTraceEvent(string eventTypeCode, int tenant, string objectTableName, string entityId)
         {
             if (string.IsNullOrEmpty(eventTypeCode)) return;
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 TraceEventRepository traceEventRepository = new TraceEventRepository(uow);
                 ObjectTable objectTable = new ObjectTableRepository(uow).GetObjectTableByName(objectTableName, 0, true);

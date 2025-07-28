@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TeamMemberBusinessRoleUpdateService:BaseEntityUpdateService<POCO.TeamMemberBusinessRole,TeamMemberBusinessRolePM,LBPTeamMemberPM,TeamMemberBusinessRoleList,string>
+   public partial class TeamMemberBusinessRoleUpdateService:BaseEntityUpdateService<Entity.TeamMemberBusinessRole,TeamMemberBusinessRolePM,LBPTeamMemberPM,TeamMemberBusinessRoleList,string>
    {
    			
-        public TeamMemberBusinessRoleUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TeamMemberBusinessRoleDataMapping();
-            Repository = new Repository<POCO.TeamMemberBusinessRole>(mainContext);
-        }
-        public TeamMemberBusinessRoleUpdateService(int tenant) :  base( tenant)  
+        public TeamMemberBusinessRoleUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TeamMemberBusinessRoleDataMapping();
-            Repository = new Repository<POCO.TeamMemberBusinessRole>(tenant);
+            Repository = new Repository<Entity.TeamMemberBusinessRole>(unitOfWork);
 		}
-        public TeamMemberBusinessRoleUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TeamMemberBusinessRole,string> GetKeys(TeamMemberBusinessRolePM entityPM) => new TeamMemberBusinessRoleKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TeamMemberBusinessRole,string> GetKeys(TeamMemberBusinessRolePM entityPM) => new TeamMemberBusinessRoleKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(TeamMemberBusinessRolePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("TeamMemberBusinessRole", entityPM.Tenant); 

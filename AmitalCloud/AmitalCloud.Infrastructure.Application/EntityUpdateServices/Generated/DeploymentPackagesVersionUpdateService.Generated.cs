@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DeploymentPackagesVersionUpdateService:BaseEntityUpdateService<POCO.DeploymentPackagesVersion,DeploymentPackagesVersionPM,IEntityPM,DeploymentPackagesVersionList,string>
+   public partial class DeploymentPackagesVersionUpdateService:BaseEntityUpdateService<Entity.DeploymentPackagesVersion,DeploymentPackagesVersionPM,IEntityPM,DeploymentPackagesVersionList,string>
    {
    			
-        public DeploymentPackagesVersionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DeploymentPackagesVersionDataMapping();
-            Repository = new Repository<POCO.DeploymentPackagesVersion>(mainContext);
-        }
-        public DeploymentPackagesVersionUpdateService(int tenant) :  base( tenant)  
+        public DeploymentPackagesVersionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DeploymentPackagesVersionDataMapping();
-            Repository = new Repository<POCO.DeploymentPackagesVersion>(tenant);
+            Repository = new Repository<Entity.DeploymentPackagesVersion>(unitOfWork);
 		}
-        public DeploymentPackagesVersionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DeploymentPackagesVersion,string> GetKeys(DeploymentPackagesVersionPM entityPM) => new DeploymentPackagesVersionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DeploymentPackagesVersion,string> GetKeys(DeploymentPackagesVersionPM entityPM) => new DeploymentPackagesVersionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DeploymentPackagesVersionPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DeploymentPackagesVersion", entityPM.Tenant); 

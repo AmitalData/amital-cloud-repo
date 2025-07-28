@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TarrifFromToTypeUpdateService:BaseEntityUpdateService<POCO.TarrifFromToType,TarrifFromToTypePM,IEntityPM,TarrifFromToTypeList,string>
+   public partial class TarrifFromToTypeUpdateService:BaseEntityUpdateService<Entity.TarrifFromToType,TarrifFromToTypePM,IEntityPM,TarrifFromToTypeList,string>
    {
    			
-        public TarrifFromToTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TarrifFromToTypeDataMapping();
-            Repository = new Repository<POCO.TarrifFromToType>(mainContext);
-        }
-        public TarrifFromToTypeUpdateService(int tenant) :  base( tenant)  
+        public TarrifFromToTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TarrifFromToTypeDataMapping();
-            Repository = new Repository<POCO.TarrifFromToType>(tenant);
+            Repository = new Repository<Entity.TarrifFromToType>(unitOfWork);
 		}
-        public TarrifFromToTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TarrifFromToType,string> GetKeys(TarrifFromToTypePM entityPM) => new TarrifFromToTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.TarrifFromToType,string> GetKeys(TarrifFromToTypePM entityPM) => new TarrifFromToTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TarrifFromToTypePM entityPM)
 		{
 		}

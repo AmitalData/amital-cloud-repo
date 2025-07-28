@@ -215,7 +215,7 @@ using System.Web;
 <#+ }#>
 <#+ if(Contact) { #>
 <#+ }#>
-using POCO = <#= NamespacesDictionary["pocosspacestring"] #> ;
+using Entity = <#= NamespacesDictionary["pocosspacestring"] #> ;
 using <#= NamespacesDictionary["pmsspacestring"] #>;
 using <#= NamespacesDictionary["keysspacestring"] #>;
 using <#= NamespacesDictionary["entitylistsnamespace"] #>;
@@ -233,23 +233,16 @@ using <#= NamespacesDictionary["contextspacestring"] #>;
 
 namespace <#= servicenamespacestring #>
 { 
-   public partial class <#=tableName #>UpdateService:BaseEntityUpdateService<POCO.<#=tableName #>,<#= pmName #>,<#= parententity #>,<#= listName #>,<#= keytype #>>
+   public partial class <#=tableName #>UpdateService:BaseEntityUpdateService<Entity.<#=tableName #>,<#= pmName #>,<#= parententity #>,<#= listName #>,<#= keytype #>>
    {
    		<#+  if (false) { #>
 		<#+ } #>	
-        public <#=tableName #>UpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new <#=tableName #>DataMapping();
-            Repository = new Repository<POCO.<#=tableName #>>(mainContext);
-        }
-        public <#=tableName #>UpdateService(int tenant) :  base( tenant)  
+        public <#=tableName #>UpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new <#=tableName #>DataMapping();
-            Repository = new Repository<POCO.<#=tableName #>>(tenant);
+            Repository = new Repository<Entity.<#=tableName #>>(unitOfWork);
 		}
-        public <#=tableName #>UpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.<#=tableName #>,<#= keytype #>> GetKeys(<#= pmName #> entityPM) => new <#=tableName #>Keys<<#= keytype #>>() { <#= keysstring #> };
+		protected override IEntityKeyFields<Entity.<#=tableName #>,<#= keytype #>> GetKeys(<#= pmName #> entityPM) => new <#=tableName #>Keys<<#= keytype #>>() { <#= keysstring #> };
 <#+   if (IsAutoFill)  {  #>
 		protected override void FillDefaultValuesOnCreate(<#= pmName #> entityPM)
 		{

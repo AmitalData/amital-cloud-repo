@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWHBuildStatusUpdateService:BaseEntityUpdateService<POCO.DWHBuildStatus,DWHBuildStatusPM,IEntityPM,DWHBuildStatusList,string>
+   public partial class DWHBuildStatusUpdateService:BaseEntityUpdateService<Entity.DWHBuildStatus,DWHBuildStatusPM,IEntityPM,DWHBuildStatusList,string>
    {
    			
-        public DWHBuildStatusUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWHBuildStatusDataMapping();
-            Repository = new Repository<POCO.DWHBuildStatus>(mainContext);
-        }
-        public DWHBuildStatusUpdateService(int tenant) :  base( tenant)  
+        public DWHBuildStatusUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWHBuildStatusDataMapping();
-            Repository = new Repository<POCO.DWHBuildStatus>(tenant);
+            Repository = new Repository<Entity.DWHBuildStatus>(unitOfWork);
 		}
-        public DWHBuildStatusUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWHBuildStatus,string> GetKeys(DWHBuildStatusPM entityPM) => new DWHBuildStatusKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWHBuildStatus,string> GetKeys(DWHBuildStatusPM entityPM) => new DWHBuildStatusKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWHBuildStatusPM entityPM)
 		{
 		}

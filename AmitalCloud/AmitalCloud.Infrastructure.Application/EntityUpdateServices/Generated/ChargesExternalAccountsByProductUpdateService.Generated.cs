@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ChargesExternalAccountsByProductUpdateService:BaseEntityUpdateService<POCO.ChargesExternalAccountsByProduct,ChargesExternalAccountsByProductPM,IEntityPM,ChargesExternalAccountsByProductList,string>
+   public partial class ChargesExternalAccountsByProductUpdateService:BaseEntityUpdateService<Entity.ChargesExternalAccountsByProduct,ChargesExternalAccountsByProductPM,IEntityPM,ChargesExternalAccountsByProductList,string>
    {
    			
-        public ChargesExternalAccountsByProductUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ChargesExternalAccountsByProductDataMapping();
-            Repository = new Repository<POCO.ChargesExternalAccountsByProduct>(mainContext);
-        }
-        public ChargesExternalAccountsByProductUpdateService(int tenant) :  base( tenant)  
+        public ChargesExternalAccountsByProductUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ChargesExternalAccountsByProductDataMapping();
-            Repository = new Repository<POCO.ChargesExternalAccountsByProduct>(tenant);
+            Repository = new Repository<Entity.ChargesExternalAccountsByProduct>(unitOfWork);
 		}
-        public ChargesExternalAccountsByProductUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ChargesExternalAccountsByProduct,string> GetKeys(ChargesExternalAccountsByProductPM entityPM) => new ChargesExternalAccountsByProductKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ChargesExternalAccountsByProduct,string> GetKeys(ChargesExternalAccountsByProductPM entityPM) => new ChargesExternalAccountsByProductKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ChargesExternalAccountsByProductPM entityPM)
 		{
 		}

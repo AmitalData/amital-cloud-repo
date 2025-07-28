@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityStatusTypeUpdateService:BaseEntityUpdateService<POCO.EntityStatusType,EntityStatusTypePM,IEntityPM,EntityStatusTypeList,string>
+   public partial class EntityStatusTypeUpdateService:BaseEntityUpdateService<Entity.EntityStatusType,EntityStatusTypePM,IEntityPM,EntityStatusTypeList,string>
    {
    			
-        public EntityStatusTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityStatusTypeDataMapping();
-            Repository = new Repository<POCO.EntityStatusType>(mainContext);
-        }
-        public EntityStatusTypeUpdateService(int tenant) :  base( tenant)  
+        public EntityStatusTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityStatusTypeDataMapping();
-            Repository = new Repository<POCO.EntityStatusType>(tenant);
+            Repository = new Repository<Entity.EntityStatusType>(unitOfWork);
 		}
-        public EntityStatusTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityStatusType,string> GetKeys(EntityStatusTypePM entityPM) => new EntityStatusTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.EntityStatusType,string> GetKeys(EntityStatusTypePM entityPM) => new EntityStatusTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(EntityStatusTypePM entityPM)
 		{
 		}

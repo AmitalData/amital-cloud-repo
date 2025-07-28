@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityStatusUpdateService:BaseEntityUpdateService<POCO.EntityStatus,EntityStatusPM,IEntityPM,EntityStatusList,string>
+   public partial class EntityStatusUpdateService:BaseEntityUpdateService<Entity.EntityStatus,EntityStatusPM,IEntityPM,EntityStatusList,string>
    {
    			
-        public EntityStatusUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityStatusDataMapping();
-            Repository = new Repository<POCO.EntityStatus>(mainContext);
-        }
-        public EntityStatusUpdateService(int tenant) :  base( tenant)  
+        public EntityStatusUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityStatusDataMapping();
-            Repository = new Repository<POCO.EntityStatus>(tenant);
+            Repository = new Repository<Entity.EntityStatus>(unitOfWork);
 		}
-        public EntityStatusUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityStatus,string> GetKeys(EntityStatusPM entityPM) => new EntityStatusKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EntityStatus,string> GetKeys(EntityStatusPM entityPM) => new EntityStatusKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EntityStatusPM entityPM)
 		{
 		}

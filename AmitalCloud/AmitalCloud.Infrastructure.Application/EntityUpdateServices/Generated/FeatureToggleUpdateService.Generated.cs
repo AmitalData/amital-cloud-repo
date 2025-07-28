@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FeatureToggleUpdateService:BaseEntityUpdateService<POCO.FeatureToggle,FeatureTogglePM,IEntityPM,FeatureToggleList,string>
+   public partial class FeatureToggleUpdateService:BaseEntityUpdateService<Entity.FeatureToggle,FeatureTogglePM,IEntityPM,FeatureToggleList,string>
    {
    			
-        public FeatureToggleUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FeatureToggleDataMapping();
-            Repository = new Repository<POCO.FeatureToggle>(mainContext);
-        }
-        public FeatureToggleUpdateService(int tenant) :  base( tenant)  
+        public FeatureToggleUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FeatureToggleDataMapping();
-            Repository = new Repository<POCO.FeatureToggle>(tenant);
+            Repository = new Repository<Entity.FeatureToggle>(unitOfWork);
 		}
-        public FeatureToggleUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FeatureToggle,string> GetKeys(FeatureTogglePM entityPM) => new FeatureToggleKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.FeatureToggle,string> GetKeys(FeatureTogglePM entityPM) => new FeatureToggleKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(FeatureTogglePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("FeatureToggle", entityPM.Tenant); 

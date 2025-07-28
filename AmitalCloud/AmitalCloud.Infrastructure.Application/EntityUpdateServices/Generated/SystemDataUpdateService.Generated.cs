@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class SystemDataUpdateService:BaseEntityUpdateService<POCO.SystemData,SystemDataPM,IEntityPM,SystemDataList,string>
+   public partial class SystemDataUpdateService:BaseEntityUpdateService<Entity.SystemData,SystemDataPM,IEntityPM,SystemDataList,string>
    {
    			
-        public SystemDataUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new SystemDataDataMapping();
-            Repository = new Repository<POCO.SystemData>(mainContext);
-        }
-        public SystemDataUpdateService(int tenant) :  base( tenant)  
+        public SystemDataUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new SystemDataDataMapping();
-            Repository = new Repository<POCO.SystemData>(tenant);
+            Repository = new Repository<Entity.SystemData>(unitOfWork);
 		}
-        public SystemDataUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.SystemData,string> GetKeys(SystemDataPM entityPM) => new SystemDataKeys<string>() { UserId = entityPM.UserId };
+		protected override IEntityKeyFields<Entity.SystemData,string> GetKeys(SystemDataPM entityPM) => new SystemDataKeys<string>() { UserId = entityPM.UserId };
 protected override void FillDefaultValuesOnCreate(SystemDataPM entityPM)
 		{
 		}

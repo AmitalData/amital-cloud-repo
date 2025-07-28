@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BatchTaskExecutionStatusUpdateService:BaseEntityUpdateService<POCO.BatchTaskExecutionStatus,BatchTaskExecutionStatusPM,IEntityPM,BatchTaskExecutionStatusList,string>
+   public partial class BatchTaskExecutionStatusUpdateService:BaseEntityUpdateService<Entity.BatchTaskExecutionStatus,BatchTaskExecutionStatusPM,IEntityPM,BatchTaskExecutionStatusList,string>
    {
    			
-        public BatchTaskExecutionStatusUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BatchTaskExecutionStatusDataMapping();
-            Repository = new Repository<POCO.BatchTaskExecutionStatus>(mainContext);
-        }
-        public BatchTaskExecutionStatusUpdateService(int tenant) :  base( tenant)  
+        public BatchTaskExecutionStatusUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BatchTaskExecutionStatusDataMapping();
-            Repository = new Repository<POCO.BatchTaskExecutionStatus>(tenant);
+            Repository = new Repository<Entity.BatchTaskExecutionStatus>(unitOfWork);
 		}
-        public BatchTaskExecutionStatusUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BatchTaskExecutionStatus,string> GetKeys(BatchTaskExecutionStatusPM entityPM) => new BatchTaskExecutionStatusKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.BatchTaskExecutionStatus,string> GetKeys(BatchTaskExecutionStatusPM entityPM) => new BatchTaskExecutionStatusKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(BatchTaskExecutionStatusPM entityPM)
 		{
 		}

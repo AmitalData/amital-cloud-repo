@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentsExecutionLogUpdateService:BaseEntityUpdateService<POCO.DocumentsExecutionLog,DocumentsExecutionLogPM,IEntityPM,DocumentsExecutionLogList,string>
+   public partial class DocumentsExecutionLogUpdateService:BaseEntityUpdateService<Entity.DocumentsExecutionLog,DocumentsExecutionLogPM,IEntityPM,DocumentsExecutionLogList,string>
    {
    			
-        public DocumentsExecutionLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentsExecutionLogDataMapping();
-            Repository = new Repository<POCO.DocumentsExecutionLog>(mainContext);
-        }
-        public DocumentsExecutionLogUpdateService(int tenant) :  base( tenant)  
+        public DocumentsExecutionLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentsExecutionLogDataMapping();
-            Repository = new Repository<POCO.DocumentsExecutionLog>(tenant);
+            Repository = new Repository<Entity.DocumentsExecutionLog>(unitOfWork);
 		}
-        public DocumentsExecutionLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentsExecutionLog,string> GetKeys(DocumentsExecutionLogPM entityPM) => new DocumentsExecutionLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentsExecutionLog,string> GetKeys(DocumentsExecutionLogPM entityPM) => new DocumentsExecutionLogKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DocumentsExecutionLogPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DocumentsExecutionLog", entityPM.Tenant); 

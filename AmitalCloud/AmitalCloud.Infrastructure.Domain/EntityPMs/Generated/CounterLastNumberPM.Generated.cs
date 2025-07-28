@@ -93,22 +93,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-	  private string _dropRowid ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string DropRowid  
-	   {
-	     get { return _dropRowid; }
-		 set
-		 {
-		   if(_dropRowid != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropRowid",OldValue=_dropRowid,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _dropRowid=value;
-		   }
-		 }
-	   }
 	 }
 #endregion Properties
 }

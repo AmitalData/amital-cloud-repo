@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TermsofUseUpdateService:BaseEntityUpdateService<POCO.TermsofUse,TermsofUsePM,IEntityPM,TermsofUseList,int>
+   public partial class TermsofUseUpdateService:BaseEntityUpdateService<Entity.TermsofUse,TermsofUsePM,IEntityPM,TermsofUseList,int>
    {
    			
-        public TermsofUseUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TermsofUseDataMapping();
-            Repository = new Repository<POCO.TermsofUse>(mainContext);
-        }
-        public TermsofUseUpdateService(int tenant) :  base( tenant)  
+        public TermsofUseUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TermsofUseDataMapping();
-            Repository = new Repository<POCO.TermsofUse>(tenant);
+            Repository = new Repository<Entity.TermsofUse>(unitOfWork);
 		}
-        public TermsofUseUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TermsofUse,int> GetKeys(TermsofUsePM entityPM) => new TermsofUseKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TermsofUse,int> GetKeys(TermsofUsePM entityPM) => new TermsofUseKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TermsofUsePM entityPM)
 		{
 		}

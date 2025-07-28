@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TenantLoginPolicyUpdateService:BaseEntityUpdateService<POCO.TenantLoginPolicy,TenantLoginPolicyPM,IEntityPM,TenantLoginPolicyList,int>
+   public partial class TenantLoginPolicyUpdateService:BaseEntityUpdateService<Entity.TenantLoginPolicy,TenantLoginPolicyPM,IEntityPM,TenantLoginPolicyList,int>
    {
    			
-        public TenantLoginPolicyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TenantLoginPolicyDataMapping();
-            Repository = new Repository<POCO.TenantLoginPolicy>(mainContext);
-        }
-        public TenantLoginPolicyUpdateService(int tenant) :  base( tenant)  
+        public TenantLoginPolicyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TenantLoginPolicyDataMapping();
-            Repository = new Repository<POCO.TenantLoginPolicy>(tenant);
+            Repository = new Repository<Entity.TenantLoginPolicy>(unitOfWork);
 		}
-        public TenantLoginPolicyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TenantLoginPolicy,int> GetKeys(TenantLoginPolicyPM entityPM) => new TenantLoginPolicyKeys<int>() { Tenant = entityPM.Tenant };
+		protected override IEntityKeyFields<Entity.TenantLoginPolicy,int> GetKeys(TenantLoginPolicyPM entityPM) => new TenantLoginPolicyKeys<int>() { Tenant = entityPM.Tenant };
 protected override void FillDefaultValuesOnCreate(TenantLoginPolicyPM entityPM)
 		{
 		}

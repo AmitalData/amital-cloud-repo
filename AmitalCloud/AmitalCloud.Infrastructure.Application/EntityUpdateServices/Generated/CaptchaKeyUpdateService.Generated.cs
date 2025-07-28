@@ -22,14 +22,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
     public partial class CaptchaKeyUpdateService:BaseEntityUpdateService<POCO.CaptchaKey,CaptchaKeyPM,IEntityPM,CaptchaKeyList,string>
    {
    			
-        public CaptchaKeyUpdateService(IGlobalContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base((GlobalContext)mainContext,additionalContexts, tenant)
+        public CaptchaKeyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new CaptchaKeyDataMapping();
-            Repository = new Repository<POCO.CaptchaKey>((GlobalContext)mainContext);
+            Repository = new Repository<POCO.CaptchaKey>(unitOfWork);
         }
-        public CaptchaKeyUpdateService(int tenant) : this(GlobalContext.GetContext(tenant), null, tenant) {}
-        public CaptchaKeyUpdateService(IGlobalContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.CaptchaKey,string> GetKeys(CaptchaKeyPM entityPM) => new CaptchaKeyKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CaptchaKeyPM entityPM)
 		{

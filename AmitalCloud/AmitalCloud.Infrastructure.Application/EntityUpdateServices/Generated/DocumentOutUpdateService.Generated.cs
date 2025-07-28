@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentOutUpdateService:BaseEntityUpdateService<POCO.DocumentOut,DocumentOutPM,IEntityPM,DocumentOutList,string>
+   public partial class DocumentOutUpdateService:BaseEntityUpdateService<Entity.DocumentOut,DocumentOutPM,IEntityPM,DocumentOutList,string>
    {
    			
-        public DocumentOutUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentOutDataMapping();
-            Repository = new Repository<POCO.DocumentOut>(mainContext);
-        }
-        public DocumentOutUpdateService(int tenant) :  base( tenant)  
+        public DocumentOutUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentOutDataMapping();
-            Repository = new Repository<POCO.DocumentOut>(tenant);
+            Repository = new Repository<Entity.DocumentOut>(unitOfWork);
 		}
-        public DocumentOutUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentOut,string> GetKeys(DocumentOutPM entityPM) => new DocumentOutKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentOut,string> GetKeys(DocumentOutPM entityPM) => new DocumentOutKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentOutPM entityPM)
 		{
 		}

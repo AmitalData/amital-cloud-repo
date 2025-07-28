@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VatTypePercentageUpdateService:BaseEntityUpdateService<POCO.VatTypePercentage,VatTypePercentagePM,VatTypePM,VatTypePercentageList,string>
+   public partial class VatTypePercentageUpdateService:BaseEntityUpdateService<Entity.VatTypePercentage,VatTypePercentagePM,VatTypePM,VatTypePercentageList,string>
    {
    			
-        public VatTypePercentageUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VatTypePercentageDataMapping();
-            Repository = new Repository<POCO.VatTypePercentage>(mainContext);
-        }
-        public VatTypePercentageUpdateService(int tenant) :  base( tenant)  
+        public VatTypePercentageUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VatTypePercentageDataMapping();
-            Repository = new Repository<POCO.VatTypePercentage>(tenant);
+            Repository = new Repository<Entity.VatTypePercentage>(unitOfWork);
 		}
-        public VatTypePercentageUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VatTypePercentage,string> GetKeys(VatTypePercentagePM entityPM) => new VatTypePercentageKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.VatTypePercentage,string> GetKeys(VatTypePercentagePM entityPM) => new VatTypePercentageKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(VatTypePercentagePM entityPM)
 		{
 		}

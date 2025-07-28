@@ -220,7 +220,7 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
                 userName = TruncateLongString(userName, 99);
             }
 
-            using (var uow = new UnitOfWork<SystemLogContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 IRepository<ErrorLog> errorLogRrp = new Repository<ErrorLog>(uow);
                 ErrorLog errorLog = new ErrorLog()

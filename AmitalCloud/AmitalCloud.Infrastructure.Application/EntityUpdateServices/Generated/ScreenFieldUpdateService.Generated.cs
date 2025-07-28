@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ScreenFieldUpdateService:BaseEntityUpdateService<POCO.ScreenField,ScreenFieldPM,IEntityPM,ScreenFieldList,string>
+   public partial class ScreenFieldUpdateService:BaseEntityUpdateService<Entity.ScreenField,ScreenFieldPM,IEntityPM,ScreenFieldList,string>
    {
    			
-        public ScreenFieldUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ScreenFieldDataMapping();
-            Repository = new Repository<POCO.ScreenField>(mainContext);
-        }
-        public ScreenFieldUpdateService(int tenant) :  base( tenant)  
+        public ScreenFieldUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ScreenFieldDataMapping();
-            Repository = new Repository<POCO.ScreenField>(tenant);
+            Repository = new Repository<Entity.ScreenField>(unitOfWork);
 		}
-        public ScreenFieldUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ScreenField,string> GetKeys(ScreenFieldPM entityPM) => new ScreenFieldKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ScreenField,string> GetKeys(ScreenFieldPM entityPM) => new ScreenFieldKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ScreenFieldPM entityPM)
 		{
 		}

@@ -21,15 +21,14 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 {
     public partial class AuthenticationTokenUpdateService:BaseEntityUpdateService< POCO.AuthenticationToken,AuthenticationTokenPM,IEntityPM,AuthenticationTokenList,string>
    {
+
+        
    			
-        public AuthenticationTokenUpdateService(IGlobalContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base((GlobalContext)mainContext,additionalContexts, tenant)
+        public AuthenticationTokenUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new AuthenticationTokenDataMapping();
-            Repository = new Repository<POCO.AuthenticationToken>((GlobalContext)mainContext);
+            Repository = new Repository<POCO.AuthenticationToken>(unitOfWork);
         }
-        public AuthenticationTokenUpdateService(int tenant) : this(GlobalContext.GetContext(tenant), null, tenant) {}
-        public AuthenticationTokenUpdateService(IGlobalContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.AuthenticationToken,string> GetKeys(AuthenticationTokenPM entityPM) => new AuthenticationTokenKeys<string>() { Token = entityPM.Token };
 protected override void FillDefaultValuesOnCreate(AuthenticationTokenPM entityPM)
 		{

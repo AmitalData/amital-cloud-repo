@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PaymentGatewayPartnerUpdateService:BaseEntityUpdateService<POCO.PaymentGatewayPartner,PaymentGatewayPartnerPM,IEntityPM,PaymentGatewayPartnerList,string>
+   public partial class PaymentGatewayPartnerUpdateService:BaseEntityUpdateService<Entity.PaymentGatewayPartner,PaymentGatewayPartnerPM,IEntityPM,PaymentGatewayPartnerList,string>
    {
    			
-        public PaymentGatewayPartnerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PaymentGatewayPartnerDataMapping();
-            Repository = new Repository<POCO.PaymentGatewayPartner>(mainContext);
-        }
-        public PaymentGatewayPartnerUpdateService(int tenant) :  base( tenant)  
+        public PaymentGatewayPartnerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PaymentGatewayPartnerDataMapping();
-            Repository = new Repository<POCO.PaymentGatewayPartner>(tenant);
+            Repository = new Repository<Entity.PaymentGatewayPartner>(unitOfWork);
 		}
-        public PaymentGatewayPartnerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PaymentGatewayPartner,string> GetKeys(PaymentGatewayPartnerPM entityPM) => new PaymentGatewayPartnerKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.PaymentGatewayPartner,string> GetKeys(PaymentGatewayPartnerPM entityPM) => new PaymentGatewayPartnerKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(PaymentGatewayPartnerPM entityPM)
 		{
 		}

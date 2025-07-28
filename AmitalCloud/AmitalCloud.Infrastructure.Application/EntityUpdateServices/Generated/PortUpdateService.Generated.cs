@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PortUpdateService:BaseEntityUpdateService<POCO.Port,PortPM,IEntityPM,PortList,string>
+   public partial class PortUpdateService:BaseEntityUpdateService<Entity.Port,PortPM,IEntityPM,PortList,string>
    {
    			
-        public PortUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PortDataMapping();
-            Repository = new Repository<POCO.Port>(mainContext);
-        }
-        public PortUpdateService(int tenant) :  base( tenant)  
+        public PortUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PortDataMapping();
-            Repository = new Repository<POCO.Port>(tenant);
+            Repository = new Repository<Entity.Port>(unitOfWork);
 		}
-        public PortUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Port,string> GetKeys(PortPM entityPM) => new PortKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Port,string> GetKeys(PortPM entityPM) => new PortKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PortPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MobileNotificationLogUpdateService:BaseEntityUpdateService<POCO.MobileNotificationLog,MobileNotificationLogPM,IEntityPM,MobileNotificationLogList,string>
+   public partial class MobileNotificationLogUpdateService:BaseEntityUpdateService<Entity.MobileNotificationLog,MobileNotificationLogPM,IEntityPM,MobileNotificationLogList,string>
    {
    			
-        public MobileNotificationLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MobileNotificationLogDataMapping();
-            Repository = new Repository<POCO.MobileNotificationLog>(mainContext);
-        }
-        public MobileNotificationLogUpdateService(int tenant) :  base( tenant)  
+        public MobileNotificationLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MobileNotificationLogDataMapping();
-            Repository = new Repository<POCO.MobileNotificationLog>(tenant);
+            Repository = new Repository<Entity.MobileNotificationLog>(unitOfWork);
 		}
-        public MobileNotificationLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MobileNotificationLog,string> GetKeys(MobileNotificationLogPM entityPM) => new MobileNotificationLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.MobileNotificationLog,string> GetKeys(MobileNotificationLogPM entityPM) => new MobileNotificationLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(MobileNotificationLogPM entityPM)
 		{
 		}

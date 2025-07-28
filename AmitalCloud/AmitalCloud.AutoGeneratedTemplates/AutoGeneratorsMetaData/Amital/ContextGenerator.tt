@@ -510,7 +510,7 @@ namespace <#= contextnamespacestring #>
             this.ChangeTracker.DetectChanges();
         }
 
-        public override int SaveChanges()
+        internal new int SaveChanges()
         {
 		    DetectChanges();
 		    return base.SaveChanges();

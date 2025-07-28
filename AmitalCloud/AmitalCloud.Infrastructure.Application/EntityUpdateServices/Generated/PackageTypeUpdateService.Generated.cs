@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PackageTypeUpdateService:BaseEntityUpdateService<POCO.PackageType,PackageTypePM,IEntityPM,PackageTypeList,string>
+   public partial class PackageTypeUpdateService:BaseEntityUpdateService<Entity.PackageType,PackageTypePM,IEntityPM,PackageTypeList,string>
    {
    			
-        public PackageTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PackageTypeDataMapping();
-            Repository = new Repository<POCO.PackageType>(mainContext);
-        }
-        public PackageTypeUpdateService(int tenant) :  base( tenant)  
+        public PackageTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PackageTypeDataMapping();
-            Repository = new Repository<POCO.PackageType>(tenant);
+            Repository = new Repository<Entity.PackageType>(unitOfWork);
 		}
-        public PackageTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PackageType,string> GetKeys(PackageTypePM entityPM) => new PackageTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PackageType,string> GetKeys(PackageTypePM entityPM) => new PackageTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PackageTypePM entityPM)
 		{
 		}

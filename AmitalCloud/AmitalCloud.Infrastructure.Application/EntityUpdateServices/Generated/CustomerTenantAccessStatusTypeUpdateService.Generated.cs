@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerTenantAccessStatusTypeUpdateService:BaseEntityUpdateService<POCO.CustomerTenantAccessStatusType,CustomerTenantAccessStatusTypePM,IEntityPM,CustomerTenantAccessStatusTypeList,string>
+   public partial class CustomerTenantAccessStatusTypeUpdateService:BaseEntityUpdateService<Entity.CustomerTenantAccessStatusType,CustomerTenantAccessStatusTypePM,IEntityPM,CustomerTenantAccessStatusTypeList,string>
    {
    			
-        public CustomerTenantAccessStatusTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerTenantAccessStatusTypeDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessStatusType>(mainContext);
-        }
-        public CustomerTenantAccessStatusTypeUpdateService(int tenant) :  base( tenant)  
+        public CustomerTenantAccessStatusTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerTenantAccessStatusTypeDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessStatusType>(tenant);
+            Repository = new Repository<Entity.CustomerTenantAccessStatusType>(unitOfWork);
 		}
-        public CustomerTenantAccessStatusTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerTenantAccessStatusType,string> GetKeys(CustomerTenantAccessStatusTypePM entityPM) => new CustomerTenantAccessStatusTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CustomerTenantAccessStatusType,string> GetKeys(CustomerTenantAccessStatusTypePM entityPM) => new CustomerTenantAccessStatusTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CustomerTenantAccessStatusTypePM entityPM)
 		{
 		}

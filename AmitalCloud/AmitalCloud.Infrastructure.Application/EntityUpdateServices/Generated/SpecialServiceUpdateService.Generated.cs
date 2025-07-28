@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class SpecialServiceUpdateService:BaseEntityUpdateService<POCO.SpecialService,SpecialServicePM,IEntityPM,SpecialServiceList,string>
+   public partial class SpecialServiceUpdateService:BaseEntityUpdateService<Entity.SpecialService,SpecialServicePM,IEntityPM,SpecialServiceList,string>
    {
    			
-        public SpecialServiceUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new SpecialServiceDataMapping();
-            Repository = new Repository<POCO.SpecialService>(mainContext);
-        }
-        public SpecialServiceUpdateService(int tenant) :  base( tenant)  
+        public SpecialServiceUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new SpecialServiceDataMapping();
-            Repository = new Repository<POCO.SpecialService>(tenant);
+            Repository = new Repository<Entity.SpecialService>(unitOfWork);
 		}
-        public SpecialServiceUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.SpecialService,string> GetKeys(SpecialServicePM entityPM) => new SpecialServiceKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.SpecialService,string> GetKeys(SpecialServicePM entityPM) => new SpecialServiceKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(SpecialServicePM entityPM)
 		{
 		}

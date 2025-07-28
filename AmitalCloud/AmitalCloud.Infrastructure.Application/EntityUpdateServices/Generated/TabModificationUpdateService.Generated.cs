@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TabModificationUpdateService:BaseEntityUpdateService<POCO.TabModification,TabModificationPM,IEntityPM,TabModificationList,string>
+   public partial class TabModificationUpdateService:BaseEntityUpdateService<Entity.TabModification,TabModificationPM,IEntityPM,TabModificationList,string>
    {
    			
-        public TabModificationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TabModificationDataMapping();
-            Repository = new Repository<POCO.TabModification>(mainContext);
-        }
-        public TabModificationUpdateService(int tenant) :  base( tenant)  
+        public TabModificationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TabModificationDataMapping();
-            Repository = new Repository<POCO.TabModification>(tenant);
+            Repository = new Repository<Entity.TabModification>(unitOfWork);
 		}
-        public TabModificationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TabModification,string> GetKeys(TabModificationPM entityPM) => new TabModificationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TabModification,string> GetKeys(TabModificationPM entityPM) => new TabModificationKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(TabModificationPM entityPM)
 		{
 		}

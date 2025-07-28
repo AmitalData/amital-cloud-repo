@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DeploymentPackageUpdateService:BaseEntityUpdateService<POCO.DeploymentPackage,DeploymentPackagePM,IEntityPM,DeploymentPackageList,string>
+   public partial class DeploymentPackageUpdateService:BaseEntityUpdateService<Entity.DeploymentPackage,DeploymentPackagePM,IEntityPM,DeploymentPackageList,string>
    {
    			
-        public DeploymentPackageUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DeploymentPackageDataMapping();
-            Repository = new Repository<POCO.DeploymentPackage>(mainContext);
-        }
-        public DeploymentPackageUpdateService(int tenant) :  base( tenant)  
+        public DeploymentPackageUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DeploymentPackageDataMapping();
-            Repository = new Repository<POCO.DeploymentPackage>(tenant);
+            Repository = new Repository<Entity.DeploymentPackage>(unitOfWork);
 		}
-        public DeploymentPackageUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DeploymentPackage,string> GetKeys(DeploymentPackagePM entityPM) => new DeploymentPackageKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DeploymentPackage,string> GetKeys(DeploymentPackagePM entityPM) => new DeploymentPackageKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DeploymentPackagePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DeploymentPackage", entityPM.Tenant); 

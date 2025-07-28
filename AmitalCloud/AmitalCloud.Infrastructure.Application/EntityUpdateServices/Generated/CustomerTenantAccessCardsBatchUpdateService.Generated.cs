@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerTenantAccessCardsBatchUpdateService:BaseEntityUpdateService<POCO.CustomerTenantAccessCardsBatch,CustomerTenantAccessCardsBatchPM,IEntityPM,CustomerTenantAccessCardsBatchList,string>
+   public partial class CustomerTenantAccessCardsBatchUpdateService:BaseEntityUpdateService<Entity.CustomerTenantAccessCardsBatch,CustomerTenantAccessCardsBatchPM,IEntityPM,CustomerTenantAccessCardsBatchList,string>
    {
    			
-        public CustomerTenantAccessCardsBatchUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerTenantAccessCardsBatchDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessCardsBatch>(mainContext);
-        }
-        public CustomerTenantAccessCardsBatchUpdateService(int tenant) :  base( tenant)  
+        public CustomerTenantAccessCardsBatchUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerTenantAccessCardsBatchDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessCardsBatch>(tenant);
+            Repository = new Repository<Entity.CustomerTenantAccessCardsBatch>(unitOfWork);
 		}
-        public CustomerTenantAccessCardsBatchUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerTenantAccessCardsBatch,string> GetKeys(CustomerTenantAccessCardsBatchPM entityPM) => new CustomerTenantAccessCardsBatchKeys<string>() { CustomerId = entityPM.CustomerId, CustomerTenantAccessId = entityPM.CustomerTenantAccessId, BatchNumber = entityPM.BatchNumber };
+		protected override IEntityKeyFields<Entity.CustomerTenantAccessCardsBatch,string> GetKeys(CustomerTenantAccessCardsBatchPM entityPM) => new CustomerTenantAccessCardsBatchKeys<string>() { CustomerId = entityPM.CustomerId, CustomerTenantAccessId = entityPM.CustomerTenantAccessId, BatchNumber = entityPM.BatchNumber };
 protected override void FillDefaultValuesOnCreate(CustomerTenantAccessCardsBatchPM entityPM)
 		{
 		}

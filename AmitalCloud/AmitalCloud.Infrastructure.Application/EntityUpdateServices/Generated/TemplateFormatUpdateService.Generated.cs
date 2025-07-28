@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TemplateFormatUpdateService:BaseEntityUpdateService<POCO.TemplateFormat,TemplateFormatPM,IEntityPM,TemplateFormatList,string>
+   public partial class TemplateFormatUpdateService:BaseEntityUpdateService<Entity.TemplateFormat,TemplateFormatPM,IEntityPM,TemplateFormatList,string>
    {
    			
-        public TemplateFormatUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TemplateFormatDataMapping();
-            Repository = new Repository<POCO.TemplateFormat>(mainContext);
-        }
-        public TemplateFormatUpdateService(int tenant) :  base( tenant)  
+        public TemplateFormatUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TemplateFormatDataMapping();
-            Repository = new Repository<POCO.TemplateFormat>(tenant);
+            Repository = new Repository<Entity.TemplateFormat>(unitOfWork);
 		}
-        public TemplateFormatUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TemplateFormat,string> GetKeys(TemplateFormatPM entityPM) => new TemplateFormatKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.TemplateFormat,string> GetKeys(TemplateFormatPM entityPM) => new TemplateFormatKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TemplateFormatPM entityPM)
 		{
 		}

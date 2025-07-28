@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerStatusUpdateService:BaseEntityUpdateService<POCO.CustomerStatus,CustomerStatusPM,IEntityPM,CustomerStatusList,string>
+   public partial class CustomerStatusUpdateService:BaseEntityUpdateService<Entity.CustomerStatus,CustomerStatusPM,IEntityPM,CustomerStatusList,string>
    {
    			
-        public CustomerStatusUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerStatusDataMapping();
-            Repository = new Repository<POCO.CustomerStatus>(mainContext);
-        }
-        public CustomerStatusUpdateService(int tenant) :  base( tenant)  
+        public CustomerStatusUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerStatusDataMapping();
-            Repository = new Repository<POCO.CustomerStatus>(tenant);
+            Repository = new Repository<Entity.CustomerStatus>(unitOfWork);
 		}
-        public CustomerStatusUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerStatus,string> GetKeys(CustomerStatusPM entityPM) => new CustomerStatusKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CustomerStatus,string> GetKeys(CustomerStatusPM entityPM) => new CustomerStatusKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CustomerStatusPM entityPM)
 		{
 		}

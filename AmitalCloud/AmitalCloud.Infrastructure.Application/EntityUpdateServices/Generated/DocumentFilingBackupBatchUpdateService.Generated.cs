@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentFilingBackupBatchUpdateService:BaseEntityUpdateService<POCO.DocumentFilingBackupBatch,DocumentFilingBackupBatchPM,IEntityPM,DocumentFilingBackupBatchList,string>
+   public partial class DocumentFilingBackupBatchUpdateService:BaseEntityUpdateService<Entity.DocumentFilingBackupBatch,DocumentFilingBackupBatchPM,IEntityPM,DocumentFilingBackupBatchList,string>
    {
    			
-        public DocumentFilingBackupBatchUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentFilingBackupBatchDataMapping();
-            Repository = new Repository<POCO.DocumentFilingBackupBatch>(mainContext);
-        }
-        public DocumentFilingBackupBatchUpdateService(int tenant) :  base( tenant)  
+        public DocumentFilingBackupBatchUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentFilingBackupBatchDataMapping();
-            Repository = new Repository<POCO.DocumentFilingBackupBatch>(tenant);
+            Repository = new Repository<Entity.DocumentFilingBackupBatch>(unitOfWork);
 		}
-        public DocumentFilingBackupBatchUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentFilingBackupBatch,string> GetKeys(DocumentFilingBackupBatchPM entityPM) => new DocumentFilingBackupBatchKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentFilingBackupBatch,string> GetKeys(DocumentFilingBackupBatchPM entityPM) => new DocumentFilingBackupBatchKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentFilingBackupBatchPM entityPM)
 		{
 		}

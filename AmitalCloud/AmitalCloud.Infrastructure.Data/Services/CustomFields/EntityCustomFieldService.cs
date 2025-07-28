@@ -64,7 +64,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
         }
         public void Update()
         {
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
 
                 if (customObjectFields.Count() == 0 || entities == null || entities.Count() == 0) return;

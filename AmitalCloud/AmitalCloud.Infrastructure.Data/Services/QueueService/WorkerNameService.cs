@@ -102,7 +102,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
 
         private static WorkerRoleName CreateNewWorkerRoleName(int tenant, string workerName, string entityName)
         {
-            using (IUnitOfWork uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (IUnitOfWork uow = new UnitOfWork(tenant))
             {
                 uow.CreateTransactionScope(TransactionScopeOption.RequiresNew);
                 int newWatingStatus = -1000;

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerFieldsUpdateSettingUpdateService:BaseEntityUpdateService<POCO.CustomerFieldsUpdateSetting,CustomerFieldsUpdateSettingPM,IEntityPM,CustomerFieldsUpdateSettingList,string>
+   public partial class CustomerFieldsUpdateSettingUpdateService:BaseEntityUpdateService<Entity.CustomerFieldsUpdateSetting,CustomerFieldsUpdateSettingPM,IEntityPM,CustomerFieldsUpdateSettingList,string>
    {
    			
-        public CustomerFieldsUpdateSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerFieldsUpdateSettingDataMapping();
-            Repository = new Repository<POCO.CustomerFieldsUpdateSetting>(mainContext);
-        }
-        public CustomerFieldsUpdateSettingUpdateService(int tenant) :  base( tenant)  
+        public CustomerFieldsUpdateSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerFieldsUpdateSettingDataMapping();
-            Repository = new Repository<POCO.CustomerFieldsUpdateSetting>(tenant);
+            Repository = new Repository<Entity.CustomerFieldsUpdateSetting>(unitOfWork);
 		}
-        public CustomerFieldsUpdateSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerFieldsUpdateSetting,string> GetKeys(CustomerFieldsUpdateSettingPM entityPM) => new CustomerFieldsUpdateSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerFieldsUpdateSetting,string> GetKeys(CustomerFieldsUpdateSettingPM entityPM) => new CustomerFieldsUpdateSettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomerFieldsUpdateSettingPM entityPM)
 		{
 		}

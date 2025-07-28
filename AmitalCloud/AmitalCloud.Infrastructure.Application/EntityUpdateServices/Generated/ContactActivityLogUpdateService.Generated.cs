@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ContactActivityLogUpdateService:BaseEntityUpdateService<POCO.ContactActivityLog,ContactActivityLogPM,IEntityPM,ContactActivityLogList,string>
+   public partial class ContactActivityLogUpdateService:BaseEntityUpdateService<Entity.ContactActivityLog,ContactActivityLogPM,IEntityPM,ContactActivityLogList,string>
    {
    			
-        public ContactActivityLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ContactActivityLogDataMapping();
-            Repository = new Repository<POCO.ContactActivityLog>(mainContext);
-        }
-        public ContactActivityLogUpdateService(int tenant) :  base( tenant)  
+        public ContactActivityLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ContactActivityLogDataMapping();
-            Repository = new Repository<POCO.ContactActivityLog>(tenant);
+            Repository = new Repository<Entity.ContactActivityLog>(unitOfWork);
 		}
-        public ContactActivityLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ContactActivityLog,string> GetKeys(ContactActivityLogPM entityPM) => new ContactActivityLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ContactActivityLog,string> GetKeys(ContactActivityLogPM entityPM) => new ContactActivityLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ContactActivityLogPM entityPM)
 		{
 		}

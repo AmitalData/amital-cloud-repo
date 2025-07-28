@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class WeightUnitUpdateService:BaseEntityUpdateService<POCO.WeightUnit,WeightUnitPM,IEntityPM,WeightUnitList,string>
+   public partial class WeightUnitUpdateService:BaseEntityUpdateService<Entity.WeightUnit,WeightUnitPM,IEntityPM,WeightUnitList,string>
    {
    			
-        public WeightUnitUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new WeightUnitDataMapping();
-            Repository = new Repository<POCO.WeightUnit>(mainContext);
-        }
-        public WeightUnitUpdateService(int tenant) :  base( tenant)  
+        public WeightUnitUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new WeightUnitDataMapping();
-            Repository = new Repository<POCO.WeightUnit>(tenant);
+            Repository = new Repository<Entity.WeightUnit>(unitOfWork);
 		}
-        public WeightUnitUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.WeightUnit,string> GetKeys(WeightUnitPM entityPM) => new WeightUnitKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.WeightUnit,string> GetKeys(WeightUnitPM entityPM) => new WeightUnitKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(WeightUnitPM entityPM)
 		{
 		}

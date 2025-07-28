@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CounterLastNumberUpdateService:BaseEntityUpdateService<POCO.CounterLastNumber,CounterLastNumberPM,IEntityPM,CounterLastNumberList,int>
+   public partial class CounterLastNumberUpdateService:BaseEntityUpdateService<Entity.CounterLastNumber,CounterLastNumberPM,IEntityPM,CounterLastNumberList,int>
    {
    			
-        public CounterLastNumberUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CounterLastNumberDataMapping();
-            Repository = new Repository<POCO.CounterLastNumber>(mainContext);
-        }
-        public CounterLastNumberUpdateService(int tenant) :  base( tenant)  
+        public CounterLastNumberUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CounterLastNumberDataMapping();
-            Repository = new Repository<POCO.CounterLastNumber>(tenant);
+            Repository = new Repository<Entity.CounterLastNumber>(unitOfWork);
 		}
-        public CounterLastNumberUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CounterLastNumber,int> GetKeys(CounterLastNumberPM entityPM) => new CounterLastNumberKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CounterLastNumber,int> GetKeys(CounterLastNumberPM entityPM) => new CounterLastNumberKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CounterLastNumberPM entityPM)
 		{
 		}

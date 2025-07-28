@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ContactDoneMethodUpdateService:BaseEntityUpdateService<POCO.ContactDoneMethod,ContactDoneMethodPM,IEntityPM,ContactDoneMethodList,string>
+   public partial class ContactDoneMethodUpdateService:BaseEntityUpdateService<Entity.ContactDoneMethod,ContactDoneMethodPM,IEntityPM,ContactDoneMethodList,string>
    {
    			
-        public ContactDoneMethodUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ContactDoneMethodDataMapping();
-            Repository = new Repository<POCO.ContactDoneMethod>(mainContext);
-        }
-        public ContactDoneMethodUpdateService(int tenant) :  base( tenant)  
+        public ContactDoneMethodUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ContactDoneMethodDataMapping();
-            Repository = new Repository<POCO.ContactDoneMethod>(tenant);
+            Repository = new Repository<Entity.ContactDoneMethod>(unitOfWork);
 		}
-        public ContactDoneMethodUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ContactDoneMethod,string> GetKeys(ContactDoneMethodPM entityPM) => new ContactDoneMethodKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.ContactDoneMethod,string> GetKeys(ContactDoneMethodPM entityPM) => new ContactDoneMethodKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(ContactDoneMethodPM entityPM)
 		{
 		}

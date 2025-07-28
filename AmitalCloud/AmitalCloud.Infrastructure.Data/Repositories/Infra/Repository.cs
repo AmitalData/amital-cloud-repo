@@ -32,10 +32,22 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         }
         public Repository(IUnitOfWork unitOfWork) : this(unitOfWork.Context)
         {
+            if (unitOfWork.Context == null)
+            {
+                // ((UnitOfWork)unitOfWork).AddContext(GetContext(unitOfWork.Tenant));
+                throw new InvalidOperationException("Context is not initialized.");
+
+            }
             _unitOfWork = unitOfWork;
         }
         public Repository(IContext dbContext)
         {
+            if (dbContext == null)
+            {
+                // dbContext=GetContext(tenant));
+                throw new InvalidOperationException("Context is not initialized.");
+
+            }
             Type type = typeof(TEntity);
             var attribute = (DataBaseAttribute)Attribute.GetCustomAttribute(type, typeof(DataBaseAttribute));
             if (attribute.Name != dbContext.AmitalCloudDBSchema)
@@ -71,18 +83,18 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         public async Task<IEnumerable<TEntity>> GetMultiAsync<TKey>(ISpecification<TEntity, TKey> spec) => await GetQuery(spec).ToListAsync();
         public async Task<List<TResult>> GetMultiAsync<TResult>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select) => await _dbSet.Where(predicate).Select(select).ToListAsync();
         public async Task<List<TEntity>> GetMultiAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> select) => await _dbSet.Where(predicate).Select(select).ToListAsync();
-        public async Task SubmitChangesAsync()
-        {
-            if (_unitOfWork == null)
-            {
-                await SaveAsync();
-            }
-            else
-            {
-                throw new Exception("Use UOW.Save()");
-            }
+        //public async Task SubmitChangesAsync()
+        //{
+        //    if (_unitOfWork == null)
+        //    {
+        //        await SaveAsync();
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Use UOW.Save()");
+        //    }
 
-        }
+        //}
         public async Task<List<TEntity>> GetMultiAsync<TKey>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> select, Expression<Func<TEntity, TKey>> orderBy, int skip, int take) => await _dbSet.Where(predicate).Select(select).OrderBy(orderBy).Skip(skip).Take(take).ToListAsync();
         public async Task<List<TResult>> GetMultiAsync<TResult, TKey>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TResult>> select, Expression<Func<TResult, TKey>> orderBy, int skip, int take) => await _dbSet.Where(predicate).Select(select).OrderBy(orderBy).Skip(skip).Take(take).ToListAsync();
         public async Task<List<TEntity>> GetMultiAsync<TKey>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> select, string include, Expression<Func<TEntity, TKey>> orderBy, OrderByDirection orderByDirection = OrderByDirection.Ascending)
@@ -380,17 +392,17 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
         }
 
         //TODO change access modifier to protected after UOW is implemented
-        public void SubmitChanges()
-        {
-            if (_unitOfWork == null)
-            {
-                Save();
-            }
-            else
-            {
-                throw new Exception("Use UOW.Save()");
-            }
-        }
+        //public void SubmitChanges()
+        //{
+        //    if (_unitOfWork == null)
+        //    {
+        //        Save();
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Use UOW.Save()");
+        //    }
+        //}
 
         public void Dispose()
         {
@@ -403,22 +415,24 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
 
         #region Private Methods 
 
-        private void Save()
-        {
-            var method = _dbContext.GetType().GetMethods().FirstOrDefault(m => m.Name == "SaveChanges" && m.GetParameters().Length == 0);
-            if (method != null)
-            {
-                method.Invoke(_dbContext, null);
-            }
-            else
-            {
-                throw new InvalidOperationException("No matching SaveChanges() method found.");
-            }
-        }
-        private async Task SaveAsync()
-        {
-            await (Task)_dbContext.GetType().GetMethod("SaveChangesAsync").Invoke(_dbContext, null);
-        }
+        //private void Save()
+        //{
+        //    if (_unitOfWork != null)
+        //    {  _unitOfWork.Save(); }
+        //    else
+        //    {
+        //        throw new InvalidOperationException("No matching SaveChanges() method found.");
+        //    }
+        //}
+        //private async Task SaveAsync()
+        //{
+        //    //if (_unitOfWork != null)
+        //    //{ await _unitOfWork.Save(); }
+        //    //else
+        //    //{
+        //        throw new InvalidOperationException("No matching SaveChanges() method found.");
+        //    //}
+        //}
 
         private void HandleUnitOfWorkException(DbUpdateException dbEx)
         {

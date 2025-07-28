@@ -1325,6 +1325,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private GlobalTenantPM _globaltenant;
+		
+        [DataMember]
+        public virtual GlobalTenantPM GlobalTenant 
+		{ 
+		get { return _globaltenant; } 
+		set { _globaltenant = value; }
+		}
 	  private string _name ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

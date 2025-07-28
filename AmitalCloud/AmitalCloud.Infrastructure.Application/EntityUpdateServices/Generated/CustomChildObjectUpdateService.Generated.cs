@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomChildObjectUpdateService:BaseEntityUpdateService<POCO.CustomChildObject,CustomChildObjectPM,IEntityPM,CustomChildObjectList,string>
+   public partial class CustomChildObjectUpdateService:BaseEntityUpdateService<Entity.CustomChildObject,CustomChildObjectPM,IEntityPM,CustomChildObjectList,string>
    {
    			
-        public CustomChildObjectUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomChildObjectDataMapping();
-            Repository = new Repository<POCO.CustomChildObject>(mainContext);
-        }
-        public CustomChildObjectUpdateService(int tenant) :  base( tenant)  
+        public CustomChildObjectUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomChildObjectDataMapping();
-            Repository = new Repository<POCO.CustomChildObject>(tenant);
+            Repository = new Repository<Entity.CustomChildObject>(unitOfWork);
 		}
-        public CustomChildObjectUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomChildObject,string> GetKeys(CustomChildObjectPM entityPM) => new CustomChildObjectKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomChildObject,string> GetKeys(CustomChildObjectPM entityPM) => new CustomChildObjectKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CustomChildObjectPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CustomChildObject", entityPM.Tenant); 

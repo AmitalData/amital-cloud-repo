@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectTableTabUpdateService:BaseEntityUpdateService<POCO.ObjectTableTab,ObjectTableTabPM,IEntityPM,ObjectTableTabList,string>
+   public partial class ObjectTableTabUpdateService:BaseEntityUpdateService<Entity.ObjectTableTab,ObjectTableTabPM,IEntityPM,ObjectTableTabList,string>
    {
    			
-        public ObjectTableTabUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectTableTabDataMapping();
-            Repository = new Repository<POCO.ObjectTableTab>(mainContext);
-        }
-        public ObjectTableTabUpdateService(int tenant) :  base( tenant)  
+        public ObjectTableTabUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectTableTabDataMapping();
-            Repository = new Repository<POCO.ObjectTableTab>(tenant);
+            Repository = new Repository<Entity.ObjectTableTab>(unitOfWork);
 		}
-        public ObjectTableTabUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectTableTab,string> GetKeys(ObjectTableTabPM entityPM) => new ObjectTableTabKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectTableTab,string> GetKeys(ObjectTableTabPM entityPM) => new ObjectTableTabKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectTableTabPM entityPM)
 		{
 		}

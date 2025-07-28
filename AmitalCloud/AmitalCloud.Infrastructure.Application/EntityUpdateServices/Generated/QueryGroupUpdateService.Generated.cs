@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QueryGroupUpdateService:BaseEntityUpdateService<POCO.QueryGroup,QueryGroupPM,IEntityPM,QueryGroupList,string>
+   public partial class QueryGroupUpdateService:BaseEntityUpdateService<Entity.QueryGroup,QueryGroupPM,IEntityPM,QueryGroupList,string>
    {
    			
-        public QueryGroupUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QueryGroupDataMapping();
-            Repository = new Repository<POCO.QueryGroup>(mainContext);
-        }
-        public QueryGroupUpdateService(int tenant) :  base( tenant)  
+        public QueryGroupUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QueryGroupDataMapping();
-            Repository = new Repository<POCO.QueryGroup>(tenant);
+            Repository = new Repository<Entity.QueryGroup>(unitOfWork);
 		}
-        public QueryGroupUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QueryGroup,string> GetKeys(QueryGroupPM entityPM) => new QueryGroupKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.QueryGroup,string> GetKeys(QueryGroupPM entityPM) => new QueryGroupKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(QueryGroupPM entityPM)
 		{
 		}

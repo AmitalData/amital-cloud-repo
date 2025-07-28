@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EventTypeUpdateService:BaseEntityUpdateService<POCO.EventType,EventTypePM,IEntityPM,EventTypeList,string>
+   public partial class EventTypeUpdateService:BaseEntityUpdateService<Entity.EventType,EventTypePM,IEntityPM,EventTypeList,string>
    {
    			
-        public EventTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EventTypeDataMapping();
-            Repository = new Repository<POCO.EventType>(mainContext);
-        }
-        public EventTypeUpdateService(int tenant) :  base( tenant)  
+        public EventTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EventTypeDataMapping();
-            Repository = new Repository<POCO.EventType>(tenant);
+            Repository = new Repository<Entity.EventType>(unitOfWork);
 		}
-        public EventTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EventType,string> GetKeys(EventTypePM entityPM) => new EventTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EventType,string> GetKeys(EventTypePM entityPM) => new EventTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EventTypePM entityPM)
 		{
 		}

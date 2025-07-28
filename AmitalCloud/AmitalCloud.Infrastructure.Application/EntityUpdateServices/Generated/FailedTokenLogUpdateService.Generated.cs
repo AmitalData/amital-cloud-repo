@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FailedTokenLogUpdateService:BaseEntityUpdateService<POCO.FailedTokenLog,FailedTokenLogPM,IEntityPM,FailedTokenLogList,string>
+   public partial class FailedTokenLogUpdateService:BaseEntityUpdateService<Entity.FailedTokenLog,FailedTokenLogPM,IEntityPM,FailedTokenLogList,string>
    {
    			
-        public FailedTokenLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FailedTokenLogDataMapping();
-            Repository = new Repository<POCO.FailedTokenLog>(mainContext);
-        }
-        public FailedTokenLogUpdateService(int tenant) :  base( tenant)  
+        public FailedTokenLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FailedTokenLogDataMapping();
-            Repository = new Repository<POCO.FailedTokenLog>(tenant);
+            Repository = new Repository<Entity.FailedTokenLog>(unitOfWork);
 		}
-        public FailedTokenLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FailedTokenLog,string> GetKeys(FailedTokenLogPM entityPM) => new FailedTokenLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.FailedTokenLog,string> GetKeys(FailedTokenLogPM entityPM) => new FailedTokenLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FailedTokenLogPM entityPM)
 		{
 		}

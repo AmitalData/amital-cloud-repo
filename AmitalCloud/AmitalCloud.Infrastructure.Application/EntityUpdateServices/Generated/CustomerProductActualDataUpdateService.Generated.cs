@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerProductActualDataUpdateService:BaseEntityUpdateService<POCO.CustomerProductActualData,CustomerProductActualDataPM,CustomerPM,CustomerProductActualDataList,int>
+   public partial class CustomerProductActualDataUpdateService:BaseEntityUpdateService<Entity.CustomerProductActualData,CustomerProductActualDataPM,CustomerPM,CustomerProductActualDataList,int>
    {
    			
-        public CustomerProductActualDataUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerProductActualDataDataMapping();
-            Repository = new Repository<POCO.CustomerProductActualData>(mainContext);
-        }
-        public CustomerProductActualDataUpdateService(int tenant) :  base( tenant)  
+        public CustomerProductActualDataUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerProductActualDataDataMapping();
-            Repository = new Repository<POCO.CustomerProductActualData>(tenant);
+            Repository = new Repository<Entity.CustomerProductActualData>(unitOfWork);
 		}
-        public CustomerProductActualDataUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerProductActualData,int> GetKeys(CustomerProductActualDataPM entityPM) => new CustomerProductActualDataKeys<int>() { CustomerId = entityPM.CustomerId, ProductTypeCode = entityPM.ProductTypeCode, Month = entityPM.Month, Year = entityPM.Year };
+		protected override IEntityKeyFields<Entity.CustomerProductActualData,int> GetKeys(CustomerProductActualDataPM entityPM) => new CustomerProductActualDataKeys<int>() { CustomerId = entityPM.CustomerId, ProductTypeCode = entityPM.ProductTypeCode, Month = entityPM.Month, Year = entityPM.Year };
 protected override void FillDefaultValuesOnCreate(CustomerProductActualDataPM entityPM)
 		{
 		}

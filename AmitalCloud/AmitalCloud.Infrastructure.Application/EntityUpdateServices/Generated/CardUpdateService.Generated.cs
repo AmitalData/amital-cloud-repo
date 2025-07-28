@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CardUpdateService:BaseEntityUpdateService<POCO.Card,CardPM,IEntityPM,CardList,string>
+   public partial class CardUpdateService:BaseEntityUpdateService<Entity.Card,CardPM,IEntityPM,CardList,string>
    {
    			
-        public CardUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CardDataMapping();
-            Repository = new Repository<POCO.Card>(mainContext);
-        }
-        public CardUpdateService(int tenant) :  base( tenant)  
+        public CardUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CardDataMapping();
-            Repository = new Repository<POCO.Card>(tenant);
+            Repository = new Repository<Entity.Card>(unitOfWork);
 		}
-        public CardUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Card,string> GetKeys(CardPM entityPM) => new CardKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Card,string> GetKeys(CardPM entityPM) => new CardKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CardPM entityPM)
 		{
 		}

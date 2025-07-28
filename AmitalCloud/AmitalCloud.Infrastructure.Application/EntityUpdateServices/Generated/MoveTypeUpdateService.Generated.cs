@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MoveTypeUpdateService:BaseEntityUpdateService<POCO.MoveType,MoveTypePM,IEntityPM,MoveTypeList,string>
+   public partial class MoveTypeUpdateService:BaseEntityUpdateService<Entity.MoveType,MoveTypePM,IEntityPM,MoveTypeList,string>
    {
    			
-        public MoveTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MoveTypeDataMapping();
-            Repository = new Repository<POCO.MoveType>(mainContext);
-        }
-        public MoveTypeUpdateService(int tenant) :  base( tenant)  
+        public MoveTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MoveTypeDataMapping();
-            Repository = new Repository<POCO.MoveType>(tenant);
+            Repository = new Repository<Entity.MoveType>(unitOfWork);
 		}
-        public MoveTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MoveType,string> GetKeys(MoveTypePM entityPM) => new MoveTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.MoveType,string> GetKeys(MoveTypePM entityPM) => new MoveTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(MoveTypePM entityPM)
 		{
 		}

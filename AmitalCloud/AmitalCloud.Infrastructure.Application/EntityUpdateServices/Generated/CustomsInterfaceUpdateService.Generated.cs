@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomsInterfaceUpdateService:BaseEntityUpdateService<POCO.CustomsInterface,CustomsInterfacePM,IEntityPM,CustomsInterfaceList,string>
+   public partial class CustomsInterfaceUpdateService:BaseEntityUpdateService<Entity.CustomsInterface,CustomsInterfacePM,IEntityPM,CustomsInterfaceList,string>
    {
    			
-        public CustomsInterfaceUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomsInterfaceDataMapping();
-            Repository = new Repository<POCO.CustomsInterface>(mainContext);
-        }
-        public CustomsInterfaceUpdateService(int tenant) :  base( tenant)  
+        public CustomsInterfaceUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomsInterfaceDataMapping();
-            Repository = new Repository<POCO.CustomsInterface>(tenant);
+            Repository = new Repository<Entity.CustomsInterface>(unitOfWork);
 		}
-        public CustomsInterfaceUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomsInterface,string> GetKeys(CustomsInterfacePM entityPM) => new CustomsInterfaceKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CustomsInterface,string> GetKeys(CustomsInterfacePM entityPM) => new CustomsInterfaceKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CustomsInterfacePM entityPM)
 		{
 		}

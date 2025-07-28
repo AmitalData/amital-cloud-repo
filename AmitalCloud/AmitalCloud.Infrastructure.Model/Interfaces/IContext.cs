@@ -11,8 +11,8 @@ namespace AmitalCloud.Infrastructure.Model.Interfaces
         DbContext GetActiveDbContext();
         void SetAsModified(object entity);
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
-        Task<int> SaveChangesAsync();
-        int SaveChanges();
+        //Task<int> SaveChangesAsync();
+        //int SaveChanges();
         int Tenant { get; }
         DatabaseFacade Database { get; }
         AmitalCloudDBSchema AmitalCloudDBSchema { get; }

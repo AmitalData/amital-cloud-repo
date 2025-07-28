@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ComputingPartnerCodeUpdateService:BaseEntityUpdateService<POCO.ComputingPartnerCode,ComputingPartnerCodePM,IEntityPM,ComputingPartnerCodeList,string>
+   public partial class ComputingPartnerCodeUpdateService:BaseEntityUpdateService<Entity.ComputingPartnerCode,ComputingPartnerCodePM,IEntityPM,ComputingPartnerCodeList,string>
    {
    			
-        public ComputingPartnerCodeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ComputingPartnerCodeDataMapping();
-            Repository = new Repository<POCO.ComputingPartnerCode>(mainContext);
-        }
-        public ComputingPartnerCodeUpdateService(int tenant) :  base( tenant)  
+        public ComputingPartnerCodeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ComputingPartnerCodeDataMapping();
-            Repository = new Repository<POCO.ComputingPartnerCode>(tenant);
+            Repository = new Repository<Entity.ComputingPartnerCode>(unitOfWork);
 		}
-        public ComputingPartnerCodeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ComputingPartnerCode,string> GetKeys(ComputingPartnerCodePM entityPM) => new ComputingPartnerCodeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ComputingPartnerCode,string> GetKeys(ComputingPartnerCodePM entityPM) => new ComputingPartnerCodeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ComputingPartnerCodePM entityPM)
 		{
 		}

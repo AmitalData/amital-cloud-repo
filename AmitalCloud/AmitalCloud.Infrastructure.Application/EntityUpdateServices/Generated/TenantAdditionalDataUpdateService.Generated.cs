@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TenantAdditionalDataUpdateService:BaseEntityUpdateService<POCO.TenantAdditionalData,TenantAdditionalDataPM,IEntityPM,TenantAdditionalDataList,int>
+   public partial class TenantAdditionalDataUpdateService:BaseEntityUpdateService<Entity.TenantAdditionalData,TenantAdditionalDataPM,IEntityPM,TenantAdditionalDataList,int>
    {
    			
-        public TenantAdditionalDataUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TenantAdditionalDataDataMapping();
-            Repository = new Repository<POCO.TenantAdditionalData>(mainContext);
-        }
-        public TenantAdditionalDataUpdateService(int tenant) :  base( tenant)  
+        public TenantAdditionalDataUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TenantAdditionalDataDataMapping();
-            Repository = new Repository<POCO.TenantAdditionalData>(tenant);
+            Repository = new Repository<Entity.TenantAdditionalData>(unitOfWork);
 		}
-        public TenantAdditionalDataUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TenantAdditionalData,int> GetKeys(TenantAdditionalDataPM entityPM) => new TenantAdditionalDataKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TenantAdditionalData,int> GetKeys(TenantAdditionalDataPM entityPM) => new TenantAdditionalDataKeys<int>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(TenantAdditionalDataPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FieldDataTypeUpdateService:BaseEntityUpdateService<POCO.FieldDataType,FieldDataTypePM,IEntityPM,FieldDataTypeList,string>
+   public partial class FieldDataTypeUpdateService:BaseEntityUpdateService<Entity.FieldDataType,FieldDataTypePM,IEntityPM,FieldDataTypeList,string>
    {
    			
-        public FieldDataTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FieldDataTypeDataMapping();
-            Repository = new Repository<POCO.FieldDataType>(mainContext);
-        }
-        public FieldDataTypeUpdateService(int tenant) :  base( tenant)  
+        public FieldDataTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FieldDataTypeDataMapping();
-            Repository = new Repository<POCO.FieldDataType>(tenant);
+            Repository = new Repository<Entity.FieldDataType>(unitOfWork);
 		}
-        public FieldDataTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FieldDataType,string> GetKeys(FieldDataTypePM entityPM) => new FieldDataTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.FieldDataType,string> GetKeys(FieldDataTypePM entityPM) => new FieldDataTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(FieldDataTypePM entityPM)
 		{
 		}

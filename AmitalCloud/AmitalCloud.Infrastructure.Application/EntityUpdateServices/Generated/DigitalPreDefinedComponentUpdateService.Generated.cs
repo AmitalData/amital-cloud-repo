@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DigitalPreDefinedComponentUpdateService:BaseEntityUpdateService<POCO.DigitalPreDefinedComponent,DigitalPreDefinedComponentPM,IEntityPM,DigitalPreDefinedComponentList,string>
+   public partial class DigitalPreDefinedComponentUpdateService:BaseEntityUpdateService<Entity.DigitalPreDefinedComponent,DigitalPreDefinedComponentPM,IEntityPM,DigitalPreDefinedComponentList,string>
    {
    			
-        public DigitalPreDefinedComponentUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DigitalPreDefinedComponentDataMapping();
-            Repository = new Repository<POCO.DigitalPreDefinedComponent>(mainContext);
-        }
-        public DigitalPreDefinedComponentUpdateService(int tenant) :  base( tenant)  
+        public DigitalPreDefinedComponentUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DigitalPreDefinedComponentDataMapping();
-            Repository = new Repository<POCO.DigitalPreDefinedComponent>(tenant);
+            Repository = new Repository<Entity.DigitalPreDefinedComponent>(unitOfWork);
 		}
-        public DigitalPreDefinedComponentUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DigitalPreDefinedComponent,string> GetKeys(DigitalPreDefinedComponentPM entityPM) => new DigitalPreDefinedComponentKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DigitalPreDefinedComponent,string> GetKeys(DigitalPreDefinedComponentPM entityPM) => new DigitalPreDefinedComponentKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DigitalPreDefinedComponentPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DigitalPreDefinedComponent", entityPM.Tenant); 

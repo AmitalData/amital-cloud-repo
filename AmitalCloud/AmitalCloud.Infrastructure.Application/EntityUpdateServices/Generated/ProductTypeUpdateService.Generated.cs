@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ProductTypeUpdateService:BaseEntityUpdateService<POCO.ProductType,ProductTypePM,IEntityPM,ProductTypeList,string>
+   public partial class ProductTypeUpdateService:BaseEntityUpdateService<Entity.ProductType,ProductTypePM,IEntityPM,ProductTypeList,string>
    {
    			
-        public ProductTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ProductTypeDataMapping();
-            Repository = new Repository<POCO.ProductType>(mainContext);
-        }
-        public ProductTypeUpdateService(int tenant) :  base( tenant)  
+        public ProductTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ProductTypeDataMapping();
-            Repository = new Repository<POCO.ProductType>(tenant);
+            Repository = new Repository<Entity.ProductType>(unitOfWork);
 		}
-        public ProductTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ProductType,string> GetKeys(ProductTypePM entityPM) => new ProductTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.ProductType,string> GetKeys(ProductTypePM entityPM) => new ProductTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(ProductTypePM entityPM)
 		{
 		}

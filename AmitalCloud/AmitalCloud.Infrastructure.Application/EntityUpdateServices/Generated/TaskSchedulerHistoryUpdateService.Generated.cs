@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TaskSchedulerHistoryUpdateService:BaseEntityUpdateService<POCO.TaskSchedulerHistory,TaskSchedulerHistoryPM,IEntityPM,TaskSchedulerHistoryList,string>
+   public partial class TaskSchedulerHistoryUpdateService:BaseEntityUpdateService<Entity.TaskSchedulerHistory,TaskSchedulerHistoryPM,IEntityPM,TaskSchedulerHistoryList,string>
    {
    			
-        public TaskSchedulerHistoryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TaskSchedulerHistoryDataMapping();
-            Repository = new Repository<POCO.TaskSchedulerHistory>(mainContext);
-        }
-        public TaskSchedulerHistoryUpdateService(int tenant) :  base( tenant)  
+        public TaskSchedulerHistoryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TaskSchedulerHistoryDataMapping();
-            Repository = new Repository<POCO.TaskSchedulerHistory>(tenant);
+            Repository = new Repository<Entity.TaskSchedulerHistory>(unitOfWork);
 		}
-        public TaskSchedulerHistoryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TaskSchedulerHistory,string> GetKeys(TaskSchedulerHistoryPM entityPM) => new TaskSchedulerHistoryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TaskSchedulerHistory,string> GetKeys(TaskSchedulerHistoryPM entityPM) => new TaskSchedulerHistoryKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TaskSchedulerHistoryPM entityPM)
 		{
 		}

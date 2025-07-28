@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CommunicationAttachmentUpdateService:BaseEntityUpdateService<POCO.CommunicationAttachment,CommunicationAttachmentPM,IEntityPM,CommunicationAttachmentList,string>
+   public partial class CommunicationAttachmentUpdateService:BaseEntityUpdateService<Entity.CommunicationAttachment,CommunicationAttachmentPM,IEntityPM,CommunicationAttachmentList,string>
    {
    			
-        public CommunicationAttachmentUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CommunicationAttachmentDataMapping();
-            Repository = new Repository<POCO.CommunicationAttachment>(mainContext);
-        }
-        public CommunicationAttachmentUpdateService(int tenant) :  base( tenant)  
+        public CommunicationAttachmentUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CommunicationAttachmentDataMapping();
-            Repository = new Repository<POCO.CommunicationAttachment>(tenant);
+            Repository = new Repository<Entity.CommunicationAttachment>(unitOfWork);
 		}
-        public CommunicationAttachmentUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CommunicationAttachment,string> GetKeys(CommunicationAttachmentPM entityPM) => new CommunicationAttachmentKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CommunicationAttachment,string> GetKeys(CommunicationAttachmentPM entityPM) => new CommunicationAttachmentKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CommunicationAttachmentPM entityPM)
 		{
 		}

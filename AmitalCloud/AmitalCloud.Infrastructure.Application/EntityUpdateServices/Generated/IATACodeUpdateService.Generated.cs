@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class IATACodeUpdateService:BaseEntityUpdateService<POCO.IATACode,IATACodePM,IEntityPM,IATACodeList,string>
+   public partial class IATACodeUpdateService:BaseEntityUpdateService<Entity.IATACode,IATACodePM,IEntityPM,IATACodeList,string>
    {
    			
-        public IATACodeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new IATACodeDataMapping();
-            Repository = new Repository<POCO.IATACode>(mainContext);
-        }
-        public IATACodeUpdateService(int tenant) :  base( tenant)  
+        public IATACodeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new IATACodeDataMapping();
-            Repository = new Repository<POCO.IATACode>(tenant);
+            Repository = new Repository<Entity.IATACode>(unitOfWork);
 		}
-        public IATACodeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.IATACode,string> GetKeys(IATACodePM entityPM) => new IATACodeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.IATACode,string> GetKeys(IATACodePM entityPM) => new IATACodeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(IATACodePM entityPM)
 		{
 		}

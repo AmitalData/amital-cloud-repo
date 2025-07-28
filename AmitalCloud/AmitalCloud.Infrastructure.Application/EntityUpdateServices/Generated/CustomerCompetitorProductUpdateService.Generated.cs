@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerCompetitorProductUpdateService:BaseEntityUpdateService<POCO.CustomerCompetitorProduct,CustomerCompetitorProductPM,IEntityPM,CustomerCompetitorProductList,string>
+   public partial class CustomerCompetitorProductUpdateService:BaseEntityUpdateService<Entity.CustomerCompetitorProduct,CustomerCompetitorProductPM,IEntityPM,CustomerCompetitorProductList,string>
    {
    			
-        public CustomerCompetitorProductUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerCompetitorProductDataMapping();
-            Repository = new Repository<POCO.CustomerCompetitorProduct>(mainContext);
-        }
-        public CustomerCompetitorProductUpdateService(int tenant) :  base( tenant)  
+        public CustomerCompetitorProductUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerCompetitorProductDataMapping();
-            Repository = new Repository<POCO.CustomerCompetitorProduct>(tenant);
+            Repository = new Repository<Entity.CustomerCompetitorProduct>(unitOfWork);
 		}
-        public CustomerCompetitorProductUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerCompetitorProduct,string> GetKeys(CustomerCompetitorProductPM entityPM) => new CustomerCompetitorProductKeys<string>() { ProductTypeCode = entityPM.ProductTypeCode, CustomerId = entityPM.CustomerId, CompetitorId = entityPM.CompetitorId };
+		protected override IEntityKeyFields<Entity.CustomerCompetitorProduct,string> GetKeys(CustomerCompetitorProductPM entityPM) => new CustomerCompetitorProductKeys<string>() { ProductTypeCode = entityPM.ProductTypeCode, CustomerId = entityPM.CustomerId, CompetitorId = entityPM.CompetitorId };
 protected override void FillDefaultValuesOnCreate(CustomerCompetitorProductPM entityPM)
 		{
 		}

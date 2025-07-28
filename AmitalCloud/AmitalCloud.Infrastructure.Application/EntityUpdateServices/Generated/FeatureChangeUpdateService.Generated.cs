@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FeatureChangeUpdateService:BaseEntityUpdateService<POCO.FeatureChange,FeatureChangePM,IEntityPM,FeatureChangeList,string>
+   public partial class FeatureChangeUpdateService:BaseEntityUpdateService<Entity.FeatureChange,FeatureChangePM,IEntityPM,FeatureChangeList,string>
    {
    			
-        public FeatureChangeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FeatureChangeDataMapping();
-            Repository = new Repository<POCO.FeatureChange>(mainContext);
-        }
-        public FeatureChangeUpdateService(int tenant) :  base( tenant)  
+        public FeatureChangeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FeatureChangeDataMapping();
-            Repository = new Repository<POCO.FeatureChange>(tenant);
+            Repository = new Repository<Entity.FeatureChange>(unitOfWork);
 		}
-        public FeatureChangeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FeatureChange,string> GetKeys(FeatureChangePM entityPM) => new FeatureChangeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.FeatureChange,string> GetKeys(FeatureChangePM entityPM) => new FeatureChangeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FeatureChangePM entityPM)
 		{
 		}

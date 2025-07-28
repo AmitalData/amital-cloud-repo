@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentTypeUpdateService:BaseEntityUpdateService<POCO.DocumentType,DocumentTypePM,IEntityPM,DocumentTypeList,string>
+   public partial class DocumentTypeUpdateService:BaseEntityUpdateService<Entity.DocumentType,DocumentTypePM,IEntityPM,DocumentTypeList,string>
    {
    			
-        public DocumentTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentTypeDataMapping();
-            Repository = new Repository<POCO.DocumentType>(mainContext);
-        }
-        public DocumentTypeUpdateService(int tenant) :  base( tenant)  
+        public DocumentTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentTypeDataMapping();
-            Repository = new Repository<POCO.DocumentType>(tenant);
+            Repository = new Repository<Entity.DocumentType>(unitOfWork);
 		}
-        public DocumentTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentType,string> GetKeys(DocumentTypePM entityPM) => new DocumentTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentType,string> GetKeys(DocumentTypePM entityPM) => new DocumentTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentTypePM entityPM)
 		{
 		}

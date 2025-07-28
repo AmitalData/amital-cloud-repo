@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class OneTimePasswordUpdateService:BaseEntityUpdateService<POCO.OneTimePassword,OneTimePasswordPM,IEntityPM,OneTimePasswordList,string>
+   public partial class OneTimePasswordUpdateService:BaseEntityUpdateService<Entity.OneTimePassword,OneTimePasswordPM,IEntityPM,OneTimePasswordList,string>
    {
    			
-        public OneTimePasswordUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new OneTimePasswordDataMapping();
-            Repository = new Repository<POCO.OneTimePassword>(mainContext);
-        }
-        public OneTimePasswordUpdateService(int tenant) :  base( tenant)  
+        public OneTimePasswordUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new OneTimePasswordDataMapping();
-            Repository = new Repository<POCO.OneTimePassword>(tenant);
+            Repository = new Repository<Entity.OneTimePassword>(unitOfWork);
 		}
-        public OneTimePasswordUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.OneTimePassword,string> GetKeys(OneTimePasswordPM entityPM) => new OneTimePasswordKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.OneTimePassword,string> GetKeys(OneTimePasswordPM entityPM) => new OneTimePasswordKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(OneTimePasswordPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentsFilingUpdateService:BaseEntityUpdateService<POCO.DocumentsFiling,DocumentsFilingPM,IEntityPM,DocumentsFilingList,string>
+   public partial class DocumentsFilingUpdateService:BaseEntityUpdateService<Entity.DocumentsFiling,DocumentsFilingPM,IEntityPM,DocumentsFilingList,string>
    {
    			
-        public DocumentsFilingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentsFilingDataMapping();
-            Repository = new Repository<POCO.DocumentsFiling>(mainContext);
-        }
-        public DocumentsFilingUpdateService(int tenant) :  base( tenant)  
+        public DocumentsFilingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentsFilingDataMapping();
-            Repository = new Repository<POCO.DocumentsFiling>(tenant);
+            Repository = new Repository<Entity.DocumentsFiling>(unitOfWork);
 		}
-        public DocumentsFilingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentsFiling,string> GetKeys(DocumentsFilingPM entityPM) => new DocumentsFilingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentsFiling,string> GetKeys(DocumentsFilingPM entityPM) => new DocumentsFilingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentsFilingPM entityPM)
 		{
 		}

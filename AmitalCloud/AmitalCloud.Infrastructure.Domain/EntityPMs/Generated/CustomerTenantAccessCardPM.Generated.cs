@@ -61,14 +61,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private CustomerPM _customer;
-		
-        [DataMember]
-        public virtual CustomerPM Customer 
-		{ 
-		get { return _customer; } 
-		set { _customer = value; }
-		}
 	  private string _customerTenantAccessId ;
 	         [Key]
 	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]

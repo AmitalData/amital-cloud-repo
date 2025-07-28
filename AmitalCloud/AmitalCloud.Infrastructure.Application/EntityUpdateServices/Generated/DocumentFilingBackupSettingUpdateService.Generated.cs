@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentFilingBackupSettingUpdateService:BaseEntityUpdateService<POCO.DocumentFilingBackupSetting,DocumentFilingBackupSettingPM,IEntityPM,DocumentFilingBackupSettingList,int>
+   public partial class DocumentFilingBackupSettingUpdateService:BaseEntityUpdateService<Entity.DocumentFilingBackupSetting,DocumentFilingBackupSettingPM,IEntityPM,DocumentFilingBackupSettingList,int>
    {
    			
-        public DocumentFilingBackupSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentFilingBackupSettingDataMapping();
-            Repository = new Repository<POCO.DocumentFilingBackupSetting>(mainContext);
-        }
-        public DocumentFilingBackupSettingUpdateService(int tenant) :  base( tenant)  
+        public DocumentFilingBackupSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentFilingBackupSettingDataMapping();
-            Repository = new Repository<POCO.DocumentFilingBackupSetting>(tenant);
+            Repository = new Repository<Entity.DocumentFilingBackupSetting>(unitOfWork);
 		}
-        public DocumentFilingBackupSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentFilingBackupSetting,int> GetKeys(DocumentFilingBackupSettingPM entityPM) => new DocumentFilingBackupSettingKeys<int>() { Tenant = entityPM.Tenant };
+		protected override IEntityKeyFields<Entity.DocumentFilingBackupSetting,int> GetKeys(DocumentFilingBackupSettingPM entityPM) => new DocumentFilingBackupSettingKeys<int>() { Tenant = entityPM.Tenant };
 protected override void FillDefaultValuesOnCreate(DocumentFilingBackupSettingPM entityPM)
 		{
 		}

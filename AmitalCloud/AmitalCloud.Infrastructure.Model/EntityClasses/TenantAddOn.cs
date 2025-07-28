@@ -27,9 +27,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
    
         [Column("PackageCode")]
 	    public string PackageCode { get; set; }
-        [ForeignKey("Tenant")]
-        public virtual TenantManagement TenantManagement { get; set; }
-
     }
 }
 	 

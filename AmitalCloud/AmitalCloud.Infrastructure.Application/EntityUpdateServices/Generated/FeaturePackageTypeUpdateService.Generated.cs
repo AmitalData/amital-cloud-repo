@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FeaturePackageTypeUpdateService:BaseEntityUpdateService<POCO.FeaturePackageType,FeaturePackageTypePM,IEntityPM,FeaturePackageTypeList,string>
+   public partial class FeaturePackageTypeUpdateService:BaseEntityUpdateService<Entity.FeaturePackageType,FeaturePackageTypePM,IEntityPM,FeaturePackageTypeList,string>
    {
    			
-        public FeaturePackageTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FeaturePackageTypeDataMapping();
-            Repository = new Repository<POCO.FeaturePackageType>(mainContext);
-        }
-        public FeaturePackageTypeUpdateService(int tenant) :  base( tenant)  
+        public FeaturePackageTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FeaturePackageTypeDataMapping();
-            Repository = new Repository<POCO.FeaturePackageType>(tenant);
+            Repository = new Repository<Entity.FeaturePackageType>(unitOfWork);
 		}
-        public FeaturePackageTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FeaturePackageType,string> GetKeys(FeaturePackageTypePM entityPM) => new FeaturePackageTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.FeaturePackageType,string> GetKeys(FeaturePackageTypePM entityPM) => new FeaturePackageTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(FeaturePackageTypePM entityPM)
 		{
 		}

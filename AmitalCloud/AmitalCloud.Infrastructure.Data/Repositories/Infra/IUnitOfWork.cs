@@ -8,7 +8,7 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
     {
         //The following Property is going to hold the context object
         IContext Context { get; }
-
+        int Tenant { get; }
         //Start the database Transaction
         //       void CreateTransaction();
         void CreateTransactionScope(TransactionScopeOption option);

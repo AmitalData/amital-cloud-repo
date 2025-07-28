@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PackageConnectedPackageUpdateService:BaseEntityUpdateService<POCO.PackageConnectedPackage,PackageConnectedPackagePM,PackagePM,PackageConnectedPackageList,string>
+   public partial class PackageConnectedPackageUpdateService:BaseEntityUpdateService<Entity.PackageConnectedPackage,PackageConnectedPackagePM,PackagePM,PackageConnectedPackageList,string>
    {
    			
-        public PackageConnectedPackageUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PackageConnectedPackageDataMapping();
-            Repository = new Repository<POCO.PackageConnectedPackage>(mainContext);
-        }
-        public PackageConnectedPackageUpdateService(int tenant) :  base( tenant)  
+        public PackageConnectedPackageUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PackageConnectedPackageDataMapping();
-            Repository = new Repository<POCO.PackageConnectedPackage>(tenant);
+            Repository = new Repository<Entity.PackageConnectedPackage>(unitOfWork);
 		}
-        public PackageConnectedPackageUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PackageConnectedPackage,string> GetKeys(PackageConnectedPackagePM entityPM) => new PackageConnectedPackageKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PackageConnectedPackage,string> GetKeys(PackageConnectedPackagePM entityPM) => new PackageConnectedPackageKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PackageConnectedPackagePM entityPM)
 		{
 		}

@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ImageLibraryUpdateService:BaseEntityUpdateService<POCO.ImageLibrary,ImageLibraryPM,IEntityPM,ImageLibraryList,string>
+   public partial class ImageLibraryUpdateService:BaseEntityUpdateService<Entity.ImageLibrary,ImageLibraryPM,IEntityPM,ImageLibraryList,string>
    {
    			
-        public ImageLibraryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ImageLibraryDataMapping();
-            Repository = new Repository<POCO.ImageLibrary>(mainContext);
-        }
-        public ImageLibraryUpdateService(int tenant) :  base( tenant)  
+        public ImageLibraryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ImageLibraryDataMapping();
-            Repository = new Repository<POCO.ImageLibrary>(tenant);
+            Repository = new Repository<Entity.ImageLibrary>(unitOfWork);
 		}
-        public ImageLibraryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ImageLibrary,string> GetKeys(ImageLibraryPM entityPM) => new ImageLibraryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ImageLibrary,string> GetKeys(ImageLibraryPM entityPM) => new ImageLibraryKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ImageLibraryPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("ImageLibrary", entityPM.Tenant); 

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class SatisfactionSurveyUpdateService:BaseEntityUpdateService<POCO.SatisfactionSurvey,SatisfactionSurveyPM,IEntityPM,SatisfactionSurveyList,string>
+   public partial class SatisfactionSurveyUpdateService:BaseEntityUpdateService<Entity.SatisfactionSurvey,SatisfactionSurveyPM,IEntityPM,SatisfactionSurveyList,string>
    {
    			
-        public SatisfactionSurveyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new SatisfactionSurveyDataMapping();
-            Repository = new Repository<POCO.SatisfactionSurvey>(mainContext);
-        }
-        public SatisfactionSurveyUpdateService(int tenant) :  base( tenant)  
+        public SatisfactionSurveyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new SatisfactionSurveyDataMapping();
-            Repository = new Repository<POCO.SatisfactionSurvey>(tenant);
+            Repository = new Repository<Entity.SatisfactionSurvey>(unitOfWork);
 		}
-        public SatisfactionSurveyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.SatisfactionSurvey,string> GetKeys(SatisfactionSurveyPM entityPM) => new SatisfactionSurveyKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.SatisfactionSurvey,string> GetKeys(SatisfactionSurveyPM entityPM) => new SatisfactionSurveyKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(SatisfactionSurveyPM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

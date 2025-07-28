@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PaymentTermUpdateService:BaseEntityUpdateService<POCO.PaymentTerm,PaymentTermPM,IEntityPM,PaymentTermList,string>
+   public partial class PaymentTermUpdateService:BaseEntityUpdateService<Entity.PaymentTerm,PaymentTermPM,IEntityPM,PaymentTermList,string>
    {
    			
-        public PaymentTermUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PaymentTermDataMapping();
-            Repository = new Repository<POCO.PaymentTerm>(mainContext);
-        }
-        public PaymentTermUpdateService(int tenant) :  base( tenant)  
+        public PaymentTermUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PaymentTermDataMapping();
-            Repository = new Repository<POCO.PaymentTerm>(tenant);
+            Repository = new Repository<Entity.PaymentTerm>(unitOfWork);
 		}
-        public PaymentTermUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PaymentTerm,string> GetKeys(PaymentTermPM entityPM) => new PaymentTermKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PaymentTerm,string> GetKeys(PaymentTermPM entityPM) => new PaymentTermKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PaymentTermPM entityPM)
 		{
 		}

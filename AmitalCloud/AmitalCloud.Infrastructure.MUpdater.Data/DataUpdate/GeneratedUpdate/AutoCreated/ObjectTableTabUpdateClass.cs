@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 {
    public class ObjectTableTabUpdateClass
    {  		
-		public const string HashString = "ee5e1c6d1d8689d9548ca7bd9f742c25";
+		public const string HashString = "99f35c8fbbd6d6ecd35ff786ab1cd252";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -1246,6 +1246,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "TabNameTextCodeDefaultText",
 					  						DefaultText =  "TabNameTextCodeDefaultText",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  TabNameTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1306,6 +1308,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "Name",
 					  						DefaultText =  "Name",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  TabNameTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1377,6 +1381,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						DisplayInAutomationAsEnitity =  false,
 					  						DisplayInRequiredFields =  false,
 					  						HasTemplate =  false,
+					  						TableRelatedPM =  ObjectTable,
+					  						FieldRelatedPM =  Name,
 					  						IsCustom =  false,
 					  						EnableFullscreenTextBox =  false,
 					  		

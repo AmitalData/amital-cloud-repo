@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWCategoriesUpdateService:BaseEntityUpdateService<POCO.DWCategories,DWCategoriesPM,IEntityPM,DWCategoriesList,string>
+   public partial class DWCategoriesUpdateService:BaseEntityUpdateService<Entity.DWCategories,DWCategoriesPM,IEntityPM,DWCategoriesList,string>
    {
    			
-        public DWCategoriesUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWCategoriesDataMapping();
-            Repository = new Repository<POCO.DWCategories>(mainContext);
-        }
-        public DWCategoriesUpdateService(int tenant) :  base( tenant)  
+        public DWCategoriesUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWCategoriesDataMapping();
-            Repository = new Repository<POCO.DWCategories>(tenant);
+            Repository = new Repository<Entity.DWCategories>(unitOfWork);
 		}
-        public DWCategoriesUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWCategories,string> GetKeys(DWCategoriesPM entityPM) => new DWCategoriesKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.DWCategories,string> GetKeys(DWCategoriesPM entityPM) => new DWCategoriesKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(DWCategoriesPM entityPM)
 		{
 		}

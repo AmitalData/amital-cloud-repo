@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityChangeUpdateService:BaseEntityUpdateService<POCO.EntityChange,EntityChangePM,IEntityPM,EntityChangeList,string>
+   public partial class EntityChangeUpdateService:BaseEntityUpdateService<Entity.EntityChange,EntityChangePM,IEntityPM,EntityChangeList,string>
    {
    			
-        public EntityChangeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityChangeDataMapping();
-            Repository = new Repository<POCO.EntityChange>(mainContext);
-        }
-        public EntityChangeUpdateService(int tenant) :  base( tenant)  
+        public EntityChangeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityChangeDataMapping();
-            Repository = new Repository<POCO.EntityChange>(tenant);
+            Repository = new Repository<Entity.EntityChange>(unitOfWork);
 		}
-        public EntityChangeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityChange,string> GetKeys(EntityChangePM entityPM) => new EntityChangeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EntityChange,string> GetKeys(EntityChangePM entityPM) => new EntityChangeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EntityChangePM entityPM)
 		{
 		}

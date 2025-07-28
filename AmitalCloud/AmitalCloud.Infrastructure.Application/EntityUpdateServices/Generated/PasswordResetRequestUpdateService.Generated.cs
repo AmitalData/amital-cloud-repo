@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PasswordResetRequestUpdateService:BaseEntityUpdateService<POCO.PasswordResetRequest,PasswordResetRequestPM,IEntityPM,PasswordResetRequestList,string>
+   public partial class PasswordResetRequestUpdateService:BaseEntityUpdateService<Entity.PasswordResetRequest,PasswordResetRequestPM,IEntityPM,PasswordResetRequestList,string>
    {
    			
-        public PasswordResetRequestUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PasswordResetRequestDataMapping();
-            Repository = new Repository<POCO.PasswordResetRequest>(mainContext);
-        }
-        public PasswordResetRequestUpdateService(int tenant) :  base( tenant)  
+        public PasswordResetRequestUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PasswordResetRequestDataMapping();
-            Repository = new Repository<POCO.PasswordResetRequest>(tenant);
+            Repository = new Repository<Entity.PasswordResetRequest>(unitOfWork);
 		}
-        public PasswordResetRequestUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PasswordResetRequest,string> GetKeys(PasswordResetRequestPM entityPM) => new PasswordResetRequestKeys<string>() { RequestNumber = entityPM.RequestNumber };
+		protected override IEntityKeyFields<Entity.PasswordResetRequest,string> GetKeys(PasswordResetRequestPM entityPM) => new PasswordResetRequestKeys<string>() { RequestNumber = entityPM.RequestNumber };
 protected override void FillDefaultValuesOnCreate(PasswordResetRequestPM entityPM)
 		{
 		}

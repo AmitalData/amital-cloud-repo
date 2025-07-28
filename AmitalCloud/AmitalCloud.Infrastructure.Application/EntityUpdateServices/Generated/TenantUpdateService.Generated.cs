@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TenantUpdateService:BaseEntityUpdateService<POCO.Tenant,TenantPM,IEntityPM,TenantList,int>
+   public partial class TenantUpdateService:BaseEntityUpdateService<Entity.Tenant,TenantPM,IEntityPM,TenantList,int>
    {
    			
-        public TenantUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TenantDataMapping();
-            Repository = new Repository<POCO.Tenant>(mainContext);
-        }
-        public TenantUpdateService(int tenant) :  base( tenant)  
+        public TenantUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TenantDataMapping();
-            Repository = new Repository<POCO.Tenant>(tenant);
+            Repository = new Repository<Entity.Tenant>(unitOfWork);
 		}
-        public TenantUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Tenant,int> GetKeys(TenantPM entityPM) => new TenantKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Tenant,int> GetKeys(TenantPM entityPM) => new TenantKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TenantPM entityPM)
 		{
 		}

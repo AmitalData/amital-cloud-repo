@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectFieldUpdateService:BaseEntityUpdateService<POCO.ObjectField,ObjectFieldPM,IEntityPM,ObjectFieldList,string>
+   public partial class ObjectFieldUpdateService:BaseEntityUpdateService<Entity.ObjectField,ObjectFieldPM,IEntityPM,ObjectFieldList,string>
    {
    			
-        public ObjectFieldUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectFieldDataMapping();
-            Repository = new Repository<POCO.ObjectField>(mainContext);
-        }
-        public ObjectFieldUpdateService(int tenant) :  base( tenant)  
+        public ObjectFieldUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectFieldDataMapping();
-            Repository = new Repository<POCO.ObjectField>(tenant);
+            Repository = new Repository<Entity.ObjectField>(unitOfWork);
 		}
-        public ObjectFieldUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectField,string> GetKeys(ObjectFieldPM entityPM) => new ObjectFieldKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectField,string> GetKeys(ObjectFieldPM entityPM) => new ObjectFieldKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectFieldPM entityPM)
 		{
 		}

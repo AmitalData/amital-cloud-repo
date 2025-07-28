@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerTenantAccessRequestUpdateService:BaseEntityUpdateService<POCO.CustomerTenantAccessRequest,CustomerTenantAccessRequestPM,IEntityPM,CustomerTenantAccessRequestList,string>
+   public partial class CustomerTenantAccessRequestUpdateService:BaseEntityUpdateService<Entity.CustomerTenantAccessRequest,CustomerTenantAccessRequestPM,IEntityPM,CustomerTenantAccessRequestList,string>
    {
    			
-        public CustomerTenantAccessRequestUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerTenantAccessRequestDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessRequest>(mainContext);
-        }
-        public CustomerTenantAccessRequestUpdateService(int tenant) :  base( tenant)  
+        public CustomerTenantAccessRequestUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerTenantAccessRequestDataMapping();
-            Repository = new Repository<POCO.CustomerTenantAccessRequest>(tenant);
+            Repository = new Repository<Entity.CustomerTenantAccessRequest>(unitOfWork);
 		}
-        public CustomerTenantAccessRequestUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerTenantAccessRequest,string> GetKeys(CustomerTenantAccessRequestPM entityPM) => new CustomerTenantAccessRequestKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerTenantAccessRequest,string> GetKeys(CustomerTenantAccessRequestPM entityPM) => new CustomerTenantAccessRequestKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomerTenantAccessRequestPM entityPM)
 		{
 		}

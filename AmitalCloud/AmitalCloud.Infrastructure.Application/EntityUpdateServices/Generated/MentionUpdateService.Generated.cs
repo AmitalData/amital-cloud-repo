@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MentionUpdateService:BaseEntityUpdateService<POCO.Mention,MentionPM,IEntityPM,MentionList,string>
+   public partial class MentionUpdateService:BaseEntityUpdateService<Entity.Mention,MentionPM,IEntityPM,MentionList,string>
    {
    			
-        public MentionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MentionDataMapping();
-            Repository = new Repository<POCO.Mention>(mainContext);
-        }
-        public MentionUpdateService(int tenant) :  base( tenant)  
+        public MentionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MentionDataMapping();
-            Repository = new Repository<POCO.Mention>(tenant);
+            Repository = new Repository<Entity.Mention>(unitOfWork);
 		}
-        public MentionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Mention,string> GetKeys(MentionPM entityPM) => new MentionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Mention,string> GetKeys(MentionPM entityPM) => new MentionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(MentionPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("Mention", entityPM.Tenant); 

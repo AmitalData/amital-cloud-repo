@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VatUniqueTypeUpdateService:BaseEntityUpdateService<POCO.VatUniqueType,VatUniqueTypePM,IEntityPM,VatUniqueTypeList,string>
+   public partial class VatUniqueTypeUpdateService:BaseEntityUpdateService<Entity.VatUniqueType,VatUniqueTypePM,IEntityPM,VatUniqueTypeList,string>
    {
    			
-        public VatUniqueTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VatUniqueTypeDataMapping();
-            Repository = new Repository<POCO.VatUniqueType>(mainContext);
-        }
-        public VatUniqueTypeUpdateService(int tenant) :  base( tenant)  
+        public VatUniqueTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VatUniqueTypeDataMapping();
-            Repository = new Repository<POCO.VatUniqueType>(tenant);
+            Repository = new Repository<Entity.VatUniqueType>(unitOfWork);
 		}
-        public VatUniqueTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VatUniqueType,string> GetKeys(VatUniqueTypePM entityPM) => new VatUniqueTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.VatUniqueType,string> GetKeys(VatUniqueTypePM entityPM) => new VatUniqueTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(VatUniqueTypePM entityPM)
 		{
 		}

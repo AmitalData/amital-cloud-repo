@@ -38,6 +38,7 @@ namespaces.Add("dataprojectnamespace","AmitalCloud.Infrastructure.Data");
 namespaces.Add("domaininterfacesspacestring","AmitalCloud.Infrastructure.Domain.Interfaces");
 //namespaces.Add("dataUpdatespacestring","AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate");
 //namespaces.Add("Updatespacestring","AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate");
+namespaces.Add("databaseclassnamespace","AmitalCloud.Infrastructure.Data.BaseClasses");
 
 
 

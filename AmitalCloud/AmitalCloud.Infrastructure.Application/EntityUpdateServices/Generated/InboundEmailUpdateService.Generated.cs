@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class InboundEmailUpdateService:BaseEntityUpdateService<POCO.InboundEmail,InboundEmailPM,IEntityPM,InboundEmailList,string>
+   public partial class InboundEmailUpdateService:BaseEntityUpdateService<Entity.InboundEmail,InboundEmailPM,IEntityPM,InboundEmailList,string>
    {
    			
-        public InboundEmailUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new InboundEmailDataMapping();
-            Repository = new Repository<POCO.InboundEmail>(mainContext);
-        }
-        public InboundEmailUpdateService(int tenant) :  base( tenant)  
+        public InboundEmailUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new InboundEmailDataMapping();
-            Repository = new Repository<POCO.InboundEmail>(tenant);
+            Repository = new Repository<Entity.InboundEmail>(unitOfWork);
 		}
-        public InboundEmailUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.InboundEmail,string> GetKeys(InboundEmailPM entityPM) => new InboundEmailKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.InboundEmail,string> GetKeys(InboundEmailPM entityPM) => new InboundEmailKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(InboundEmailPM entityPM)
 		{
 		}

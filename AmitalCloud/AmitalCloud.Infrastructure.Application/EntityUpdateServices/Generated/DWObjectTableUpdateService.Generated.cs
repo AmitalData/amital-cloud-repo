@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWObjectTableUpdateService:BaseEntityUpdateService<POCO.DWObjectTable,DWObjectTablePM,IEntityPM,DWObjectTableList,string>
+   public partial class DWObjectTableUpdateService:BaseEntityUpdateService<Entity.DWObjectTable,DWObjectTablePM,IEntityPM,DWObjectTableList,string>
    {
    			
-        public DWObjectTableUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWObjectTableDataMapping();
-            Repository = new Repository<POCO.DWObjectTable>(mainContext);
-        }
-        public DWObjectTableUpdateService(int tenant) :  base( tenant)  
+        public DWObjectTableUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWObjectTableDataMapping();
-            Repository = new Repository<POCO.DWObjectTable>(tenant);
+            Repository = new Repository<Entity.DWObjectTable>(unitOfWork);
 		}
-        public DWObjectTableUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWObjectTable,string> GetKeys(DWObjectTablePM entityPM) => new DWObjectTableKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.DWObjectTable,string> GetKeys(DWObjectTablePM entityPM) => new DWObjectTableKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(DWObjectTablePM entityPM)
 		{
 		}

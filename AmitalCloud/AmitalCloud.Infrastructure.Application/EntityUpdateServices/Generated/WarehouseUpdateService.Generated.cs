@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class WarehouseUpdateService:BaseEntityUpdateService<POCO.Warehouse,WarehousePM,IEntityPM,WarehouseList,string>
+   public partial class WarehouseUpdateService:BaseEntityUpdateService<Entity.Warehouse,WarehousePM,IEntityPM,WarehouseList,string>
    {
    			
-        public WarehouseUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new WarehouseDataMapping();
-            Repository = new Repository<POCO.Warehouse>(mainContext);
-        }
-        public WarehouseUpdateService(int tenant) :  base( tenant)  
+        public WarehouseUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new WarehouseDataMapping();
-            Repository = new Repository<POCO.Warehouse>(tenant);
+            Repository = new Repository<Entity.Warehouse>(unitOfWork);
 		}
-        public WarehouseUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Warehouse,string> GetKeys(WarehousePM entityPM) => new WarehouseKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Warehouse,string> GetKeys(WarehousePM entityPM) => new WarehouseKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(WarehousePM entityPM)
 		{
 		}

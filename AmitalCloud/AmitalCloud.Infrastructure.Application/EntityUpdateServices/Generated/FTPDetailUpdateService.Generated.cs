@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FTPDetailUpdateService:BaseEntityUpdateService<POCO.FTPDetail,FTPDetailPM,IEntityPM,FTPDetailList,string>
+   public partial class FTPDetailUpdateService:BaseEntityUpdateService<Entity.FTPDetail,FTPDetailPM,IEntityPM,FTPDetailList,string>
    {
    			
-        public FTPDetailUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FTPDetailDataMapping();
-            Repository = new Repository<POCO.FTPDetail>(mainContext);
-        }
-        public FTPDetailUpdateService(int tenant) :  base( tenant)  
+        public FTPDetailUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FTPDetailDataMapping();
-            Repository = new Repository<POCO.FTPDetail>(tenant);
+            Repository = new Repository<Entity.FTPDetail>(unitOfWork);
 		}
-        public FTPDetailUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FTPDetail,string> GetKeys(FTPDetailPM entityPM) => new FTPDetailKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.FTPDetail,string> GetKeys(FTPDetailPM entityPM) => new FTPDetailKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FTPDetailPM entityPM)
 		{
 		}

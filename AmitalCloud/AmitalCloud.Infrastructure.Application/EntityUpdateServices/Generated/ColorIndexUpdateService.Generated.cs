@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ColorIndexUpdateService:BaseEntityUpdateService<POCO.ColorIndex,ColorIndexPM,IEntityPM,ColorIndexList,int>
+   public partial class ColorIndexUpdateService:BaseEntityUpdateService<Entity.ColorIndex,ColorIndexPM,IEntityPM,ColorIndexList,int>
    {
    			
-        public ColorIndexUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ColorIndexDataMapping();
-            Repository = new Repository<POCO.ColorIndex>(mainContext);
-        }
-        public ColorIndexUpdateService(int tenant) :  base( tenant)  
+        public ColorIndexUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ColorIndexDataMapping();
-            Repository = new Repository<POCO.ColorIndex>(tenant);
+            Repository = new Repository<Entity.ColorIndex>(unitOfWork);
 		}
-        public ColorIndexUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ColorIndex,int> GetKeys(ColorIndexPM entityPM) => new ColorIndexKeys<int>() { IndexNumber = entityPM.IndexNumber };
+		protected override IEntityKeyFields<Entity.ColorIndex,int> GetKeys(ColorIndexPM entityPM) => new ColorIndexKeys<int>() { IndexNumber = entityPM.IndexNumber };
 protected override void FillDefaultValuesOnCreate(ColorIndexPM entityPM)
 		{
 		}

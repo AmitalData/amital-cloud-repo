@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UserLastSettingsUpdateService:BaseEntityUpdateService<POCO.UserLastSettings,UserLastSettingsPM,IEntityPM,UserLastSettingsList,string>
+   public partial class UserLastSettingsUpdateService:BaseEntityUpdateService<Entity.UserLastSettings,UserLastSettingsPM,IEntityPM,UserLastSettingsList,string>
    {
    			
-        public UserLastSettingsUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UserLastSettingsDataMapping();
-            Repository = new Repository<POCO.UserLastSettings>(mainContext);
-        }
-        public UserLastSettingsUpdateService(int tenant) :  base( tenant)  
+        public UserLastSettingsUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UserLastSettingsDataMapping();
-            Repository = new Repository<POCO.UserLastSettings>(tenant);
+            Repository = new Repository<Entity.UserLastSettings>(unitOfWork);
 		}
-        public UserLastSettingsUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UserLastSettings,string> GetKeys(UserLastSettingsPM entityPM) => new UserLastSettingsKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UserLastSettings,string> GetKeys(UserLastSettingsPM entityPM) => new UserLastSettingsKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(UserLastSettingsPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("UserLastSettings", entityPM.Tenant); 

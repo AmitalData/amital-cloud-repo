@@ -23,18 +23,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
    public partial class SystemMetadataLastUpdateUpdateService:BaseEntityUpdateService<POCO.SystemMetadataLastUpdate,SystemMetadataLastUpdatePM,IEntityPM,SystemMetadataLastUpdateList,string>
    {
    			
-        public SystemMetadataLastUpdateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
+        public SystemMetadataLastUpdateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new SystemMetadataLastUpdateDataMapping();
-            Repository = new Repository<POCO.SystemMetadataLastUpdate>(mainContext);
+            Repository = new Repository<POCO.SystemMetadataLastUpdate>(unitOfWork);
         }
-        public SystemMetadataLastUpdateUpdateService(int tenant) :  base( tenant)  
-		{
-            Mapping = new SystemMetadataLastUpdateDataMapping();
-            Repository = new Repository<POCO.SystemMetadataLastUpdate>(tenant);
-		}
-        public SystemMetadataLastUpdateUpdateService(IContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.SystemMetadataLastUpdate,string> GetKeys(SystemMetadataLastUpdatePM entityPM) => new SystemMetadataLastUpdateKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(SystemMetadataLastUpdatePM entityPM)
 		{

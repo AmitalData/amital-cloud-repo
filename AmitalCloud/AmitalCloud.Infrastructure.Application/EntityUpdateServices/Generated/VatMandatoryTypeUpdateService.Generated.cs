@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VatMandatoryTypeUpdateService:BaseEntityUpdateService<POCO.VatMandatoryType,VatMandatoryTypePM,IEntityPM,VatMandatoryTypeList,string>
+   public partial class VatMandatoryTypeUpdateService:BaseEntityUpdateService<Entity.VatMandatoryType,VatMandatoryTypePM,IEntityPM,VatMandatoryTypeList,string>
    {
    			
-        public VatMandatoryTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VatMandatoryTypeDataMapping();
-            Repository = new Repository<POCO.VatMandatoryType>(mainContext);
-        }
-        public VatMandatoryTypeUpdateService(int tenant) :  base( tenant)  
+        public VatMandatoryTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VatMandatoryTypeDataMapping();
-            Repository = new Repository<POCO.VatMandatoryType>(tenant);
+            Repository = new Repository<Entity.VatMandatoryType>(unitOfWork);
 		}
-        public VatMandatoryTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VatMandatoryType,string> GetKeys(VatMandatoryTypePM entityPM) => new VatMandatoryTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.VatMandatoryType,string> GetKeys(VatMandatoryTypePM entityPM) => new VatMandatoryTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(VatMandatoryTypePM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EmailProviderUpdateService:BaseEntityUpdateService<POCO.EmailProvider,EmailProviderPM,IEntityPM,EmailProviderList,string>
+   public partial class EmailProviderUpdateService:BaseEntityUpdateService<Entity.EmailProvider,EmailProviderPM,IEntityPM,EmailProviderList,string>
    {
    			
-        public EmailProviderUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EmailProviderDataMapping();
-            Repository = new Repository<POCO.EmailProvider>(mainContext);
-        }
-        public EmailProviderUpdateService(int tenant) :  base( tenant)  
+        public EmailProviderUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EmailProviderDataMapping();
-            Repository = new Repository<POCO.EmailProvider>(tenant);
+            Repository = new Repository<Entity.EmailProvider>(unitOfWork);
 		}
-        public EmailProviderUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EmailProvider,string> GetKeys(EmailProviderPM entityPM) => new EmailProviderKeys<string>() { ProviderNumber = entityPM.ProviderNumber };
+		protected override IEntityKeyFields<Entity.EmailProvider,string> GetKeys(EmailProviderPM entityPM) => new EmailProviderKeys<string>() { ProviderNumber = entityPM.ProviderNumber };
 protected override void FillDefaultValuesOnCreate(EmailProviderPM entityPM)
 		{
 		}

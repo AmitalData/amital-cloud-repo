@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UserLastLoginUpdateService:BaseEntityUpdateService<POCO.UserLastLogin,UserLastLoginPM,IEntityPM,UserLastLoginList,string>
+   public partial class UserLastLoginUpdateService:BaseEntityUpdateService<Entity.UserLastLogin,UserLastLoginPM,IEntityPM,UserLastLoginList,string>
    {
    			
-        public UserLastLoginUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UserLastLoginDataMapping();
-            Repository = new Repository<POCO.UserLastLogin>(mainContext);
-        }
-        public UserLastLoginUpdateService(int tenant) :  base( tenant)  
+        public UserLastLoginUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UserLastLoginDataMapping();
-            Repository = new Repository<POCO.UserLastLogin>(tenant);
+            Repository = new Repository<Entity.UserLastLogin>(unitOfWork);
 		}
-        public UserLastLoginUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UserLastLogin,string> GetKeys(UserLastLoginPM entityPM) => new UserLastLoginKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UserLastLogin,string> GetKeys(UserLastLoginPM entityPM) => new UserLastLoginKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(UserLastLoginPM entityPM)
 		{
 		}

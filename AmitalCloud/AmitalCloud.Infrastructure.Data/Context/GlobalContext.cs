@@ -170,7 +170,7 @@ namespace AmitalCloud.Infrastructure.Data.Context
             this.ChangeTracker.DetectChanges();
         }
 
-        public override int SaveChanges()
+        internal new int SaveChanges()
         {
             DetectChanges();
             return base.SaveChanges();
@@ -235,7 +235,7 @@ namespace AmitalCloud.Infrastructure.Data.Context
             return this;
         }
 
-        public Task<int> SaveChangesAsync()
+        internal Task<int> SaveChangesAsync()
         {
             throw new NotImplementedException();
         }

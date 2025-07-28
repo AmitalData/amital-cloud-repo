@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TipUpdateService:BaseEntityUpdateService<POCO.Tip,TipPM,IEntityPM,TipList,string>
+   public partial class TipUpdateService:BaseEntityUpdateService<Entity.Tip,TipPM,IEntityPM,TipList,string>
    {
    			
-        public TipUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TipDataMapping();
-            Repository = new Repository<POCO.Tip>(mainContext);
-        }
-        public TipUpdateService(int tenant) :  base( tenant)  
+        public TipUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TipDataMapping();
-            Repository = new Repository<POCO.Tip>(tenant);
+            Repository = new Repository<Entity.Tip>(unitOfWork);
 		}
-        public TipUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Tip,string> GetKeys(TipPM entityPM) => new TipKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.Tip,string> GetKeys(TipPM entityPM) => new TipKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TipPM entityPM)
 		{
 		}

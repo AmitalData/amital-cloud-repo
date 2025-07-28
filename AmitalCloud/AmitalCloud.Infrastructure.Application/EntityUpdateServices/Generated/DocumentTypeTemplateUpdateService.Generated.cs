@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentTypeTemplateUpdateService:BaseEntityUpdateService<POCO.DocumentTypeTemplate,DocumentTypeTemplatePM,IEntityPM,DocumentTypeTemplateList,string>
+   public partial class DocumentTypeTemplateUpdateService:BaseEntityUpdateService<Entity.DocumentTypeTemplate,DocumentTypeTemplatePM,IEntityPM,DocumentTypeTemplateList,string>
    {
    			
-        public DocumentTypeTemplateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentTypeTemplateDataMapping();
-            Repository = new Repository<POCO.DocumentTypeTemplate>(mainContext);
-        }
-        public DocumentTypeTemplateUpdateService(int tenant) :  base( tenant)  
+        public DocumentTypeTemplateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentTypeTemplateDataMapping();
-            Repository = new Repository<POCO.DocumentTypeTemplate>(tenant);
+            Repository = new Repository<Entity.DocumentTypeTemplate>(unitOfWork);
 		}
-        public DocumentTypeTemplateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentTypeTemplate,string> GetKeys(DocumentTypeTemplatePM entityPM) => new DocumentTypeTemplateKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentTypeTemplate,string> GetKeys(DocumentTypeTemplatePM entityPM) => new DocumentTypeTemplateKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentTypeTemplatePM entityPM)
 		{
 		}

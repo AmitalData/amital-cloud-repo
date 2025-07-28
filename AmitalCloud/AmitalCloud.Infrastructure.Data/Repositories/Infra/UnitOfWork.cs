@@ -1,4 +1,5 @@
-﻿using AmitalCloud.Infrastructure.Model.Interfaces;
+﻿using AmitalCloud.Infrastructure.Data.DBHelpers;
+using AmitalCloud.Infrastructure.Model.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection;
@@ -11,17 +12,20 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
     //While Creating an Instance of the UnitOfWork object, we need to specify the actual type for the TContext Generic Type
     //In our example, TContext is going to be EmployeeDBContext
     //new() constraint will make sure that this type is going to be a non-abstract type with a parameterless constructor
-    public class UnitOfWork<TContext>(int tenant) : IUnitOfWork, IDisposable where TContext : IContext
+    public class UnitOfWork(int tenant) : IUnitOfWork, IDisposable 
     {
         private bool _disposed;
         private string _errorMessage = string.Empty;
         private Action _commit;
         private Action _rollback;
         private Action _dispose;
-        private TContext _context = (TContext)typeof(TContext).GetMethod("GetContext", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { tenant });
+        private IContext _context;
+        private int _tenant = tenant;
+        //= (TContext)typeof(TContext).GetMethod("GetContext", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { tenant });
         //The following Object is going to hold the Transaction Object
         //private DbContextTransaction _objTran;
-        TransactionScope _tranScope; //= TransactionFactory.GetNewTransaction()
+        TransactionScope _tranScope; 
+        //= TransactionFactory.GetNewTransaction()
                                      //public UnitOfWork(TContext context)
                                      //{
                                      //    _context = context;
@@ -34,11 +38,20 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         //The Context property will return the DBContext object i.e. (EmployeeDBContext) object
         //This Property is declared inside the Parent Interface and Initialized through the Constructor
-        public IContext Context { get => _context; }
-
+        public IContext Context
+        {
+            get
+            { 
+                if (_context == null)
+                {
+                    throw new InvalidOperationException("Context is not initialized.");
+                }
+                return _context; 
+            }
+        }
+        public int Tenant => _tenant;
         //The CreateTransaction() method will create a database Transaction so that we can do database operations
         //by applying do everything and do nothing principle
         public void CreateTransactionScope(TransactionScopeOption option)
@@ -47,7 +60,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             _tranScope = new TransactionScope(option);//  TransactionFactory.GetNewTransaction();
             //_objTran = Context.Database.BeginTransaction();
         }
-
         //If all the Transactions are completed successfully then we need to call this Commit() 
         //method to Save the changes permanently in the database
         public void Commit()
@@ -56,7 +68,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             _tranScope.Complete();
             //_objTran.Commit();
         }
-
         //If at least one of the Transaction is Failed then we need to call this Rollback() 
         //method to Rollback the database changes to its previous state
         public void Rollback()
@@ -68,7 +79,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             //is no longer using that transaction.
             //_objTran.Dispose();
         }
-
         //The Save() Method Implement DbContext Class SaveChanges method 
         //So whenever we do a transaction we need to call this Save() method 
         //so that it will make the changes in the database permanently
@@ -77,7 +87,7 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             try
             {
                 //Calling DbContext Class SaveChanges method 
-                typeof(TContext).GetMethod("SaveChanges", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, Type.EmptyTypes, null).Invoke(Context, null);
+                _context.GetType().GetMethod("SaveChanges", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, Type.EmptyTypes, null).Invoke(Context, null);
 
                 //Context.SaveChanges();
             }
@@ -111,7 +121,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             }
             _disposed = true;
         }
-
         //
         // Summary:
         //     Occurs when transaction is committed.
@@ -126,7 +135,6 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
                 _commit = (Action)Delegate.Remove(_commit, value);
             }
         }
-
         //
         // Summary:
         //     Occurs when transaction is rolled back.
@@ -140,6 +148,18 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
             {
                 _rollback = (Action)Delegate.Remove(_rollback, value);
             }
+        }
+        internal void AddContext(IContext context)
+        {
+            if (_context != null)
+            {
+                throw new InvalidOperationException("Context is initialized.");
+            }
+            if (context.Tenant != Tenant)
+            {
+                throw new InvalidOperationException("Tenant Doesn't Match.");
+            }
+            _context = context;
         }
     }
 }

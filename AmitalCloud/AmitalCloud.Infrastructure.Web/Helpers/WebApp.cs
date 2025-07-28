@@ -1,18 +1,19 @@
-﻿using AmitalCloud.Infrastructure.Data.Helpers;
+﻿using AmitalCloud.Infrastructure.Application.Helpers;
+using AmitalCloud.Infrastructure.Data.Context;
+using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Repositories;
-using AmitalCloud.Infrastructure.Domain.Interfaces;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
-using AmitalCloud.Infrastructure.Web.Middlewares;
+using AmitalCloud.Infrastructure.Domain.EntityLists;
+using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.Helpers;
-using AmitalCloud.Infrastructure.Application.Helpers;
-using System.Reflection;
+using AmitalCloud.Infrastructure.Domain.Interfaces;
+using AmitalCloud.Infrastructure.Model.EntityClasses;
+using AmitalCloud.Infrastructure.Web.Middlewares;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.ApplicationInsights.Extensibility;
-using Serilog;
 using Microsoft.AspNetCore.OData;
-using AmitalCloud.Infrastructure.Data.Context;
-using AmitalCloud.Infrastructure.Domain.EntityLists;
-using AmitalCloud.Infrastructure.Model.EntityClasses;
+using Serilog;
+using System.Reflection;
 
 
 
@@ -101,6 +102,15 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
             });
 
 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(sp =>
+            {
+                var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+                var tenantId = int.TryParse(httpContextAccessor.HttpContext?.Request.Headers["X-Tenant-ID"], out var tid) ? tid : 0;
+                return new UnitOfWork(tenantId);
+            });
+
+
+
 
             var assemblies = AppDomain.CurrentDomain
               .GetAssemblies()
@@ -143,7 +153,6 @@ namespace AmitalCloud.Infrastructure.Web.Helpers
                 builder.Services.AddScoped(impl.serviceInterface, impl.serviceImplementation);
             }
             builder.Services.AddTransient<IGenericEntityQueryServiceFactory, GenericEntityQueryServiceFactory>();
-
 
 
             //  builder.Services.AddAllQueryServices(typeof(TenantManagementQueryService).Assembly);

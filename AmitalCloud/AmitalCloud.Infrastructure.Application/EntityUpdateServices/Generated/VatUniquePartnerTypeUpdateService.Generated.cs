@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VatUniquePartnerTypeUpdateService:BaseEntityUpdateService<POCO.VatUniquePartnerType,VatUniquePartnerTypePM,IEntityPM,VatUniquePartnerTypeList,string>
+   public partial class VatUniquePartnerTypeUpdateService:BaseEntityUpdateService<Entity.VatUniquePartnerType,VatUniquePartnerTypePM,IEntityPM,VatUniquePartnerTypeList,string>
    {
    			
-        public VatUniquePartnerTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VatUniquePartnerTypeDataMapping();
-            Repository = new Repository<POCO.VatUniquePartnerType>(mainContext);
-        }
-        public VatUniquePartnerTypeUpdateService(int tenant) :  base( tenant)  
+        public VatUniquePartnerTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VatUniquePartnerTypeDataMapping();
-            Repository = new Repository<POCO.VatUniquePartnerType>(tenant);
+            Repository = new Repository<Entity.VatUniquePartnerType>(unitOfWork);
 		}
-        public VatUniquePartnerTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VatUniquePartnerType,string> GetKeys(VatUniquePartnerTypePM entityPM) => new VatUniquePartnerTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.VatUniquePartnerType,string> GetKeys(VatUniquePartnerTypePM entityPM) => new VatUniquePartnerTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(VatUniquePartnerTypePM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ReportGroupUpdateService:BaseEntityUpdateService<POCO.ReportGroup,ReportGroupPM,IEntityPM,ReportGroupList,string>
+   public partial class ReportGroupUpdateService:BaseEntityUpdateService<Entity.ReportGroup,ReportGroupPM,IEntityPM,ReportGroupList,string>
    {
    			
-        public ReportGroupUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ReportGroupDataMapping();
-            Repository = new Repository<POCO.ReportGroup>(mainContext);
-        }
-        public ReportGroupUpdateService(int tenant) :  base( tenant)  
+        public ReportGroupUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ReportGroupDataMapping();
-            Repository = new Repository<POCO.ReportGroup>(tenant);
+            Repository = new Repository<Entity.ReportGroup>(unitOfWork);
 		}
-        public ReportGroupUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ReportGroup,string> GetKeys(ReportGroupPM entityPM) => new ReportGroupKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ReportGroup,string> GetKeys(ReportGroupPM entityPM) => new ReportGroupKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ReportGroupPM entityPM)
 		{
 		}

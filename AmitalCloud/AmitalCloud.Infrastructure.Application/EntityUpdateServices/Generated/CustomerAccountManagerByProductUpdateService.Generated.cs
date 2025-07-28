@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerAccountManagerByProductUpdateService:BaseEntityUpdateService<POCO.CustomerAccountManagerByProduct,CustomerAccountManagerByProductPM,CustomerPM,CustomerAccountManagerByProductList,string>
+   public partial class CustomerAccountManagerByProductUpdateService:BaseEntityUpdateService<Entity.CustomerAccountManagerByProduct,CustomerAccountManagerByProductPM,CustomerPM,CustomerAccountManagerByProductList,string>
    {
    			
-        public CustomerAccountManagerByProductUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerAccountManagerByProductDataMapping();
-            Repository = new Repository<POCO.CustomerAccountManagerByProduct>(mainContext);
-        }
-        public CustomerAccountManagerByProductUpdateService(int tenant) :  base( tenant)  
+        public CustomerAccountManagerByProductUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerAccountManagerByProductDataMapping();
-            Repository = new Repository<POCO.CustomerAccountManagerByProduct>(tenant);
+            Repository = new Repository<Entity.CustomerAccountManagerByProduct>(unitOfWork);
 		}
-        public CustomerAccountManagerByProductUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerAccountManagerByProduct,string> GetKeys(CustomerAccountManagerByProductPM entityPM) => new CustomerAccountManagerByProductKeys<string>() { ProductTypeCode = entityPM.ProductTypeCode, CustomerId = entityPM.CustomerId };
+		protected override IEntityKeyFields<Entity.CustomerAccountManagerByProduct,string> GetKeys(CustomerAccountManagerByProductPM entityPM) => new CustomerAccountManagerByProductKeys<string>() { ProductTypeCode = entityPM.ProductTypeCode, CustomerId = entityPM.CustomerId };
 protected override void FillDefaultValuesOnCreate(CustomerAccountManagerByProductPM entityPM)
 		{
 		}

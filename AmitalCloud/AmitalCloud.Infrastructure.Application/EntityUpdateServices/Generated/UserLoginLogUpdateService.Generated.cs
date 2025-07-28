@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UserLoginLogUpdateService:BaseEntityUpdateService<POCO.UserLoginLog,UserLoginLogPM,IEntityPM,UserLoginLogList,string>
+   public partial class UserLoginLogUpdateService:BaseEntityUpdateService<Entity.UserLoginLog,UserLoginLogPM,IEntityPM,UserLoginLogList,string>
    {
    			
-        public UserLoginLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UserLoginLogDataMapping();
-            Repository = new Repository<POCO.UserLoginLog>(mainContext);
-        }
-        public UserLoginLogUpdateService(int tenant) :  base( tenant)  
+        public UserLoginLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UserLoginLogDataMapping();
-            Repository = new Repository<POCO.UserLoginLog>(tenant);
+            Repository = new Repository<Entity.UserLoginLog>(unitOfWork);
 		}
-        public UserLoginLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UserLoginLog,string> GetKeys(UserLoginLogPM entityPM) => new UserLoginLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UserLoginLog,string> GetKeys(UserLoginLogPM entityPM) => new UserLoginLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(UserLoginLogPM entityPM)
 		{
 		}

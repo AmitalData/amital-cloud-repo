@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityCasualDataUpdateService:BaseEntityUpdateService<POCO.EntityCasualData,EntityCasualDataPM,IEntityPM,EntityCasualDataList,string>
+   public partial class EntityCasualDataUpdateService:BaseEntityUpdateService<Entity.EntityCasualData,EntityCasualDataPM,IEntityPM,EntityCasualDataList,string>
    {
    			
-        public EntityCasualDataUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityCasualDataDataMapping();
-            Repository = new Repository<POCO.EntityCasualData>(mainContext);
-        }
-        public EntityCasualDataUpdateService(int tenant) :  base( tenant)  
+        public EntityCasualDataUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityCasualDataDataMapping();
-            Repository = new Repository<POCO.EntityCasualData>(tenant);
+            Repository = new Repository<Entity.EntityCasualData>(unitOfWork);
 		}
-        public EntityCasualDataUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityCasualData,string> GetKeys(EntityCasualDataPM entityPM) => new EntityCasualDataKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EntityCasualData,string> GetKeys(EntityCasualDataPM entityPM) => new EntityCasualDataKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EntityCasualDataPM entityPM)
 		{
 		}

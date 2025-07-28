@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CountryCityUpdateService:BaseEntityUpdateService<POCO.CountryCity,CountryCityPM,IEntityPM,CountryCityList,string>
+   public partial class CountryCityUpdateService:BaseEntityUpdateService<Entity.CountryCity,CountryCityPM,IEntityPM,CountryCityList,string>
    {
    			
-        public CountryCityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CountryCityDataMapping();
-            Repository = new Repository<POCO.CountryCity>(mainContext);
-        }
-        public CountryCityUpdateService(int tenant) :  base( tenant)  
+        public CountryCityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CountryCityDataMapping();
-            Repository = new Repository<POCO.CountryCity>(tenant);
+            Repository = new Repository<Entity.CountryCity>(unitOfWork);
 		}
-        public CountryCityUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CountryCity,string> GetKeys(CountryCityPM entityPM) => new CountryCityKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CountryCity,string> GetKeys(CountryCityPM entityPM) => new CountryCityKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CountryCityPM entityPM)
 		{
 		}

@@ -22,14 +22,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
     public partial class ContactPasswordUpdateService:BaseEntityUpdateService<POCO.ContactPassword,ContactPasswordPM,IEntityPM,ContactPasswordList,string>
    {
    			
-        public ContactPasswordUpdateService(IGlobalContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base((GlobalContext)mainContext,additionalContexts, tenant)
+        public ContactPasswordUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new ContactPasswordDataMapping();
-            Repository = new Repository<POCO.ContactPassword>((GlobalContext)mainContext);
+            Repository = new Repository<POCO.ContactPassword>(unitOfWork);
         }
-        public ContactPasswordUpdateService(int tenant) : this(GlobalContext.GetContext(tenant), null, tenant) {}
-        public ContactPasswordUpdateService(IGlobalContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.ContactPassword,string> GetKeys(ContactPasswordPM entityPM) => new ContactPasswordKeys<string>() { Email = entityPM.Email };
 protected override void FillDefaultValuesOnCreate(ContactPasswordPM entityPM)
 		{

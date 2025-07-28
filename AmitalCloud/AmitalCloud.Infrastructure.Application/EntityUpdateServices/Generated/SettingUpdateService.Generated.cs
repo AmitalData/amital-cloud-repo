@@ -22,14 +22,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
     public partial class SettingUpdateService:BaseEntityUpdateService<POCO.Setting,SettingPM,IEntityPM,SettingList,string>
    {
    			
-        public SettingUpdateService(IGlobalContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base((GlobalContext)mainContext,additionalContexts, tenant)
+        public SettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new SettingDataMapping();
-            Repository = new Repository<POCO.Setting>((GlobalContext)mainContext);
+            Repository = new Repository<POCO.Setting>(unitOfWork);
         }
-        public SettingUpdateService(int tenant) : this(GlobalContext.GetContext(tenant), null, tenant) {}
-        public SettingUpdateService(IGlobalContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.Setting,string> GetKeys(SettingPM entityPM) => new SettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(SettingPM entityPM)
 		{

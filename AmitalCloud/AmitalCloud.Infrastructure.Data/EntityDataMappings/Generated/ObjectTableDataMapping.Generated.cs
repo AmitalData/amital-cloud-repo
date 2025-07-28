@@ -44,6 +44,10 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
                 entityPM.LovDisplayMemberPathLocal = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.LovDisplayMemberPathLocal));
             }
+            if (!String.IsNullOrWhiteSpace(entityPM.HashString)) //T4 find type == nText 
+            {
+                entityPM.HashString = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.HashString));
+            }
             entityPM.EncodeBase64NVARCHARFieldsBy=null;
 		}
     }

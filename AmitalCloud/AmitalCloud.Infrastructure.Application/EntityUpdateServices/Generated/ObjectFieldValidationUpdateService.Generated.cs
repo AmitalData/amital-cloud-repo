@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectFieldValidationUpdateService:BaseEntityUpdateService<POCO.ObjectFieldValidation,ObjectFieldValidationPM,IEntityPM,ObjectFieldValidationList,string>
+   public partial class ObjectFieldValidationUpdateService:BaseEntityUpdateService<Entity.ObjectFieldValidation,ObjectFieldValidationPM,IEntityPM,ObjectFieldValidationList,string>
    {
    			
-        public ObjectFieldValidationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectFieldValidationDataMapping();
-            Repository = new Repository<POCO.ObjectFieldValidation>(mainContext);
-        }
-        public ObjectFieldValidationUpdateService(int tenant) :  base( tenant)  
+        public ObjectFieldValidationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectFieldValidationDataMapping();
-            Repository = new Repository<POCO.ObjectFieldValidation>(tenant);
+            Repository = new Repository<Entity.ObjectFieldValidation>(unitOfWork);
 		}
-        public ObjectFieldValidationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectFieldValidation,string> GetKeys(ObjectFieldValidationPM entityPM) => new ObjectFieldValidationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectFieldValidation,string> GetKeys(ObjectFieldValidationPM entityPM) => new ObjectFieldValidationKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectFieldValidationPM entityPM)
 		{
 		}

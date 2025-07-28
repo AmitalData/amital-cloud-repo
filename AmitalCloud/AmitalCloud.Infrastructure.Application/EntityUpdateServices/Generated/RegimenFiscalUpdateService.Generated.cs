@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RegimenFiscalUpdateService:BaseEntityUpdateService<POCO.RegimenFiscal,RegimenFiscalPM,IEntityPM,RegimenFiscalList,string>
+   public partial class RegimenFiscalUpdateService:BaseEntityUpdateService<Entity.RegimenFiscal,RegimenFiscalPM,IEntityPM,RegimenFiscalList,string>
    {
    			
-        public RegimenFiscalUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RegimenFiscalDataMapping();
-            Repository = new Repository<POCO.RegimenFiscal>(mainContext);
-        }
-        public RegimenFiscalUpdateService(int tenant) :  base( tenant)  
+        public RegimenFiscalUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RegimenFiscalDataMapping();
-            Repository = new Repository<POCO.RegimenFiscal>(tenant);
+            Repository = new Repository<Entity.RegimenFiscal>(unitOfWork);
 		}
-        public RegimenFiscalUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RegimenFiscal,string> GetKeys(RegimenFiscalPM entityPM) => new RegimenFiscalKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.RegimenFiscal,string> GetKeys(RegimenFiscalPM entityPM) => new RegimenFiscalKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(RegimenFiscalPM entityPM)
 		{
 		}

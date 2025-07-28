@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RankUpdateService:BaseEntityUpdateService<POCO.Rank,RankPM,IEntityPM,RankList,string>
+   public partial class RankUpdateService:BaseEntityUpdateService<Entity.Rank,RankPM,IEntityPM,RankList,string>
    {
    			
-        public RankUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RankDataMapping();
-            Repository = new Repository<POCO.Rank>(mainContext);
-        }
-        public RankUpdateService(int tenant) :  base( tenant)  
+        public RankUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RankDataMapping();
-            Repository = new Repository<POCO.Rank>(tenant);
+            Repository = new Repository<Entity.Rank>(unitOfWork);
 		}
-        public RankUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Rank,string> GetKeys(RankPM entityPM) => new RankKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Rank,string> GetKeys(RankPM entityPM) => new RankKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(RankPM entityPM)
 		{
 		}

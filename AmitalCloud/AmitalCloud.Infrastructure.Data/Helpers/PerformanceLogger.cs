@@ -68,32 +68,32 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
 
         }
 
-        public static void AddPerformanceLogsList(List<PerformanceLog> logsList)
-        {
-            Repository<PerformanceLog> repository = new Repository<PerformanceLog>(GlobalContext.GetContext());
+        //public static void AddPerformanceLogsList(List<PerformanceLog> logsList)
+        //{
+        //    Repository<PerformanceLog> repository = new Repository<PerformanceLog>(GlobalContext.GetContext());
 
-            try
-            {
-                string ip = GetClientIPAddress(); ;
+        //    try
+        //    {
+        //        string ip = GetClientIPAddress(); ;
 
-                if (logsList != null && logsList.Count > 0)
-                {
-                    foreach (var entity in logsList)
-                    {
-                        entity.Id = Guid.NewGuid().ToString();
-                        entity.UserIP = ip;
-                        entity.LogDateTimeGMT = DateTime.UtcNow;
+        //        if (logsList != null && logsList.Count > 0)
+        //        {
+        //            foreach (var entity in logsList)
+        //            {
+        //                entity.Id = Guid.NewGuid().ToString();
+        //                entity.UserIP = ip;
+        //                entity.LogDateTimeGMT = DateTime.UtcNow;
 
-                        repository.Insert(entity);
-                    }
-                }
-                repository.SubmitChanges();
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleException(ex, DateTime.Now, 0, null, "PerformanceLogger.AddPerformanceLogsList", null, null);
-            }
-        }
+        //                repository.Insert(entity);
+        //            }
+        //        }
+        //        repository.SubmitChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ExceptionHandler.HandleException(ex, DateTime.Now, 0, null, "PerformanceLogger.AddPerformanceLogsList", null, null);
+        //    }
+        //}
 
         private static string GetClientIPAddress()
         {

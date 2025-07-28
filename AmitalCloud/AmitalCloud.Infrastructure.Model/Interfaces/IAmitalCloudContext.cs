@@ -274,7 +274,7 @@ namespace AmitalCloud.Infrastructure.Model.Interfaces
 		 DbSet<WarehouseWeightRounding> WarehouseWeightRoundings { get; }
 		 DbSet<WeightUnit> WeightUnits { get; }
 		 DbSet<WorkerRoleName> WorkerRoleNames { get; }
-	         void DetectChanges();
+	         //void DetectChanges();
 
     }
 }

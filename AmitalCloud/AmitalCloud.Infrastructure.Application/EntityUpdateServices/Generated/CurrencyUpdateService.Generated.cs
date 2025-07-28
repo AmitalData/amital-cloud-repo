@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CurrencyUpdateService:BaseEntityUpdateService<POCO.Currency,CurrencyPM,IEntityPM,CurrencyList,string>
+   public partial class CurrencyUpdateService:BaseEntityUpdateService<Entity.Currency,CurrencyPM,IEntityPM,CurrencyList,string>
    {
    			
-        public CurrencyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CurrencyDataMapping();
-            Repository = new Repository<POCO.Currency>(mainContext);
-        }
-        public CurrencyUpdateService(int tenant) :  base( tenant)  
+        public CurrencyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CurrencyDataMapping();
-            Repository = new Repository<POCO.Currency>(tenant);
+            Repository = new Repository<Entity.Currency>(unitOfWork);
 		}
-        public CurrencyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Currency,string> GetKeys(CurrencyPM entityPM) => new CurrencyKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Currency,string> GetKeys(CurrencyPM entityPM) => new CurrencyKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CurrencyPM entityPM)
 		{
 		}

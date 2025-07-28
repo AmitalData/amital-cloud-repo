@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ChargesGroupUpdateService:BaseEntityUpdateService<POCO.ChargesGroup,ChargesGroupPM,IEntityPM,ChargesGroupList,string>
+   public partial class ChargesGroupUpdateService:BaseEntityUpdateService<Entity.ChargesGroup,ChargesGroupPM,IEntityPM,ChargesGroupList,string>
    {
    			
-        public ChargesGroupUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ChargesGroupDataMapping();
-            Repository = new Repository<POCO.ChargesGroup>(mainContext);
-        }
-        public ChargesGroupUpdateService(int tenant) :  base( tenant)  
+        public ChargesGroupUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ChargesGroupDataMapping();
-            Repository = new Repository<POCO.ChargesGroup>(tenant);
+            Repository = new Repository<Entity.ChargesGroup>(unitOfWork);
 		}
-        public ChargesGroupUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ChargesGroup,string> GetKeys(ChargesGroupPM entityPM) => new ChargesGroupKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ChargesGroup,string> GetKeys(ChargesGroupPM entityPM) => new ChargesGroupKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ChargesGroupPM entityPM)
 		{
 		}

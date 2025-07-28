@@ -11,18 +11,18 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
     public class GeneralLockRepository : Repository<GeneralLock>
     {
         IAmitalCloudContext currentContext;
+        public GeneralLockRepository(IUnitOfWork uow) : this(uow.Context as IAmitalCloudContext) 
+        {
 
+        }
 
         public GeneralLockRepository(int tenant) : this(AmitalCloudContext.GetContext(tenant))
         {
         }
-
-
         public GeneralLockRepository(IAmitalCloudContext context) : base(context)
         {
             currentContext = context;
         }
-
         public GeneralLock GetSingleGeneralLock(string generalKey, int tenant)
         {
 

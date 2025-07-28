@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TenantSettingUpdateService:BaseEntityUpdateService<POCO.TenantSetting,TenantSettingPM,IEntityPM,TenantSettingList,string>
+   public partial class TenantSettingUpdateService:BaseEntityUpdateService<Entity.TenantSetting,TenantSettingPM,IEntityPM,TenantSettingList,string>
    {
    			
-        public TenantSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TenantSettingDataMapping();
-            Repository = new Repository<POCO.TenantSetting>(mainContext);
-        }
-        public TenantSettingUpdateService(int tenant) :  base( tenant)  
+        public TenantSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TenantSettingDataMapping();
-            Repository = new Repository<POCO.TenantSetting>(tenant);
+            Repository = new Repository<Entity.TenantSetting>(unitOfWork);
 		}
-        public TenantSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TenantSetting,string> GetKeys(TenantSettingPM entityPM) => new TenantSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TenantSetting,string> GetKeys(TenantSettingPM entityPM) => new TenantSettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TenantSettingPM entityPM)
 		{
 		}

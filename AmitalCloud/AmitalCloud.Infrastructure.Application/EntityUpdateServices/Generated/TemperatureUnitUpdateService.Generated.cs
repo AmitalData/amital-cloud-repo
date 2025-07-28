@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TemperatureUnitUpdateService:BaseEntityUpdateService<POCO.TemperatureUnit,TemperatureUnitPM,IEntityPM,TemperatureUnitList,string>
+   public partial class TemperatureUnitUpdateService:BaseEntityUpdateService<Entity.TemperatureUnit,TemperatureUnitPM,IEntityPM,TemperatureUnitList,string>
    {
    			
-        public TemperatureUnitUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TemperatureUnitDataMapping();
-            Repository = new Repository<POCO.TemperatureUnit>(mainContext);
-        }
-        public TemperatureUnitUpdateService(int tenant) :  base( tenant)  
+        public TemperatureUnitUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TemperatureUnitDataMapping();
-            Repository = new Repository<POCO.TemperatureUnit>(tenant);
+            Repository = new Repository<Entity.TemperatureUnit>(unitOfWork);
 		}
-        public TemperatureUnitUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TemperatureUnit,string> GetKeys(TemperatureUnitPM entityPM) => new TemperatureUnitKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.TemperatureUnit,string> GetKeys(TemperatureUnitPM entityPM) => new TemperatureUnitKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TemperatureUnitPM entityPM)
 		{
 		}

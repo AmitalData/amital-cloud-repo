@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CommunicationLogStepUpdateService:BaseEntityUpdateService<POCO.CommunicationLogStep,CommunicationLogStepPM,IEntityPM,CommunicationLogStepList,string>
+   public partial class CommunicationLogStepUpdateService:BaseEntityUpdateService<Entity.CommunicationLogStep,CommunicationLogStepPM,IEntityPM,CommunicationLogStepList,string>
    {
    			
-        public CommunicationLogStepUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CommunicationLogStepDataMapping();
-            Repository = new Repository<POCO.CommunicationLogStep>(mainContext);
-        }
-        public CommunicationLogStepUpdateService(int tenant) :  base( tenant)  
+        public CommunicationLogStepUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CommunicationLogStepDataMapping();
-            Repository = new Repository<POCO.CommunicationLogStep>(tenant);
+            Repository = new Repository<Entity.CommunicationLogStep>(unitOfWork);
 		}
-        public CommunicationLogStepUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CommunicationLogStep,string> GetKeys(CommunicationLogStepPM entityPM) => new CommunicationLogStepKeys<string>() { StepNumber = entityPM.StepNumber, CommunicationLogId = entityPM.CommunicationLogId };
+		protected override IEntityKeyFields<Entity.CommunicationLogStep,string> GetKeys(CommunicationLogStepPM entityPM) => new CommunicationLogStepKeys<string>() { StepNumber = entityPM.StepNumber, CommunicationLogId = entityPM.CommunicationLogId };
 protected override void FillDefaultValuesOnCreate(CommunicationLogStepPM entityPM)
 		{
 		}

@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MultiEntityUpdateLogUpdateService:BaseEntityUpdateService<POCO.MultiEntityUpdateLog,MultiEntityUpdateLogPM,IEntityPM,MultiEntityUpdateLogList,string>
+   public partial class MultiEntityUpdateLogUpdateService:BaseEntityUpdateService<Entity.MultiEntityUpdateLog,MultiEntityUpdateLogPM,IEntityPM,MultiEntityUpdateLogList,string>
    {
    			
-        public MultiEntityUpdateLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MultiEntityUpdateLogDataMapping();
-            Repository = new Repository<POCO.MultiEntityUpdateLog>(mainContext);
-        }
-        public MultiEntityUpdateLogUpdateService(int tenant) :  base( tenant)  
+        public MultiEntityUpdateLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MultiEntityUpdateLogDataMapping();
-            Repository = new Repository<POCO.MultiEntityUpdateLog>(tenant);
+            Repository = new Repository<Entity.MultiEntityUpdateLog>(unitOfWork);
 		}
-        public MultiEntityUpdateLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MultiEntityUpdateLog,string> GetKeys(MultiEntityUpdateLogPM entityPM) => new MultiEntityUpdateLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.MultiEntityUpdateLog,string> GetKeys(MultiEntityUpdateLogPM entityPM) => new MultiEntityUpdateLogKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(MultiEntityUpdateLogPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("MultiEntityUpdateLog", entityPM.Tenant); 

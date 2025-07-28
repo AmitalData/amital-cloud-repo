@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 {
    public class ObjectFieldUpdateClass
    {  		
-		public const string HashString = "7322f3b83b393b0d16b6a019bda3b2f6";
+		public const string HashString = "18e0c2f24db5407807d45823c3d88d3e";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -5105,6 +5105,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListFieldLable =  "FullNameTextCodeDefaultTextListLable",
 					  						ListLableDefaultText =  "Display Name",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  FullNameTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -5434,6 +5436,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "FullNameTextCodeLocalDefaultText",
 					  						ListLocalDefaultText =  "FullNameTextCodeLocalDefaultText",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  FullNameTextCode,
+					  						FieldRelatedPM =  LocalDefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -5499,6 +5503,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "ObjectTable_LookUpTableName",
 					  						ListLocalDefaultText =  "ObjectTable_LookUpTableName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable_LookUpTable,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -5564,6 +5570,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "MultiTableName",
 					  						ListLocalDefaultText =  "MultiTableName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable_MultiTable,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -5889,6 +5897,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "ListTextCodeDefaultText",
 					  						ListLocalDefaultText =  "ListTextCodeDefaultText",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ListTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -5954,6 +5964,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "HelpTextDefaultText",
 					  						ListLocalDefaultText =  "HelpTextDefaultText",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  HelpTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -6344,6 +6356,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						ListLableDefaultText =  "ShortNameTextCodeDefaultText",
 					  						ListLocalDefaultText =  "ShortNameTextCodeDefaultText",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ShortNameTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

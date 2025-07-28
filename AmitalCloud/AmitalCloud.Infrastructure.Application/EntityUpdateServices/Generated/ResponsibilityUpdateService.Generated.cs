@@ -23,18 +23,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
    public partial class ResponsibilityUpdateService:BaseEntityUpdateService<POCO.Responsibility,ResponsibilityPM,IEntityPM,ResponsibilityList,string>
    {
    			
-        public ResponsibilityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
+        public ResponsibilityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new ResponsibilityDataMapping();
-            Repository = new Repository<POCO.Responsibility>(mainContext);
+            Repository = new Repository<POCO.Responsibility>(unitOfWork);
         }
-        public ResponsibilityUpdateService(int tenant) :  base( tenant)  
-		{
-            Mapping = new ResponsibilityDataMapping();
-            Repository = new Repository<POCO.Responsibility>(tenant);
-		}
-        public ResponsibilityUpdateService(IContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.Responsibility,string> GetKeys(ResponsibilityPM entityPM) => new ResponsibilityKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(ResponsibilityPM entityPM)
 		{

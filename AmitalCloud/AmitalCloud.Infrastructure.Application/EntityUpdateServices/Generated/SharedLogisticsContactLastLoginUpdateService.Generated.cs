@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class SharedLogisticsContactLastLoginUpdateService:BaseEntityUpdateService<POCO.SharedLogisticsContactLastLogin,SharedLogisticsContactLastLoginPM,IEntityPM,SharedLogisticsContactLastLoginList,string>
+   public partial class SharedLogisticsContactLastLoginUpdateService:BaseEntityUpdateService<Entity.SharedLogisticsContactLastLogin,SharedLogisticsContactLastLoginPM,IEntityPM,SharedLogisticsContactLastLoginList,string>
    {
    			
-        public SharedLogisticsContactLastLoginUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new SharedLogisticsContactLastLoginDataMapping();
-            Repository = new Repository<POCO.SharedLogisticsContactLastLogin>(mainContext);
-        }
-        public SharedLogisticsContactLastLoginUpdateService(int tenant) :  base( tenant)  
+        public SharedLogisticsContactLastLoginUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new SharedLogisticsContactLastLoginDataMapping();
-            Repository = new Repository<POCO.SharedLogisticsContactLastLogin>(tenant);
+            Repository = new Repository<Entity.SharedLogisticsContactLastLogin>(unitOfWork);
 		}
-        public SharedLogisticsContactLastLoginUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.SharedLogisticsContactLastLogin,string> GetKeys(SharedLogisticsContactLastLoginPM entityPM) => new SharedLogisticsContactLastLoginKeys<string>() { ContactId = entityPM.ContactId, CardId = entityPM.CardId, PartnerTypeId = entityPM.PartnerTypeId, Via = entityPM.Via };
+		protected override IEntityKeyFields<Entity.SharedLogisticsContactLastLogin,string> GetKeys(SharedLogisticsContactLastLoginPM entityPM) => new SharedLogisticsContactLastLoginKeys<string>() { ContactId = entityPM.ContactId, CardId = entityPM.CardId, PartnerTypeId = entityPM.PartnerTypeId, Via = entityPM.Via };
 		protected override void FillDefaultValuesOnCreate(SharedLogisticsContactLastLoginPM entityPM)
 		{
 		}

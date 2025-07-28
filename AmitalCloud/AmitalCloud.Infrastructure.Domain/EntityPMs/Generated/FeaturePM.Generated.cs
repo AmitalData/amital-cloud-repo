@@ -93,14 +93,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private ObjectTablePM _objecttable;
-		
-        [DataMember]
-        public virtual ObjectTablePM ObjectTable 
-		{ 
-		get { return _objecttable; } 
-		set { _objecttable = value; }
-		}
 	  private string _nameTextCodeId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -329,6 +321,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Exists",OldValue=_exists,NewValue=value,PropertyType="bool"};
 		    NotifyPropertyChanged(values);
 		   _exists=value;
+		   }
+		 }
+	   }
+	  private string _nameTextCodeDefaultText ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string NameTextCodeDefaultText  
+	   {
+	     get { return _nameTextCodeDefaultText; }
+		 set
+		 {
+		   if(_nameTextCodeDefaultText != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="NameTextCodeDefaultText",OldValue=_nameTextCodeDefaultText,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _nameTextCodeDefaultText=value;
 		   }
 		 }
 	   }

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class IncotermUpdateService:BaseEntityUpdateService<POCO.Incoterm,IncotermPM,IEntityPM,IncotermList,string>
+   public partial class IncotermUpdateService:BaseEntityUpdateService<Entity.Incoterm,IncotermPM,IEntityPM,IncotermList,string>
    {
    			
-        public IncotermUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new IncotermDataMapping();
-            Repository = new Repository<POCO.Incoterm>(mainContext);
-        }
-        public IncotermUpdateService(int tenant) :  base( tenant)  
+        public IncotermUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new IncotermDataMapping();
-            Repository = new Repository<POCO.Incoterm>(tenant);
+            Repository = new Repository<Entity.Incoterm>(unitOfWork);
 		}
-        public IncotermUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Incoterm,string> GetKeys(IncotermPM entityPM) => new IncotermKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Incoterm,string> GetKeys(IncotermPM entityPM) => new IncotermKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(IncotermPM entityPM)
 		{
 		}

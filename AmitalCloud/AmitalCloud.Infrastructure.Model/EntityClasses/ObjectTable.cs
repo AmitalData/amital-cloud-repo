@@ -84,7 +84,6 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [Column("DescriptionTextCodeId")]
 	    public string DescriptionTextCodeId { get; set; }
 	      
-        [NotMapped]
         public virtual TextCode DescriptionTextCode { get; set; }
         [Column("IsSaveButtonVisible")]
 	    public bool IsSaveButtonVisible { get; set; }
@@ -186,7 +185,7 @@ namespace AmitalCloud.Infrastructure.Model.EntityClasses
         [ForeignKey("FullNameTextCode")]
         [Column("FullNameTextCodeId")]
 	    public string FullNameTextCodeId { get; set; }
-        [NotMapped]
+	      
         public virtual TextCode FullNameTextCode { get; set; }
         [Column("FullNameTextCodeCode")]
 	    public string FullNameTextCodeCode { get; set; }

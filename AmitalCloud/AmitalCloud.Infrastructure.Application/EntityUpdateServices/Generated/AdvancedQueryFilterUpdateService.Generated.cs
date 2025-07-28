@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AdvancedQueryFilterUpdateService:BaseEntityUpdateService<POCO.AdvancedQueryFilter,AdvancedQueryFilterPM,IEntityPM,AdvancedQueryFilterList,string>
+   public partial class AdvancedQueryFilterUpdateService:BaseEntityUpdateService<Entity.AdvancedQueryFilter,AdvancedQueryFilterPM,IEntityPM,AdvancedQueryFilterList,string>
    {
    			
-        public AdvancedQueryFilterUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AdvancedQueryFilterDataMapping();
-            Repository = new Repository<POCO.AdvancedQueryFilter>(mainContext);
-        }
-        public AdvancedQueryFilterUpdateService(int tenant) :  base( tenant)  
+        public AdvancedQueryFilterUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AdvancedQueryFilterDataMapping();
-            Repository = new Repository<POCO.AdvancedQueryFilter>(tenant);
+            Repository = new Repository<Entity.AdvancedQueryFilter>(unitOfWork);
 		}
-        public AdvancedQueryFilterUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AdvancedQueryFilter,string> GetKeys(AdvancedQueryFilterPM entityPM) => new AdvancedQueryFilterKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.AdvancedQueryFilter,string> GetKeys(AdvancedQueryFilterPM entityPM) => new AdvancedQueryFilterKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(AdvancedQueryFilterPM entityPM)
 		{
 		}

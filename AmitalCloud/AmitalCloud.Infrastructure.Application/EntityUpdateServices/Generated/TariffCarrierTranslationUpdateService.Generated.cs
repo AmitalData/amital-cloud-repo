@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TariffCarrierTranslationUpdateService:BaseEntityUpdateService<POCO.TariffCarrierTranslation,TariffCarrierTranslationPM,IEntityPM,TariffCarrierTranslationList,string>
+   public partial class TariffCarrierTranslationUpdateService:BaseEntityUpdateService<Entity.TariffCarrierTranslation,TariffCarrierTranslationPM,IEntityPM,TariffCarrierTranslationList,string>
    {
    			
-        public TariffCarrierTranslationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TariffCarrierTranslationDataMapping();
-            Repository = new Repository<POCO.TariffCarrierTranslation>(mainContext);
-        }
-        public TariffCarrierTranslationUpdateService(int tenant) :  base( tenant)  
+        public TariffCarrierTranslationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TariffCarrierTranslationDataMapping();
-            Repository = new Repository<POCO.TariffCarrierTranslation>(tenant);
+            Repository = new Repository<Entity.TariffCarrierTranslation>(unitOfWork);
 		}
-        public TariffCarrierTranslationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TariffCarrierTranslation,string> GetKeys(TariffCarrierTranslationPM entityPM) => new TariffCarrierTranslationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TariffCarrierTranslation,string> GetKeys(TariffCarrierTranslationPM entityPM) => new TariffCarrierTranslationKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(TariffCarrierTranslationPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("TariffCarrierTranslation", entityPM.Tenant); 

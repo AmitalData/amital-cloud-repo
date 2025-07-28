@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class LogitudeMessagesTransmissionLogUpdateService:BaseEntityUpdateService<POCO.LogitudeMessagesTransmissionLog,LogitudeMessagesTransmissionLogPM,IEntityPM,LogitudeMessagesTransmissionLogList,string>
+   public partial class LogitudeMessagesTransmissionLogUpdateService:BaseEntityUpdateService<Entity.LogitudeMessagesTransmissionLog,LogitudeMessagesTransmissionLogPM,IEntityPM,LogitudeMessagesTransmissionLogList,string>
    {
    			
-        public LogitudeMessagesTransmissionLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new LogitudeMessagesTransmissionLogDataMapping();
-            Repository = new Repository<POCO.LogitudeMessagesTransmissionLog>(mainContext);
-        }
-        public LogitudeMessagesTransmissionLogUpdateService(int tenant) :  base( tenant)  
+        public LogitudeMessagesTransmissionLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new LogitudeMessagesTransmissionLogDataMapping();
-            Repository = new Repository<POCO.LogitudeMessagesTransmissionLog>(tenant);
+            Repository = new Repository<Entity.LogitudeMessagesTransmissionLog>(unitOfWork);
 		}
-        public LogitudeMessagesTransmissionLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.LogitudeMessagesTransmissionLog,string> GetKeys(LogitudeMessagesTransmissionLogPM entityPM) => new LogitudeMessagesTransmissionLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.LogitudeMessagesTransmissionLog,string> GetKeys(LogitudeMessagesTransmissionLogPM entityPM) => new LogitudeMessagesTransmissionLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(LogitudeMessagesTransmissionLogPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ConvertProgramInfoUpdateService:BaseEntityUpdateService<POCO.ConvertProgramInfo,ConvertProgramInfoPM,IEntityPM,ConvertProgramInfoList,string>
+   public partial class ConvertProgramInfoUpdateService:BaseEntityUpdateService<Entity.ConvertProgramInfo,ConvertProgramInfoPM,IEntityPM,ConvertProgramInfoList,string>
    {
    			
-        public ConvertProgramInfoUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ConvertProgramInfoDataMapping();
-            Repository = new Repository<POCO.ConvertProgramInfo>(mainContext);
-        }
-        public ConvertProgramInfoUpdateService(int tenant) :  base( tenant)  
+        public ConvertProgramInfoUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ConvertProgramInfoDataMapping();
-            Repository = new Repository<POCO.ConvertProgramInfo>(tenant);
+            Repository = new Repository<Entity.ConvertProgramInfo>(unitOfWork);
 		}
-        public ConvertProgramInfoUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ConvertProgramInfo,string> GetKeys(ConvertProgramInfoPM entityPM) => new ConvertProgramInfoKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ConvertProgramInfo,string> GetKeys(ConvertProgramInfoPM entityPM) => new ConvertProgramInfoKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ConvertProgramInfoPM entityPM)
 		{
 		}

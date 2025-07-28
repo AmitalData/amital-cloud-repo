@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TarrifStepUpdateService:BaseEntityUpdateService<POCO.TarrifStep,TarrifStepPM,IEntityPM,TarrifStepList,string>
+   public partial class TarrifStepUpdateService:BaseEntityUpdateService<Entity.TarrifStep,TarrifStepPM,IEntityPM,TarrifStepList,string>
    {
    			
-        public TarrifStepUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TarrifStepDataMapping();
-            Repository = new Repository<POCO.TarrifStep>(mainContext);
-        }
-        public TarrifStepUpdateService(int tenant) :  base( tenant)  
+        public TarrifStepUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TarrifStepDataMapping();
-            Repository = new Repository<POCO.TarrifStep>(tenant);
+            Repository = new Repository<Entity.TarrifStep>(unitOfWork);
 		}
-        public TarrifStepUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TarrifStep,string> GetKeys(TarrifStepPM entityPM) => new TarrifStepKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TarrifStep,string> GetKeys(TarrifStepPM entityPM) => new TarrifStepKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TarrifStepPM entityPM)
 		{
 		}

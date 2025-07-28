@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 {
    public class QueryUpdateClass
    {  		
-		public const string HashString = "114fec956e715b29ad305293f517f41b";
+		public const string HashString = "2f0e7145bebc864f553ec0ee3bfbd8e5";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -2485,6 +2485,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectTableName",
 					  						DefaultText =  "ObjectTableName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -2545,6 +2547,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectTableIsNewWizard",
 					  						DefaultText =  "ObjectTableIsNewWizard",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable,
+					  						FieldRelatedPM =  IsNewWizard,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -2605,6 +2609,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectTableNewWizardControlName",
 					  						DefaultText =  "ObjectTableNewWizardControlName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable,
+					  						FieldRelatedPM =  NewWizardControlName,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -2665,6 +2671,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "QueryGroupIndexOrder",
 					  						DefaultText =  "QueryGroupIndexOrder",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  QueryGroup,
+					  						FieldRelatedPM =  IndexOrder,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -2725,6 +2733,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "NewViewName",
 					  						DefaultText =  "NewViewName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  NameTextCode,
+					  						FieldRelatedPM =  DefaultText,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

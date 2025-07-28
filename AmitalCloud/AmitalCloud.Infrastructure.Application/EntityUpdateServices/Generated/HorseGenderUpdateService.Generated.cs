@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class HorseGenderUpdateService:BaseEntityUpdateService<POCO.HorseGender,HorseGenderPM,IEntityPM,HorseGenderList,string>
+   public partial class HorseGenderUpdateService:BaseEntityUpdateService<Entity.HorseGender,HorseGenderPM,IEntityPM,HorseGenderList,string>
    {
    			
-        public HorseGenderUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new HorseGenderDataMapping();
-            Repository = new Repository<POCO.HorseGender>(mainContext);
-        }
-        public HorseGenderUpdateService(int tenant) :  base( tenant)  
+        public HorseGenderUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new HorseGenderDataMapping();
-            Repository = new Repository<POCO.HorseGender>(tenant);
+            Repository = new Repository<Entity.HorseGender>(unitOfWork);
 		}
-        public HorseGenderUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.HorseGender,string> GetKeys(HorseGenderPM entityPM) => new HorseGenderKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.HorseGender,string> GetKeys(HorseGenderPM entityPM) => new HorseGenderKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(HorseGenderPM entityPM)
 		{
 		}

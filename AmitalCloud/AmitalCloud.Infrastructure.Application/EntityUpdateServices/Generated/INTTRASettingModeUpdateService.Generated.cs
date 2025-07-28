@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class INTTRASettingModeUpdateService:BaseEntityUpdateService<POCO.INTTRASettingMode,INTTRASettingModePM,IEntityPM,INTTRASettingModeList,string>
+   public partial class INTTRASettingModeUpdateService:BaseEntityUpdateService<Entity.INTTRASettingMode,INTTRASettingModePM,IEntityPM,INTTRASettingModeList,string>
    {
    			
-        public INTTRASettingModeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new INTTRASettingModeDataMapping();
-            Repository = new Repository<POCO.INTTRASettingMode>(mainContext);
-        }
-        public INTTRASettingModeUpdateService(int tenant) :  base( tenant)  
+        public INTTRASettingModeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new INTTRASettingModeDataMapping();
-            Repository = new Repository<POCO.INTTRASettingMode>(tenant);
+            Repository = new Repository<Entity.INTTRASettingMode>(unitOfWork);
 		}
-        public INTTRASettingModeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.INTTRASettingMode,string> GetKeys(INTTRASettingModePM entityPM) => new INTTRASettingModeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.INTTRASettingMode,string> GetKeys(INTTRASettingModePM entityPM) => new INTTRASettingModeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(INTTRASettingModePM entityPM)
 		{
 		}

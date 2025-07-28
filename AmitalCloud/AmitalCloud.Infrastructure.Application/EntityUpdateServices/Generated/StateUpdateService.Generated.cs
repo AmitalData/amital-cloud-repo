@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class StateUpdateService:BaseEntityUpdateService<POCO.State,StatePM,IEntityPM,StateList,string>
+   public partial class StateUpdateService:BaseEntityUpdateService<Entity.State,StatePM,IEntityPM,StateList,string>
    {
    			
-        public StateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new StateDataMapping();
-            Repository = new Repository<POCO.State>(mainContext);
-        }
-        public StateUpdateService(int tenant) :  base( tenant)  
+        public StateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new StateDataMapping();
-            Repository = new Repository<POCO.State>(tenant);
+            Repository = new Repository<Entity.State>(unitOfWork);
 		}
-        public StateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.State,string> GetKeys(StatePM entityPM) => new StateKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.State,string> GetKeys(StatePM entityPM) => new StateKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(StatePM entityPM)
 		{
 		}

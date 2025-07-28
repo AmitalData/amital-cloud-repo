@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PasswordPolicyUpdateService:BaseEntityUpdateService<POCO.PasswordPolicy,PasswordPolicyPM,IEntityPM,PasswordPolicyList,string>
+   public partial class PasswordPolicyUpdateService:BaseEntityUpdateService<Entity.PasswordPolicy,PasswordPolicyPM,IEntityPM,PasswordPolicyList,string>
    {
    			
-        public PasswordPolicyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PasswordPolicyDataMapping();
-            Repository = new Repository<POCO.PasswordPolicy>(mainContext);
-        }
-        public PasswordPolicyUpdateService(int tenant) :  base( tenant)  
+        public PasswordPolicyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PasswordPolicyDataMapping();
-            Repository = new Repository<POCO.PasswordPolicy>(tenant);
+            Repository = new Repository<Entity.PasswordPolicy>(unitOfWork);
 		}
-        public PasswordPolicyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PasswordPolicy,string> GetKeys(PasswordPolicyPM entityPM) => new PasswordPolicyKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.PasswordPolicy,string> GetKeys(PasswordPolicyPM entityPM) => new PasswordPolicyKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(PasswordPolicyPM entityPM)
 		{
 		}

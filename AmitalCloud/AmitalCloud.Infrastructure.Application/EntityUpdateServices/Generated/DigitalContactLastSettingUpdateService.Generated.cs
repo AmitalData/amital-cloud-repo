@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DigitalContactLastSettingUpdateService:BaseEntityUpdateService<POCO.DigitalContactLastSetting,DigitalContactLastSettingPM,IEntityPM,DigitalContactLastSettingList,string>
+   public partial class DigitalContactLastSettingUpdateService:BaseEntityUpdateService<Entity.DigitalContactLastSetting,DigitalContactLastSettingPM,IEntityPM,DigitalContactLastSettingList,string>
    {
    			
-        public DigitalContactLastSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DigitalContactLastSettingDataMapping();
-            Repository = new Repository<POCO.DigitalContactLastSetting>(mainContext);
-        }
-        public DigitalContactLastSettingUpdateService(int tenant) :  base( tenant)  
+        public DigitalContactLastSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DigitalContactLastSettingDataMapping();
-            Repository = new Repository<POCO.DigitalContactLastSetting>(tenant);
+            Repository = new Repository<Entity.DigitalContactLastSetting>(unitOfWork);
 		}
-        public DigitalContactLastSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DigitalContactLastSetting,string> GetKeys(DigitalContactLastSettingPM entityPM) => new DigitalContactLastSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DigitalContactLastSetting,string> GetKeys(DigitalContactLastSettingPM entityPM) => new DigitalContactLastSettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DigitalContactLastSettingPM entityPM)
 		{
 		}

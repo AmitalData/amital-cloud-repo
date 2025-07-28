@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerUpdateService:BaseEntityUpdateService<POCO.Customer,CustomerPM,IEntityPM,CustomerList,string>
+   public partial class CustomerUpdateService:BaseEntityUpdateService<Entity.Customer,CustomerPM,IEntityPM,CustomerList,string>
    {
    			
-        public CustomerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerDataMapping();
-            Repository = new Repository<POCO.Customer>(mainContext);
-        }
-        public CustomerUpdateService(int tenant) :  base( tenant)  
+        public CustomerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerDataMapping();
-            Repository = new Repository<POCO.Customer>(tenant);
+            Repository = new Repository<Entity.Customer>(unitOfWork);
 		}
-        public CustomerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Customer,string> GetKeys(CustomerPM entityPM) => new CustomerKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Customer,string> GetKeys(CustomerPM entityPM) => new CustomerKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomerPM entityPM)
 		{
 		}

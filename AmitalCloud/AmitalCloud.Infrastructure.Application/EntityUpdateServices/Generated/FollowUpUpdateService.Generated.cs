@@ -23,18 +23,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
    public partial class FollowUpUpdateService:BaseEntityUpdateService<POCO.FollowUp,FollowUpPM,IEntityPM,FollowUpList,string>
    {
    			
-        public FollowUpUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
+        public FollowUpUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new FollowUpDataMapping();
-            Repository = new Repository<POCO.FollowUp>(mainContext);
+            Repository = new Repository<POCO.FollowUp>(unitOfWork);
         }
-        public FollowUpUpdateService(int tenant) :  base( tenant)  
-		{
-            Mapping = new FollowUpDataMapping();
-            Repository = new Repository<POCO.FollowUp>(tenant);
-		}
-        public FollowUpUpdateService(IContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.FollowUp,string> GetKeys(FollowUpPM entityPM) => new FollowUpKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FollowUpPM entityPM)
 		{

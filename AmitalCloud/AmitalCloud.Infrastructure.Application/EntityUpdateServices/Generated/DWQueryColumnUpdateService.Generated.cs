@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWQueryColumnUpdateService:BaseEntityUpdateService<POCO.DWQueryColumn,DWQueryColumnPM,IEntityPM,DWQueryColumnList,string>
+   public partial class DWQueryColumnUpdateService:BaseEntityUpdateService<Entity.DWQueryColumn,DWQueryColumnPM,IEntityPM,DWQueryColumnList,string>
    {
    			
-        public DWQueryColumnUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWQueryColumnDataMapping();
-            Repository = new Repository<POCO.DWQueryColumn>(mainContext);
-        }
-        public DWQueryColumnUpdateService(int tenant) :  base( tenant)  
+        public DWQueryColumnUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWQueryColumnDataMapping();
-            Repository = new Repository<POCO.DWQueryColumn>(tenant);
+            Repository = new Repository<Entity.DWQueryColumn>(unitOfWork);
 		}
-        public DWQueryColumnUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWQueryColumn,string> GetKeys(DWQueryColumnPM entityPM) => new DWQueryColumnKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWQueryColumn,string> GetKeys(DWQueryColumnPM entityPM) => new DWQueryColumnKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWQueryColumnPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerSalesNoteUpdateService:BaseEntityUpdateService<POCO.CustomerSalesNote,CustomerSalesNotePM,CustomerPM,CustomerSalesNoteList,string>
+   public partial class CustomerSalesNoteUpdateService:BaseEntityUpdateService<Entity.CustomerSalesNote,CustomerSalesNotePM,CustomerPM,CustomerSalesNoteList,string>
    {
    			
-        public CustomerSalesNoteUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerSalesNoteDataMapping();
-            Repository = new Repository<POCO.CustomerSalesNote>(mainContext);
-        }
-        public CustomerSalesNoteUpdateService(int tenant) :  base( tenant)  
+        public CustomerSalesNoteUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerSalesNoteDataMapping();
-            Repository = new Repository<POCO.CustomerSalesNote>(tenant);
+            Repository = new Repository<Entity.CustomerSalesNote>(unitOfWork);
 		}
-        public CustomerSalesNoteUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerSalesNote,string> GetKeys(CustomerSalesNotePM entityPM) => new CustomerSalesNoteKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerSalesNote,string> GetKeys(CustomerSalesNotePM entityPM) => new CustomerSalesNoteKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomerSalesNotePM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class LoginPolicyUpdateService:BaseEntityUpdateService<POCO.LoginPolicy,LoginPolicyPM,IEntityPM,LoginPolicyList,string>
+   public partial class LoginPolicyUpdateService:BaseEntityUpdateService<Entity.LoginPolicy,LoginPolicyPM,IEntityPM,LoginPolicyList,string>
    {
    			
-        public LoginPolicyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new LoginPolicyDataMapping();
-            Repository = new Repository<POCO.LoginPolicy>(mainContext);
-        }
-        public LoginPolicyUpdateService(int tenant) :  base( tenant)  
+        public LoginPolicyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new LoginPolicyDataMapping();
-            Repository = new Repository<POCO.LoginPolicy>(tenant);
+            Repository = new Repository<Entity.LoginPolicy>(unitOfWork);
 		}
-        public LoginPolicyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.LoginPolicy,string> GetKeys(LoginPolicyPM entityPM) => new LoginPolicyKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.LoginPolicy,string> GetKeys(LoginPolicyPM entityPM) => new LoginPolicyKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(LoginPolicyPM entityPM)
 		{
 		}

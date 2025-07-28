@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectTableUpdateService:BaseEntityUpdateService<POCO.ObjectTable,ObjectTablePM,IEntityPM,ObjectTableList,string>
+   public partial class ObjectTableUpdateService:BaseEntityUpdateService<Entity.ObjectTable,ObjectTablePM,IEntityPM,ObjectTableList,string>
    {
    			
-        public ObjectTableUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectTableDataMapping();
-            Repository = new Repository<POCO.ObjectTable>(mainContext);
-        }
-        public ObjectTableUpdateService(int tenant) :  base( tenant)  
+        public ObjectTableUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectTableDataMapping();
-            Repository = new Repository<POCO.ObjectTable>(tenant);
+            Repository = new Repository<Entity.ObjectTable>(unitOfWork);
 		}
-        public ObjectTableUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectTable,string> GetKeys(ObjectTablePM entityPM) => new ObjectTableKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectTable,string> GetKeys(ObjectTablePM entityPM) => new ObjectTableKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectTablePM entityPM)
 		{
 		}

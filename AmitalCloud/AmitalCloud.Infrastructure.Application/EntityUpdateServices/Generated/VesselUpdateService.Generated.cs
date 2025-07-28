@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VesselUpdateService:BaseEntityUpdateService<POCO.Vessel,VesselPM,IEntityPM,VesselList,string>
+   public partial class VesselUpdateService:BaseEntityUpdateService<Entity.Vessel,VesselPM,IEntityPM,VesselList,string>
    {
    			
-        public VesselUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VesselDataMapping();
-            Repository = new Repository<POCO.Vessel>(mainContext);
-        }
-        public VesselUpdateService(int tenant) :  base( tenant)  
+        public VesselUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VesselDataMapping();
-            Repository = new Repository<POCO.Vessel>(tenant);
+            Repository = new Repository<Entity.Vessel>(unitOfWork);
 		}
-        public VesselUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Vessel,string> GetKeys(VesselPM entityPM) => new VesselKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Vessel,string> GetKeys(VesselPM entityPM) => new VesselKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(VesselPM entityPM)
 		{
 		}

@@ -133,14 +133,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private UserPM _user;
-		
-        [DataMember]
-        public virtual UserPM User 
-		{ 
-		get { return _user; } 
-		set { _user = value; }
-		}
 	  private DateTime? _changedDate ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

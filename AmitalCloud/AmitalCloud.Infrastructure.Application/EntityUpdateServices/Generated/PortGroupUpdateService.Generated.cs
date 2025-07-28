@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PortGroupUpdateService:BaseEntityUpdateService<POCO.PortGroup,PortGroupPM,IEntityPM,PortGroupList,string>
+   public partial class PortGroupUpdateService:BaseEntityUpdateService<Entity.PortGroup,PortGroupPM,IEntityPM,PortGroupList,string>
    {
    			
-        public PortGroupUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PortGroupDataMapping();
-            Repository = new Repository<POCO.PortGroup>(mainContext);
-        }
-        public PortGroupUpdateService(int tenant) :  base( tenant)  
+        public PortGroupUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PortGroupDataMapping();
-            Repository = new Repository<POCO.PortGroup>(tenant);
+            Repository = new Repository<Entity.PortGroup>(unitOfWork);
 		}
-        public PortGroupUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PortGroup,string> GetKeys(PortGroupPM entityPM) => new PortGroupKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PortGroup,string> GetKeys(PortGroupPM entityPM) => new PortGroupKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(PortGroupPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("PortGroup", entityPM.Tenant); 

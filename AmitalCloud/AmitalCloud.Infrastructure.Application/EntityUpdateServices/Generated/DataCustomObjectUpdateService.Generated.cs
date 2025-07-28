@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DataCustomObjectUpdateService:BaseEntityUpdateService<POCO.DataCustomObject,DataCustomObjectPM,IEntityPM,DataCustomObjectList,string>
+   public partial class DataCustomObjectUpdateService:BaseEntityUpdateService<Entity.DataCustomObject,DataCustomObjectPM,IEntityPM,DataCustomObjectList,string>
    {
    			
-        public DataCustomObjectUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DataCustomObjectDataMapping();
-            Repository = new Repository<POCO.DataCustomObject>(mainContext);
-        }
-        public DataCustomObjectUpdateService(int tenant) :  base( tenant)  
+        public DataCustomObjectUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DataCustomObjectDataMapping();
-            Repository = new Repository<POCO.DataCustomObject>(tenant);
+            Repository = new Repository<Entity.DataCustomObject>(unitOfWork);
 		}
-        public DataCustomObjectUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DataCustomObject,string> GetKeys(DataCustomObjectPM entityPM) => new DataCustomObjectKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DataCustomObject,string> GetKeys(DataCustomObjectPM entityPM) => new DataCustomObjectKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DataCustomObjectPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DataCustomObject", entityPM.Tenant); 

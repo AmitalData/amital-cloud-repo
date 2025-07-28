@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QueryColumnUpdateService:BaseEntityUpdateService<POCO.QueryColumn,QueryColumnPM,IEntityPM,QueryColumnList,string>
+   public partial class QueryColumnUpdateService:BaseEntityUpdateService<Entity.QueryColumn,QueryColumnPM,IEntityPM,QueryColumnList,string>
    {
    			
-        public QueryColumnUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QueryColumnDataMapping();
-            Repository = new Repository<POCO.QueryColumn>(mainContext);
-        }
-        public QueryColumnUpdateService(int tenant) :  base( tenant)  
+        public QueryColumnUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QueryColumnDataMapping();
-            Repository = new Repository<POCO.QueryColumn>(tenant);
+            Repository = new Repository<Entity.QueryColumn>(unitOfWork);
 		}
-        public QueryColumnUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QueryColumn,string> GetKeys(QueryColumnPM entityPM) => new QueryColumnKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.QueryColumn,string> GetKeys(QueryColumnPM entityPM) => new QueryColumnKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(QueryColumnPM entityPM)
 		{
 		}

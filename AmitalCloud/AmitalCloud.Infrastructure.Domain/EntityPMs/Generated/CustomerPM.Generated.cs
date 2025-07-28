@@ -1693,14 +1693,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private UserPM _salesmanuser;
-		
-        [DataMember]
-        public virtual UserPM SalesmanUser 
-		{ 
-		get { return _salesmanuser; } 
-		set { _salesmanuser = value; }
-		}
 	  private string _website ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

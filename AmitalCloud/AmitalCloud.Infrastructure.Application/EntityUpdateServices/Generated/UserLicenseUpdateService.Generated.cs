@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UserLicenseUpdateService:BaseEntityUpdateService<POCO.UserLicense,UserLicensePM,IEntityPM,UserLicenseList,string>
+   public partial class UserLicenseUpdateService:BaseEntityUpdateService<Entity.UserLicense,UserLicensePM,IEntityPM,UserLicenseList,string>
    {
    			
-        public UserLicenseUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UserLicenseDataMapping();
-            Repository = new Repository<POCO.UserLicense>(mainContext);
-        }
-        public UserLicenseUpdateService(int tenant) :  base( tenant)  
+        public UserLicenseUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UserLicenseDataMapping();
-            Repository = new Repository<POCO.UserLicense>(tenant);
+            Repository = new Repository<Entity.UserLicense>(unitOfWork);
 		}
-        public UserLicenseUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UserLicense,string> GetKeys(UserLicensePM entityPM) => new UserLicenseKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UserLicense,string> GetKeys(UserLicensePM entityPM) => new UserLicenseKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(UserLicensePM entityPM)
 		{
 		}

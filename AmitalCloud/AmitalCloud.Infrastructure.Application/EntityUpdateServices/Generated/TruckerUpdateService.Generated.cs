@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TruckerUpdateService:BaseEntityUpdateService<POCO.Trucker,TruckerPM,IEntityPM,TruckerList,string>
+   public partial class TruckerUpdateService:BaseEntityUpdateService<Entity.Trucker,TruckerPM,IEntityPM,TruckerList,string>
    {
    			
-        public TruckerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TruckerDataMapping();
-            Repository = new Repository<POCO.Trucker>(mainContext);
-        }
-        public TruckerUpdateService(int tenant) :  base( tenant)  
+        public TruckerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TruckerDataMapping();
-            Repository = new Repository<POCO.Trucker>(tenant);
+            Repository = new Repository<Entity.Trucker>(unitOfWork);
 		}
-        public TruckerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Trucker,string> GetKeys(TruckerPM entityPM) => new TruckerKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Trucker,string> GetKeys(TruckerPM entityPM) => new TruckerKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TruckerPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AccountingPartnerUpdateService:BaseEntityUpdateService<POCO.AccountingPartner,AccountingPartnerPM,IEntityPM,AccountingPartnerList,string>
+   public partial class AccountingPartnerUpdateService:BaseEntityUpdateService<Entity.AccountingPartner,AccountingPartnerPM,IEntityPM,AccountingPartnerList,string>
    {
    			
-        public AccountingPartnerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AccountingPartnerDataMapping();
-            Repository = new Repository<POCO.AccountingPartner>(mainContext);
-        }
-        public AccountingPartnerUpdateService(int tenant) :  base( tenant)  
+        public AccountingPartnerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AccountingPartnerDataMapping();
-            Repository = new Repository<POCO.AccountingPartner>(tenant);
+            Repository = new Repository<Entity.AccountingPartner>(unitOfWork);
 		}
-        public AccountingPartnerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AccountingPartner,string> GetKeys(AccountingPartnerPM entityPM) => new AccountingPartnerKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.AccountingPartner,string> GetKeys(AccountingPartnerPM entityPM) => new AccountingPartnerKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(AccountingPartnerPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWObjectFieldCategoriesUpdateService:BaseEntityUpdateService<POCO.DWObjectFieldCategories,DWObjectFieldCategoriesPM,IEntityPM,DWObjectFieldCategoriesList,string>
+   public partial class DWObjectFieldCategoriesUpdateService:BaseEntityUpdateService<Entity.DWObjectFieldCategories,DWObjectFieldCategoriesPM,IEntityPM,DWObjectFieldCategoriesList,string>
    {
    			
-        public DWObjectFieldCategoriesUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWObjectFieldCategoriesDataMapping();
-            Repository = new Repository<POCO.DWObjectFieldCategories>(mainContext);
-        }
-        public DWObjectFieldCategoriesUpdateService(int tenant) :  base( tenant)  
+        public DWObjectFieldCategoriesUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWObjectFieldCategoriesDataMapping();
-            Repository = new Repository<POCO.DWObjectFieldCategories>(tenant);
+            Repository = new Repository<Entity.DWObjectFieldCategories>(unitOfWork);
 		}
-        public DWObjectFieldCategoriesUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWObjectFieldCategories,string> GetKeys(DWObjectFieldCategoriesPM entityPM) => new DWObjectFieldCategoriesKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWObjectFieldCategories,string> GetKeys(DWObjectFieldCategoriesPM entityPM) => new DWObjectFieldCategoriesKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWObjectFieldCategoriesPM entityPM)
 		{
 		}

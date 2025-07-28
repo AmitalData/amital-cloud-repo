@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DescriptionOfGoodsUpdateService:BaseEntityUpdateService<POCO.DescriptionOfGoods,DescriptionOfGoodsPM,IEntityPM,DescriptionOfGoodsList,string>
+   public partial class DescriptionOfGoodsUpdateService:BaseEntityUpdateService<Entity.DescriptionOfGoods,DescriptionOfGoodsPM,IEntityPM,DescriptionOfGoodsList,string>
    {
    			
-        public DescriptionOfGoodsUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DescriptionOfGoodsDataMapping();
-            Repository = new Repository<POCO.DescriptionOfGoods>(mainContext);
-        }
-        public DescriptionOfGoodsUpdateService(int tenant) :  base( tenant)  
+        public DescriptionOfGoodsUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DescriptionOfGoodsDataMapping();
-            Repository = new Repository<POCO.DescriptionOfGoods>(tenant);
+            Repository = new Repository<Entity.DescriptionOfGoods>(unitOfWork);
 		}
-        public DescriptionOfGoodsUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DescriptionOfGoods,string> GetKeys(DescriptionOfGoodsPM entityPM) => new DescriptionOfGoodsKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DescriptionOfGoods,string> GetKeys(DescriptionOfGoodsPM entityPM) => new DescriptionOfGoodsKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DescriptionOfGoodsPM entityPM)
 		{
 		}

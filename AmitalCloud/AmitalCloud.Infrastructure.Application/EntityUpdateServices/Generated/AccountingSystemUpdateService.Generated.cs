@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AccountingSystemUpdateService:BaseEntityUpdateService<POCO.AccountingSystem,AccountingSystemPM,IEntityPM,AccountingSystemList,string>
+   public partial class AccountingSystemUpdateService:BaseEntityUpdateService<Entity.AccountingSystem,AccountingSystemPM,IEntityPM,AccountingSystemList,string>
    {
    			
-        public AccountingSystemUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AccountingSystemDataMapping();
-            Repository = new Repository<POCO.AccountingSystem>(mainContext);
-        }
-        public AccountingSystemUpdateService(int tenant) :  base( tenant)  
+        public AccountingSystemUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AccountingSystemDataMapping();
-            Repository = new Repository<POCO.AccountingSystem>(tenant);
+            Repository = new Repository<Entity.AccountingSystem>(unitOfWork);
 		}
-        public AccountingSystemUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AccountingSystem,string> GetKeys(AccountingSystemPM entityPM) => new AccountingSystemKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.AccountingSystem,string> GetKeys(AccountingSystemPM entityPM) => new AccountingSystemKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(AccountingSystemPM entityPM)
 		{
 		}

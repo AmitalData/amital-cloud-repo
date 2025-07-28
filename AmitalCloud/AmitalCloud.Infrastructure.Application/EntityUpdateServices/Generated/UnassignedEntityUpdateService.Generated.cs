@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class UnassignedEntityUpdateService:BaseEntityUpdateService<POCO.UnassignedEntity,UnassignedEntityPM,IEntityPM,UnassignedEntityList,string>
+   public partial class UnassignedEntityUpdateService:BaseEntityUpdateService<Entity.UnassignedEntity,UnassignedEntityPM,IEntityPM,UnassignedEntityList,string>
    {
    			
-        public UnassignedEntityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new UnassignedEntityDataMapping();
-            Repository = new Repository<POCO.UnassignedEntity>(mainContext);
-        }
-        public UnassignedEntityUpdateService(int tenant) :  base( tenant)  
+        public UnassignedEntityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new UnassignedEntityDataMapping();
-            Repository = new Repository<POCO.UnassignedEntity>(tenant);
+            Repository = new Repository<Entity.UnassignedEntity>(unitOfWork);
 		}
-        public UnassignedEntityUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.UnassignedEntity,string> GetKeys(UnassignedEntityPM entityPM) => new UnassignedEntityKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.UnassignedEntity,string> GetKeys(UnassignedEntityPM entityPM) => new UnassignedEntityKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(UnassignedEntityPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("UnassignedEntity", entityPM.Tenant); 

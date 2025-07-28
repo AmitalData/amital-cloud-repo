@@ -143,141 +143,141 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
 
         }
 
-        public static string AddCommunicationLog(CommunicationsParams communicationParams)
-        {
-            //if((communicationParams.QueueName != null && communicationParams.QueueName.StartsWith("externaltasksqueue")) || communicationParams.To == "Unifreight")
-            //{
-            //    CustomsSetting customsSettings = CustomsSettingRepository.GetSettingByTenantCache(communicationParams.Tenant);
-            //    if (customsSettings.StandAlone)
-            //        return null;
-            //}
+        //public static string AddCommunicationLog(CommunicationsParams communicationParams)
+        //{
+        //    //if((communicationParams.QueueName != null && communicationParams.QueueName.StartsWith("externaltasksqueue")) || communicationParams.To == "Unifreight")
+        //    //{
+        //    //    CustomsSetting customsSettings = CustomsSettingRepository.GetSettingByTenantCache(communicationParams.Tenant);
+        //    //    if (customsSettings.StandAlone)
+        //    //        return null;
+        //    //}
 
-            CommunicationLog commLog;
-            using (TransactionScope scope = TransactionFactory.GetTransaction())
-            {
-                int tenant = communicationParams.Tenant;
-                IAmitalCloudContext commonContext = AmitalCloudContext.GetContext(tenant);
-                UserRepository userRepository = new UserRepository(commonContext);
-                CommunicationLogRepository communicationLogRepository = new CommunicationLogRepository(commonContext);
-                DocumentRepository documentrepository = new DocumentRepository(commonContext);
-                ObjectTableRepository objecttableRep = new ObjectTableRepository(communicationParams.Tenant);
-                ObjectTable objectTable = null;// Itzik default (aksioma  there is communication that not conected to entity) 
-                if (!String.IsNullOrWhiteSpace(communicationParams.LoggingObjectTableId))
-                {
+        //    CommunicationLog commLog;
+        //    using (TransactionScope scope = TransactionFactory.GetTransaction())
+        //    {
+        //        int tenant = communicationParams.Tenant;
+        //        IAmitalCloudContext commonContext = AmitalCloudContext.GetContext(tenant);
+        //        UserRepository userRepository = new UserRepository(commonContext);
+        //        CommunicationLogRepository communicationLogRepository = new CommunicationLogRepository(commonContext);
+        //        DocumentRepository documentrepository = new DocumentRepository(commonContext);
+        //        ObjectTableRepository objecttableRep = new ObjectTableRepository(communicationParams.Tenant);
+        //        ObjectTable objectTable = null;// Itzik default (aksioma  there is communication that not conected to entity) 
+        //        if (!String.IsNullOrWhiteSpace(communicationParams.LoggingObjectTableId))
+        //        {
 
-                    objectTable = objecttableRep.GetSingleObjectTable(communicationParams.LoggingObjectTableId, 0, true);
-                }
-                else
-                {
-                    objectTable = new ObjectTable();
-                }
-                Document document = new Document()
-                {
-                    CreateDate = DateTime.Now,
-                    Extension = !string.IsNullOrEmpty(communicationParams.FileExtension) ? communicationParams.FileExtension : "xml",
-                    FileSize = communicationParams.ByteData.Length,
-                    Tenant = Convert.ToInt32(tenant),
-                    Id = IdCounter.GetNumber("Document", tenant),
-                    HasFile = true,
-                    Folder = communicationParams.FolderName,
-                };
-                documentrepository.Insert(document);
-                documentrepository.SubmitChanges();
-                User loggedUser = null;
-                if (!string.IsNullOrEmpty(communicationParams.LoggingUserId))
-                {
-                    loggedUser = userRepository.GetSingleUser(communicationParams.LoggingUserId, tenant);
-                }
-                if (loggedUser == null)
-                {
-                    string systenEmail = "system@tenant" + tenant + ".com";
-                    User systemUser = userRepository.GetSingleUserByEmail(systenEmail, tenant, true);
-                    if (systemUser != null)
-                        communicationParams.LoggingUserId = systemUser.Id;
-                }
-                commLog = new CommunicationLog()
-                {
-                    Id = IdCounter.GetNumber("CommunicationLog", tenant),
-                    LastStatusDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                    To = communicationParams.To,
-                    From = communicationParams.From,
-                    BCC = communicationParams.BCC,
-                    CC = communicationParams.CC,
-                    InOut = communicationParams.InOut,
-                    EntityId = communicationParams.LoggingEntityId,
-                    ObjectTableId = !string.IsNullOrEmpty(communicationParams.LoggingObjectTableId) ? communicationParams.LoggingObjectTableId : null,
-                    Subject = communicationParams.Subject,
-                    Tenant = tenant,
-                    CommunicationLogTypeCode = communicationParams.CommunicationLogTypeCode,
-                    CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                    CommunicationStatusTypeCode = communicationParams.Status,
-                    CreatedByUserId = communicationParams.LoggingUserId,
-                    DocumentId = document.Id,
-                    EntityReference = communicationParams.LoggingEntityReference,
-                    SearchFields = communicationParams.To + ',' + communicationParams.From + ',' + communicationParams.BCC + ',' + communicationParams.CC + ',' + communicationParams.InOut + ',' + communicationParams.Subject + ',' + communicationParams.CommunicationLogTypeCode + ',' + communicationParams.Status + ',' + communicationParams.LoggingEntityReference + ',' + objectTable.Name,
-                    Logs = communicationParams.Logs,
-                    CorrelationID = communicationParams.CorrelationID,
-                    NextTryDateTime = communicationParams.NextTryDateTime,
-                    CreateDateUTC = DateTime.UtcNow,
-                    LastStatusDateUTC = DateTime.UtcNow,
-                    QueueName = communicationParams.QueueName,
-                    Priority = communicationParams.Priority,
-                    AdditionalFields = communicationParams.AdditionalFields,
-                    ExceptionMessage = communicationParams.ExceptionMessage,
-                    UniqueNumber = communicationParams.UniqueNumber,
-                    WasAnalyzed = communicationParams.WasAnalyzed,
-                };
-                communicationLogRepository.Add(commLog);
-                communicationLogRepository.SubmitChanges();
+        //            objectTable = objecttableRep.GetSingleObjectTable(communicationParams.LoggingObjectTableId, 0, true);
+        //        }
+        //        else
+        //        {
+        //            objectTable = new ObjectTable();
+        //        }
+        //        Document document = new Document()
+        //        {
+        //            CreateDate = DateTime.Now,
+        //            Extension = !string.IsNullOrEmpty(communicationParams.FileExtension) ? communicationParams.FileExtension : "xml",
+        //            FileSize = communicationParams.ByteData.Length,
+        //            Tenant = Convert.ToInt32(tenant),
+        //            Id = IdCounter.GetNumber("Document", tenant),
+        //            HasFile = true,
+        //            Folder = communicationParams.FolderName,
+        //        };
+        //        documentrepository.Insert(document);
+        //        documentrepository.SubmitChanges();
+        //        User loggedUser = null;
+        //        if (!string.IsNullOrEmpty(communicationParams.LoggingUserId))
+        //        {
+        //            loggedUser = userRepository.GetSingleUser(communicationParams.LoggingUserId, tenant);
+        //        }
+        //        if (loggedUser == null)
+        //        {
+        //            string systenEmail = "system@tenant" + tenant + ".com";
+        //            User systemUser = userRepository.GetSingleUserByEmail(systenEmail, tenant, true);
+        //            if (systemUser != null)
+        //                communicationParams.LoggingUserId = systemUser.Id;
+        //        }
+        //        commLog = new CommunicationLog()
+        //        {
+        //            Id = IdCounter.GetNumber("CommunicationLog", tenant),
+        //            LastStatusDate = TenantServerConfigration.GetCurrentDateTime(tenant),
+        //            To = communicationParams.To,
+        //            From = communicationParams.From,
+        //            BCC = communicationParams.BCC,
+        //            CC = communicationParams.CC,
+        //            InOut = communicationParams.InOut,
+        //            EntityId = communicationParams.LoggingEntityId,
+        //            ObjectTableId = !string.IsNullOrEmpty(communicationParams.LoggingObjectTableId) ? communicationParams.LoggingObjectTableId : null,
+        //            Subject = communicationParams.Subject,
+        //            Tenant = tenant,
+        //            CommunicationLogTypeCode = communicationParams.CommunicationLogTypeCode,
+        //            CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
+        //            CommunicationStatusTypeCode = communicationParams.Status,
+        //            CreatedByUserId = communicationParams.LoggingUserId,
+        //            DocumentId = document.Id,
+        //            EntityReference = communicationParams.LoggingEntityReference,
+        //            SearchFields = communicationParams.To + ',' + communicationParams.From + ',' + communicationParams.BCC + ',' + communicationParams.CC + ',' + communicationParams.InOut + ',' + communicationParams.Subject + ',' + communicationParams.CommunicationLogTypeCode + ',' + communicationParams.Status + ',' + communicationParams.LoggingEntityReference + ',' + objectTable.Name,
+        //            Logs = communicationParams.Logs,
+        //            CorrelationID = communicationParams.CorrelationID,
+        //            NextTryDateTime = communicationParams.NextTryDateTime,
+        //            CreateDateUTC = DateTime.UtcNow,
+        //            LastStatusDateUTC = DateTime.UtcNow,
+        //            QueueName = communicationParams.QueueName,
+        //            Priority = communicationParams.Priority,
+        //            AdditionalFields = communicationParams.AdditionalFields,
+        //            ExceptionMessage = communicationParams.ExceptionMessage,
+        //            UniqueNumber = communicationParams.UniqueNumber,
+        //            WasAnalyzed = communicationParams.WasAnalyzed,
+        //        };
+        //        communicationLogRepository.Add(commLog);
+        //        communicationLogRepository.SubmitChanges();
 
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                string filename = document.Id + "." + document.Extension;
-                string filePath = "tenant" + communicationParams.Tenant + "/" + StorageAcountDetails.GetBlobNameByLocation(filename, document.Folder);
-                BlobFileInfo fileInfo = new BlobFileInfo()
-                {
-                    FileName = document.Id,
-                    FolderName = document.Folder,
-                    Extension = document.Extension,
-                    Tenant = document.Tenant,
-                    FileSize = communicationParams.ByteData.Length,
+        //        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        //        string filename = document.Id + "." + document.Extension;
+        //        string filePath = "tenant" + communicationParams.Tenant + "/" + StorageAcountDetails.GetBlobNameByLocation(filename, document.Folder);
+        //        BlobFileInfo fileInfo = new BlobFileInfo()
+        //        {
+        //            FileName = document.Id,
+        //            FolderName = document.Folder,
+        //            Extension = document.Extension,
+        //            Tenant = document.Tenant,
+        //            FileSize = communicationParams.ByteData.Length,
 
-                };
-                //todo
-                //IBlobService storageservice = ContainerAccessor.Container.Resolve(typeof(IBlobService), "StorageService", new ParameterOverride("", 1)) as IBlobService;
-                //storageservice.Write(communicationParams.ByteData, fileInfo);
+        //        };
+        //        //todo
+        //        //IBlobService storageservice = ContainerAccessor.Container.Resolve(typeof(IBlobService), "StorageService", new ParameterOverride("", 1)) as IBlobService;
+        //        //storageservice.Write(communicationParams.ByteData, fileInfo);
 
-                stopwatch.Stop();
-                LogMessagingUtil.Instance.AppendLine("SetBolb:" + filePath + ":Took:" + stopwatch.Elapsed.ToString());
-
-
-                if (!string.IsNullOrEmpty(communicationParams.QueueName))
-                {
-                    try
-                    {
-                        Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "Before adding message to queue " + DateTime.Now.ToString(), null);
-                        SendCommunicationLogMessageToQueue(communicationParams.QueueName, commLog.Id, tenant, communicationParams.QueueParameters);
-                        Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "after adding message to queue " + DateTime.Now.ToString(), null);
-                    }
-                    catch (Exception ex)
-                    {
-                        string errorMessage = ex.Message;
-
-                        if (!string.IsNullOrEmpty(ex.StackTrace))
-                        {
-                            errorMessage += Environment.NewLine + ex.StackTrace;
-                        }
-
-                        Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "Exception occured while adding message to queue " + DateTime.Now.ToString(), errorMessage);
-
-                        throw ex;
-                    }
-                }
-                scope.Complete();
+        //        stopwatch.Stop();
+        //        LogMessagingUtil.Instance.AppendLine("SetBolb:" + filePath + ":Took:" + stopwatch.Elapsed.ToString());
 
 
-            }
-            return commLog.Id;
-        }
+        //        if (!string.IsNullOrEmpty(communicationParams.QueueName))
+        //        {
+        //            try
+        //            {
+        //                Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "Before adding message to queue " + DateTime.Now.ToString(), null);
+        //                SendCommunicationLogMessageToQueue(communicationParams.QueueName, commLog.Id, tenant, communicationParams.QueueParameters);
+        //                Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "after adding message to queue " + DateTime.Now.ToString(), null);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                string errorMessage = ex.Message;
+
+        //                if (!string.IsNullOrEmpty(ex.StackTrace))
+        //                {
+        //                    errorMessage += Environment.NewLine + ex.StackTrace;
+        //                }
+
+        //                Communications.UpdateCommunicationLogStatus(commLog.Id, tenant, null, commLog.CommunicationStatusTypeCode, "Exception occured while adding message to queue " + DateTime.Now.ToString(), errorMessage);
+
+        //                throw ex;
+        //            }
+        //        }
+        //        scope.Complete();
+
+
+        //    }
+        //    return commLog.Id;
+        //}
 
         public static byte[] SerializeData<T>(T dataObject)
         {
@@ -564,101 +564,101 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
         }
 
 
-        public static string AddEmailCommunicationLogQueue(EmailCommunicationParams communicationParams, int tenant)
-        {
-            if (!string.IsNullOrEmpty(communicationParams.To) && communicationParams.To.Contains("system@tenant"))
-            {
-                return string.Empty;
-            }
-            IAmitalCloudContext commonContext = AmitalCloudContext.GetContext(tenant);
-            DocumentRepository documentRepository = new DocumentRepository(commonContext);
-            UserRepository userRepository = new UserRepository(commonContext);
-            CommunicationLogRepository communicationLogRepository = new CommunicationLogRepository(commonContext);
+        //public static string AddEmailCommunicationLogQueue(EmailCommunicationParams communicationParams, int tenant)
+        //{
+        //    if (!string.IsNullOrEmpty(communicationParams.To) && communicationParams.To.Contains("system@tenant"))
+        //    {
+        //        return string.Empty;
+        //    }
+        //    IAmitalCloudContext commonContext = AmitalCloudContext.GetContext(tenant);
+        //    DocumentRepository documentRepository = new DocumentRepository(commonContext);
+        //    UserRepository userRepository = new UserRepository(commonContext);
+        //    CommunicationLogRepository communicationLogRepository = new CommunicationLogRepository(commonContext);
 
-            System.Text.UTF8Encoding enc = new System.Text.UTF8Encoding();
-            byte[] htmlByteData = enc.GetBytes(communicationParams.EmailBody);
+        //    System.Text.UTF8Encoding enc = new System.Text.UTF8Encoding();
+        //    byte[] htmlByteData = enc.GetBytes(communicationParams.EmailBody);
 
-            Document document = new Document()
-            {
-                CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                Extension = "html",
-                FileSize = Convert.ToInt32(htmlByteData.Length),
-                Tenant = Convert.ToInt32(tenant),
-                Id = IdCounter.GetNumber("Document", tenant).ToString(),
-                Folder = "emailsout",
-            };
+        //    Document document = new Document()
+        //    {
+        //        CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
+        //        Extension = "html",
+        //        FileSize = Convert.ToInt32(htmlByteData.Length),
+        //        Tenant = Convert.ToInt32(tenant),
+        //        Id = IdCounter.GetNumber("Document", tenant).ToString(),
+        //        Folder = "emailsout",
+        //    };
 
-            documentRepository.Insert(document);
-            documentRepository.SubmitChanges();
+        //    documentRepository.Insert(document);
+        //    documentRepository.SubmitChanges();
 
-            string filePath = "tenant" + tenant.ToString() + "/" + StorageAcountDetails.GetBlobNameByLocation(document.Id + ".html", document.Folder);
+        //    string filePath = "tenant" + tenant.ToString() + "/" + StorageAcountDetails.GetBlobNameByLocation(document.Id + ".html", document.Folder);
 
-            //todo
-            //IBlobService storageservice = ContainerAccessor.Container.Resolve(typeof(IBlobService), "StorageService", new ParameterOverride("", 1)) as IBlobService;
-            BlobFileInfo fileInfo = new BlobFileInfo()
-            {
-                FileName = document.Id,
-                FolderName = document.Folder,
-                Extension = document.Extension,
-                Tenant = tenant,
-                FileSize = htmlByteData.Length,
+        //    //todo
+        //    //IBlobService storageservice = ContainerAccessor.Container.Resolve(typeof(IBlobService), "StorageService", new ParameterOverride("", 1)) as IBlobService;
+        //    BlobFileInfo fileInfo = new BlobFileInfo()
+        //    {
+        //        FileName = document.Id,
+        //        FolderName = document.Folder,
+        //        Extension = document.Extension,
+        //        Tenant = tenant,
+        //        FileSize = htmlByteData.Length,
 
-            };
+        //    };
 
-            //storageservice.Write(htmlByteData, fileInfo);
-            User loggedUser = null;
-            if (!string.IsNullOrEmpty(communicationParams.LoggingUserId))
-            {
-                loggedUser = userRepository.GetSingleUser(communicationParams.LoggingUserId, tenant);
-            }
-            if (loggedUser == null)
-            {
-                string systenEmail = "system@tenant" + tenant + ".com";
-                User systemUser = userRepository.GetSingleUserByEmail(systenEmail, tenant, false);
-                if (systemUser != null)
-                    communicationParams.LoggingUserId = systemUser.Id;
-            }
-            CommunicationLog commLog = new CommunicationLog()
-            {
-                Id = IdCounter.GetNumber("CommunicationLog", tenant),
-                Tenant = tenant,
-                CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                To = communicationParams.To,
-                From = communicationParams.From,
-                BCC = communicationParams.BCC,
-                CC = communicationParams.CC,
-                LastStatusDate = TenantServerConfigration.GetCurrentDateTime(tenant),
-                CommunicationLogTypeCode = "E",
-                CommunicationStatusTypeCode = "W",
-                InOut = "O",
-                EntityId = communicationParams.LoggingEntityId,
-                ObjectTableId = !string.IsNullOrEmpty(communicationParams.LoggingObjectTableId) ? communicationParams.LoggingObjectTableId : null,
-                Subject = communicationParams.Subject,
-                CreatedByUserId = communicationParams.LoggingUserId,
-                DocumentId = document.Id,
-                CreateDateUTC = DateTime.UtcNow,
-                LastStatusDateUTC = DateTime.UtcNow,
-                QueueName = "emailqueue",
-                SearchFields = string.Join(",", new string[] { communicationParams.To, communicationParams.From, communicationParams.BCC, communicationParams.CC, communicationParams.Subject }),
-                IsSecured = communicationParams.IsBodySecured,
-            };
+        //    //storageservice.Write(htmlByteData, fileInfo);
+        //    User loggedUser = null;
+        //    if (!string.IsNullOrEmpty(communicationParams.LoggingUserId))
+        //    {
+        //        loggedUser = userRepository.GetSingleUser(communicationParams.LoggingUserId, tenant);
+        //    }
+        //    if (loggedUser == null)
+        //    {
+        //        string systenEmail = "system@tenant" + tenant + ".com";
+        //        User systemUser = userRepository.GetSingleUserByEmail(systenEmail, tenant, false);
+        //        if (systemUser != null)
+        //            communicationParams.LoggingUserId = systemUser.Id;
+        //    }
+        //    CommunicationLog commLog = new CommunicationLog()
+        //    {
+        //        Id = IdCounter.GetNumber("CommunicationLog", tenant),
+        //        Tenant = tenant,
+        //        CreateDate = TenantServerConfigration.GetCurrentDateTime(tenant),
+        //        To = communicationParams.To,
+        //        From = communicationParams.From,
+        //        BCC = communicationParams.BCC,
+        //        CC = communicationParams.CC,
+        //        LastStatusDate = TenantServerConfigration.GetCurrentDateTime(tenant),
+        //        CommunicationLogTypeCode = "E",
+        //        CommunicationStatusTypeCode = "W",
+        //        InOut = "O",
+        //        EntityId = communicationParams.LoggingEntityId,
+        //        ObjectTableId = !string.IsNullOrEmpty(communicationParams.LoggingObjectTableId) ? communicationParams.LoggingObjectTableId : null,
+        //        Subject = communicationParams.Subject,
+        //        CreatedByUserId = communicationParams.LoggingUserId,
+        //        DocumentId = document.Id,
+        //        CreateDateUTC = DateTime.UtcNow,
+        //        LastStatusDateUTC = DateTime.UtcNow,
+        //        QueueName = "emailqueue",
+        //        SearchFields = string.Join(",", new string[] { communicationParams.To, communicationParams.From, communicationParams.BCC, communicationParams.CC, communicationParams.Subject }),
+        //        IsSecured = communicationParams.IsBodySecured,
+        //    };
 
-            communicationLogRepository.Add(commLog);
-            communicationLogRepository.SubmitChanges();
+        //    communicationLogRepository.Add(commLog);
+        //    communicationLogRepository.SubmitChanges();
 
-            //IQueueService queueservice = QueueServiceManager.GetQueueService("emailqueue", 0);
-            //Dictionary<string, string> message = new Dictionary<string, string>()
-            //        {
-            //            { "CommunicationLogId", commLog.Id},
-            //            { "Tenant", commLog.Tenant.ToString() },
-            //        };
+        //    //IQueueService queueservice = QueueServiceManager.GetQueueService("emailqueue", 0);
+        //    //Dictionary<string, string> message = new Dictionary<string, string>()
+        //    //        {
+        //    //            { "CommunicationLogId", commLog.Id},
+        //    //            { "Tenant", commLog.Tenant.ToString() },
+        //    //        };
 
-            //queueservice.Send(message);
+        //    //queueservice.Send(message);
 
-            DbQueueService queueservice = new DbQueueService("EmailQueue", tenant);
-            queueservice.Send(new Dictionary<string, string>() { { "CommunicationLogId", commLog.Id }, { "Tenant", commLog.Tenant.ToString() } }, commLog.Tenant);
-            return commLog.Id;
-        }
+        //    DbQueueService queueservice = new DbQueueService("EmailQueue", tenant);
+        //    queueservice.Send(new Dictionary<string, string>() { { "CommunicationLogId", commLog.Id }, { "Tenant", commLog.Tenant.ToString() } }, commLog.Tenant);
+        //    return commLog.Id;
+        //}
 
     }
 

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DirectionUpdateService:BaseEntityUpdateService<POCO.Direction,DirectionPM,IEntityPM,DirectionList,string>
+   public partial class DirectionUpdateService:BaseEntityUpdateService<Entity.Direction,DirectionPM,IEntityPM,DirectionList,string>
    {
    			
-        public DirectionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DirectionDataMapping();
-            Repository = new Repository<POCO.Direction>(mainContext);
-        }
-        public DirectionUpdateService(int tenant) :  base( tenant)  
+        public DirectionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DirectionDataMapping();
-            Repository = new Repository<POCO.Direction>(tenant);
+            Repository = new Repository<Entity.Direction>(unitOfWork);
 		}
-        public DirectionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Direction,string> GetKeys(DirectionPM entityPM) => new DirectionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Direction,string> GetKeys(DirectionPM entityPM) => new DirectionKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DirectionPM entityPM)
 		{
 		}

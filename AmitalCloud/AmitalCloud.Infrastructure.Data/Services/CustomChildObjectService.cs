@@ -89,7 +89,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
 
         public void Updates(List<CustomChildObjectPM> customChildObjects)
         {
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 var repo = new Repository<CustomChildObject>(uow);
                 customChildObjects.ForEach((customChildObject) =>

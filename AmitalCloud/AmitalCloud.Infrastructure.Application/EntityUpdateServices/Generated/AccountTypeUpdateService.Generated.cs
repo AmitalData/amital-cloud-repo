@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AccountTypeUpdateService:BaseEntityUpdateService<POCO.AccountType,AccountTypePM,IEntityPM,AccountTypeList,string>
+   public partial class AccountTypeUpdateService:BaseEntityUpdateService<Entity.AccountType,AccountTypePM,IEntityPM,AccountTypeList,string>
    {
    			
-        public AccountTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AccountTypeDataMapping();
-            Repository = new Repository<POCO.AccountType>(mainContext);
-        }
-        public AccountTypeUpdateService(int tenant) :  base( tenant)  
+        public AccountTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AccountTypeDataMapping();
-            Repository = new Repository<POCO.AccountType>(tenant);
+            Repository = new Repository<Entity.AccountType>(unitOfWork);
 		}
-        public AccountTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AccountType,string> GetKeys(AccountTypePM entityPM) => new AccountTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.AccountType,string> GetKeys(AccountTypePM entityPM) => new AccountTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(AccountTypePM entityPM)
 		{
 		}

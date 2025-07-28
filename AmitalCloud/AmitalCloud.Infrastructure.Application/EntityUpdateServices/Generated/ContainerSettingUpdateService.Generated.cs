@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ContainerSettingUpdateService:BaseEntityUpdateService<POCO.ContainerSetting,ContainerSettingPM,IEntityPM,ContainerSettingList,string>
+   public partial class ContainerSettingUpdateService:BaseEntityUpdateService<Entity.ContainerSetting,ContainerSettingPM,IEntityPM,ContainerSettingList,string>
    {
    			
-        public ContainerSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ContainerSettingDataMapping();
-            Repository = new Repository<POCO.ContainerSetting>(mainContext);
-        }
-        public ContainerSettingUpdateService(int tenant) :  base( tenant)  
+        public ContainerSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ContainerSettingDataMapping();
-            Repository = new Repository<POCO.ContainerSetting>(tenant);
+            Repository = new Repository<Entity.ContainerSetting>(unitOfWork);
 		}
-        public ContainerSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ContainerSetting,string> GetKeys(ContainerSettingPM entityPM) => new ContainerSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ContainerSetting,string> GetKeys(ContainerSettingPM entityPM) => new ContainerSettingKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ContainerSettingPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("ContainerSetting", entityPM.Tenant); 

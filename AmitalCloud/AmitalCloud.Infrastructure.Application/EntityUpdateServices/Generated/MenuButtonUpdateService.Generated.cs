@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MenuButtonUpdateService:BaseEntityUpdateService<POCO.MenuButton,MenuButtonPM,IEntityPM,MenuButtonList,string>
+   public partial class MenuButtonUpdateService:BaseEntityUpdateService<Entity.MenuButton,MenuButtonPM,IEntityPM,MenuButtonList,string>
    {
    			
-        public MenuButtonUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MenuButtonDataMapping();
-            Repository = new Repository<POCO.MenuButton>(mainContext);
-        }
-        public MenuButtonUpdateService(int tenant) :  base( tenant)  
+        public MenuButtonUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MenuButtonDataMapping();
-            Repository = new Repository<POCO.MenuButton>(tenant);
+            Repository = new Repository<Entity.MenuButton>(unitOfWork);
 		}
-        public MenuButtonUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MenuButton,string> GetKeys(MenuButtonPM entityPM) => new MenuButtonKeys<string>() { Id = entityPM.Code };
+		protected override IEntityKeyFields<Entity.MenuButton,string> GetKeys(MenuButtonPM entityPM) => new MenuButtonKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(MenuButtonPM entityPM)
 		{
 		}

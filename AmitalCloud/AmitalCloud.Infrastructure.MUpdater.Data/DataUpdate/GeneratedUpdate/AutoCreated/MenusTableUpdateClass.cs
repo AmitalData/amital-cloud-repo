@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 {
    public class MenusTableUpdateClass
    {  		
-		public const string HashString = "1a2139e597f5c086453b780e90e8808d";
+		public const string HashString = "1348464ca0f6aba6e7443e7410f55d7f";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -1052,6 +1052,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectTableName",
 					  						DefaultText =  "ObjectTableName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectTable,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1112,6 +1114,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "FeatureCode",
 					  						DefaultText =  "FeatureCode",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  Feature,
+					  						FieldRelatedPM =  Code,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

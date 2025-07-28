@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectTableHelperControlUpdateService:BaseEntityUpdateService<POCO.ObjectTableHelperControl,ObjectTableHelperControlPM,IEntityPM,ObjectTableHelperControlList,string>
+   public partial class ObjectTableHelperControlUpdateService:BaseEntityUpdateService<Entity.ObjectTableHelperControl,ObjectTableHelperControlPM,IEntityPM,ObjectTableHelperControlList,string>
    {
    			
-        public ObjectTableHelperControlUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectTableHelperControlDataMapping();
-            Repository = new Repository<POCO.ObjectTableHelperControl>(mainContext);
-        }
-        public ObjectTableHelperControlUpdateService(int tenant) :  base( tenant)  
+        public ObjectTableHelperControlUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectTableHelperControlDataMapping();
-            Repository = new Repository<POCO.ObjectTableHelperControl>(tenant);
+            Repository = new Repository<Entity.ObjectTableHelperControl>(unitOfWork);
 		}
-        public ObjectTableHelperControlUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectTableHelperControl,string> GetKeys(ObjectTableHelperControlPM entityPM) => new ObjectTableHelperControlKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectTableHelperControl,string> GetKeys(ObjectTableHelperControlPM entityPM) => new ObjectTableHelperControlKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectTableHelperControlPM entityPM)
 		{
 		}

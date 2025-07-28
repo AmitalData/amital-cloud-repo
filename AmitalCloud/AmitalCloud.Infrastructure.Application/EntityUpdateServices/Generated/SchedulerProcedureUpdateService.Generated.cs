@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class SchedulerProcedureUpdateService:BaseEntityUpdateService<POCO.SchedulerProcedure,SchedulerProcedurePM,IEntityPM,SchedulerProcedureList,string>
+   public partial class SchedulerProcedureUpdateService:BaseEntityUpdateService<Entity.SchedulerProcedure,SchedulerProcedurePM,IEntityPM,SchedulerProcedureList,string>
    {
    			
-        public SchedulerProcedureUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new SchedulerProcedureDataMapping();
-            Repository = new Repository<POCO.SchedulerProcedure>(mainContext);
-        }
-        public SchedulerProcedureUpdateService(int tenant) :  base( tenant)  
+        public SchedulerProcedureUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new SchedulerProcedureDataMapping();
-            Repository = new Repository<POCO.SchedulerProcedure>(tenant);
+            Repository = new Repository<Entity.SchedulerProcedure>(unitOfWork);
 		}
-        public SchedulerProcedureUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.SchedulerProcedure,string> GetKeys(SchedulerProcedurePM entityPM) => new SchedulerProcedureKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.SchedulerProcedure,string> GetKeys(SchedulerProcedurePM entityPM) => new SchedulerProcedureKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(SchedulerProcedurePM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BorderTypeUpdateService:BaseEntityUpdateService<POCO.BorderType,BorderTypePM,IEntityPM,BorderTypeList,string>
+   public partial class BorderTypeUpdateService:BaseEntityUpdateService<Entity.BorderType,BorderTypePM,IEntityPM,BorderTypeList,string>
    {
    			
-        public BorderTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BorderTypeDataMapping();
-            Repository = new Repository<POCO.BorderType>(mainContext);
-        }
-        public BorderTypeUpdateService(int tenant) :  base( tenant)  
+        public BorderTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BorderTypeDataMapping();
-            Repository = new Repository<POCO.BorderType>(tenant);
+            Repository = new Repository<Entity.BorderType>(unitOfWork);
 		}
-        public BorderTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BorderType,string> GetKeys(BorderTypePM entityPM) => new BorderTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.BorderType,string> GetKeys(BorderTypePM entityPM) => new BorderTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(BorderTypePM entityPM)
 		{
 		}

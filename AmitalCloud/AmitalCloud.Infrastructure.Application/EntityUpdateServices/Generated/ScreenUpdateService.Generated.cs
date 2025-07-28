@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ScreenUpdateService:BaseEntityUpdateService<POCO.Screen,ScreenPM,IEntityPM,ScreenList,string>
+   public partial class ScreenUpdateService:BaseEntityUpdateService<Entity.Screen,ScreenPM,IEntityPM,ScreenList,string>
    {
    			
-        public ScreenUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ScreenDataMapping();
-            Repository = new Repository<POCO.Screen>(mainContext);
-        }
-        public ScreenUpdateService(int tenant) :  base( tenant)  
+        public ScreenUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ScreenDataMapping();
-            Repository = new Repository<POCO.Screen>(tenant);
+            Repository = new Repository<Entity.Screen>(unitOfWork);
 		}
-        public ScreenUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Screen,string> GetKeys(ScreenPM entityPM) => new ScreenKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Screen,string> GetKeys(ScreenPM entityPM) => new ScreenKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ScreenPM entityPM)
 		{
 		}

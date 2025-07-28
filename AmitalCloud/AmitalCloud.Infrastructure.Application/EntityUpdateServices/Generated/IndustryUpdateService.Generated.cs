@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class IndustryUpdateService:BaseEntityUpdateService<POCO.Industry,IndustryPM,IEntityPM,IndustryList,string>
+   public partial class IndustryUpdateService:BaseEntityUpdateService<Entity.Industry,IndustryPM,IEntityPM,IndustryList,string>
    {
    			
-        public IndustryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new IndustryDataMapping();
-            Repository = new Repository<POCO.Industry>(mainContext);
-        }
-        public IndustryUpdateService(int tenant) :  base( tenant)  
+        public IndustryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new IndustryDataMapping();
-            Repository = new Repository<POCO.Industry>(tenant);
+            Repository = new Repository<Entity.Industry>(unitOfWork);
 		}
-        public IndustryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Industry,string> GetKeys(IndustryPM entityPM) => new IndustryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Industry,string> GetKeys(IndustryPM entityPM) => new IndustryKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(IndustryPM entityPM)
 		{
 		}

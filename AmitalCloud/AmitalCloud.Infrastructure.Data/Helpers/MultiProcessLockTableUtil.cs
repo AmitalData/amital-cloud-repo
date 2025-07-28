@@ -17,13 +17,16 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
                 throw new Exception("MultiProcessLockTableUtil:4 use must be under Transaction");
             }
             ProcessLockReleaseToken processLockToken = null;
-            var repo = new GeneralLockRepository(tenant);
-            LogMessagingUtil.Instance.AppendLine("MultiProcessLockTableUtil: trylock<<<" + key2Upsert.ToString());
-            var lockPoco = repo.GetSingleGeneralLockNOWAIT(key2Upsert, tenant);
-            if (lockPoco == null)
+
+            using (var uow = new UnitOfWork(tenant))
             {
-                using (var scope = TransactionFactory.GetNewTransaction())
+
+                var repo = new GeneralLockRepository(uow);
+                LogMessagingUtil.Instance.AppendLine("MultiProcessLockTableUtil: trylock<<<" + key2Upsert.ToString());
+                var lockPoco = repo.GetSingleGeneralLockNOWAIT(key2Upsert, tenant);
+                if (lockPoco == null)
                 {
+                    uow.CreateTransactionScope(TransactionScopeOption.RequiresNew);
                     repo.Insert(new GeneralLock()
                     {
                         Tenant = tenant,
@@ -31,20 +34,18 @@ namespace AmitalCloud.Infrastructure.Data.Helpers
                         CreatedAt = TenantServerConfigration.GetCurrentDateTime(tenant)
                     });
                     LogMessagingUtil.Instance.AppendLine("MultiProcessLockTableUtil: LockItAndGetReleaseToken:ADD<<<" + key2Upsert.ToString());
-                    repo.SubmitChanges();
-                    scope.Complete();
+                    uow.Save();
+                    uow.Commit();
+                    LogMessagingUtil.Instance.AppendLine("MultiProcessLockTableUtil: trylock<<<" + key2Upsert.ToString());
+                    lockPoco = repo.GetSingleGeneralLockNOWAIT(key2Upsert, tenant);
                 }
-                LogMessagingUtil.Instance.AppendLine("MultiProcessLockTableUtil: trylock<<<" + key2Upsert.ToString());
-                lockPoco = repo.GetSingleGeneralLockNOWAIT(key2Upsert, tenant);
+
+                if (lockPoco == null)
+                {
+                    throw new Exception("MultiProcessLockTableUtil:lockPoco ==null");
+                }
 
             }
-
-            if (lockPoco == null)
-            {
-                throw new Exception("MultiProcessLockTableUtil:lockPoco ==null");
-            }
-
-
 
 
 

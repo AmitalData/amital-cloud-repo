@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CardExternalCodeByCurrencyUpdateService:BaseEntityUpdateService<POCO.CardExternalCodeByCurrency,CardExternalCodeByCurrencyPM,CardPM,CardExternalCodeByCurrencyList,string>
+   public partial class CardExternalCodeByCurrencyUpdateService:BaseEntityUpdateService<Entity.CardExternalCodeByCurrency,CardExternalCodeByCurrencyPM,CardPM,CardExternalCodeByCurrencyList,string>
    {
    			
-        public CardExternalCodeByCurrencyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CardExternalCodeByCurrencyDataMapping();
-            Repository = new Repository<POCO.CardExternalCodeByCurrency>(mainContext);
-        }
-        public CardExternalCodeByCurrencyUpdateService(int tenant) :  base( tenant)  
+        public CardExternalCodeByCurrencyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CardExternalCodeByCurrencyDataMapping();
-            Repository = new Repository<POCO.CardExternalCodeByCurrency>(tenant);
+            Repository = new Repository<Entity.CardExternalCodeByCurrency>(unitOfWork);
 		}
-        public CardExternalCodeByCurrencyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CardExternalCodeByCurrency,string> GetKeys(CardExternalCodeByCurrencyPM entityPM) => new CardExternalCodeByCurrencyKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CardExternalCodeByCurrency,string> GetKeys(CardExternalCodeByCurrencyPM entityPM) => new CardExternalCodeByCurrencyKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CardExternalCodeByCurrencyPM entityPM)
 		{
 		}

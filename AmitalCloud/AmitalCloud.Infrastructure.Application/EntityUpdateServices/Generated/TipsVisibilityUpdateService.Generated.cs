@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TipsVisibilityUpdateService:BaseEntityUpdateService<POCO.TipsVisibility,TipsVisibilityPM,IEntityPM,TipsVisibilityList,string>
+   public partial class TipsVisibilityUpdateService:BaseEntityUpdateService<Entity.TipsVisibility,TipsVisibilityPM,IEntityPM,TipsVisibilityList,string>
    {
    			
-        public TipsVisibilityUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TipsVisibilityDataMapping();
-            Repository = new Repository<POCO.TipsVisibility>(mainContext);
-        }
-        public TipsVisibilityUpdateService(int tenant) :  base( tenant)  
+        public TipsVisibilityUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TipsVisibilityDataMapping();
-            Repository = new Repository<POCO.TipsVisibility>(tenant);
+            Repository = new Repository<Entity.TipsVisibility>(unitOfWork);
 		}
-        public TipsVisibilityUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TipsVisibility,string> GetKeys(TipsVisibilityPM entityPM) => new TipsVisibilityKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TipsVisibility,string> GetKeys(TipsVisibilityPM entityPM) => new TipsVisibilityKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TipsVisibilityPM entityPM)
 		{
 		}

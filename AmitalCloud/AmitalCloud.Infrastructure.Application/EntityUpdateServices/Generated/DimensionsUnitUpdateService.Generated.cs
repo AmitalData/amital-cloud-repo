@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DimensionsUnitUpdateService:BaseEntityUpdateService<POCO.DimensionsUnit,DimensionsUnitPM,IEntityPM,DimensionsUnitList,string>
+   public partial class DimensionsUnitUpdateService:BaseEntityUpdateService<Entity.DimensionsUnit,DimensionsUnitPM,IEntityPM,DimensionsUnitList,string>
    {
    			
-        public DimensionsUnitUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DimensionsUnitDataMapping();
-            Repository = new Repository<POCO.DimensionsUnit>(mainContext);
-        }
-        public DimensionsUnitUpdateService(int tenant) :  base( tenant)  
+        public DimensionsUnitUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DimensionsUnitDataMapping();
-            Repository = new Repository<POCO.DimensionsUnit>(tenant);
+            Repository = new Repository<Entity.DimensionsUnit>(unitOfWork);
 		}
-        public DimensionsUnitUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DimensionsUnit,string> GetKeys(DimensionsUnitPM entityPM) => new DimensionsUnitKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.DimensionsUnit,string> GetKeys(DimensionsUnitPM entityPM) => new DimensionsUnitKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(DimensionsUnitPM entityPM)
 		{
 		}

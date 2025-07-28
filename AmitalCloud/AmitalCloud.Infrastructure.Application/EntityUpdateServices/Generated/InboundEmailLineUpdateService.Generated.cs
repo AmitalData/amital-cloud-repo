@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class InboundEmailLineUpdateService:BaseEntityUpdateService<POCO.InboundEmailLine,InboundEmailLinePM,InboundEmailPM,InboundEmailLineList,string>
+   public partial class InboundEmailLineUpdateService:BaseEntityUpdateService<Entity.InboundEmailLine,InboundEmailLinePM,InboundEmailPM,InboundEmailLineList,string>
    {
    			
-        public InboundEmailLineUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new InboundEmailLineDataMapping();
-            Repository = new Repository<POCO.InboundEmailLine>(mainContext);
-        }
-        public InboundEmailLineUpdateService(int tenant) :  base( tenant)  
+        public InboundEmailLineUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new InboundEmailLineDataMapping();
-            Repository = new Repository<POCO.InboundEmailLine>(tenant);
+            Repository = new Repository<Entity.InboundEmailLine>(unitOfWork);
 		}
-        public InboundEmailLineUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.InboundEmailLine,string> GetKeys(InboundEmailLinePM entityPM) => new InboundEmailLineKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.InboundEmailLine,string> GetKeys(InboundEmailLinePM entityPM) => new InboundEmailLineKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(InboundEmailLinePM entityPM)
 		{
 		}

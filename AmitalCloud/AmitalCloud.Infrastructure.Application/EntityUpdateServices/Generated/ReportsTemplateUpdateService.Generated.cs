@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ReportsTemplateUpdateService:BaseEntityUpdateService<POCO.ReportsTemplate,ReportsTemplatePM,IEntityPM,ReportsTemplateList,string>
+   public partial class ReportsTemplateUpdateService:BaseEntityUpdateService<Entity.ReportsTemplate,ReportsTemplatePM,IEntityPM,ReportsTemplateList,string>
    {
    			
-        public ReportsTemplateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ReportsTemplateDataMapping();
-            Repository = new Repository<POCO.ReportsTemplate>(mainContext);
-        }
-        public ReportsTemplateUpdateService(int tenant) :  base( tenant)  
+        public ReportsTemplateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ReportsTemplateDataMapping();
-            Repository = new Repository<POCO.ReportsTemplate>(tenant);
+            Repository = new Repository<Entity.ReportsTemplate>(unitOfWork);
 		}
-        public ReportsTemplateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ReportsTemplate,string> GetKeys(ReportsTemplatePM entityPM) => new ReportsTemplateKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ReportsTemplate,string> GetKeys(ReportsTemplatePM entityPM) => new ReportsTemplateKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ReportsTemplatePM entityPM)
 		{
 		}

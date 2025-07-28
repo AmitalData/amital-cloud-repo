@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RoleUpdateService:BaseEntityUpdateService<POCO.Role,RolePM,IEntityPM,RoleList,string>
+   public partial class RoleUpdateService:BaseEntityUpdateService<Entity.Role,RolePM,IEntityPM,RoleList,string>
    {
    			
-        public RoleUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RoleDataMapping();
-            Repository = new Repository<POCO.Role>(mainContext);
-        }
-        public RoleUpdateService(int tenant) :  base( tenant)  
+        public RoleUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RoleDataMapping();
-            Repository = new Repository<POCO.Role>(tenant);
+            Repository = new Repository<Entity.Role>(unitOfWork);
 		}
-        public RoleUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Role,string> GetKeys(RolePM entityPM) => new RoleKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Role,string> GetKeys(RolePM entityPM) => new RoleKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(RolePM entityPM)
 		{
 		}

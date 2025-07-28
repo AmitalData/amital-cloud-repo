@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CategoryTypeUpdateService:BaseEntityUpdateService<POCO.CategoryType,CategoryTypePM,IEntityPM,CategoryTypeList,string>
+   public partial class CategoryTypeUpdateService:BaseEntityUpdateService<Entity.CategoryType,CategoryTypePM,IEntityPM,CategoryTypeList,string>
    {
    			
-        public CategoryTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CategoryTypeDataMapping();
-            Repository = new Repository<POCO.CategoryType>(mainContext);
-        }
-        public CategoryTypeUpdateService(int tenant) :  base( tenant)  
+        public CategoryTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CategoryTypeDataMapping();
-            Repository = new Repository<POCO.CategoryType>(tenant);
+            Repository = new Repository<Entity.CategoryType>(unitOfWork);
 		}
-        public CategoryTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CategoryType,string> GetKeys(CategoryTypePM entityPM) => new CategoryTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CategoryType,string> GetKeys(CategoryTypePM entityPM) => new CategoryTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CategoryTypePM entityPM)
 		{
 		}

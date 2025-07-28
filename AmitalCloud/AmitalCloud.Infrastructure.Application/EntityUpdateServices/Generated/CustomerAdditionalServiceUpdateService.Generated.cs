@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerAdditionalServiceUpdateService:BaseEntityUpdateService<POCO.CustomerAdditionalService,CustomerAdditionalServicePM,CustomerPM,CustomerAdditionalServiceList,string>
+   public partial class CustomerAdditionalServiceUpdateService:BaseEntityUpdateService<Entity.CustomerAdditionalService,CustomerAdditionalServicePM,CustomerPM,CustomerAdditionalServiceList,string>
    {
    			
-        public CustomerAdditionalServiceUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerAdditionalServiceDataMapping();
-            Repository = new Repository<POCO.CustomerAdditionalService>(mainContext);
-        }
-        public CustomerAdditionalServiceUpdateService(int tenant) :  base( tenant)  
+        public CustomerAdditionalServiceUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerAdditionalServiceDataMapping();
-            Repository = new Repository<POCO.CustomerAdditionalService>(tenant);
+            Repository = new Repository<Entity.CustomerAdditionalService>(unitOfWork);
 		}
-        public CustomerAdditionalServiceUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerAdditionalService,string> GetKeys(CustomerAdditionalServicePM entityPM) => new CustomerAdditionalServiceKeys<string>() { CustomerId = entityPM.CustomerId, AdditionalServiceId = entityPM.AdditionalServiceId };
+		protected override IEntityKeyFields<Entity.CustomerAdditionalService,string> GetKeys(CustomerAdditionalServicePM entityPM) => new CustomerAdditionalServiceKeys<string>() { CustomerId = entityPM.CustomerId, AdditionalServiceId = entityPM.AdditionalServiceId };
 protected override void FillDefaultValuesOnCreate(CustomerAdditionalServicePM entityPM)
 		{
 		}

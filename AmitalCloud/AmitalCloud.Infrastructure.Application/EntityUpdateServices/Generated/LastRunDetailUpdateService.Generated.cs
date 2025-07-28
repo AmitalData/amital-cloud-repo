@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class LastRunDetailUpdateService:BaseEntityUpdateService<POCO.LastRunDetail,LastRunDetailPM,IEntityPM,LastRunDetailList,string>
+   public partial class LastRunDetailUpdateService:BaseEntityUpdateService<Entity.LastRunDetail,LastRunDetailPM,IEntityPM,LastRunDetailList,string>
    {
    			
-        public LastRunDetailUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new LastRunDetailDataMapping();
-            Repository = new Repository<POCO.LastRunDetail>(mainContext);
-        }
-        public LastRunDetailUpdateService(int tenant) :  base( tenant)  
+        public LastRunDetailUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new LastRunDetailDataMapping();
-            Repository = new Repository<POCO.LastRunDetail>(tenant);
+            Repository = new Repository<Entity.LastRunDetail>(unitOfWork);
 		}
-        public LastRunDetailUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.LastRunDetail,string> GetKeys(LastRunDetailPM entityPM) => new LastRunDetailKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.LastRunDetail,string> GetKeys(LastRunDetailPM entityPM) => new LastRunDetailKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(LastRunDetailPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("LastRunDetail", entityPM.Tenant); 

@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ProductItemUpdateService:BaseEntityUpdateService<POCO.ProductItem,ProductItemPM,CustomerPM,ProductItemList,string>
+   public partial class ProductItemUpdateService:BaseEntityUpdateService<Entity.ProductItem,ProductItemPM,CustomerPM,ProductItemList,string>
    {
    			
-        public ProductItemUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ProductItemDataMapping();
-            Repository = new Repository<POCO.ProductItem>(mainContext);
-        }
-        public ProductItemUpdateService(int tenant) :  base( tenant)  
+        public ProductItemUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ProductItemDataMapping();
-            Repository = new Repository<POCO.ProductItem>(tenant);
+            Repository = new Repository<Entity.ProductItem>(unitOfWork);
 		}
-        public ProductItemUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ProductItem,string> GetKeys(ProductItemPM entityPM) => new ProductItemKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ProductItem,string> GetKeys(ProductItemPM entityPM) => new ProductItemKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ProductItemPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("ProductItem", entityPM.Tenant); 

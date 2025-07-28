@@ -454,14 +454,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private VatTypePM _vattype;
-		
-        [DataMember]
-        public virtual VatTypePM VatType 
-		{ 
-		get { return _vattype; } 
-		set { _vattype = value; }
-		}
 	  private string _chargesGroupCode ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AirlineMessagingRuleUpdateService:BaseEntityUpdateService<POCO.AirlineMessagingRule,AirlineMessagingRulePM,IEntityPM,AirlineMessagingRuleList,string>
+   public partial class AirlineMessagingRuleUpdateService:BaseEntityUpdateService<Entity.AirlineMessagingRule,AirlineMessagingRulePM,IEntityPM,AirlineMessagingRuleList,string>
    {
    			
-        public AirlineMessagingRuleUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AirlineMessagingRuleDataMapping();
-            Repository = new Repository<POCO.AirlineMessagingRule>(mainContext);
-        }
-        public AirlineMessagingRuleUpdateService(int tenant) :  base( tenant)  
+        public AirlineMessagingRuleUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AirlineMessagingRuleDataMapping();
-            Repository = new Repository<POCO.AirlineMessagingRule>(tenant);
+            Repository = new Repository<Entity.AirlineMessagingRule>(unitOfWork);
 		}
-        public AirlineMessagingRuleUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AirlineMessagingRule,string> GetKeys(AirlineMessagingRulePM entityPM) => new AirlineMessagingRuleKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.AirlineMessagingRule,string> GetKeys(AirlineMessagingRulePM entityPM) => new AirlineMessagingRuleKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(AirlineMessagingRulePM entityPM)
 		{
 		}

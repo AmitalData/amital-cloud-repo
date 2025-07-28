@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 {
    public class AccountingSettingUpdateClass
    {  		
-		public const string HashString = "462833ea80aee8359f377bd9257d42fb";
+		public const string HashString = "5ef7d93ac41089b4cbdd11d1e67cac9e";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -3536,6 +3536,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						FullFieldLable =  "TransferFTPDetailHost",
 					  						DefaultText =  "Transfer Host",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  TransferFTPDetail,
+					  						FieldRelatedPM =  Host,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

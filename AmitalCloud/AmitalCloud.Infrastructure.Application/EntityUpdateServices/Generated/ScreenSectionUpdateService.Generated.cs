@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ScreenSectionUpdateService:BaseEntityUpdateService<POCO.ScreenSection,ScreenSectionPM,IEntityPM,ScreenSectionList,string>
+   public partial class ScreenSectionUpdateService:BaseEntityUpdateService<Entity.ScreenSection,ScreenSectionPM,IEntityPM,ScreenSectionList,string>
    {
    			
-        public ScreenSectionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ScreenSectionDataMapping();
-            Repository = new Repository<POCO.ScreenSection>(mainContext);
-        }
-        public ScreenSectionUpdateService(int tenant) :  base( tenant)  
+        public ScreenSectionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ScreenSectionDataMapping();
-            Repository = new Repository<POCO.ScreenSection>(tenant);
+            Repository = new Repository<Entity.ScreenSection>(unitOfWork);
 		}
-        public ScreenSectionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ScreenSection,string> GetKeys(ScreenSectionPM entityPM) => new ScreenSectionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ScreenSection,string> GetKeys(ScreenSectionPM entityPM) => new ScreenSectionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(ScreenSectionPM entityPM)
 		{
 			entityPM.CreatedByUserId = GetLoggedUserid(entityPM.Tenant);

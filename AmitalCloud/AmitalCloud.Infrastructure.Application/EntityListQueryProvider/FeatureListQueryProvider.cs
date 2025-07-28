@@ -22,6 +22,7 @@ public class FeatureListQueryProvider : BaseEntityListQueryProvider<Feature, Fea
                            Tenant = f.Tenant,
                            Code = f.Code,
                            ObjectTableId = f.ObjectTableId,
-                       });
+                       })
+                       ;
     }
 }

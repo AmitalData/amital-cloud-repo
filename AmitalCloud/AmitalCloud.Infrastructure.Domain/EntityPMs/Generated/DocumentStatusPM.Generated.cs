@@ -45,38 +45,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-	  private string _dropCdropName ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string DropCdropName  
-	   {
-	     get { return _dropCdropName; }
-		 set
-		 {
-		   if(_dropCdropName != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropCdropName",OldValue=_dropCdropName,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _dropCdropName=value;
-		   }
-		 }
-	   }
-	  private string _dropCdropSearchfields ;
-	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
-	   [DataMember]
-       public string DropCdropSearchfields  
-	   {
-	     get { return _dropCdropSearchfields; }
-		 set
-		 {
-		   if(_dropCdropSearchfields != value)
-		   {
-		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="DropCdropSearchfields",OldValue=_dropCdropSearchfields,NewValue=value,PropertyType="string"};
-		    NotifyPropertyChanged(values);
-		   _dropCdropSearchfields=value;
-		   }
-		 }
-	   }
 	  private string _name ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

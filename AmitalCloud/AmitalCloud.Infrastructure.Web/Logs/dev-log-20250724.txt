@@ -1,0 +1,81 @@
+2025-07-24 15:25:03.862 +03:00 [INF] Starting up...
+2025-07-24 15:25:04.306 +03:00 [INF] Now listening on: https://localhost:57229
+2025-07-24 15:25:04.310 +03:00 [INF] Now listening on: http://localhost:57230
+2025-07-24 15:25:04.394 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-24 15:25:04.396 +03:00 [INF] Hosting environment: Development
+2025-07-24 15:25:04.397 +03:00 [INF] Content root path: C:\projects\amital-cloud-repo\AmitalCloud\AmitalCloud.Infrastructure.Web
+2025-07-24 15:25:04.983 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57229/ - null null
+2025-07-24 15:25:05.130 +03:00 [INF] HTTP Request Information:
+Method: GET
+URL / 
+Headers: ["[Accept, text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]","[Host, localhost:57229]","[User-Agent, Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36]","[Accept-Encoding, gzip, deflate, br, zstd]","[Accept-Language, he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7,ru;q=0.6]","[Cookie, email_cookie=itzik@amital.co.il; state-7114B3CD-9D7A-42C7-90A2-3A403BE11A91=SYSOP%3A; Username=UnknownUser]","[Upgrade-Insecure-Requests, 1]","[sec-ch-ua, \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"]","[sec-ch-ua-mobile, ?0]","[sec-ch-ua-platform, \"Windows\"]","[sec-fetch-site, none]","[sec-fetch-mode, navigate]","[sec-fetch-user, ?1]","[sec-fetch-dest, document]","[priority, u=0, i]"] 
+Body: 
+2025-07-24 15:25:05.144 +03:00 [INF] Executing endpoint 'HTTP: GET /'
+2025-07-24 15:25:05.147 +03:00 [INF] Executed endpoint 'HTTP: GET /'
+2025-07-24 15:25:05.149 +03:00 [INF] HTTP Response Information:
+StatusCode: 200 
+Headers: ["[Content-Type, text/plain; charset=utf-8]"] 
+Body: Ready!
+
+
+To visit Swagger:
+/swagger
+/swagger/v1/swagger.json
+2025-07-24 15:25:05.157 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57229/ - 200 null text/plain; charset=utf-8 180.0964ms
+2025-07-24 15:41:21.970 +03:00 [INF] Starting up...
+2025-07-24 15:41:22.369 +03:00 [INF] Now listening on: https://localhost:57229
+2025-07-24 15:41:22.372 +03:00 [INF] Now listening on: http://localhost:57230
+2025-07-24 15:41:22.437 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-24 15:41:22.438 +03:00 [INF] Hosting environment: Development
+2025-07-24 15:41:22.440 +03:00 [INF] Content root path: C:\projects\amital-cloud-repo\AmitalCloud\AmitalCloud.Infrastructure.Web
+2025-07-24 15:41:23.087 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57229/ - null null
+2025-07-24 15:41:23.231 +03:00 [INF] HTTP Request Information:
+Method: GET
+URL / 
+Headers: ["[Accept, text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]","[Host, localhost:57229]","[User-Agent, Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36]","[Accept-Encoding, gzip, deflate, br, zstd]","[Accept-Language, he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7,ru;q=0.6]","[Cookie, email_cookie=itzik@amital.co.il; state-7114B3CD-9D7A-42C7-90A2-3A403BE11A91=SYSOP%3A; Username=UnknownUser]","[Upgrade-Insecure-Requests, 1]","[sec-ch-ua, \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"]","[sec-ch-ua-mobile, ?0]","[sec-ch-ua-platform, \"Windows\"]","[sec-fetch-site, none]","[sec-fetch-mode, navigate]","[sec-fetch-user, ?1]","[sec-fetch-dest, document]","[priority, u=0, i]"] 
+Body: 
+2025-07-24 15:41:23.245 +03:00 [INF] Executing endpoint 'HTTP: GET /'
+2025-07-24 15:41:23.246 +03:00 [INF] Executed endpoint 'HTTP: GET /'
+2025-07-24 15:41:23.247 +03:00 [INF] HTTP Response Information:
+StatusCode: 200 
+Headers: ["[Content-Type, text/plain; charset=utf-8]"] 
+Body: Ready!
+
+
+To visit Swagger:
+/swagger
+/swagger/v1/swagger.json
+2025-07-24 15:41:23.251 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57229/ - 200 null text/plain; charset=utf-8 169.3733ms
+2025-07-24 15:41:35.151 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57229/api/ODataTest/Test?$filter=Tenant%20eq%200 - null null
+2025-07-24 15:41:35.193 +03:00 [INF] HTTP Request Information:
+Method: GET
+URL /api/ODataTest/Test?$filter=Tenant%20eq%200 
+Headers: ["[Accept, text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]","[Host, localhost:57229]","[User-Agent, Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36]","[Accept-Encoding, gzip, deflate, br, zstd]","[Accept-Language, he-IL,he;q=0.9]","[Cache-Control, max-age=0]","[Upgrade-Insecure-Requests, 1]","[sec-ch-ua, \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"]","[sec-ch-ua-mobile, ?0]","[sec-ch-ua-platform, \"Windows\"]","[sec-fetch-site, none]","[sec-fetch-mode, navigate]","[sec-fetch-user, ?1]","[sec-fetch-dest, document]","[priority, u=0, i]"] 
+Body: 
+2025-07-24 15:41:35.206 +03:00 [INF] Executing endpoint 'AmitalCloud.Shipment.Web.Controllers.Generated.ListControllers.ODataTestController.Test (AmitalCloud.Infrastructure.Web)'
+2025-07-24 15:41:35.230 +03:00 [INF] Route matched with {action = "Test", controller = "ODataTest"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Test(AmitalCloud.Infrastructure.Data.Repositories.IUnitOfWork, Microsoft.AspNetCore.OData.Query.ODataQueryOptions`1[AmitalCloud.Infrastructure.Model.EntityClasses.Feature]) on controller AmitalCloud.Shipment.Web.Controllers.Generated.ListControllers.ODataTestController (AmitalCloud.Infrastructure.Web).
+2025-07-24 15:42:04.985 +03:00 [INF] Executing action method AmitalCloud.Shipment.Web.Controllers.Generated.ListControllers.ODataTestController.Test (AmitalCloud.Infrastructure.Web) - Validation state: "Valid"
+2025-07-24 16:42:13.119 +03:00 [INF] Starting up...
+2025-07-24 16:42:13.541 +03:00 [INF] Now listening on: https://localhost:57229
+2025-07-24 16:42:13.544 +03:00 [INF] Now listening on: http://localhost:57230
+2025-07-24 16:42:13.613 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-24 16:42:13.614 +03:00 [INF] Hosting environment: Development
+2025-07-24 16:42:13.615 +03:00 [INF] Content root path: C:\projects\amital-cloud-repo\AmitalCloud\AmitalCloud.Infrastructure.Web
+2025-07-24 16:42:14.043 +03:00 [INF] Request starting HTTP/2 GET https://localhost:57229/ - null null
+2025-07-24 16:42:14.194 +03:00 [INF] HTTP Request Information:
+Method: GET
+URL / 
+Headers: ["[Accept, text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]","[Host, localhost:57229]","[User-Agent, Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36]","[Accept-Encoding, gzip, deflate, br, zstd]","[Accept-Language, he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7,ru;q=0.6]","[Cookie, email_cookie=itzik@amital.co.il; state-7114B3CD-9D7A-42C7-90A2-3A403BE11A91=SYSOP%3A; Username=UnknownUser]","[Upgrade-Insecure-Requests, 1]","[sec-ch-ua, \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"]","[sec-ch-ua-mobile, ?0]","[sec-ch-ua-platform, \"Windows\"]","[sec-fetch-site, none]","[sec-fetch-mode, navigate]","[sec-fetch-user, ?1]","[sec-fetch-dest, document]","[priority, u=0, i]"] 
+Body: 
+2025-07-24 16:42:14.211 +03:00 [INF] Executing endpoint 'HTTP: GET /'
+2025-07-24 16:42:14.214 +03:00 [INF] Executed endpoint 'HTTP: GET /'
+2025-07-24 16:42:14.216 +03:00 [INF] HTTP Response Information:
+StatusCode: 200 
+Headers: ["[Content-Type, text/plain; charset=utf-8]"] 
+Body: Ready!
+
+
+To visit Swagger:
+/swagger
+/swagger/v1/swagger.json
+2025-07-24 16:42:14.223 +03:00 [INF] Request finished HTTP/2 GET https://localhost:57229/ - 200 null text/plain; charset=utf-8 186.7005ms

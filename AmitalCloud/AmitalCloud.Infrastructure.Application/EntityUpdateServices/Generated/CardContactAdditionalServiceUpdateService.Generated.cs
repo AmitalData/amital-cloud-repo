@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CardContactAdditionalServiceUpdateService:BaseEntityUpdateService<POCO.CardContactAdditionalService,CardContactAdditionalServicePM,ContactPM,CardContactAdditionalServiceList,string>
+   public partial class CardContactAdditionalServiceUpdateService:BaseEntityUpdateService<Entity.CardContactAdditionalService,CardContactAdditionalServicePM,ContactPM,CardContactAdditionalServiceList,string>
    {
    			
-        public CardContactAdditionalServiceUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CardContactAdditionalServiceDataMapping();
-            Repository = new Repository<POCO.CardContactAdditionalService>(mainContext);
-        }
-        public CardContactAdditionalServiceUpdateService(int tenant) :  base( tenant)  
+        public CardContactAdditionalServiceUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CardContactAdditionalServiceDataMapping();
-            Repository = new Repository<POCO.CardContactAdditionalService>(tenant);
+            Repository = new Repository<Entity.CardContactAdditionalService>(unitOfWork);
 		}
-        public CardContactAdditionalServiceUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CardContactAdditionalService,string> GetKeys(CardContactAdditionalServicePM entityPM) => new CardContactAdditionalServiceKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CardContactAdditionalService,string> GetKeys(CardContactAdditionalServicePM entityPM) => new CardContactAdditionalServiceKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CardContactAdditionalServicePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CardContactAdditionalService", entityPM.Tenant); 

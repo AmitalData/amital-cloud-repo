@@ -33,5 +33,11 @@ namespace AmitalCloud.Infrastructure.Web.BaseClasses
             var result = GetService().GetListOData(queryOptions);
             return Ok(result);
         }
+        [EnableQuery]
+        public IActionResult Get(ODataQueryOptions<TEntity> queryOptions)
+        {
+            var result = GetService().GetOData(queryOptions);
+            return Ok(result);
+        }
     }
 }

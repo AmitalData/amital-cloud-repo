@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BIReportsTypeUpdateService:BaseEntityUpdateService<POCO.BIReportsType,BIReportsTypePM,IEntityPM,BIReportsTypeList,string>
+   public partial class BIReportsTypeUpdateService:BaseEntityUpdateService<Entity.BIReportsType,BIReportsTypePM,IEntityPM,BIReportsTypeList,string>
    {
    			
-        public BIReportsTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BIReportsTypeDataMapping();
-            Repository = new Repository<POCO.BIReportsType>(mainContext);
-        }
-        public BIReportsTypeUpdateService(int tenant) :  base( tenant)  
+        public BIReportsTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BIReportsTypeDataMapping();
-            Repository = new Repository<POCO.BIReportsType>(tenant);
+            Repository = new Repository<Entity.BIReportsType>(unitOfWork);
 		}
-        public BIReportsTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BIReportsType,string> GetKeys(BIReportsTypePM entityPM) => new BIReportsTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.BIReportsType,string> GetKeys(BIReportsTypePM entityPM) => new BIReportsTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(BIReportsTypePM entityPM)
 		{
 		}

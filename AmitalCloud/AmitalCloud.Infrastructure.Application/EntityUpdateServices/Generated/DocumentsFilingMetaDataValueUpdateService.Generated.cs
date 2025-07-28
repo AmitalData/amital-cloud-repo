@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentsFilingMetaDataValueUpdateService:BaseEntityUpdateService<POCO.DocumentsFilingMetaDataValue,DocumentsFilingMetaDataValuePM,IEntityPM,DocumentsFilingMetaDataValueList,string>
+   public partial class DocumentsFilingMetaDataValueUpdateService:BaseEntityUpdateService<Entity.DocumentsFilingMetaDataValue,DocumentsFilingMetaDataValuePM,IEntityPM,DocumentsFilingMetaDataValueList,string>
    {
    			
-        public DocumentsFilingMetaDataValueUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentsFilingMetaDataValueDataMapping();
-            Repository = new Repository<POCO.DocumentsFilingMetaDataValue>(mainContext);
-        }
-        public DocumentsFilingMetaDataValueUpdateService(int tenant) :  base( tenant)  
+        public DocumentsFilingMetaDataValueUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentsFilingMetaDataValueDataMapping();
-            Repository = new Repository<POCO.DocumentsFilingMetaDataValue>(tenant);
+            Repository = new Repository<Entity.DocumentsFilingMetaDataValue>(unitOfWork);
 		}
-        public DocumentsFilingMetaDataValueUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentsFilingMetaDataValue,string> GetKeys(DocumentsFilingMetaDataValuePM entityPM) => new DocumentsFilingMetaDataValueKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentsFilingMetaDataValue,string> GetKeys(DocumentsFilingMetaDataValuePM entityPM) => new DocumentsFilingMetaDataValueKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentsFilingMetaDataValuePM entityPM)
 		{
 		}

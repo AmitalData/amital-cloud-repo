@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AutomationLastUpdateUpdateService:BaseEntityUpdateService<POCO.AutomationLastUpdate,AutomationLastUpdatePM,IEntityPM,AutomationLastUpdateList,string>
+   public partial class AutomationLastUpdateUpdateService:BaseEntityUpdateService<Entity.AutomationLastUpdate,AutomationLastUpdatePM,IEntityPM,AutomationLastUpdateList,string>
    {
    			
-        public AutomationLastUpdateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AutomationLastUpdateDataMapping();
-            Repository = new Repository<POCO.AutomationLastUpdate>(mainContext);
-        }
-        public AutomationLastUpdateUpdateService(int tenant) :  base( tenant)  
+        public AutomationLastUpdateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AutomationLastUpdateDataMapping();
-            Repository = new Repository<POCO.AutomationLastUpdate>(tenant);
+            Repository = new Repository<Entity.AutomationLastUpdate>(unitOfWork);
 		}
-        public AutomationLastUpdateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AutomationLastUpdate,string> GetKeys(AutomationLastUpdatePM entityPM) => new AutomationLastUpdateKeys<string>() { Tenant = entityPM.Tenant, ObjectTableId = entityPM.ObjectTableId };
+		protected override IEntityKeyFields<Entity.AutomationLastUpdate,string> GetKeys(AutomationLastUpdatePM entityPM) => new AutomationLastUpdateKeys<string>() { Tenant = entityPM.Tenant, ObjectTableId = entityPM.ObjectTableId };
 protected override void FillDefaultValuesOnCreate(AutomationLastUpdatePM entityPM)
 		{
 		}

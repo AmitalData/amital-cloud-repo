@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CountryUpdateService:BaseEntityUpdateService<POCO.Country,CountryPM,IEntityPM,CountryList,string>
+   public partial class CountryUpdateService:BaseEntityUpdateService<Entity.Country,CountryPM,IEntityPM,CountryList,string>
    {
    			
-        public CountryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CountryDataMapping();
-            Repository = new Repository<POCO.Country>(mainContext);
-        }
-        public CountryUpdateService(int tenant) :  base( tenant)  
+        public CountryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CountryDataMapping();
-            Repository = new Repository<POCO.Country>(tenant);
+            Repository = new Repository<Entity.Country>(unitOfWork);
 		}
-        public CountryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Country,string> GetKeys(CountryPM entityPM) => new CountryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Country,string> GetKeys(CountryPM entityPM) => new CountryKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CountryPM entityPM)
 		{
 		}

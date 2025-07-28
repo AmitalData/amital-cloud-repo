@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CardContactProductUpdateService:BaseEntityUpdateService<POCO.CardContactProduct,CardContactProductPM,ContactPM,CardContactProductList,string>
+   public partial class CardContactProductUpdateService:BaseEntityUpdateService<Entity.CardContactProduct,CardContactProductPM,ContactPM,CardContactProductList,string>
    {
    			
-        public CardContactProductUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CardContactProductDataMapping();
-            Repository = new Repository<POCO.CardContactProduct>(mainContext);
-        }
-        public CardContactProductUpdateService(int tenant) :  base( tenant)  
+        public CardContactProductUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CardContactProductDataMapping();
-            Repository = new Repository<POCO.CardContactProduct>(tenant);
+            Repository = new Repository<Entity.CardContactProduct>(unitOfWork);
 		}
-        public CardContactProductUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CardContactProduct,string> GetKeys(CardContactProductPM entityPM) => new CardContactProductKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CardContactProduct,string> GetKeys(CardContactProductPM entityPM) => new CardContactProductKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CardContactProductPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CardContactProduct", entityPM.Tenant); 

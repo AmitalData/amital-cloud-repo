@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EventRemarkUpdateService:BaseEntityUpdateService<POCO.EventRemark,EventRemarkPM,IEntityPM,EventRemarkList,string>
+   public partial class EventRemarkUpdateService:BaseEntityUpdateService<Entity.EventRemark,EventRemarkPM,IEntityPM,EventRemarkList,string>
    {
    			
-        public EventRemarkUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EventRemarkDataMapping();
-            Repository = new Repository<POCO.EventRemark>(mainContext);
-        }
-        public EventRemarkUpdateService(int tenant) :  base( tenant)  
+        public EventRemarkUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EventRemarkDataMapping();
-            Repository = new Repository<POCO.EventRemark>(tenant);
+            Repository = new Repository<Entity.EventRemark>(unitOfWork);
 		}
-        public EventRemarkUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EventRemark,string> GetKeys(EventRemarkPM entityPM) => new EventRemarkKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EventRemark,string> GetKeys(EventRemarkPM entityPM) => new EventRemarkKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(EventRemarkPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("EventRemark", entityPM.Tenant); 

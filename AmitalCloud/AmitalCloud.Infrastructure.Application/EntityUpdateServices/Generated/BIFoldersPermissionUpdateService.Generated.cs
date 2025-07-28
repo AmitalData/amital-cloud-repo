@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BIFoldersPermissionUpdateService:BaseEntityUpdateService<POCO.BIFoldersPermission,BIFoldersPermissionPM,BIReportFolderPM,BIFoldersPermissionList,string>
+   public partial class BIFoldersPermissionUpdateService:BaseEntityUpdateService<Entity.BIFoldersPermission,BIFoldersPermissionPM,BIReportFolderPM,BIFoldersPermissionList,string>
    {
    			
-        public BIFoldersPermissionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BIFoldersPermissionDataMapping();
-            Repository = new Repository<POCO.BIFoldersPermission>(mainContext);
-        }
-        public BIFoldersPermissionUpdateService(int tenant) :  base( tenant)  
+        public BIFoldersPermissionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BIFoldersPermissionDataMapping();
-            Repository = new Repository<POCO.BIFoldersPermission>(tenant);
+            Repository = new Repository<Entity.BIFoldersPermission>(unitOfWork);
 		}
-        public BIFoldersPermissionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BIFoldersPermission,string> GetKeys(BIFoldersPermissionPM entityPM) => new BIFoldersPermissionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BIFoldersPermission,string> GetKeys(BIFoldersPermissionPM entityPM) => new BIFoldersPermissionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BIFoldersPermissionPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("BIFoldersPermission", entityPM.Tenant); 

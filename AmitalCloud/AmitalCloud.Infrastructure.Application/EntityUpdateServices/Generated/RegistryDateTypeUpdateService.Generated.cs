@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RegistryDateTypeUpdateService:BaseEntityUpdateService<POCO.RegistryDateType,RegistryDateTypePM,IEntityPM,RegistryDateTypeList,string>
+   public partial class RegistryDateTypeUpdateService:BaseEntityUpdateService<Entity.RegistryDateType,RegistryDateTypePM,IEntityPM,RegistryDateTypeList,string>
    {
    			
-        public RegistryDateTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RegistryDateTypeDataMapping();
-            Repository = new Repository<POCO.RegistryDateType>(mainContext);
-        }
-        public RegistryDateTypeUpdateService(int tenant) :  base( tenant)  
+        public RegistryDateTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RegistryDateTypeDataMapping();
-            Repository = new Repository<POCO.RegistryDateType>(tenant);
+            Repository = new Repository<Entity.RegistryDateType>(unitOfWork);
 		}
-        public RegistryDateTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RegistryDateType,string> GetKeys(RegistryDateTypePM entityPM) => new RegistryDateTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.RegistryDateType,string> GetKeys(RegistryDateTypePM entityPM) => new RegistryDateTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(RegistryDateTypePM entityPM)
 		{
 		}

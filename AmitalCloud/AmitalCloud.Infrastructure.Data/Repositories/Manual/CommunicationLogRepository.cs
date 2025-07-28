@@ -38,13 +38,13 @@ namespace AmitalCloud.Infrastructure.Data.Repositories
                      select a);
             q = q.Where(r => r.CreateDate > dateTime);//bad solution - need time !!!
             var log = q.FirstOrDefault();
-            if (log != null)
-            {
-                log.CommunicationStatusTypeCode = "D";
-                this.Update(log);
+            //if (log != null)
+            //{
+            //    log.CommunicationStatusTypeCode = "D";
+            //    this.Update(log);
 
-                this.SubmitChanges();
-            }
+            //    this.SubmitChanges();
+            //}
             return log;
 
         }

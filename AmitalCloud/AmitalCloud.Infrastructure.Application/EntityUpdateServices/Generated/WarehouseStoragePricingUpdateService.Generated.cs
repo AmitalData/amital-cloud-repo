@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class WarehouseStoragePricingUpdateService:BaseEntityUpdateService<POCO.WarehouseStoragePricing,WarehouseStoragePricingPM,WarehousePM,WarehouseStoragePricingList,string>
+   public partial class WarehouseStoragePricingUpdateService:BaseEntityUpdateService<Entity.WarehouseStoragePricing,WarehouseStoragePricingPM,WarehousePM,WarehouseStoragePricingList,string>
    {
    			
-        public WarehouseStoragePricingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new WarehouseStoragePricingDataMapping();
-            Repository = new Repository<POCO.WarehouseStoragePricing>(mainContext);
-        }
-        public WarehouseStoragePricingUpdateService(int tenant) :  base( tenant)  
+        public WarehouseStoragePricingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new WarehouseStoragePricingDataMapping();
-            Repository = new Repository<POCO.WarehouseStoragePricing>(tenant);
+            Repository = new Repository<Entity.WarehouseStoragePricing>(unitOfWork);
 		}
-        public WarehouseStoragePricingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.WarehouseStoragePricing,string> GetKeys(WarehouseStoragePricingPM entityPM) => new WarehouseStoragePricingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.WarehouseStoragePricing,string> GetKeys(WarehouseStoragePricingPM entityPM) => new WarehouseStoragePricingKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(WarehouseStoragePricingPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("WarehouseStoragePricing", entityPM.Tenant); 

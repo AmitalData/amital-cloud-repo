@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MonitorServiceLastUpdateUpdateService:BaseEntityUpdateService<POCO.MonitorServiceLastUpdate,MonitorServiceLastUpdatePM,IEntityPM,MonitorServiceLastUpdateList,string>
+   public partial class MonitorServiceLastUpdateUpdateService:BaseEntityUpdateService<Entity.MonitorServiceLastUpdate,MonitorServiceLastUpdatePM,IEntityPM,MonitorServiceLastUpdateList,string>
    {
    			
-        public MonitorServiceLastUpdateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MonitorServiceLastUpdateDataMapping();
-            Repository = new Repository<POCO.MonitorServiceLastUpdate>(mainContext);
-        }
-        public MonitorServiceLastUpdateUpdateService(int tenant) :  base( tenant)  
+        public MonitorServiceLastUpdateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MonitorServiceLastUpdateDataMapping();
-            Repository = new Repository<POCO.MonitorServiceLastUpdate>(tenant);
+            Repository = new Repository<Entity.MonitorServiceLastUpdate>(unitOfWork);
 		}
-        public MonitorServiceLastUpdateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MonitorServiceLastUpdate,string> GetKeys(MonitorServiceLastUpdatePM entityPM) => new MonitorServiceLastUpdateKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.MonitorServiceLastUpdate,string> GetKeys(MonitorServiceLastUpdatePM entityPM) => new MonitorServiceLastUpdateKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(MonitorServiceLastUpdatePM entityPM)
 		{
 		}

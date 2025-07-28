@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWQueryUpdateService:BaseEntityUpdateService<POCO.DWQuery,DWQueryPM,IEntityPM,DWQueryList,string>
+   public partial class DWQueryUpdateService:BaseEntityUpdateService<Entity.DWQuery,DWQueryPM,IEntityPM,DWQueryList,string>
    {
    			
-        public DWQueryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWQueryDataMapping();
-            Repository = new Repository<POCO.DWQuery>(mainContext);
-        }
-        public DWQueryUpdateService(int tenant) :  base( tenant)  
+        public DWQueryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWQueryDataMapping();
-            Repository = new Repository<POCO.DWQuery>(tenant);
+            Repository = new Repository<Entity.DWQuery>(unitOfWork);
 		}
-        public DWQueryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWQuery,string> GetKeys(DWQueryPM entityPM) => new DWQueryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWQuery,string> GetKeys(DWQueryPM entityPM) => new DWQueryKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWQueryPM entityPM)
 		{
 		}

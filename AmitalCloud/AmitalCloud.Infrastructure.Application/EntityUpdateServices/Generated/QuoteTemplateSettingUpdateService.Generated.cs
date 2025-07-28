@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QuoteTemplateSettingUpdateService:BaseEntityUpdateService<POCO.QuoteTemplateSetting,QuoteTemplateSettingPM,IEntityPM,QuoteTemplateSettingList,string>
+   public partial class QuoteTemplateSettingUpdateService:BaseEntityUpdateService<Entity.QuoteTemplateSetting,QuoteTemplateSettingPM,IEntityPM,QuoteTemplateSettingList,string>
    {
    			
-        public QuoteTemplateSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QuoteTemplateSettingDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateSetting>(mainContext);
-        }
-        public QuoteTemplateSettingUpdateService(int tenant) :  base( tenant)  
+        public QuoteTemplateSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QuoteTemplateSettingDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateSetting>(tenant);
+            Repository = new Repository<Entity.QuoteTemplateSetting>(unitOfWork);
 		}
-        public QuoteTemplateSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QuoteTemplateSetting,string> GetKeys(QuoteTemplateSettingPM entityPM) => new QuoteTemplateSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.QuoteTemplateSetting,string> GetKeys(QuoteTemplateSettingPM entityPM) => new QuoteTemplateSettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(QuoteTemplateSettingPM entityPM)
 		{
 		}

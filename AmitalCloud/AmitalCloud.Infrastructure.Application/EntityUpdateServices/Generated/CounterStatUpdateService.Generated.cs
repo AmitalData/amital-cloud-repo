@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CounterStatUpdateService:BaseEntityUpdateService<POCO.CounterStat,CounterStatPM,IEntityPM,CounterStatList,int>
+   public partial class CounterStatUpdateService:BaseEntityUpdateService<Entity.CounterStat,CounterStatPM,IEntityPM,CounterStatList,int>
    {
    			
-        public CounterStatUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CounterStatDataMapping();
-            Repository = new Repository<POCO.CounterStat>(mainContext);
-        }
-        public CounterStatUpdateService(int tenant) :  base( tenant)  
+        public CounterStatUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CounterStatDataMapping();
-            Repository = new Repository<POCO.CounterStat>(tenant);
+            Repository = new Repository<Entity.CounterStat>(unitOfWork);
 		}
-        public CounterStatUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CounterStat,int> GetKeys(CounterStatPM entityPM) => new CounterStatKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CounterStat,int> GetKeys(CounterStatPM entityPM) => new CounterStatKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CounterStatPM entityPM)
 		{
 		}

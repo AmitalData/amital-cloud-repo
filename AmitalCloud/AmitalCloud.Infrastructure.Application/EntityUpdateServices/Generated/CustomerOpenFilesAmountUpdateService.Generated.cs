@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerOpenFilesAmountUpdateService:BaseEntityUpdateService<POCO.CustomerOpenFilesAmount,CustomerOpenFilesAmountPM,IEntityPM,CustomerOpenFilesAmountList,string>
+   public partial class CustomerOpenFilesAmountUpdateService:BaseEntityUpdateService<Entity.CustomerOpenFilesAmount,CustomerOpenFilesAmountPM,IEntityPM,CustomerOpenFilesAmountList,string>
    {
    			
-        public CustomerOpenFilesAmountUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerOpenFilesAmountDataMapping();
-            Repository = new Repository<POCO.CustomerOpenFilesAmount>(mainContext);
-        }
-        public CustomerOpenFilesAmountUpdateService(int tenant) :  base( tenant)  
+        public CustomerOpenFilesAmountUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerOpenFilesAmountDataMapping();
-            Repository = new Repository<POCO.CustomerOpenFilesAmount>(tenant);
+            Repository = new Repository<Entity.CustomerOpenFilesAmount>(unitOfWork);
 		}
-        public CustomerOpenFilesAmountUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerOpenFilesAmount,string> GetKeys(CustomerOpenFilesAmountPM entityPM) => new CustomerOpenFilesAmountKeys<string>() { CustomerId = entityPM.CustomerId };
+		protected override IEntityKeyFields<Entity.CustomerOpenFilesAmount,string> GetKeys(CustomerOpenFilesAmountPM entityPM) => new CustomerOpenFilesAmountKeys<string>() { CustomerId = entityPM.CustomerId };
 protected override void FillDefaultValuesOnCreate(CustomerOpenFilesAmountPM entityPM)
 		{
 		}

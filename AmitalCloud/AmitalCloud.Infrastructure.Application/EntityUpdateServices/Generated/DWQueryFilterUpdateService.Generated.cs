@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DWQueryFilterUpdateService:BaseEntityUpdateService<POCO.DWQueryFilter,DWQueryFilterPM,IEntityPM,DWQueryFilterList,string>
+   public partial class DWQueryFilterUpdateService:BaseEntityUpdateService<Entity.DWQueryFilter,DWQueryFilterPM,IEntityPM,DWQueryFilterList,string>
    {
    			
-        public DWQueryFilterUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DWQueryFilterDataMapping();
-            Repository = new Repository<POCO.DWQueryFilter>(mainContext);
-        }
-        public DWQueryFilterUpdateService(int tenant) :  base( tenant)  
+        public DWQueryFilterUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DWQueryFilterDataMapping();
-            Repository = new Repository<POCO.DWQueryFilter>(tenant);
+            Repository = new Repository<Entity.DWQueryFilter>(unitOfWork);
 		}
-        public DWQueryFilterUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DWQueryFilter,string> GetKeys(DWQueryFilterPM entityPM) => new DWQueryFilterKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DWQueryFilter,string> GetKeys(DWQueryFilterPM entityPM) => new DWQueryFilterKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DWQueryFilterPM entityPM)
 		{
 		}

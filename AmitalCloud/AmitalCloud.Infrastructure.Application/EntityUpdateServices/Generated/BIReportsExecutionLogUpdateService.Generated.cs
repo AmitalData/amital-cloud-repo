@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BIReportsExecutionLogUpdateService:BaseEntityUpdateService<POCO.BIReportsExecutionLog,BIReportsExecutionLogPM,IEntityPM,BIReportsExecutionLogList,string>
+   public partial class BIReportsExecutionLogUpdateService:BaseEntityUpdateService<Entity.BIReportsExecutionLog,BIReportsExecutionLogPM,IEntityPM,BIReportsExecutionLogList,string>
    {
    			
-        public BIReportsExecutionLogUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BIReportsExecutionLogDataMapping();
-            Repository = new Repository<POCO.BIReportsExecutionLog>(mainContext);
-        }
-        public BIReportsExecutionLogUpdateService(int tenant) :  base( tenant)  
+        public BIReportsExecutionLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BIReportsExecutionLogDataMapping();
-            Repository = new Repository<POCO.BIReportsExecutionLog>(tenant);
+            Repository = new Repository<Entity.BIReportsExecutionLog>(unitOfWork);
 		}
-        public BIReportsExecutionLogUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BIReportsExecutionLog,string> GetKeys(BIReportsExecutionLogPM entityPM) => new BIReportsExecutionLogKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BIReportsExecutionLog,string> GetKeys(BIReportsExecutionLogPM entityPM) => new BIReportsExecutionLogKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BIReportsExecutionLogPM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

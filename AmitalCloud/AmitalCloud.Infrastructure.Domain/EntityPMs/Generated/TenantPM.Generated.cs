@@ -188,14 +188,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private PaymentTermPM _paymentterm;
-		
-        [DataMember]
-        public virtual PaymentTermPM PaymentTerm 
-		{ 
-		get { return _paymentterm; } 
-		set { _paymentterm = value; }
-		}
 	  private string _agentId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

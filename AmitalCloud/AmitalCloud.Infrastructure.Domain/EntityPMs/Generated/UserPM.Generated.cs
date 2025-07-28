@@ -141,14 +141,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private CardPM _freelancer;
-		
-        [DataMember]
-        public virtual CardPM Freelancer 
-		{ 
-		get { return _freelancer; } 
-		set { _freelancer = value; }
-		}
 	  private string _email ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -213,6 +205,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private DepartmentPM _department;
+		
+        [DataMember]
+        public virtual DepartmentPM Department 
+		{ 
+		get { return _department; } 
+		set { _department = value; }
+		}
 	  private string _branchId ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -229,6 +229,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private BranchPM _branch;
+		
+        [DataMember]
+        public virtual BranchPM Branch 
+		{ 
+		get { return _branch; } 
+		set { _branch = value; }
+		}
 	  private bool _inActive ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -413,6 +421,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private ProductTypePM _producttype;
+		
+        [DataMember]
+        public virtual ProductTypePM ProductType 
+		{ 
+		get { return _producttype; } 
+		set { _producttype = value; }
+		}
 	  private string _productTypeName ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -533,6 +549,22 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+	  private string _facebookId ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string FacebookId  
+	   {
+	     get { return _facebookId; }
+		 set
+		 {
+		   if(_facebookId != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="FacebookId",OldValue=_facebookId,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _facebookId=value;
+		   }
+		 }
+	   }
 	  private string _businessPhone ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]
@@ -562,6 +594,54 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Mobile",OldValue=_mobile,NewValue=value,PropertyType="string"};
 		    NotifyPropertyChanged(values);
 		   _mobile=value;
+		   }
+		 }
+	   }
+	  private string _fax ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public string Fax  
+	   {
+	     get { return _fax; }
+		 set
+		 {
+		   if(_fax != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Fax",OldValue=_fax,NewValue=value,PropertyType="string"};
+		    NotifyPropertyChanged(values);
+		   _fax=value;
+		   }
+		 }
+	   }
+	  private DateTime _birthday ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public DateTime Birthday  
+	   {
+	     get { return _birthday; }
+		 set
+		 {
+		   if(_birthday != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Birthday",OldValue=_birthday,NewValue=value,PropertyType="DateTime"};
+		    NotifyPropertyChanged(values);
+		   _birthday=value;
+		   }
+		 }
+	   }
+	  private DateTime _anniversary ;
+	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
+	   [DataMember]
+       public DateTime Anniversary  
+	   {
+	     get { return _anniversary; }
+		 set
+		 {
+		   if(_anniversary != value)
+		   {
+		    NotifyPropertyChangeValues values=new NotifyPropertyChangeValues(){PropertyName="Anniversary",OldValue=_anniversary,NewValue=value,PropertyType="DateTime"};
+		    NotifyPropertyChanged(values);
+		   _anniversary=value;
 		   }
 		 }
 	   }

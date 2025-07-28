@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CounterDefinitionUpdateService:BaseEntityUpdateService<POCO.CounterDefinition,CounterDefinitionPM,IEntityPM,CounterDefinitionList,string>
+   public partial class CounterDefinitionUpdateService:BaseEntityUpdateService<Entity.CounterDefinition,CounterDefinitionPM,IEntityPM,CounterDefinitionList,string>
    {
    			
-        public CounterDefinitionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CounterDefinitionDataMapping();
-            Repository = new Repository<POCO.CounterDefinition>(mainContext);
-        }
-        public CounterDefinitionUpdateService(int tenant) :  base( tenant)  
+        public CounterDefinitionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CounterDefinitionDataMapping();
-            Repository = new Repository<POCO.CounterDefinition>(tenant);
+            Repository = new Repository<Entity.CounterDefinition>(unitOfWork);
 		}
-        public CounterDefinitionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CounterDefinition,string> GetKeys(CounterDefinitionPM entityPM) => new CounterDefinitionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CounterDefinition,string> GetKeys(CounterDefinitionPM entityPM) => new CounterDefinitionKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CounterDefinitionPM entityPM)
 		{
 		}

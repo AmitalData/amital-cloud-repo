@@ -76,14 +76,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private ContactPM _contact;
-		
-        [DataMember]
-        public virtual ContactPM Contact 
-		{ 
-		get { return _contact; } 
-		set { _contact = value; }
-		}
 	  private DateTime? _gMTDateTime ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

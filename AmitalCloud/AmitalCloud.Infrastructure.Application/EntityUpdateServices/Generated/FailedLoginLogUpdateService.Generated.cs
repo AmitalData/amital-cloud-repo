@@ -25,14 +25,11 @@ namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
    public partial class FailedLoginLogUpdateService:BaseEntityUpdateService<POCO.FailedLoginLog,FailedLoginLogPM,IEntityPM,FailedLoginLogList,string>
    {
    			
-        public FailedLoginLogUpdateService(ISystemLogContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base((SystemLogContext)mainContext,additionalContexts, tenant)
+        public FailedLoginLogUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             Mapping = new FailedLoginLogDataMapping();
-            Repository = new Repository<POCO.FailedLoginLog>((SystemLogContext)mainContext);
+            Repository = new Repository<POCO.FailedLoginLog>(unitOfWork);
         }
-        public FailedLoginLogUpdateService(int tenant) : this(SystemLogContext.GetContext(tenant), null, tenant) {}
-        public FailedLoginLogUpdateService(ISystemLogContext context) :  this(context, null, 0) {}
 		protected override IEntityKeyFields<POCO.FailedLoginLog,string> GetKeys(FailedLoginLogPM entityPM) => new FailedLoginLogKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FailedLoginLogPM entityPM)
 		{

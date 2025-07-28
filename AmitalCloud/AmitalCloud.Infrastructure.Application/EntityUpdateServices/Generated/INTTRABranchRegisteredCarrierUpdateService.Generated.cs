@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class INTTRABranchRegisteredCarrierUpdateService:BaseEntityUpdateService<POCO.INTTRABranchRegisteredCarrier,INTTRABranchRegisteredCarrierPM,IEntityPM,INTTRABranchRegisteredCarrierList,string>
+   public partial class INTTRABranchRegisteredCarrierUpdateService:BaseEntityUpdateService<Entity.INTTRABranchRegisteredCarrier,INTTRABranchRegisteredCarrierPM,IEntityPM,INTTRABranchRegisteredCarrierList,string>
    {
    			
-        public INTTRABranchRegisteredCarrierUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new INTTRABranchRegisteredCarrierDataMapping();
-            Repository = new Repository<POCO.INTTRABranchRegisteredCarrier>(mainContext);
-        }
-        public INTTRABranchRegisteredCarrierUpdateService(int tenant) :  base( tenant)  
+        public INTTRABranchRegisteredCarrierUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new INTTRABranchRegisteredCarrierDataMapping();
-            Repository = new Repository<POCO.INTTRABranchRegisteredCarrier>(tenant);
+            Repository = new Repository<Entity.INTTRABranchRegisteredCarrier>(unitOfWork);
 		}
-        public INTTRABranchRegisteredCarrierUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.INTTRABranchRegisteredCarrier,string> GetKeys(INTTRABranchRegisteredCarrierPM entityPM) => new INTTRABranchRegisteredCarrierKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.INTTRABranchRegisteredCarrier,string> GetKeys(INTTRABranchRegisteredCarrierPM entityPM) => new INTTRABranchRegisteredCarrierKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(INTTRABranchRegisteredCarrierPM entityPM)
 		{
 		}

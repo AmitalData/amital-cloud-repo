@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerTeamUpdateService:BaseEntityUpdateService<POCO.CustomerTeam,CustomerTeamPM,IEntityPM,CustomerTeamList,string>
+   public partial class CustomerTeamUpdateService:BaseEntityUpdateService<Entity.CustomerTeam,CustomerTeamPM,IEntityPM,CustomerTeamList,string>
    {
    			
-        public CustomerTeamUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerTeamDataMapping();
-            Repository = new Repository<POCO.CustomerTeam>(mainContext);
-        }
-        public CustomerTeamUpdateService(int tenant) :  base( tenant)  
+        public CustomerTeamUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerTeamDataMapping();
-            Repository = new Repository<POCO.CustomerTeam>(tenant);
+            Repository = new Repository<Entity.CustomerTeam>(unitOfWork);
 		}
-        public CustomerTeamUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerTeam,string> GetKeys(CustomerTeamPM entityPM) => new CustomerTeamKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerTeam,string> GetKeys(CustomerTeamPM entityPM) => new CustomerTeamKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CustomerTeamPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CustomerTeam", entityPM.Tenant); 

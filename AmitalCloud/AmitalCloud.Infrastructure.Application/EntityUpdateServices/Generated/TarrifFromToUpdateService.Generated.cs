@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TarrifFromToUpdateService:BaseEntityUpdateService<POCO.TarrifFromTo,TarrifFromToPM,TarrifHeaderPM,TarrifFromToList,string>
+   public partial class TarrifFromToUpdateService:BaseEntityUpdateService<Entity.TarrifFromTo,TarrifFromToPM,TarrifHeaderPM,TarrifFromToList,string>
    {
    			
-        public TarrifFromToUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TarrifFromToDataMapping();
-            Repository = new Repository<POCO.TarrifFromTo>(mainContext);
-        }
-        public TarrifFromToUpdateService(int tenant) :  base( tenant)  
+        public TarrifFromToUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TarrifFromToDataMapping();
-            Repository = new Repository<POCO.TarrifFromTo>(tenant);
+            Repository = new Repository<Entity.TarrifFromTo>(unitOfWork);
 		}
-        public TarrifFromToUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TarrifFromTo,string> GetKeys(TarrifFromToPM entityPM) => new TarrifFromToKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TarrifFromTo,string> GetKeys(TarrifFromToPM entityPM) => new TarrifFromToKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TarrifFromToPM entityPM)
 		{
 		}

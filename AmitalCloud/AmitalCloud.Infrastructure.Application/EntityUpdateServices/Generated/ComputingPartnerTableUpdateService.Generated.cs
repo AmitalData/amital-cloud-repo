@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ComputingPartnerTableUpdateService:BaseEntityUpdateService<POCO.ComputingPartnerTable,ComputingPartnerTablePM,ComputingPartnerPM,ComputingPartnerTableList,string>
+   public partial class ComputingPartnerTableUpdateService:BaseEntityUpdateService<Entity.ComputingPartnerTable,ComputingPartnerTablePM,ComputingPartnerPM,ComputingPartnerTableList,string>
    {
    			
-        public ComputingPartnerTableUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ComputingPartnerTableDataMapping();
-            Repository = new Repository<POCO.ComputingPartnerTable>(mainContext);
-        }
-        public ComputingPartnerTableUpdateService(int tenant) :  base( tenant)  
+        public ComputingPartnerTableUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ComputingPartnerTableDataMapping();
-            Repository = new Repository<POCO.ComputingPartnerTable>(tenant);
+            Repository = new Repository<Entity.ComputingPartnerTable>(unitOfWork);
 		}
-        public ComputingPartnerTableUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ComputingPartnerTable,string> GetKeys(ComputingPartnerTablePM entityPM) => new ComputingPartnerTableKeys<string>() { Tenant = entityPM.Tenant, ObjectTableId = entityPM.ObjectTableId, ComputingPartnerId = entityPM.ComputingPartnerId };
+		protected override IEntityKeyFields<Entity.ComputingPartnerTable,string> GetKeys(ComputingPartnerTablePM entityPM) => new ComputingPartnerTableKeys<string>() { Tenant = entityPM.Tenant, ObjectTableId = entityPM.ObjectTableId, ComputingPartnerId = entityPM.ComputingPartnerId };
 protected override void FillDefaultValuesOnCreate(ComputingPartnerTablePM entityPM)
 		{
 		}

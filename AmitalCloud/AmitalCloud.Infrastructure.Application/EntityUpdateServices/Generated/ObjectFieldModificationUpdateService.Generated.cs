@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectFieldModificationUpdateService:BaseEntityUpdateService<POCO.ObjectFieldModification,ObjectFieldModificationPM,IEntityPM,ObjectFieldModificationList,string>
+   public partial class ObjectFieldModificationUpdateService:BaseEntityUpdateService<Entity.ObjectFieldModification,ObjectFieldModificationPM,IEntityPM,ObjectFieldModificationList,string>
    {
    			
-        public ObjectFieldModificationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectFieldModificationDataMapping();
-            Repository = new Repository<POCO.ObjectFieldModification>(mainContext);
-        }
-        public ObjectFieldModificationUpdateService(int tenant) :  base( tenant)  
+        public ObjectFieldModificationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectFieldModificationDataMapping();
-            Repository = new Repository<POCO.ObjectFieldModification>(tenant);
+            Repository = new Repository<Entity.ObjectFieldModification>(unitOfWork);
 		}
-        public ObjectFieldModificationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectFieldModification,string> GetKeys(ObjectFieldModificationPM entityPM) => new ObjectFieldModificationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectFieldModification,string> GetKeys(ObjectFieldModificationPM entityPM) => new ObjectFieldModificationKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectFieldModificationPM entityPM)
 		{
 		}

@@ -149,14 +149,6 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
-		private PartnerTypePM _partnertype;
-		
-        [DataMember]
-        public virtual PartnerTypePM PartnerType 
-		{ 
-		get { return _partnertype; } 
-		set { _partnertype = value; }
-		}
 	  private bool _isChoose ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

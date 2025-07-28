@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QuoteTemplateSectionUpdateService:BaseEntityUpdateService<POCO.QuoteTemplateSection,QuoteTemplateSectionPM,IEntityPM,QuoteTemplateSectionList,string>
+   public partial class QuoteTemplateSectionUpdateService:BaseEntityUpdateService<Entity.QuoteTemplateSection,QuoteTemplateSectionPM,IEntityPM,QuoteTemplateSectionList,string>
    {
    			
-        public QuoteTemplateSectionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QuoteTemplateSectionDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateSection>(mainContext);
-        }
-        public QuoteTemplateSectionUpdateService(int tenant) :  base( tenant)  
+        public QuoteTemplateSectionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QuoteTemplateSectionDataMapping();
-            Repository = new Repository<POCO.QuoteTemplateSection>(tenant);
+            Repository = new Repository<Entity.QuoteTemplateSection>(unitOfWork);
 		}
-        public QuoteTemplateSectionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QuoteTemplateSection,string> GetKeys(QuoteTemplateSectionPM entityPM) => new QuoteTemplateSectionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.QuoteTemplateSection,string> GetKeys(QuoteTemplateSectionPM entityPM) => new QuoteTemplateSectionKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(QuoteTemplateSectionPM entityPM)
 		{
 		}

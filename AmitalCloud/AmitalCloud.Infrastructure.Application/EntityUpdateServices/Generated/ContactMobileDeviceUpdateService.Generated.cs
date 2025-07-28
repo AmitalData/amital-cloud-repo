@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ContactMobileDeviceUpdateService:BaseEntityUpdateService<POCO.ContactMobileDevice,ContactMobileDevicePM,IEntityPM,ContactMobileDeviceList,string>
+   public partial class ContactMobileDeviceUpdateService:BaseEntityUpdateService<Entity.ContactMobileDevice,ContactMobileDevicePM,IEntityPM,ContactMobileDeviceList,string>
    {
    			
-        public ContactMobileDeviceUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ContactMobileDeviceDataMapping();
-            Repository = new Repository<POCO.ContactMobileDevice>(mainContext);
-        }
-        public ContactMobileDeviceUpdateService(int tenant) :  base( tenant)  
+        public ContactMobileDeviceUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ContactMobileDeviceDataMapping();
-            Repository = new Repository<POCO.ContactMobileDevice>(tenant);
+            Repository = new Repository<Entity.ContactMobileDevice>(unitOfWork);
 		}
-        public ContactMobileDeviceUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ContactMobileDevice,string> GetKeys(ContactMobileDevicePM entityPM) => new ContactMobileDeviceKeys<string>() { DeviceId = entityPM.DeviceId };
+		protected override IEntityKeyFields<Entity.ContactMobileDevice,string> GetKeys(ContactMobileDevicePM entityPM) => new ContactMobileDeviceKeys<string>() { DeviceId = entityPM.DeviceId };
 protected override void FillDefaultValuesOnCreate(ContactMobileDevicePM entityPM)
 		{
 		}

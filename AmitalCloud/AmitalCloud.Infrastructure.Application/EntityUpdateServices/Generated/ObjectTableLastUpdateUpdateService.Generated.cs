@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectTableLastUpdateUpdateService:BaseEntityUpdateService<POCO.ObjectTableLastUpdate,ObjectTableLastUpdatePM,IEntityPM,ObjectTableLastUpdateList,string>
+   public partial class ObjectTableLastUpdateUpdateService:BaseEntityUpdateService<Entity.ObjectTableLastUpdate,ObjectTableLastUpdatePM,IEntityPM,ObjectTableLastUpdateList,string>
    {
    			
-        public ObjectTableLastUpdateUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectTableLastUpdateDataMapping();
-            Repository = new Repository<POCO.ObjectTableLastUpdate>(mainContext);
-        }
-        public ObjectTableLastUpdateUpdateService(int tenant) :  base( tenant)  
+        public ObjectTableLastUpdateUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectTableLastUpdateDataMapping();
-            Repository = new Repository<POCO.ObjectTableLastUpdate>(tenant);
+            Repository = new Repository<Entity.ObjectTableLastUpdate>(unitOfWork);
 		}
-        public ObjectTableLastUpdateUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectTableLastUpdate,string> GetKeys(ObjectTableLastUpdatePM entityPM) => new ObjectTableLastUpdateKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ObjectTableLastUpdate,string> GetKeys(ObjectTableLastUpdatePM entityPM) => new ObjectTableLastUpdateKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ObjectTableLastUpdatePM entityPM)
 		{
 		}

@@ -48,7 +48,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
             }
             this.Tenant = tenant;
             this.QueueCode = queueCode;
-            using (var uow = new UnitOfWork<AmitalCloudContext>(tenant))
+            using (var uow = new UnitOfWork(tenant))
             {
                 //IRepository<IAmitalCloudContext,QueueMessage, string> messagesRepository = new Repository<QueueMessage, string>(uow);
                 //IRepository<IAmitalCloudContext,QueueMessageMoreDetails, string> messagesMoreDetailsRepository = new Repository<QueueMessageMoreDetails, string>(uow);

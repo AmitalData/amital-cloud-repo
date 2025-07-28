@@ -41,7 +41,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
             {
                 return;
             }
-            using (var uow = new UnitOfWork<AmitalCloudContext>(fileInfo.Tenant))
+            using (var uow = new UnitOfWork(fileInfo.Tenant))
             {
                 IRepository<BlobFile> repo = new Repository<BlobFile>(uow);
                 BlobFile file = repo.GetMulti(a => a.Id == fileInfo.FileName).FirstOrDefault();
@@ -73,7 +73,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
                 return;
             }
 
-            using (var uow = new UnitOfWork<AmitalCloudContext>(fileInfo.Tenant))
+            using (var uow = new UnitOfWork(fileInfo.Tenant))
             {
                 IRepository<BlobFile> repo = new Repository<BlobFile>(uow);
                 BlobFile file = GetBlobFile(fileInfo, repo);//  blobFileRepository.GetSingleBlobFile(fileInfo.FileName);
@@ -111,7 +111,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
             {
                 return;
             }
-            using (var uow = new UnitOfWork<AmitalCloudContext>(fileInfo.Tenant))
+            using (var uow = new UnitOfWork(fileInfo.Tenant))
             {
                 IRepository<BlobFile> repo = new Repository<BlobFile>(uow);
                 BlobFile file = GetBlobFile(fileInfo, repo);
@@ -139,7 +139,7 @@ namespace AmitalCloud.Infrastructure.Data.Services
 
         public void AppendText(string text, BlobFileInfo fileInfo)
         {
-            using (var uow = new UnitOfWork<AmitalCloudContext>(fileInfo.Tenant))
+            using (var uow = new UnitOfWork(fileInfo.Tenant))
             {
                 IRepository<BlobFile> repo = new Repository<BlobFile>(uow);
 

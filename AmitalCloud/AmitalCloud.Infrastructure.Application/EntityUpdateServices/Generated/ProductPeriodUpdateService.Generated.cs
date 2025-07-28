@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ProductPeriodUpdateService:BaseEntityUpdateService<POCO.ProductPeriod,ProductPeriodPM,IEntityPM,ProductPeriodList,string>
+   public partial class ProductPeriodUpdateService:BaseEntityUpdateService<Entity.ProductPeriod,ProductPeriodPM,IEntityPM,ProductPeriodList,string>
    {
    			
-        public ProductPeriodUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ProductPeriodDataMapping();
-            Repository = new Repository<POCO.ProductPeriod>(mainContext);
-        }
-        public ProductPeriodUpdateService(int tenant) :  base( tenant)  
+        public ProductPeriodUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ProductPeriodDataMapping();
-            Repository = new Repository<POCO.ProductPeriod>(tenant);
+            Repository = new Repository<Entity.ProductPeriod>(unitOfWork);
 		}
-        public ProductPeriodUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ProductPeriod,string> GetKeys(ProductPeriodPM entityPM) => new ProductPeriodKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.ProductPeriod,string> GetKeys(ProductPeriodPM entityPM) => new ProductPeriodKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(ProductPeriodPM entityPM)
 		{
 		}

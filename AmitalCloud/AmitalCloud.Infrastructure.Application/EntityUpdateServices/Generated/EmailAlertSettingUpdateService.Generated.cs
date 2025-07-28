@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EmailAlertSettingUpdateService:BaseEntityUpdateService<POCO.EmailAlertSetting,EmailAlertSettingPM,IEntityPM,EmailAlertSettingList,string>
+   public partial class EmailAlertSettingUpdateService:BaseEntityUpdateService<Entity.EmailAlertSetting,EmailAlertSettingPM,IEntityPM,EmailAlertSettingList,string>
    {
    			
-        public EmailAlertSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EmailAlertSettingDataMapping();
-            Repository = new Repository<POCO.EmailAlertSetting>(mainContext);
-        }
-        public EmailAlertSettingUpdateService(int tenant) :  base( tenant)  
+        public EmailAlertSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EmailAlertSettingDataMapping();
-            Repository = new Repository<POCO.EmailAlertSetting>(tenant);
+            Repository = new Repository<Entity.EmailAlertSetting>(unitOfWork);
 		}
-        public EmailAlertSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EmailAlertSetting,string> GetKeys(EmailAlertSettingPM entityPM) => new EmailAlertSettingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.EmailAlertSetting,string> GetKeys(EmailAlertSettingPM entityPM) => new EmailAlertSettingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(EmailAlertSettingPM entityPM)
 		{
 		}

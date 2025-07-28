@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 {
    public class CardUpdateClass
    {  		
-		public const string HashString = "5b184e8ab58a1e0340b04ff73b7979c0";
+		public const string HashString = "88ae746a95a5e08d46aa1d0ddb3c7d80";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -1060,6 +1060,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						IsForeignKey =  true,
 					  						ForeignEntity =  "User",
 					  						NavigationPropertyName =  "SalesmanUser",
+					  						TableRelatedPM =  Customer,
+					  						FieldRelatedPM =  SalesmanUserId,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

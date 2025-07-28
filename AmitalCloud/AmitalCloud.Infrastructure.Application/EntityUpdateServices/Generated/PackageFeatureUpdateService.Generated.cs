@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PackageFeatureUpdateService:BaseEntityUpdateService<POCO.PackageFeature,PackageFeaturePM,IEntityPM,PackageFeatureList,string>
+   public partial class PackageFeatureUpdateService:BaseEntityUpdateService<Entity.PackageFeature,PackageFeaturePM,IEntityPM,PackageFeatureList,string>
    {
    			
-        public PackageFeatureUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PackageFeatureDataMapping();
-            Repository = new Repository<POCO.PackageFeature>(mainContext);
-        }
-        public PackageFeatureUpdateService(int tenant) :  base( tenant)  
+        public PackageFeatureUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PackageFeatureDataMapping();
-            Repository = new Repository<POCO.PackageFeature>(tenant);
+            Repository = new Repository<Entity.PackageFeature>(unitOfWork);
 		}
-        public PackageFeatureUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PackageFeature,string> GetKeys(PackageFeaturePM entityPM) => new PackageFeatureKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PackageFeature,string> GetKeys(PackageFeaturePM entityPM) => new PackageFeatureKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PackageFeaturePM entityPM)
 		{
 		}

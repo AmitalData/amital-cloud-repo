@@ -141,6 +141,14 @@ namespace AmitalCloud.Infrastructure.Domain.EntityPMs
 		   }
 		 }
 	   }
+		private ImageDetailPM _imagedetail;
+		
+        [DataMember]
+        public virtual ImageDetailPM ImageDetail 
+		{ 
+		get { return _imagedetail; } 
+		set { _imagedetail = value; }
+		}
 	  private bool _dontShowLocalLabels ;
 	  	   [CustomValidation(typeof(IInfrastructureValidationClass), "ValidateClass")]
 	   [DataMember]

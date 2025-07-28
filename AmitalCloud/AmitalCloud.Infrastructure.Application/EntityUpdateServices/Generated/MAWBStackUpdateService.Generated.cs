@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class MAWBStackUpdateService:BaseEntityUpdateService<POCO.MAWBStack,MAWBStackPM,IEntityPM,MAWBStackList,string>
+   public partial class MAWBStackUpdateService:BaseEntityUpdateService<Entity.MAWBStack,MAWBStackPM,IEntityPM,MAWBStackList,string>
    {
    			
-        public MAWBStackUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new MAWBStackDataMapping();
-            Repository = new Repository<POCO.MAWBStack>(mainContext);
-        }
-        public MAWBStackUpdateService(int tenant) :  base( tenant)  
+        public MAWBStackUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new MAWBStackDataMapping();
-            Repository = new Repository<POCO.MAWBStack>(tenant);
+            Repository = new Repository<Entity.MAWBStack>(unitOfWork);
 		}
-        public MAWBStackUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.MAWBStack,string> GetKeys(MAWBStackPM entityPM) => new MAWBStackKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.MAWBStack,string> GetKeys(MAWBStackPM entityPM) => new MAWBStackKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(MAWBStackPM entityPM)
 		{
 		}

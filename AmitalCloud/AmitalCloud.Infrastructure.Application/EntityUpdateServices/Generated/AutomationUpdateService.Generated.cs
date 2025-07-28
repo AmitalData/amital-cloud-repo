@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AutomationUpdateService:BaseEntityUpdateService<POCO.Automation,AutomationPM,IEntityPM,AutomationList,string>
+   public partial class AutomationUpdateService:BaseEntityUpdateService<Entity.Automation,AutomationPM,IEntityPM,AutomationList,string>
    {
    			
-        public AutomationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AutomationDataMapping();
-            Repository = new Repository<POCO.Automation>(mainContext);
-        }
-        public AutomationUpdateService(int tenant) :  base( tenant)  
+        public AutomationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AutomationDataMapping();
-            Repository = new Repository<POCO.Automation>(tenant);
+            Repository = new Repository<Entity.Automation>(unitOfWork);
 		}
-        public AutomationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Automation,string> GetKeys(AutomationPM entityPM) => new AutomationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Automation,string> GetKeys(AutomationPM entityPM) => new AutomationKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(AutomationPM entityPM)
 		{
 		}

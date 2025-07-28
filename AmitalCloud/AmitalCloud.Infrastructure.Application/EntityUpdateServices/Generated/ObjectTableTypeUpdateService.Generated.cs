@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ObjectTableTypeUpdateService:BaseEntityUpdateService<POCO.ObjectTableType,ObjectTableTypePM,IEntityPM,ObjectTableTypeList,string>
+   public partial class ObjectTableTypeUpdateService:BaseEntityUpdateService<Entity.ObjectTableType,ObjectTableTypePM,IEntityPM,ObjectTableTypeList,string>
    {
    			
-        public ObjectTableTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ObjectTableTypeDataMapping();
-            Repository = new Repository<POCO.ObjectTableType>(mainContext);
-        }
-        public ObjectTableTypeUpdateService(int tenant) :  base( tenant)  
+        public ObjectTableTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ObjectTableTypeDataMapping();
-            Repository = new Repository<POCO.ObjectTableType>(tenant);
+            Repository = new Repository<Entity.ObjectTableType>(unitOfWork);
 		}
-        public ObjectTableTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ObjectTableType,string> GetKeys(ObjectTableTypePM entityPM) => new ObjectTableTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.ObjectTableType,string> GetKeys(ObjectTableTypePM entityPM) => new ObjectTableTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(ObjectTableTypePM entityPM)
 		{
 		}

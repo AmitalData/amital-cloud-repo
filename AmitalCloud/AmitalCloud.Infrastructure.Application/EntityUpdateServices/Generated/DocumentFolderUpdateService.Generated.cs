@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentFolderUpdateService:BaseEntityUpdateService<POCO.DocumentFolder,DocumentFolderPM,IEntityPM,DocumentFolderList,string>
+   public partial class DocumentFolderUpdateService:BaseEntityUpdateService<Entity.DocumentFolder,DocumentFolderPM,IEntityPM,DocumentFolderList,string>
    {
    			
-        public DocumentFolderUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentFolderDataMapping();
-            Repository = new Repository<POCO.DocumentFolder>(mainContext);
-        }
-        public DocumentFolderUpdateService(int tenant) :  base( tenant)  
+        public DocumentFolderUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentFolderDataMapping();
-            Repository = new Repository<POCO.DocumentFolder>(tenant);
+            Repository = new Repository<Entity.DocumentFolder>(unitOfWork);
 		}
-        public DocumentFolderUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentFolder,string> GetKeys(DocumentFolderPM entityPM) => new DocumentFolderKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DocumentFolder,string> GetKeys(DocumentFolderPM entityPM) => new DocumentFolderKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(DocumentFolderPM entityPM)
 		{
 		}

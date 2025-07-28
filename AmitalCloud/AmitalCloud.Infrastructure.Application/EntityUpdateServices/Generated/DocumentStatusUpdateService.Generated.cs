@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DocumentStatusUpdateService:BaseEntityUpdateService<POCO.DocumentStatus,DocumentStatusPM,IEntityPM,DocumentStatusList,string>
+   public partial class DocumentStatusUpdateService:BaseEntityUpdateService<Entity.DocumentStatus,DocumentStatusPM,IEntityPM,DocumentStatusList,string>
    {
    			
-        public DocumentStatusUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DocumentStatusDataMapping();
-            Repository = new Repository<POCO.DocumentStatus>(mainContext);
-        }
-        public DocumentStatusUpdateService(int tenant) :  base( tenant)  
+        public DocumentStatusUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DocumentStatusDataMapping();
-            Repository = new Repository<POCO.DocumentStatus>(tenant);
+            Repository = new Repository<Entity.DocumentStatus>(unitOfWork);
 		}
-        public DocumentStatusUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DocumentStatus,string> GetKeys(DocumentStatusPM entityPM) => new DocumentStatusKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.DocumentStatus,string> GetKeys(DocumentStatusPM entityPM) => new DocumentStatusKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(DocumentStatusPM entityPM)
 		{
 		}

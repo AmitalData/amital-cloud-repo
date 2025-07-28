@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ShippingAgentUpdateService:BaseEntityUpdateService<POCO.ShippingAgent,ShippingAgentPM,IEntityPM,ShippingAgentList,string>
+   public partial class ShippingAgentUpdateService:BaseEntityUpdateService<Entity.ShippingAgent,ShippingAgentPM,IEntityPM,ShippingAgentList,string>
    {
    			
-        public ShippingAgentUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ShippingAgentDataMapping();
-            Repository = new Repository<POCO.ShippingAgent>(mainContext);
-        }
-        public ShippingAgentUpdateService(int tenant) :  base( tenant)  
+        public ShippingAgentUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ShippingAgentDataMapping();
-            Repository = new Repository<POCO.ShippingAgent>(tenant);
+            Repository = new Repository<Entity.ShippingAgent>(unitOfWork);
 		}
-        public ShippingAgentUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ShippingAgent,string> GetKeys(ShippingAgentPM entityPM) => new ShippingAgentKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ShippingAgent,string> GetKeys(ShippingAgentPM entityPM) => new ShippingAgentKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ShippingAgentPM entityPM)
 		{
 		}

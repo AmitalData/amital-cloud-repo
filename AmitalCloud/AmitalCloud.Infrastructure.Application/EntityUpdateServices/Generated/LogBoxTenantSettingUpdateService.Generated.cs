@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class LogBoxTenantSettingUpdateService:BaseEntityUpdateService<POCO.LogBoxTenantSetting,LogBoxTenantSettingPM,IEntityPM,LogBoxTenantSettingList,int>
+   public partial class LogBoxTenantSettingUpdateService:BaseEntityUpdateService<Entity.LogBoxTenantSetting,LogBoxTenantSettingPM,IEntityPM,LogBoxTenantSettingList,int>
    {
    			
-        public LogBoxTenantSettingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new LogBoxTenantSettingDataMapping();
-            Repository = new Repository<POCO.LogBoxTenantSetting>(mainContext);
-        }
-        public LogBoxTenantSettingUpdateService(int tenant) :  base( tenant)  
+        public LogBoxTenantSettingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new LogBoxTenantSettingDataMapping();
-            Repository = new Repository<POCO.LogBoxTenantSetting>(tenant);
+            Repository = new Repository<Entity.LogBoxTenantSetting>(unitOfWork);
 		}
-        public LogBoxTenantSettingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.LogBoxTenantSetting,int> GetKeys(LogBoxTenantSettingPM entityPM) => new LogBoxTenantSettingKeys<int>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.LogBoxTenantSetting,int> GetKeys(LogBoxTenantSettingPM entityPM) => new LogBoxTenantSettingKeys<int>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(LogBoxTenantSettingPM entityPM)
 		{
 		}

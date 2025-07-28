@@ -23,18 +23,6 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             {
                 return;
             }
-            if (!String.IsNullOrWhiteSpace(entityPM.DropCdropName)) //T4 find type == nText 
-            {
-                entityPM.DropCdropName = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.DropCdropName));
-            }
-            if (!String.IsNullOrWhiteSpace(entityPM.DropCdropSearchfields)) //T4 find type == nText 
-            {
-                entityPM.DropCdropSearchfields = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.DropCdropSearchfields));
-            }
-            if (!String.IsNullOrWhiteSpace(entityPM.Name)) //T4 find type == nText 
-            {
-                entityPM.Name = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.Name));
-            }
             if (!String.IsNullOrWhiteSpace(entityPM.SearchFields)) //T4 find type == nText 
             {
                 entityPM.SearchFields = Encoding.GetEncoding(entityPM.EncodeBase64NVARCHARFieldsBy).GetString(Convert.FromBase64String(entityPM.SearchFields));

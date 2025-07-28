@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PackageUpdateService:BaseEntityUpdateService<POCO.Package,PackagePM,IEntityPM,PackageList,string>
+   public partial class PackageUpdateService:BaseEntityUpdateService<Entity.Package,PackagePM,IEntityPM,PackageList,string>
    {
    			
-        public PackageUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PackageDataMapping();
-            Repository = new Repository<POCO.Package>(mainContext);
-        }
-        public PackageUpdateService(int tenant) :  base( tenant)  
+        public PackageUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PackageDataMapping();
-            Repository = new Repository<POCO.Package>(tenant);
+            Repository = new Repository<Entity.Package>(unitOfWork);
 		}
-        public PackageUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Package,string> GetKeys(PackagePM entityPM) => new PackageKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.Package,string> GetKeys(PackagePM entityPM) => new PackageKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(PackagePM entityPM)
 		{
 		}

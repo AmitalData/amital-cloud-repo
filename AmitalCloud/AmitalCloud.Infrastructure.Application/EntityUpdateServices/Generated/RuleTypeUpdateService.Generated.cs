@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RuleTypeUpdateService:BaseEntityUpdateService<POCO.RuleType,RuleTypePM,IEntityPM,RuleTypeList,string>
+   public partial class RuleTypeUpdateService:BaseEntityUpdateService<Entity.RuleType,RuleTypePM,IEntityPM,RuleTypeList,string>
    {
    			
-        public RuleTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RuleTypeDataMapping();
-            Repository = new Repository<POCO.RuleType>(mainContext);
-        }
-        public RuleTypeUpdateService(int tenant) :  base( tenant)  
+        public RuleTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RuleTypeDataMapping();
-            Repository = new Repository<POCO.RuleType>(tenant);
+            Repository = new Repository<Entity.RuleType>(unitOfWork);
 		}
-        public RuleTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RuleType,string> GetKeys(RuleTypePM entityPM) => new RuleTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.RuleType,string> GetKeys(RuleTypePM entityPM) => new RuleTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(RuleTypePM entityPM)
 		{
 		}

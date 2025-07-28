@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DefaultAndConfigurationKeyUpdateService:BaseEntityUpdateService<POCO.DefaultAndConfigurationKey,DefaultAndConfigurationKeyPM,IEntityPM,DefaultAndConfigurationKeyList,string>
+   public partial class DefaultAndConfigurationKeyUpdateService:BaseEntityUpdateService<Entity.DefaultAndConfigurationKey,DefaultAndConfigurationKeyPM,IEntityPM,DefaultAndConfigurationKeyList,string>
    {
    			
-        public DefaultAndConfigurationKeyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DefaultAndConfigurationKeyDataMapping();
-            Repository = new Repository<POCO.DefaultAndConfigurationKey>(mainContext);
-        }
-        public DefaultAndConfigurationKeyUpdateService(int tenant) :  base( tenant)  
+        public DefaultAndConfigurationKeyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DefaultAndConfigurationKeyDataMapping();
-            Repository = new Repository<POCO.DefaultAndConfigurationKey>(tenant);
+            Repository = new Repository<Entity.DefaultAndConfigurationKey>(unitOfWork);
 		}
-        public DefaultAndConfigurationKeyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DefaultAndConfigurationKey,string> GetKeys(DefaultAndConfigurationKeyPM entityPM) => new DefaultAndConfigurationKeyKeys<string>() { Tenant = entityPM.Tenant, SetKey = entityPM.SetKey };
+		protected override IEntityKeyFields<Entity.DefaultAndConfigurationKey,string> GetKeys(DefaultAndConfigurationKeyPM entityPM) => new DefaultAndConfigurationKeyKeys<string>() { Tenant = entityPM.Tenant, SetKey = entityPM.SetKey };
 		protected override void FillDefaultValuesOnCreate(DefaultAndConfigurationKeyPM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

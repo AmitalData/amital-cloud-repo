@@ -22,9 +22,9 @@ namespace AmitalCloud.Infrastructure.Data.EntityDataMappings
             map.ForMember(dest => dest.FullNameTextCodeDefaultText, opt => opt.MapFrom(src => src.FullNameTextCode.DefaultText));
             map.ForMember(dest => dest.FullNameTextCodeLocalDefaultText, opt => opt.MapFrom(src => src.FullNameTextCode.LocalDefaultText));
             map.ForMember(dest => dest.ObjectTable_LookUpTableName, opt => opt.MapFrom(src => src.ObjectTable_LookUpTable.Name));
-            map.ForMember(dest => dest.ObjectTable_MultiTableName, opt => opt.MapFrom(src => src.ObjectTable_MultiTable.Name));
+            map.ForMember(dest => dest.MultiTableName, opt => opt.MapFrom(src => src.ObjectTable_MultiTable.Name));
             map.ForMember(dest => dest.ListTextCodeDefaultText, opt => opt.MapFrom(src => src.ListTextCode.DefaultText));
-            map.ForMember(dest => dest.HelpTextCodeDefaultText, opt => opt.MapFrom(src => src.HelpTextCodeFK.DefaultText));
+            //map.ForMember(dest => dest.HelpTextDefaultText, opt => opt.MapFrom(src => src.HelpTextCode.DefaultText));
             map.ForMember(dest => dest.ShortNameTextCodeDefaultText, opt => opt.MapFrom(src => src.ShortNameTextCode.DefaultText));
         }
 

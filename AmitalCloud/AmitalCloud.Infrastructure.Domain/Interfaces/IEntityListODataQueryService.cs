@@ -8,5 +8,6 @@ namespace AmitalCloud.Infrastructure.Domain.Interfaces
         where TEntityList : class
     {
         List<TEntityList> GetListOData(ODataQueryOptions<TEntityList> queryOptions);
+        List<TEntity> GetOData(ODataQueryOptions<TEntity> queryOptions);
     }
 }

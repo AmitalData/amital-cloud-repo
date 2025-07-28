@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BlobFileUpdateService:BaseEntityUpdateService<POCO.BlobFile,BlobFilePM,IEntityPM,BlobFileList,string>
+   public partial class BlobFileUpdateService:BaseEntityUpdateService<Entity.BlobFile,BlobFilePM,IEntityPM,BlobFileList,string>
    {
    			
-        public BlobFileUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BlobFileDataMapping();
-            Repository = new Repository<POCO.BlobFile>(mainContext);
-        }
-        public BlobFileUpdateService(int tenant) :  base( tenant)  
+        public BlobFileUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BlobFileDataMapping();
-            Repository = new Repository<POCO.BlobFile>(tenant);
+            Repository = new Repository<Entity.BlobFile>(unitOfWork);
 		}
-        public BlobFileUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BlobFile,string> GetKeys(BlobFilePM entityPM) => new BlobFileKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BlobFile,string> GetKeys(BlobFilePM entityPM) => new BlobFileKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(BlobFilePM entityPM)
 		{
 		}

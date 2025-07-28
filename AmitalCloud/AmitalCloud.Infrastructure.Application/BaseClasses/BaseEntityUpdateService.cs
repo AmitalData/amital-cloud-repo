@@ -50,31 +50,26 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         protected List<string> ErrorsList;
         protected bool ThrowValidationException;
         protected List<FieldChange> FieldChanges;
+        protected IUnitOfWork UnitOfWork;
 
-        public BaseEntityUpdateService() { }
-
-        public BaseEntityUpdateService(IContext mainContext, Dictionary<string, IContext> additionalContexts, int tenant)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public BaseEntityUpdateService(IUnitOfWork unitOfWork)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
-            this.Tenant = tenant;
-            this.AdditionalContexts = additionalContexts;
-            this.MainContext = mainContext;
-            this.ErrorsList = new List<string>();
-            this.ThrowValidationException = true;
-
-            FieldChanges = new List<FieldChange>();
-        }
-        public BaseEntityUpdateService(int tenant)
-        {
-            this.Tenant = tenant;
+            if (unitOfWork.Context ==null)
+            {
+                ((UnitOfWork)unitOfWork).AddContext( GetContext(unitOfWork.Tenant));
+            }
+            this.UnitOfWork = unitOfWork;
+            this.Tenant = unitOfWork.Tenant;
             this.AdditionalContexts = null;
-            this.MainContext = GetContext(tenant);
+            this.MainContext = unitOfWork.Context;
             this.ErrorsList = new List<string>();
             this.ThrowValidationException = true;
 
             FieldChanges = new List<FieldChange>();
             //AuditLogRepository = new AuditLogRepository(tenant);
         }
-
         public void UpdateMulti(List<TEntityPM> entityPMList, List<TEntityPM> deletedEntityPMList, TEntityParentPM entityParentPM, bool commit)
         {
             try
@@ -99,7 +94,6 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
 
             }
         }
-
         public void Update(TEntityPM entityPM, bool commit, TimeSpan? transactionTimeout = null)
         {
             try
@@ -280,20 +274,19 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
         {
             try
             {
-                MainContext.SaveChanges();
-                //todo implement Unit of Work pattern
+                UnitOfWork.Save();
             }
             catch (DbUpdateException e)
             {
                 throw;
             }
-            if (AdditionalContexts != null)
-            {
-                foreach (IContext context in AdditionalContexts.Values)
-                {
-                    context.GetType().GetMethod("SaveChanges").Invoke(context, null);
-                }
-            }
+            //if (AdditionalContexts != null)
+            //{
+            //    foreach (IContext context in AdditionalContexts.Values)
+            //    {
+            //        context.GetType().GetMethod("SaveChanges").Invoke(context, null);
+            //    }
+            //}
         }
         protected virtual void OnCreating(TEntityPM entityPM, TEntityParentPM entityParentPM)
         {
@@ -390,8 +383,6 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             var validXmlChars = text.Where(ch => XmlConvert.IsXmlChar(ch)).ToArray();
             return new string(validXmlChars);
         }
-
-
         private string SerializeObjectToXml<T>(T dataObject)
         {
             MemoryStream memstream = new MemoryStream();
@@ -417,33 +408,22 @@ namespace AmitalCloud.Infrastructure.Application.BaseClasses
             string content = reader.ReadToEnd();
             return content;
         }
-
         protected virtual void CheckConcurrency(TEntityPM entityPM, TEntity entityPOCO)
         {
 
         }
-
-
-
         public bool DontAddTransaction { get; set; }//if you don't want to add a transaction to the update service. update()
-
         protected virtual void Validate(TEntityPM entityPM)
         {
         }
-
         public virtual void InitializeUpdateService()
         {
 
         }
-
         public virtual void InitializeEntityPM(TEntityPM entityPM)
         {
 
         }
         private IContext GetContext(int tenant) => DbContextBaseUtil.GetContext<TEntity>(tenant);
     }
-
-
-
-
 }

@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DigitalProfileUpdateService:BaseEntityUpdateService<POCO.DigitalProfile,DigitalProfilePM,IEntityPM,DigitalProfileList,string>
+   public partial class DigitalProfileUpdateService:BaseEntityUpdateService<Entity.DigitalProfile,DigitalProfilePM,IEntityPM,DigitalProfileList,string>
    {
    			
-        public DigitalProfileUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DigitalProfileDataMapping();
-            Repository = new Repository<POCO.DigitalProfile>(mainContext);
-        }
-        public DigitalProfileUpdateService(int tenant) :  base( tenant)  
+        public DigitalProfileUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DigitalProfileDataMapping();
-            Repository = new Repository<POCO.DigitalProfile>(tenant);
+            Repository = new Repository<Entity.DigitalProfile>(unitOfWork);
 		}
-        public DigitalProfileUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DigitalProfile,string> GetKeys(DigitalProfilePM entityPM) => new DigitalProfileKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.DigitalProfile,string> GetKeys(DigitalProfilePM entityPM) => new DigitalProfileKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(DigitalProfilePM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("DigitalProfile", entityPM.Tenant); 

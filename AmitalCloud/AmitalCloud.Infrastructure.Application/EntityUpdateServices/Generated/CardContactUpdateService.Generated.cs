@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CardContactUpdateService:BaseEntityUpdateService<POCO.CardContact,CardContactPM,IEntityPM,CardContactList,string>
+   public partial class CardContactUpdateService:BaseEntityUpdateService<Entity.CardContact,CardContactPM,IEntityPM,CardContactList,string>
    {
    			
-        public CardContactUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CardContactDataMapping();
-            Repository = new Repository<POCO.CardContact>(mainContext);
-        }
-        public CardContactUpdateService(int tenant) :  base( tenant)  
+        public CardContactUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CardContactDataMapping();
-            Repository = new Repository<POCO.CardContact>(tenant);
+            Repository = new Repository<Entity.CardContact>(unitOfWork);
 		}
-        public CardContactUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CardContact,string> GetKeys(CardContactPM entityPM) => new CardContactKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CardContact,string> GetKeys(CardContactPM entityPM) => new CardContactKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CardContactPM entityPM)
 		{
 		}

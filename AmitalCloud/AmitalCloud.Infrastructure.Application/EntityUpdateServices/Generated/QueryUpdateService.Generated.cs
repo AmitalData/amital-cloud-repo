@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QueryUpdateService:BaseEntityUpdateService<POCO.Query,QueryPM,IEntityPM,QueryList,string>
+   public partial class QueryUpdateService:BaseEntityUpdateService<Entity.Query,QueryPM,IEntityPM,QueryList,string>
    {
    			
-        public QueryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QueryDataMapping();
-            Repository = new Repository<POCO.Query>(mainContext);
-        }
-        public QueryUpdateService(int tenant) :  base( tenant)  
+        public QueryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QueryDataMapping();
-            Repository = new Repository<POCO.Query>(tenant);
+            Repository = new Repository<Entity.Query>(unitOfWork);
 		}
-        public QueryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Query,string> GetKeys(QueryPM entityPM) => new QueryKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Query,string> GetKeys(QueryPM entityPM) => new QueryKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(QueryPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class FormCustomFieldUpdateService:BaseEntityUpdateService<POCO.FormCustomField,FormCustomFieldPM,IEntityPM,FormCustomFieldList,string>
+   public partial class FormCustomFieldUpdateService:BaseEntityUpdateService<Entity.FormCustomField,FormCustomFieldPM,IEntityPM,FormCustomFieldList,string>
    {
    			
-        public FormCustomFieldUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new FormCustomFieldDataMapping();
-            Repository = new Repository<POCO.FormCustomField>(mainContext);
-        }
-        public FormCustomFieldUpdateService(int tenant) :  base( tenant)  
+        public FormCustomFieldUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new FormCustomFieldDataMapping();
-            Repository = new Repository<POCO.FormCustomField>(tenant);
+            Repository = new Repository<Entity.FormCustomField>(unitOfWork);
 		}
-        public FormCustomFieldUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.FormCustomField,string> GetKeys(FormCustomFieldPM entityPM) => new FormCustomFieldKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.FormCustomField,string> GetKeys(FormCustomFieldPM entityPM) => new FormCustomFieldKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(FormCustomFieldPM entityPM)
 		{
 		}

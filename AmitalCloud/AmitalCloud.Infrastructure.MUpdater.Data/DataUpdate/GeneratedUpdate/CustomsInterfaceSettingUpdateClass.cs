@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 {
    public class CustomsInterfaceSettingUpdateClass
    {  		
-		public const string HashString = "440d5b523c5d495f078c0f6dc024f250";
+		public const string HashString = "503ed4e23384e1b38bf9f9886c790416";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -807,6 +807,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						FullFieldLable =  "ArtemusOutSettingsHost",
 					  						DefaultText =  "Out Settings Host",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ArtemusOutSettings,
+					  						FieldRelatedPM =  Host,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -873,6 +875,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						FullFieldLable =  "ArtemusInSettingsHost",
 					  						DefaultText =  "In Settings Host",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ArtemusInSettings,
+					  						FieldRelatedPM =  Host,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1318,6 +1322,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate
 					  						FullFieldLable =  "LocalCustomsInterfaceName",
 					  						DefaultText =  "Local Customs Interface Name",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  LocalCustomsInterface,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

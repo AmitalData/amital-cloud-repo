@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CommunicationLogTypeUpdateService:BaseEntityUpdateService<POCO.CommunicationLogType,CommunicationLogTypePM,IEntityPM,CommunicationLogTypeList,string>
+   public partial class CommunicationLogTypeUpdateService:BaseEntityUpdateService<Entity.CommunicationLogType,CommunicationLogTypePM,IEntityPM,CommunicationLogTypeList,string>
    {
    			
-        public CommunicationLogTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CommunicationLogTypeDataMapping();
-            Repository = new Repository<POCO.CommunicationLogType>(mainContext);
-        }
-        public CommunicationLogTypeUpdateService(int tenant) :  base( tenant)  
+        public CommunicationLogTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CommunicationLogTypeDataMapping();
-            Repository = new Repository<POCO.CommunicationLogType>(tenant);
+            Repository = new Repository<Entity.CommunicationLogType>(unitOfWork);
 		}
-        public CommunicationLogTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CommunicationLogType,string> GetKeys(CommunicationLogTypePM entityPM) => new CommunicationLogTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CommunicationLogType,string> GetKeys(CommunicationLogTypePM entityPM) => new CommunicationLogTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CommunicationLogTypePM entityPM)
 		{
 		}

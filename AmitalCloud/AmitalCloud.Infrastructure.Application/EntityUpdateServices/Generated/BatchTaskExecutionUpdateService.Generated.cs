@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -22,22 +22,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BatchTaskExecutionUpdateService:BaseEntityUpdateService<POCO.BatchTaskExecution,BatchTaskExecutionPM,IEntityPM,BatchTaskExecutionList,string>
+   public partial class BatchTaskExecutionUpdateService:BaseEntityUpdateService<Entity.BatchTaskExecution,BatchTaskExecutionPM,IEntityPM,BatchTaskExecutionList,string>
    {
    			
-        public BatchTaskExecutionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BatchTaskExecutionDataMapping();
-            Repository = new Repository<POCO.BatchTaskExecution>(mainContext);
-        }
-        public BatchTaskExecutionUpdateService(int tenant) :  base( tenant)  
+        public BatchTaskExecutionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BatchTaskExecutionDataMapping();
-            Repository = new Repository<POCO.BatchTaskExecution>(tenant);
+            Repository = new Repository<Entity.BatchTaskExecution>(unitOfWork);
 		}
-        public BatchTaskExecutionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BatchTaskExecution,string> GetKeys(BatchTaskExecutionPM entityPM) => new BatchTaskExecutionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BatchTaskExecution,string> GetKeys(BatchTaskExecutionPM entityPM) => new BatchTaskExecutionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BatchTaskExecutionPM entityPM)
 		{
 			entityPM.CreateDate =  TenantServerConfigration.GetCurrentDateTime(entityPM.Tenant);

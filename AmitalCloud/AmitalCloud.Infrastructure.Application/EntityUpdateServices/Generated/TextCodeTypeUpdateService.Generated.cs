@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TextCodeTypeUpdateService:BaseEntityUpdateService<POCO.TextCodeType,TextCodeTypePM,IEntityPM,TextCodeTypeList,string>
+   public partial class TextCodeTypeUpdateService:BaseEntityUpdateService<Entity.TextCodeType,TextCodeTypePM,IEntityPM,TextCodeTypeList,string>
    {
    			
-        public TextCodeTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TextCodeTypeDataMapping();
-            Repository = new Repository<POCO.TextCodeType>(mainContext);
-        }
-        public TextCodeTypeUpdateService(int tenant) :  base( tenant)  
+        public TextCodeTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TextCodeTypeDataMapping();
-            Repository = new Repository<POCO.TextCodeType>(tenant);
+            Repository = new Repository<Entity.TextCodeType>(unitOfWork);
 		}
-        public TextCodeTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TextCodeType,string> GetKeys(TextCodeTypePM entityPM) => new TextCodeTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.TextCodeType,string> GetKeys(TextCodeTypePM entityPM) => new TextCodeTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(TextCodeTypePM entityPM)
 		{
 		}

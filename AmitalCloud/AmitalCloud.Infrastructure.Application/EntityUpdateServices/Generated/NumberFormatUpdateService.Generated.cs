@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class NumberFormatUpdateService:BaseEntityUpdateService<POCO.NumberFormat,NumberFormatPM,IEntityPM,NumberFormatList,string>
+   public partial class NumberFormatUpdateService:BaseEntityUpdateService<Entity.NumberFormat,NumberFormatPM,IEntityPM,NumberFormatList,string>
    {
    			
-        public NumberFormatUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new NumberFormatDataMapping();
-            Repository = new Repository<POCO.NumberFormat>(mainContext);
-        }
-        public NumberFormatUpdateService(int tenant) :  base( tenant)  
+        public NumberFormatUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new NumberFormatDataMapping();
-            Repository = new Repository<POCO.NumberFormat>(tenant);
+            Repository = new Repository<Entity.NumberFormat>(unitOfWork);
 		}
-        public NumberFormatUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.NumberFormat,string> GetKeys(NumberFormatPM entityPM) => new NumberFormatKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.NumberFormat,string> GetKeys(NumberFormatPM entityPM) => new NumberFormatKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(NumberFormatPM entityPM)
 		{
 		}

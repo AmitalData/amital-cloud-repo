@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CargoTenantMilestoneDefinitionUpdateService:BaseEntityUpdateService<POCO.CargoTenantMilestoneDefinition,CargoTenantMilestoneDefinitionPM,IEntityPM,CargoTenantMilestoneDefinitionList,string>
+   public partial class CargoTenantMilestoneDefinitionUpdateService:BaseEntityUpdateService<Entity.CargoTenantMilestoneDefinition,CargoTenantMilestoneDefinitionPM,IEntityPM,CargoTenantMilestoneDefinitionList,string>
    {
    			
-        public CargoTenantMilestoneDefinitionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CargoTenantMilestoneDefinitionDataMapping();
-            Repository = new Repository<POCO.CargoTenantMilestoneDefinition>(mainContext);
-        }
-        public CargoTenantMilestoneDefinitionUpdateService(int tenant) :  base( tenant)  
+        public CargoTenantMilestoneDefinitionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CargoTenantMilestoneDefinitionDataMapping();
-            Repository = new Repository<POCO.CargoTenantMilestoneDefinition>(tenant);
+            Repository = new Repository<Entity.CargoTenantMilestoneDefinition>(unitOfWork);
 		}
-        public CargoTenantMilestoneDefinitionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CargoTenantMilestoneDefinition,string> GetKeys(CargoTenantMilestoneDefinitionPM entityPM) => new CargoTenantMilestoneDefinitionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CargoTenantMilestoneDefinition,string> GetKeys(CargoTenantMilestoneDefinitionPM entityPM) => new CargoTenantMilestoneDefinitionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CargoTenantMilestoneDefinitionPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CargoTenantMilestoneDefinition", entityPM.Tenant); 

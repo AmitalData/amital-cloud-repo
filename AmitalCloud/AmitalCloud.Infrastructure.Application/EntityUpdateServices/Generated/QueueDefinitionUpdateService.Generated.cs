@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QueueDefinitionUpdateService:BaseEntityUpdateService<POCO.QueueDefinition,QueueDefinitionPM,IEntityPM,QueueDefinitionList,string>
+   public partial class QueueDefinitionUpdateService:BaseEntityUpdateService<Entity.QueueDefinition,QueueDefinitionPM,IEntityPM,QueueDefinitionList,string>
    {
    			
-        public QueueDefinitionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QueueDefinitionDataMapping();
-            Repository = new Repository<POCO.QueueDefinition>(mainContext);
-        }
-        public QueueDefinitionUpdateService(int tenant) :  base( tenant)  
+        public QueueDefinitionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QueueDefinitionDataMapping();
-            Repository = new Repository<POCO.QueueDefinition>(tenant);
+            Repository = new Repository<Entity.QueueDefinition>(unitOfWork);
 		}
-        public QueueDefinitionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QueueDefinition,string> GetKeys(QueueDefinitionPM entityPM) => new QueueDefinitionKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.QueueDefinition,string> GetKeys(QueueDefinitionPM entityPM) => new QueueDefinitionKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(QueueDefinitionPM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TransportModeUpdateService:BaseEntityUpdateService<POCO.TransportMode,TransportModePM,IEntityPM,TransportModeList,string>
+   public partial class TransportModeUpdateService:BaseEntityUpdateService<Entity.TransportMode,TransportModePM,IEntityPM,TransportModeList,string>
    {
    			
-        public TransportModeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TransportModeDataMapping();
-            Repository = new Repository<POCO.TransportMode>(mainContext);
-        }
-        public TransportModeUpdateService(int tenant) :  base( tenant)  
+        public TransportModeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TransportModeDataMapping();
-            Repository = new Repository<POCO.TransportMode>(tenant);
+            Repository = new Repository<Entity.TransportMode>(unitOfWork);
 		}
-        public TransportModeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TransportMode,string> GetKeys(TransportModePM entityPM) => new TransportModeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TransportMode,string> GetKeys(TransportModePM entityPM) => new TransportModeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TransportModePM entityPM)
 		{
 		}

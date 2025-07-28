@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class QuoteGroupSectionUpdateService:BaseEntityUpdateService<POCO.QuoteGroupSection,QuoteGroupSectionPM,IEntityPM,QuoteGroupSectionList,string>
+   public partial class QuoteGroupSectionUpdateService:BaseEntityUpdateService<Entity.QuoteGroupSection,QuoteGroupSectionPM,IEntityPM,QuoteGroupSectionList,string>
    {
    			
-        public QuoteGroupSectionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new QuoteGroupSectionDataMapping();
-            Repository = new Repository<POCO.QuoteGroupSection>(mainContext);
-        }
-        public QuoteGroupSectionUpdateService(int tenant) :  base( tenant)  
+        public QuoteGroupSectionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new QuoteGroupSectionDataMapping();
-            Repository = new Repository<POCO.QuoteGroupSection>(tenant);
+            Repository = new Repository<Entity.QuoteGroupSection>(unitOfWork);
 		}
-        public QuoteGroupSectionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.QuoteGroupSection,string> GetKeys(QuoteGroupSectionPM entityPM) => new QuoteGroupSectionKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.QuoteGroupSection,string> GetKeys(QuoteGroupSectionPM entityPM) => new QuoteGroupSectionKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(QuoteGroupSectionPM entityPM)
 		{
 		}

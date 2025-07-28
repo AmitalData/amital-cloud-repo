@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DigitalPortalLanguageUpdateService:BaseEntityUpdateService<POCO.DigitalPortalLanguage,DigitalPortalLanguagePM,IEntityPM,DigitalPortalLanguageList,string>
+   public partial class DigitalPortalLanguageUpdateService:BaseEntityUpdateService<Entity.DigitalPortalLanguage,DigitalPortalLanguagePM,IEntityPM,DigitalPortalLanguageList,string>
    {
    			
-        public DigitalPortalLanguageUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DigitalPortalLanguageDataMapping();
-            Repository = new Repository<POCO.DigitalPortalLanguage>(mainContext);
-        }
-        public DigitalPortalLanguageUpdateService(int tenant) :  base( tenant)  
+        public DigitalPortalLanguageUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DigitalPortalLanguageDataMapping();
-            Repository = new Repository<POCO.DigitalPortalLanguage>(tenant);
+            Repository = new Repository<Entity.DigitalPortalLanguage>(unitOfWork);
 		}
-        public DigitalPortalLanguageUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DigitalPortalLanguage,string> GetKeys(DigitalPortalLanguagePM entityPM) => new DigitalPortalLanguageKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.DigitalPortalLanguage,string> GetKeys(DigitalPortalLanguagePM entityPM) => new DigitalPortalLanguageKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(DigitalPortalLanguagePM entityPM)
 		{
 		}

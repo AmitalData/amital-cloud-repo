@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 {
    public class ObjectTableRuleUpdateClass
    {  		
-		public const string HashString = "c54d5a3b9d7b09daeef5edeba27c2d75";
+		public const string HashString = "bf5ebea554c8e6f255346471273fb347";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -1446,6 +1446,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "RuleTypeName",
 					  						DefaultText =  "RuleTypeName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  RuleType,
+					  						FieldRelatedPM =  Name,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

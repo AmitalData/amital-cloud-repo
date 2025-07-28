@@ -15,7 +15,7 @@ using System;
 using AmitalCloud.Infrastructure.Data.Helpers;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -23,22 +23,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BIReportUpdateService:BaseEntityUpdateService<POCO.BIReport,BIReportPM,IEntityPM,BIReportList,string>
+   public partial class BIReportUpdateService:BaseEntityUpdateService<Entity.BIReport,BIReportPM,IEntityPM,BIReportList,string>
    {
    			
-        public BIReportUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BIReportDataMapping();
-            Repository = new Repository<POCO.BIReport>(mainContext);
-        }
-        public BIReportUpdateService(int tenant) :  base( tenant)  
+        public BIReportUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BIReportDataMapping();
-            Repository = new Repository<POCO.BIReport>(tenant);
+            Repository = new Repository<Entity.BIReport>(unitOfWork);
 		}
-        public BIReportUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BIReport,string> GetKeys(BIReportPM entityPM) => new BIReportKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BIReport,string> GetKeys(BIReportPM entityPM) => new BIReportKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(BIReportPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("BIReport", entityPM.Tenant); 

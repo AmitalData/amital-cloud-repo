@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomPickListUpdateService:BaseEntityUpdateService<POCO.CustomPickList,CustomPickListPM,IEntityPM,CustomPickListList,string>
+   public partial class CustomPickListUpdateService:BaseEntityUpdateService<Entity.CustomPickList,CustomPickListPM,IEntityPM,CustomPickListList,string>
    {
    			
-        public CustomPickListUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomPickListDataMapping();
-            Repository = new Repository<POCO.CustomPickList>(mainContext);
-        }
-        public CustomPickListUpdateService(int tenant) :  base( tenant)  
+        public CustomPickListUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomPickListDataMapping();
-            Repository = new Repository<POCO.CustomPickList>(tenant);
+            Repository = new Repository<Entity.CustomPickList>(unitOfWork);
 		}
-        public CustomPickListUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomPickList,string> GetKeys(CustomPickListPM entityPM) => new CustomPickListKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomPickList,string> GetKeys(CustomPickListPM entityPM) => new CustomPickListKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CustomPickListPM entityPM)
 		{
 		}

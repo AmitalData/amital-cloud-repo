@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class VatTypeUpdateService:BaseEntityUpdateService<POCO.VatType,VatTypePM,IEntityPM,VatTypeList,string>
+   public partial class VatTypeUpdateService:BaseEntityUpdateService<Entity.VatType,VatTypePM,IEntityPM,VatTypeList,string>
    {
    			
-        public VatTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new VatTypeDataMapping();
-            Repository = new Repository<POCO.VatType>(mainContext);
-        }
-        public VatTypeUpdateService(int tenant) :  base( tenant)  
+        public VatTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new VatTypeDataMapping();
-            Repository = new Repository<POCO.VatType>(tenant);
+            Repository = new Repository<Entity.VatType>(unitOfWork);
 		}
-        public VatTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.VatType,string> GetKeys(VatTypePM entityPM) => new VatTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.VatType,string> GetKeys(VatTypePM entityPM) => new VatTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(VatTypePM entityPM)
 		{
 		}

@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AutomationHistoryUpdateService:BaseEntityUpdateService<POCO.AutomationHistory,AutomationHistoryPM,IEntityPM,AutomationHistoryList,string>
+   public partial class AutomationHistoryUpdateService:BaseEntityUpdateService<Entity.AutomationHistory,AutomationHistoryPM,IEntityPM,AutomationHistoryList,string>
    {
    			
-        public AutomationHistoryUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AutomationHistoryDataMapping();
-            Repository = new Repository<POCO.AutomationHistory>(mainContext);
-        }
-        public AutomationHistoryUpdateService(int tenant) :  base( tenant)  
+        public AutomationHistoryUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AutomationHistoryDataMapping();
-            Repository = new Repository<POCO.AutomationHistory>(tenant);
+            Repository = new Repository<Entity.AutomationHistory>(unitOfWork);
 		}
-        public AutomationHistoryUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AutomationHistory,string> GetKeys(AutomationHistoryPM entityPM) => new AutomationHistoryKeys<string>() { Version = entityPM.Version, AutomationsId = entityPM.AutomationsId };
+		protected override IEntityKeyFields<Entity.AutomationHistory,string> GetKeys(AutomationHistoryPM entityPM) => new AutomationHistoryKeys<string>() { Version = entityPM.Version, AutomationsId = entityPM.AutomationsId };
 protected override void FillDefaultValuesOnCreate(AutomationHistoryPM entityPM)
 		{
 		}

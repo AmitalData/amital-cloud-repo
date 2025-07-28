@@ -13,7 +13,7 @@ using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using AmitalCloud.Infrastructure.Data.Counters;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -21,22 +21,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CustomerDepositionUpdateService:BaseEntityUpdateService<POCO.CustomerDeposition,CustomerDepositionPM,IEntityPM,CustomerDepositionList,string>
+   public partial class CustomerDepositionUpdateService:BaseEntityUpdateService<Entity.CustomerDeposition,CustomerDepositionPM,IEntityPM,CustomerDepositionList,string>
    {
    			
-        public CustomerDepositionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CustomerDepositionDataMapping();
-            Repository = new Repository<POCO.CustomerDeposition>(mainContext);
-        }
-        public CustomerDepositionUpdateService(int tenant) :  base( tenant)  
+        public CustomerDepositionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CustomerDepositionDataMapping();
-            Repository = new Repository<POCO.CustomerDeposition>(tenant);
+            Repository = new Repository<Entity.CustomerDeposition>(unitOfWork);
 		}
-        public CustomerDepositionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CustomerDeposition,string> GetKeys(CustomerDepositionPM entityPM) => new CustomerDepositionKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CustomerDeposition,string> GetKeys(CustomerDepositionPM entityPM) => new CustomerDepositionKeys<string>() { Id = entityPM.Id };
 		protected override void FillDefaultValuesOnCreate(CustomerDepositionPM entityPM)
 		{
 			entityPM.Id = IdCounter.GetNumber("CustomerDeposition", entityPM.Tenant); 

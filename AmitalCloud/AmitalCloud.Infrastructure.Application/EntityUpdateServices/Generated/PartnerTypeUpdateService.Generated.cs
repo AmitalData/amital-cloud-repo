@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class PartnerTypeUpdateService:BaseEntityUpdateService<POCO.PartnerType,PartnerTypePM,IEntityPM,PartnerTypeList,string>
+   public partial class PartnerTypeUpdateService:BaseEntityUpdateService<Entity.PartnerType,PartnerTypePM,IEntityPM,PartnerTypeList,string>
    {
    			
-        public PartnerTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new PartnerTypeDataMapping();
-            Repository = new Repository<POCO.PartnerType>(mainContext);
-        }
-        public PartnerTypeUpdateService(int tenant) :  base( tenant)  
+        public PartnerTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new PartnerTypeDataMapping();
-            Repository = new Repository<POCO.PartnerType>(tenant);
+            Repository = new Repository<Entity.PartnerType>(unitOfWork);
 		}
-        public PartnerTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.PartnerType,string> GetKeys(PartnerTypePM entityPM) => new PartnerTypeKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.PartnerType,string> GetKeys(PartnerTypePM entityPM) => new PartnerTypeKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(PartnerTypePM entityPM)
 		{
 		}

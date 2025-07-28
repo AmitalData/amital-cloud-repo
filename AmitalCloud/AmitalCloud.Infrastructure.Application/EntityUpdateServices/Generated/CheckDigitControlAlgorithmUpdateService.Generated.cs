@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CheckDigitControlAlgorithmUpdateService:BaseEntityUpdateService<POCO.CheckDigitControlAlgorithm,CheckDigitControlAlgorithmPM,IEntityPM,CheckDigitControlAlgorithmList,string>
+   public partial class CheckDigitControlAlgorithmUpdateService:BaseEntityUpdateService<Entity.CheckDigitControlAlgorithm,CheckDigitControlAlgorithmPM,IEntityPM,CheckDigitControlAlgorithmList,string>
    {
    			
-        public CheckDigitControlAlgorithmUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CheckDigitControlAlgorithmDataMapping();
-            Repository = new Repository<POCO.CheckDigitControlAlgorithm>(mainContext);
-        }
-        public CheckDigitControlAlgorithmUpdateService(int tenant) :  base( tenant)  
+        public CheckDigitControlAlgorithmUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CheckDigitControlAlgorithmDataMapping();
-            Repository = new Repository<POCO.CheckDigitControlAlgorithm>(tenant);
+            Repository = new Repository<Entity.CheckDigitControlAlgorithm>(unitOfWork);
 		}
-        public CheckDigitControlAlgorithmUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CheckDigitControlAlgorithm,string> GetKeys(CheckDigitControlAlgorithmPM entityPM) => new CheckDigitControlAlgorithmKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.CheckDigitControlAlgorithm,string> GetKeys(CheckDigitControlAlgorithmPM entityPM) => new CheckDigitControlAlgorithmKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(CheckDigitControlAlgorithmPM entityPM)
 		{
 		}

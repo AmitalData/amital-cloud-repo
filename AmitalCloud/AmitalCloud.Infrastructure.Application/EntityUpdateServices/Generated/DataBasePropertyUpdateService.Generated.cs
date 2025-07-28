@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class DataBasePropertyUpdateService:BaseEntityUpdateService<POCO.DataBaseProperty,DataBasePropertyPM,IEntityPM,DataBasePropertyList,int>
+   public partial class DataBasePropertyUpdateService:BaseEntityUpdateService<Entity.DataBaseProperty,DataBasePropertyPM,IEntityPM,DataBasePropertyList,int>
    {
    			
-        public DataBasePropertyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new DataBasePropertyDataMapping();
-            Repository = new Repository<POCO.DataBaseProperty>(mainContext);
-        }
-        public DataBasePropertyUpdateService(int tenant) :  base( tenant)  
+        public DataBasePropertyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new DataBasePropertyDataMapping();
-            Repository = new Repository<POCO.DataBaseProperty>(tenant);
+            Repository = new Repository<Entity.DataBaseProperty>(unitOfWork);
 		}
-        public DataBasePropertyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.DataBaseProperty,int> GetKeys(DataBasePropertyPM entityPM) => new DataBasePropertyKeys<int>() { DataBaseNumber = entityPM.DataBaseNumber };
+		protected override IEntityKeyFields<Entity.DataBaseProperty,int> GetKeys(DataBasePropertyPM entityPM) => new DataBasePropertyKeys<int>() { DataBaseNumber = entityPM.DataBaseNumber };
 protected override void FillDefaultValuesOnCreate(DataBasePropertyPM entityPM)
 		{
 		}

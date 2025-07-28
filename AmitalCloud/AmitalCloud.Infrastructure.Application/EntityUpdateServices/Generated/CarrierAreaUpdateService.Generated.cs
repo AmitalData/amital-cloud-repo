@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class CarrierAreaUpdateService:BaseEntityUpdateService<POCO.CarrierArea,CarrierAreaPM,IEntityPM,CarrierAreaList,string>
+   public partial class CarrierAreaUpdateService:BaseEntityUpdateService<Entity.CarrierArea,CarrierAreaPM,IEntityPM,CarrierAreaList,string>
    {
    			
-        public CarrierAreaUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new CarrierAreaDataMapping();
-            Repository = new Repository<POCO.CarrierArea>(mainContext);
-        }
-        public CarrierAreaUpdateService(int tenant) :  base( tenant)  
+        public CarrierAreaUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new CarrierAreaDataMapping();
-            Repository = new Repository<POCO.CarrierArea>(tenant);
+            Repository = new Repository<Entity.CarrierArea>(unitOfWork);
 		}
-        public CarrierAreaUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.CarrierArea,string> GetKeys(CarrierAreaPM entityPM) => new CarrierAreaKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.CarrierArea,string> GetKeys(CarrierAreaPM entityPM) => new CarrierAreaKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(CarrierAreaPM entityPM)
 		{
 		}

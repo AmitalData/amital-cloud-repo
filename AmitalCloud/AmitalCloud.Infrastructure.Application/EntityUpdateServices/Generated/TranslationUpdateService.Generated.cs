@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TranslationUpdateService:BaseEntityUpdateService<POCO.Translation,TranslationPM,IEntityPM,TranslationList,string>
+   public partial class TranslationUpdateService:BaseEntityUpdateService<Entity.Translation,TranslationPM,IEntityPM,TranslationList,string>
    {
    			
-        public TranslationUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TranslationDataMapping();
-            Repository = new Repository<POCO.Translation>(mainContext);
-        }
-        public TranslationUpdateService(int tenant) :  base( tenant)  
+        public TranslationUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TranslationDataMapping();
-            Repository = new Repository<POCO.Translation>(tenant);
+            Repository = new Repository<Entity.Translation>(unitOfWork);
 		}
-        public TranslationUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.Translation,string> GetKeys(TranslationPM entityPM) => new TranslationKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.Translation,string> GetKeys(TranslationPM entityPM) => new TranslationKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TranslationPM entityPM)
 		{
 		}

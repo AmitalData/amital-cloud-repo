@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class TasksSchedulerUpdateService:BaseEntityUpdateService<POCO.TasksScheduler,TasksSchedulerPM,IEntityPM,TasksSchedulerList,string>
+   public partial class TasksSchedulerUpdateService:BaseEntityUpdateService<Entity.TasksScheduler,TasksSchedulerPM,IEntityPM,TasksSchedulerList,string>
    {
    			
-        public TasksSchedulerUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new TasksSchedulerDataMapping();
-            Repository = new Repository<POCO.TasksScheduler>(mainContext);
-        }
-        public TasksSchedulerUpdateService(int tenant) :  base( tenant)  
+        public TasksSchedulerUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new TasksSchedulerDataMapping();
-            Repository = new Repository<POCO.TasksScheduler>(tenant);
+            Repository = new Repository<Entity.TasksScheduler>(unitOfWork);
 		}
-        public TasksSchedulerUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.TasksScheduler,string> GetKeys(TasksSchedulerPM entityPM) => new TasksSchedulerKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.TasksScheduler,string> GetKeys(TasksSchedulerPM entityPM) => new TasksSchedulerKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(TasksSchedulerPM entityPM)
 		{
 		}

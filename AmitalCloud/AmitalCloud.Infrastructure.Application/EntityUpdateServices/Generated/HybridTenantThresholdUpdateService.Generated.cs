@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class HybridTenantThresholdUpdateService:BaseEntityUpdateService<POCO.HybridTenantThreshold,HybridTenantThresholdPM,IEntityPM,HybridTenantThresholdList,int>
+   public partial class HybridTenantThresholdUpdateService:BaseEntityUpdateService<Entity.HybridTenantThreshold,HybridTenantThresholdPM,IEntityPM,HybridTenantThresholdList,int>
    {
    			
-        public HybridTenantThresholdUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new HybridTenantThresholdDataMapping();
-            Repository = new Repository<POCO.HybridTenantThreshold>(mainContext);
-        }
-        public HybridTenantThresholdUpdateService(int tenant) :  base( tenant)  
+        public HybridTenantThresholdUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new HybridTenantThresholdDataMapping();
-            Repository = new Repository<POCO.HybridTenantThreshold>(tenant);
+            Repository = new Repository<Entity.HybridTenantThreshold>(unitOfWork);
 		}
-        public HybridTenantThresholdUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.HybridTenantThreshold,int> GetKeys(HybridTenantThresholdPM entityPM) => new HybridTenantThresholdKeys<int>() { Tenant = entityPM.Tenant, TypeCode = entityPM.TypeCode };
+		protected override IEntityKeyFields<Entity.HybridTenantThreshold,int> GetKeys(HybridTenantThresholdPM entityPM) => new HybridTenantThresholdKeys<int>() { Tenant = entityPM.Tenant, TypeCode = entityPM.TypeCode };
 protected override void FillDefaultValuesOnCreate(HybridTenantThresholdPM entityPM)
 		{
 		}

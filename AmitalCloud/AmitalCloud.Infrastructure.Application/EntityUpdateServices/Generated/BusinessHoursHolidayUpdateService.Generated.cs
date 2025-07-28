@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BusinessHoursHolidayUpdateService:BaseEntityUpdateService<POCO.BusinessHoursHoliday,BusinessHoursHolidayPM,BusinessHourPM,BusinessHoursHolidayList,string>
+   public partial class BusinessHoursHolidayUpdateService:BaseEntityUpdateService<Entity.BusinessHoursHoliday,BusinessHoursHolidayPM,BusinessHourPM,BusinessHoursHolidayList,string>
    {
    			
-        public BusinessHoursHolidayUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BusinessHoursHolidayDataMapping();
-            Repository = new Repository<POCO.BusinessHoursHoliday>(mainContext);
-        }
-        public BusinessHoursHolidayUpdateService(int tenant) :  base( tenant)  
+        public BusinessHoursHolidayUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BusinessHoursHolidayDataMapping();
-            Repository = new Repository<POCO.BusinessHoursHoliday>(tenant);
+            Repository = new Repository<Entity.BusinessHoursHoliday>(unitOfWork);
 		}
-        public BusinessHoursHolidayUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BusinessHoursHoliday,string> GetKeys(BusinessHoursHolidayPM entityPM) => new BusinessHoursHolidayKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BusinessHoursHoliday,string> GetKeys(BusinessHoursHolidayPM entityPM) => new BusinessHoursHolidayKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(BusinessHoursHolidayPM entityPM)
 		{
 		}

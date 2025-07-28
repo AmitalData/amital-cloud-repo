@@ -21,30 +21,30 @@ namespace AmitalCloud.Infrastructure.Data.Queries
             this.repository = repository;
         }
 
-        public UserLastLogin UpdateUserLastLogins(UserLastLogin entity, string workEnvironment)
-        {
-            using (TransactionScope scope = TransactionFactory.GetTransaction())
-            {
-                bool isDSVMobileCall = false;
-                using (TransactionScope globalScope = TransactionFactory.GetNewTransaction())
-                {
-                    string Url = HttpContextHelper.HttpContext?.Request?.Headers["Referer"].ToString();
-                    string privateLabelId = new Repository<GlobalTenant>(GlobalContext.GetContext()).GetSingle(a => a.Id == entity.Tenant).PrivateLabelId;
-                    // todo
-                    // isDSVMobileCall = !string.IsNullOrEmpty(privateLabelId) && HttpContextHelper.Request.Browser.IsMobileDevice && Url.Contains("Menu=DAPP");
-                    isDSVMobileCall = !string.IsNullOrEmpty(privateLabelId) && Url.Contains("Menu=DAPP");
-                }
-                if (!isDSVMobileCall)
-                {
-                    UserLastLogin entityPoco = repository.GetSingle(record => record.Id == entity.Id && record.Tenant == entity.Tenant);
-                    entityPoco.ComputerId = entity.ComputerId;
-                    entityPoco.WorkEnvironment = workEnvironment;
-                    repository.Update(entityPoco);
-                    repository.SubmitChanges();
-                }
-                scope.Complete();
-                return entity;
-            }
-        }
+        //public UserLastLogin UpdateUserLastLogins(UserLastLogin entity, string workEnvironment)
+        //{
+        //    using (TransactionScope scope = TransactionFactory.GetTransaction())
+        //    {
+        //        bool isDSVMobileCall = false;
+        //        using (TransactionScope globalScope = TransactionFactory.GetNewTransaction())
+        //        {
+        //            string Url = HttpContextHelper.HttpContext?.Request?.Headers["Referer"].ToString();
+        //            string privateLabelId = new Repository<GlobalTenant>(GlobalContext.GetContext()).GetSingle(a => a.Id == entity.Tenant).PrivateLabelId;
+        //            // todo
+        //            // isDSVMobileCall = !string.IsNullOrEmpty(privateLabelId) && HttpContextHelper.Request.Browser.IsMobileDevice && Url.Contains("Menu=DAPP");
+        //            isDSVMobileCall = !string.IsNullOrEmpty(privateLabelId) && Url.Contains("Menu=DAPP");
+        //        }
+        //        if (!isDSVMobileCall)
+        //        {
+        //            UserLastLogin entityPoco = repository.GetSingle(record => record.Id == entity.Id && record.Tenant == entity.Tenant);
+        //            entityPoco.ComputerId = entity.ComputerId;
+        //            entityPoco.WorkEnvironment = workEnvironment;
+        //            repository.Update(entityPoco);
+        //            repository.SubmitChanges();
+        //        }
+        //        scope.Complete();
+        //        return entity;
+        //    }
+        //}
     }
 }

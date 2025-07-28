@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class HybridPartnersPermissionUpdateService:BaseEntityUpdateService<POCO.HybridPartnersPermission,HybridPartnersPermissionPM,IEntityPM,HybridPartnersPermissionList,string>
+   public partial class HybridPartnersPermissionUpdateService:BaseEntityUpdateService<Entity.HybridPartnersPermission,HybridPartnersPermissionPM,IEntityPM,HybridPartnersPermissionList,string>
    {
    			
-        public HybridPartnersPermissionUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new HybridPartnersPermissionDataMapping();
-            Repository = new Repository<POCO.HybridPartnersPermission>(mainContext);
-        }
-        public HybridPartnersPermissionUpdateService(int tenant) :  base( tenant)  
+        public HybridPartnersPermissionUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new HybridPartnersPermissionDataMapping();
-            Repository = new Repository<POCO.HybridPartnersPermission>(tenant);
+            Repository = new Repository<Entity.HybridPartnersPermission>(unitOfWork);
 		}
-        public HybridPartnersPermissionUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.HybridPartnersPermission,string> GetKeys(HybridPartnersPermissionPM entityPM) => new HybridPartnersPermissionKeys<string>() { HybridPartnerId = entityPM.HybridPartnerId, AllowedByHybridPartnerId = entityPM.AllowedByHybridPartnerId };
+		protected override IEntityKeyFields<Entity.HybridPartnersPermission,string> GetKeys(HybridPartnersPermissionPM entityPM) => new HybridPartnersPermissionKeys<string>() { HybridPartnerId = entityPM.HybridPartnerId, AllowedByHybridPartnerId = entityPM.AllowedByHybridPartnerId };
 protected override void FillDefaultValuesOnCreate(HybridPartnersPermissionPM entityPM)
 		{
 		}

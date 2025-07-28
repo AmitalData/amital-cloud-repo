@@ -321,7 +321,7 @@ namespace <#= contextnamespacestring #>
             this.ChangeTracker.DetectChanges();
         }
 
-        public override int SaveChanges()
+        internal new int SaveChanges()
         {
 		    DetectChanges();
 		    return base.SaveChanges();
@@ -353,7 +353,7 @@ namespace <#= contextnamespacestring #>
             Dispose(true);
         }
 
-        public Task<int> SaveChangesAsync()
+        internal Task<int> SaveChangesAsync()
         {
             throw new NotImplementedException();
         }

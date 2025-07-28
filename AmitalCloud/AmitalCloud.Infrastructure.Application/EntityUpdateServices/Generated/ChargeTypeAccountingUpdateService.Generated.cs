@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class ChargeTypeAccountingUpdateService:BaseEntityUpdateService<POCO.ChargeTypeAccounting,ChargeTypeAccountingPM,ChargesTypePM,ChargeTypeAccountingList,string>
+   public partial class ChargeTypeAccountingUpdateService:BaseEntityUpdateService<Entity.ChargeTypeAccounting,ChargeTypeAccountingPM,ChargesTypePM,ChargeTypeAccountingList,string>
    {
    			
-        public ChargeTypeAccountingUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new ChargeTypeAccountingDataMapping();
-            Repository = new Repository<POCO.ChargeTypeAccounting>(mainContext);
-        }
-        public ChargeTypeAccountingUpdateService(int tenant) :  base( tenant)  
+        public ChargeTypeAccountingUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new ChargeTypeAccountingDataMapping();
-            Repository = new Repository<POCO.ChargeTypeAccounting>(tenant);
+            Repository = new Repository<Entity.ChargeTypeAccounting>(unitOfWork);
 		}
-        public ChargeTypeAccountingUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.ChargeTypeAccounting,string> GetKeys(ChargeTypeAccountingPM entityPM) => new ChargeTypeAccountingKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.ChargeTypeAccounting,string> GetKeys(ChargeTypeAccountingPM entityPM) => new ChargeTypeAccountingKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(ChargeTypeAccountingPM entityPM)
 		{
 		}

@@ -22,7 +22,7 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 {
    public class AdvancedQueryFilterUpdateClass
    {  		
-		public const string HashString = "25f80b0ff387030a067a1d31ad30f87d";
+		public const string HashString = "e72e70220792b0df33c63a8725d885dc";
 	    public void AddObjectTable(Dictionary<string, ObjectTable> objectTables, Dictionary<string, TextCode> textCodes,Repository<ObjectTable> ObjectTableRepository,Repository<TextCode> TextCodeRepository,int contextTenant=0)
         {                     
             
@@ -986,6 +986,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "DisplayInList",
 					  						DefaultText =  "DisplayInList",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectField,
+					  						FieldRelatedPM =  DisplayInList,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1046,6 +1048,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "IsCustomFilter",
 					  						DefaultText =  "IsCustomFilter",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectField,
+					  						FieldRelatedPM =  IsCustomFilter,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1106,6 +1110,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectFieldName",
 					  						DefaultText =  "ObjectFieldName",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectField,
+					  						FieldRelatedPM =  FieldName,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1166,6 +1172,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "DataTypeCode",
 					  						DefaultText =  "DataTypeCode",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectField,
+					  						FieldRelatedPM =  DataTypeCode,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1226,6 +1234,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "ObjectFieldOperator",
 					  						DefaultText =  "ObjectFieldOperator",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  ObjectField,
+					  						FieldRelatedPM =  Operator,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,
@@ -1346,6 +1356,8 @@ namespace AmitalCloud.Infrastructure.MUpdater.Data.DataUpdate.GeneratedUpdate.Au
 					  						FullFieldLable =  "QueryUserId",
 					  						DefaultText =  "QueryUserId",
 					  						IsForeignKey =  false,
+					  						TableRelatedPM =  Query,
+					  						FieldRelatedPM =  UserId,
 					  						IsMaxLength =  false,
 					  						NoMetaDataField =  false,
 					  						IsFixedLength =  false,

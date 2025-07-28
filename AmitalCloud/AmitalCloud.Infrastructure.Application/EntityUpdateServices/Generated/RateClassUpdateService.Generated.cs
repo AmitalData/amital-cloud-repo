@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class RateClassUpdateService:BaseEntityUpdateService<POCO.RateClass,RateClassPM,IEntityPM,RateClassList,string>
+   public partial class RateClassUpdateService:BaseEntityUpdateService<Entity.RateClass,RateClassPM,IEntityPM,RateClassList,string>
    {
    			
-        public RateClassUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new RateClassDataMapping();
-            Repository = new Repository<POCO.RateClass>(mainContext);
-        }
-        public RateClassUpdateService(int tenant) :  base( tenant)  
+        public RateClassUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new RateClassDataMapping();
-            Repository = new Repository<POCO.RateClass>(tenant);
+            Repository = new Repository<Entity.RateClass>(unitOfWork);
 		}
-        public RateClassUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.RateClass,string> GetKeys(RateClassPM entityPM) => new RateClassKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.RateClass,string> GetKeys(RateClassPM entityPM) => new RateClassKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(RateClassPM entityPM)
 		{
 		}

@@ -1,6 +1,7 @@
 ﻿using AmitalCloud.Infrastructure.Application.EntityQueryServices;
 using AmitalCloud.Infrastructure.Application.Helpers;
 using AmitalCloud.Infrastructure.Data.Helpers;
+using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Domain.DataContracts;
 using AmitalCloud.Infrastructure.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -33,12 +34,11 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         Summary = "Validate user credentials",
         Description = "Validates user login credentials without initiating a full login session."
         )]
-        public IActionResult PostUserValidation(LoginParameters loginParameters)
+        public IActionResult PostUserValidation([FromServices] IUnitOfWork unitOfWork, LoginParameters loginParameters)
         {
             try
             {
-                Authentication authentication = new Authentication(loginParameters.Tenant, _httpContextAccessor, _memoryCache);
-                UserData data = authentication.AuthenticateUser(loginParameters);
+                UserData data = new Authentication(unitOfWork, loginParameters.Tenant, _httpContextAccessor, _memoryCache).AuthenticateUser( loginParameters);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -54,12 +54,11 @@ namespace AmitalCloud.Infrastructure.Web.Controllers
         Summary = "User login",
         Description = "Authenticates a user by email and password and returns their user data."
         )]
-        public IActionResult PostLoginData(LoginParameters parameters, int tenant, bool? isFromCTool = false)
+        public IActionResult PostLoginData([FromServices] IUnitOfWork unitOfWork, LoginParameters parameters, int tenant, bool? isFromCTool = false)
         {
             try
             {
-                Authentication authentication = new Authentication(tenant, _httpContextAccessor, _memoryCache);
-                UserData user = authentication.LoginUser(parameters, tenant, isFromCTool);
+                UserData user = new Authentication(unitOfWork, tenant, _httpContextAccessor, _memoryCache).LoginUser(parameters, tenant, isFromCTool);
                 return Ok(user);
             }
             catch (Exception ex)

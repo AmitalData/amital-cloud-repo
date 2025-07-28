@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class EntityLastActivityTypeUpdateService:BaseEntityUpdateService<POCO.EntityLastActivityType,EntityLastActivityTypePM,IEntityPM,EntityLastActivityTypeList,string>
+   public partial class EntityLastActivityTypeUpdateService:BaseEntityUpdateService<Entity.EntityLastActivityType,EntityLastActivityTypePM,IEntityPM,EntityLastActivityTypeList,string>
    {
    			
-        public EntityLastActivityTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new EntityLastActivityTypeDataMapping();
-            Repository = new Repository<POCO.EntityLastActivityType>(mainContext);
-        }
-        public EntityLastActivityTypeUpdateService(int tenant) :  base( tenant)  
+        public EntityLastActivityTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new EntityLastActivityTypeDataMapping();
-            Repository = new Repository<POCO.EntityLastActivityType>(tenant);
+            Repository = new Repository<Entity.EntityLastActivityType>(unitOfWork);
 		}
-        public EntityLastActivityTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.EntityLastActivityType,string> GetKeys(EntityLastActivityTypePM entityPM) => new EntityLastActivityTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.EntityLastActivityType,string> GetKeys(EntityLastActivityTypePM entityPM) => new EntityLastActivityTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(EntityLastActivityTypePM entityPM)
 		{
 		}

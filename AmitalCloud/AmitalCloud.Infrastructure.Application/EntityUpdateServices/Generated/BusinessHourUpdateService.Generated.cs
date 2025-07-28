@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BusinessHourUpdateService:BaseEntityUpdateService<POCO.BusinessHour,BusinessHourPM,IEntityPM,BusinessHourList,string>
+   public partial class BusinessHourUpdateService:BaseEntityUpdateService<Entity.BusinessHour,BusinessHourPM,IEntityPM,BusinessHourList,string>
    {
    			
-        public BusinessHourUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BusinessHourDataMapping();
-            Repository = new Repository<POCO.BusinessHour>(mainContext);
-        }
-        public BusinessHourUpdateService(int tenant) :  base( tenant)  
+        public BusinessHourUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BusinessHourDataMapping();
-            Repository = new Repository<POCO.BusinessHour>(tenant);
+            Repository = new Repository<Entity.BusinessHour>(unitOfWork);
 		}
-        public BusinessHourUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BusinessHour,string> GetKeys(BusinessHourPM entityPM) => new BusinessHourKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BusinessHour,string> GetKeys(BusinessHourPM entityPM) => new BusinessHourKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(BusinessHourPM entityPM)
 		{
 		}

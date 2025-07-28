@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class AgentSharedLogisticsKeyUpdateService:BaseEntityUpdateService<POCO.AgentSharedLogisticsKey,AgentSharedLogisticsKeyPM,IEntityPM,AgentSharedLogisticsKeyList,string>
+   public partial class AgentSharedLogisticsKeyUpdateService:BaseEntityUpdateService<Entity.AgentSharedLogisticsKey,AgentSharedLogisticsKeyPM,IEntityPM,AgentSharedLogisticsKeyList,string>
    {
    			
-        public AgentSharedLogisticsKeyUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new AgentSharedLogisticsKeyDataMapping();
-            Repository = new Repository<POCO.AgentSharedLogisticsKey>(mainContext);
-        }
-        public AgentSharedLogisticsKeyUpdateService(int tenant) :  base( tenant)  
+        public AgentSharedLogisticsKeyUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new AgentSharedLogisticsKeyDataMapping();
-            Repository = new Repository<POCO.AgentSharedLogisticsKey>(tenant);
+            Repository = new Repository<Entity.AgentSharedLogisticsKey>(unitOfWork);
 		}
-        public AgentSharedLogisticsKeyUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.AgentSharedLogisticsKey,string> GetKeys(AgentSharedLogisticsKeyPM entityPM) => new AgentSharedLogisticsKeyKeys<string>() { SharedKey = entityPM.SharedKey };
+		protected override IEntityKeyFields<Entity.AgentSharedLogisticsKey,string> GetKeys(AgentSharedLogisticsKeyPM entityPM) => new AgentSharedLogisticsKeyKeys<string>() { SharedKey = entityPM.SharedKey };
 protected override void FillDefaultValuesOnCreate(AgentSharedLogisticsKeyPM entityPM)
 		{
 		}

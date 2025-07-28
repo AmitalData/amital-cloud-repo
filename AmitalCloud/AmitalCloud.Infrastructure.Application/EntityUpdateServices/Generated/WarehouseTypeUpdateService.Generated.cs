@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class WarehouseTypeUpdateService:BaseEntityUpdateService<POCO.WarehouseType,WarehouseTypePM,IEntityPM,WarehouseTypeList,string>
+   public partial class WarehouseTypeUpdateService:BaseEntityUpdateService<Entity.WarehouseType,WarehouseTypePM,IEntityPM,WarehouseTypeList,string>
    {
    			
-        public WarehouseTypeUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new WarehouseTypeDataMapping();
-            Repository = new Repository<POCO.WarehouseType>(mainContext);
-        }
-        public WarehouseTypeUpdateService(int tenant) :  base( tenant)  
+        public WarehouseTypeUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new WarehouseTypeDataMapping();
-            Repository = new Repository<POCO.WarehouseType>(tenant);
+            Repository = new Repository<Entity.WarehouseType>(unitOfWork);
 		}
-        public WarehouseTypeUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.WarehouseType,string> GetKeys(WarehouseTypePM entityPM) => new WarehouseTypeKeys<string>() { Code = entityPM.Code };
+		protected override IEntityKeyFields<Entity.WarehouseType,string> GetKeys(WarehouseTypePM entityPM) => new WarehouseTypeKeys<string>() { Code = entityPM.Code };
 protected override void FillDefaultValuesOnCreate(WarehouseTypePM entityPM)
 		{
 		}

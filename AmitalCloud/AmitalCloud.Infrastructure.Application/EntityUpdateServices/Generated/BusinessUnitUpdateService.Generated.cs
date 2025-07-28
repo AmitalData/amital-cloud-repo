@@ -12,7 +12,7 @@ using AmitalCloud.Infrastructure.Data.Repositories;
 using AmitalCloud.Infrastructure.Model.Interfaces;
 using System.Threading.Tasks;
 using System.Web;
-using POCO = AmitalCloud.Infrastructure.Model.EntityClasses ;
+using Entity = AmitalCloud.Infrastructure.Model.EntityClasses ;
 using AmitalCloud.Infrastructure.Domain.EntityPMs;
 using AmitalCloud.Infrastructure.Domain.EntityKeys;
 using AmitalCloud.Infrastructure.Domain.EntityLists;
@@ -20,22 +20,15 @@ using AmitalCloud.Infrastructure.Data.EntityDataMappings;
 
 namespace AmitalCloud.Infrastructure.Application.EntityUpdateServices
 { 
-   public partial class BusinessUnitUpdateService:BaseEntityUpdateService<POCO.BusinessUnit,BusinessUnitPM,IEntityPM,BusinessUnitList,string>
+   public partial class BusinessUnitUpdateService:BaseEntityUpdateService<Entity.BusinessUnit,BusinessUnitPM,IEntityPM,BusinessUnitList,string>
    {
    			
-        public BusinessUnitUpdateService(IContext mainContext,Dictionary<string,IContext> additionalContexts, int tenant)
-            : base(mainContext,additionalContexts, tenant)
-        {
-            Mapping = new BusinessUnitDataMapping();
-            Repository = new Repository<POCO.BusinessUnit>(mainContext);
-        }
-        public BusinessUnitUpdateService(int tenant) :  base( tenant)  
+        public BusinessUnitUpdateService(IUnitOfWork unitOfWork) : base(unitOfWork) 
 		{
             Mapping = new BusinessUnitDataMapping();
-            Repository = new Repository<POCO.BusinessUnit>(tenant);
+            Repository = new Repository<Entity.BusinessUnit>(unitOfWork);
 		}
-        public BusinessUnitUpdateService(IContext context) :  this(context, null, 0) {}
-		protected override IEntityKeyFields<POCO.BusinessUnit,string> GetKeys(BusinessUnitPM entityPM) => new BusinessUnitKeys<string>() { Id = entityPM.Id };
+		protected override IEntityKeyFields<Entity.BusinessUnit,string> GetKeys(BusinessUnitPM entityPM) => new BusinessUnitKeys<string>() { Id = entityPM.Id };
 protected override void FillDefaultValuesOnCreate(BusinessUnitPM entityPM)
 		{
 		}
